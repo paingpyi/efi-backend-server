@@ -47,7 +47,7 @@ class TeamSeeder extends Seeder
                 'user_id' => 1,
                 'name' => 'Editors',
                 'personal_team' => false,
-                'permissions' => null,
+                'permissions' => ["admin#dashboard"],
                 'is_active' => true,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
