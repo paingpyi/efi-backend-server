@@ -15,7 +15,9 @@ class BlogController extends Controller
      */
     public function index()
     {
-        //
+        $blogs = $this->getBlogs(0);
+
+        return view('admin.blog.list')->with(['blogs' => $blogs]);
     }
 
     /**
@@ -86,49 +88,40 @@ class BlogController extends Controller
 
     private function getBlogs($paginate, $search_column = null, $search_operator = null, $search_value = null)
     {
-        $product_db = DB::table('blogs')
+        $blog_db = DB::table('blogs')
             ->join('categories', 'categories.id', '=', 'blogs.category_id')
             ->join('users', 'users.id', '=', 'blogs.author_id')
             ->select(
-                'products.id as id',
-                'products.title as title',
-                'products.slogan',
-                'products.description as description',
-                'products.benefits_block',
-                'products.benefits_image',
-                'products.table_block',
-                'products.why_block',
-                'products.downloadable_block',
-                'products.applythis_block',
-                'products.title_burmese',
-                'products.slogan_burmese',
-                'products.description_burmese',
-                'products.benefits_block_burmese',
-                'products.table_block_burmese',
-                'products.why_block_burmese',
-                'products.downloadable_block_burmese',
-                'products.applythis_block_burmese',
-                'products.product_photo',
-                'products.category_id',
-                'products.is_active as is_active',
-                'products.created_at as created_at',
-                'products.updated_at as updated_at',
+                'blogs.id as id',
+                'blogs.title as title',
+                'blogs.content as content',
+                'blogs.image as image',
+                'blogs.url_slug',
+                'blogs.status',
+                'blogs.category_id',
+                'blogs.featured as featured',
+                'blogs.created_at as created_at',
+                'blogs.updated_at as updated_at',
                 'categories.name as category_name',
                 'categories.description as category_description',
-                'categories.is_active as category_is_active'
+                'categories.is_active as category_is_active',
+                'blogs.author_id as author_id',
+                'users.name as author_name',
+                'users.email as author_email',
+                'users.profile_photo_path as author_photo',
             );
 
         if (is_null($search_column) and is_null($search_operator) and is_null($search_value)) {
             if ($paginate > 0) {
-                return $product_db->paginate($paginate);
+                return $blog_db->paginate($paginate);
             } else {
-                return $product_db->get();
+                return $blog_db->get();
             }
         } else {
             if ($paginate > 0) {
-                return $product_db->where($search_column, $search_operator, $search_value)->paginate($paginate);
+                return $blog_db->where($search_column, $search_operator, $search_value)->paginate($paginate);
             } else {
-                return $product_db->where($search_column, $search_operator, $search_value)->get();
+                return $blog_db->where($search_column, $search_operator, $search_value)->get();
             }
         }
     }
