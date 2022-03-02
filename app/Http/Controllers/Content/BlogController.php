@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Content;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\Product;
 
 class BlogController extends Controller
 {
@@ -26,6 +28,10 @@ class BlogController extends Controller
     public function create()
     {
         //
+        $blog_category = Category::where('is_active', '=', true)->where('parent_id', '=', 2)->get();
+        $blog_products = Product::where('is_active', '=', true)->get();
+
+        return view('admin.blog.add-edit')->with(['action' => 'new', 'blog_category' => $blog_category, 'blog_products' => $blog_products]);
     }
 
     /**

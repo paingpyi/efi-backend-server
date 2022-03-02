@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string('product_photo', 2048)->nullable();
             $table->foreignId('category_id');
             $table->boolean('is_active')->default(true);
+            $table->string('slug_url');
             $table->timestamps();
         });
     }

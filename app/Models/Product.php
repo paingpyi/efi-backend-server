@@ -30,5 +30,6 @@ class Product extends Model
         'product_photo',
         'category_id',
         'is_active',
+        'slug_url',
     ];
 }

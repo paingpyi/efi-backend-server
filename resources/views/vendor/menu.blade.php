@@ -31,7 +31,7 @@ with font-awesome or any other icon font library -->
                         @if (in_array('product#list', json_decode($checkPermission->permissions)))
                             <li class="nav-item">
                                 <a href="{{ route('product#list') }}" class="nav-link">
-                                    <i class="fas fa-users nav-icon"></i>
+                                    <i class="fas fa-box nav-icon"></i>
                                     <p>Products</p>
                                     <i class="fas fa-angle-left right"></i>
                                 </a>
@@ -39,7 +39,7 @@ with font-awesome or any other icon font library -->
                                     @if (in_array('product#list', json_decode($checkPermission->permissions)))
                                         <li class="nav-item">
                                             <a href="{{ route('product#list') }}" class="nav-link">
-                                                <i class="fas fa-users nav-icon"></i>
+                                                <i class="fas fa-box nav-icon"></i>
                                                 <p>Product List</p>
                                             </a>
                                         </li>
@@ -48,7 +48,7 @@ with font-awesome or any other icon font library -->
                                     @if (in_array('deactivated#product#list', json_decode($checkPermission->permissions)))
                                         <li class="nav-item">
                                             <a href="{{ route('deactivated#product#list') }}" class="nav-link">
-                                                <i class="fas fa-users nav-icon"></i>
+                                                <i class="fas fa-box nav-icon"></i>
                                                 <p>Deactivated Product List</p>
                                             </a>
                                         </li>
@@ -57,7 +57,7 @@ with font-awesome or any other icon font library -->
                                     @if (in_array('new#product', json_decode($checkPermission->permissions)))
                                         <li class="nav-item">
                                             <a href="{{ route('new#product') }}" class="nav-link">
-                                                <i class="fas fa-user-plus nav-icon"></i>
+                                                <i class="fas fa-box-open nav-icon"></i>
                                                 <p>New Product</p>
                                             </a>
                                         </li>
