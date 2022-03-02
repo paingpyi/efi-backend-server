@@ -11,6 +11,8 @@ class blog extends Model
 
     protected $fillable = [
         'title',
+        'title_burmese',
+        'content_burmese',
         'content',
         'image',
         'url_slug',
@@ -18,5 +20,6 @@ class blog extends Model
         'category_id',
         'author_id',
         'featured',
+        'related_product_id',
     ];
 }
