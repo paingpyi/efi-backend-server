@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Content;
 
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\blog;
 
 class BlogController extends Controller
 {
@@ -18,7 +20,9 @@ class BlogController extends Controller
      */
     public function index()
     {
-        //
+        $blogs = $this->getBlogs(0);
+
+        return view('admin.blog.list')->with(['blogs' => $blogs]);
     }
 
     /**
@@ -75,9 +79,14 @@ class BlogController extends Controller
                 'category_id' => $request->category,
                 'products' => json_encode($request->products),
                 'featured' => ($request->featured == 'on') ? true : false,
-                'image' => '/storage/' . $blogfileName,
+                'image' => '/storage/' . $blogfilePath,
                 'status' => $request->status,
+                'author_id' => Auth::id(),
             ];
+
+            blog::create($blog);
+
+            return redirect()->route('blog#list')->with(['success_message' => 'Successfully <strong>saved!</strong>']);
         }
     }
 
@@ -134,25 +143,11 @@ class BlogController extends Controller
             ->select(
                 'blogs.id as id',
                 'blogs.title as title',
-                'blogs.slogan',
-                'blogs.description as description',
-                'blogs.benefits_block',
-                'blogs.benefits_image',
-                'blogs.table_block',
-                'blogs.why_block',
-                'blogs.downloadable_block',
-                'blogs.applythis_block',
-                'blogs.title_burmese',
-                'blogs.slogan_burmese',
-                'blogs.description_burmese',
-                'blogs.benefits_block_burmese',
-                'blogs.table_block_burmese',
-                'blogs.why_block_burmese',
-                'blogs.downloadable_block_burmese',
-                'blogs.applythis_block_burmese',
-                'blogs.product_photo',
+                'blogs.content as content',
+                'blogs.title_burmese as title_burmese',
+                'blogs.content_burmese as content_burmese',
                 'blogs.category_id',
-                'blogs.is_active as is_active',
+                'blogs.status as status',
                 'blogs.created_at as created_at',
                 'blogs.updated_at as updated_at',
                 'categories.name as category_name',

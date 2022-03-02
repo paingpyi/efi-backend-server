@@ -12,11 +12,14 @@ class blog extends Model
     protected $fillable = [
         'title',
         'content',
+        'title_burmese',
+        'content_burmese',
         'image',
         'url_slug',
         'status',
         'category_id',
         'author_id',
         'featured',
+        'products'
     ];
 }
