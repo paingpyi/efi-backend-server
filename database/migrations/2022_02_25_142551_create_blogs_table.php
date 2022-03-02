@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->longText('content');
+            $table->string('title_burmese');
+            $table->longText('content_burmese');
             $table->string('image')->nullable();
             $table->string('url_slug')->nullable();
             $table->enum('status', ['published', 'draft', 'unpublished']);

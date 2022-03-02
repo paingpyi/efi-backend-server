@@ -27,7 +27,7 @@
         <div class="col">
             <div class="card">
                 <form id="inputForm"
-                    action="{{ $action == 'new'? route('store#data#product'): route('update#data#product', isset($product->id) ? $product->id : null) }}"
+                    action="{{ $action == 'new' ? route('store#data#blog') : route('update#data#blog', isset($blog->id) ? $blog->id : null) }}"
                     method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card-header">
@@ -57,7 +57,7 @@
                                                     class="text-danger">*</span></label>
                                             <input type="text" name="title"
                                                 value="{{ old('title', isset($blog->title) ? $blog->title : null) }}"
-                                                class="form-control" id="title" aria-describedby="titleHelp">
+                                                class="form-control title2slug" id="title" aria-describedby="titleHelp">
                                             <small id="titleHelp" class="form-text text-muted">Please enter title.</small>
                                             @error('title')
                                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -102,9 +102,9 @@
                                         <span class="text-danger">*</span></label>
                                     <input type="text" name="slug_url"
                                         value="{{ old('slug_url', isset($blog->slug_url) ? $blog->slug_url : null) }}"
-                                        class="form-control" id="slug_url"
-                                        aria-describedby="slug_urlHelp">
-                                    <small id="slug_urlHelp" class="form-text text-white">Do not use the special charaters but you can you dash (-).</small>
+                                        class="form-control" id="slug_url" aria-describedby="slug_urlHelp">
+                                    <small id="slug_urlHelp" class="form-text text-white">Do not use the special charaters
+                                        but you can you dash (-).</small>
                                     @error('slug_url')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
@@ -112,7 +112,7 @@
                                 <div class="form-group">
                                     <label for="category">Category <span class="text-danger">*</span></label>
                                     <select name="category" id="category" class="form-control select2" style="width: 100%;">
-                                        <option value="">Please choose the product's category.</option>
+                                        <option value="">Please choose the category.</option>
                                         @foreach ($blog_category as $cat)
                                             @if ($action == 'new')
                                                 <option value="{{ $cat->id }}">{{ $cat->name }}</option>
@@ -130,11 +130,10 @@
                                     <select name="products[]" class="duallistbox" multiple="multiple"
                                         aria-describedby="modulesHelp">
                                         @foreach ($blog_products as $product)
-                                            <option value="{{ $product->id }}">{{ $product->title }}</option>
+                                            <option value="{{ $product->slug_url }}">{{ $product->title }}</option>
                                         @endforeach
                                     </select>
-                                    <small id="modulesHelp" class="form-text text-muted">Please select to allow the
-                                        modules.</small>
+                                    <small id="modulesHelp" class="form-text text-muted">Please select the related products.</small>
                                 </div>
                                 <hr>
                                 <div class="form-group">
@@ -142,6 +141,16 @@
                                     <input type="checkbox" id="featured" name="featured"
                                         {{ (old('featured', isset($blog->featured) ? $blog->featured : null) == true or $action == 'new')? 'checked': '' }}
                                         data-bootstrap-switch data-on-color="success">
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <label for="status">Status <span class="text-danger">*</span></label>
+                                    <select name="status" id="status" class="form-control select2" style="width: 100%;">
+                                        <option value="">Please choose the status.</option>
+                                        <option value="published">published</option>
+                                        <option value="draft">draft</option>
+                                        <option value="unpublished">unpublished</option>
+                                    </select>
                                 </div>
                                 <hr>
                                 <div class="form-group">
@@ -207,7 +216,7 @@
 
                                             <!-- The URL is stored here. -->
 
-                                            <input type="hidden" name="benefit-image-url">
+                                            <input type="hidden" name="blog-image-url">
 
                                         </div>
 
@@ -270,6 +279,14 @@
 
             //Bootstrap Duallistbox
             $('.duallistbox').bootstrapDualListbox();
+
+            $(".title2slug").keyup(function() {
+                var Text = $(this).val();
+                Text = Text.toLowerCase()
+                            .replace(/[^\w ]+/g, '')
+                            .replace(/ +/g, '-');
+                $("#slug_url").val(Text);
+            });
 
             $('#inputForm').validate({
                 rules: {
