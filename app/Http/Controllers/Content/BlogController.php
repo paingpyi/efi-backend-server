@@ -26,6 +26,18 @@ class BlogController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function unpublished()
+    {
+        $blogs = $this->getBlogs(0, 'blogs.status', '=', 'unpublished');
+
+        return view('admin.blog.list')->with(['blogs' => $blogs]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -52,7 +64,7 @@ class BlogController extends Controller
             'content' => 'required',
             'title_burmese' => 'required|unique:blogs|max:255',
             'content_burmese' => 'required',
-            'slug_url' => 'required|unique:blogs',
+            'slug_url' => 'required|unique:blogs,url_slug',
             'category' => 'required',
             'blog' => 'required|mimes:jpg,jpeg,png,gif|max:2048',
         ]);

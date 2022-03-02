@@ -90,7 +90,7 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
     Route::group(['prefix' => 'blog', 'namespace' => 'Content'], function () {
         Route::get('/', [BlogController::class, 'index'])->name('blog#list');
 
-        /*Route::get('/deactivated', [BlogController::class, 'deactivated'])->name('deactivated#product#list');*/
+        Route::get('/unpublished', [BlogController::class, 'unpublished'])->name('unpublished#blog#list');
 
         Route::get('/new', [BlogController::class, 'create'])->name('new#blog');
         Route::post('/new', [BlogController::class, 'store'])->name('store#data#blog');

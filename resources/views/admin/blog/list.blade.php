@@ -31,7 +31,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-tools">
-                        @include('admin.product.menu')
+                        @include('admin.blog.menu')
                     </div>
                 </div>
                 <!-- /.card-header -->
@@ -55,14 +55,14 @@
                                         <td>{{ $blog->category_name }}</td>
                                         <td class="text-nowrap">
                                             <form
-                                                action="{{ route('deactivate#blog', Illuminate\Support\Facades\Crypt::encryptString($blog->id)) }}"
+                                                action="{{ route('deactivate#product', Illuminate\Support\Facades\Crypt::encryptString($blog->id)) }}"
                                                 method="post">
                                                 @csrf
                                                 <div class="btn-group">
                                                     <button type="submit"
                                                         class="btn {{ $blog->status == 'published' ? 'btn-success' : 'btn-danger' }}">{!! $blog->status
     ? '<i
-                                                    class="fas fa-check-square"></i> Active'
+                                                    class="fas fa-check-square"></i> Published'
     : '<i class="fas fa-square"></i> Deactivated' !!}</button>
                                                     <button type="button"
                                                         class="btn {{ $blog->status == 'published' ? 'btn-success' : 'btn-danger' }} dropdown-toggle dropdown-toggle-split"
@@ -73,7 +73,7 @@
                                                         <a class="dropdown-item"
                                                             href="{{ route('edit#blog', Illuminate\Support\Facades\Crypt::encryptString($blog->id)) }}">Edit</a>
                                                         <button type="submit"
-                                                            class="dropdown-item">{{ $blog->status == 'published' ? 'Deactivate' : 'Activate' }}</button>
+                                                            class="dropdown-item">{{ $blog->status == 'published' ? 'Unpublish' : 'Publish' }}</button>
                                                     </div>
                                                 </div>
                                             </form>
