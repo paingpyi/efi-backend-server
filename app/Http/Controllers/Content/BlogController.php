@@ -102,7 +102,7 @@ class BlogController extends Controller
                 'content_burmese' => $request->content_burmese,
                 'url_slug' => $request->slug_url,
                 'category_id' => $request->category,
-                'products' => json_encode($request->products),
+                'products' => isset($request->products) ? json_encode($request->products) : null,
                 'featured' => ($request->featured == 'on') ? true : false,
                 'image' => '/storage/' . $blogfilePath,
                 'status' => $request->status,
@@ -153,18 +153,18 @@ class BlogController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|unique:blogs|max:255',
+            'title' => 'required|max:255',
             'content' => 'required',
-            'title_burmese' => 'required|unique:blogs|max:255',
+            'title_burmese' => 'required|max:255',
             'content_burmese' => 'required',
-            'slug_url' => 'required|unique:blogs,url_slug',
+            'slug_url' => 'required',
             'category' => 'required',
-            'blog' => 'required|mimes:jpg,jpeg,png,gif|max:2048',
+            'blog' => 'nullable|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
 
         if ($validator->fails()) {
             return redirect()
-                ->route('new#blog')
+                ->route('edit#blog')
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -182,19 +182,30 @@ class BlogController extends Controller
                 'content_burmese' => $request->content_burmese,
                 'url_slug' => $request->slug_url,
                 'category_id' => $request->category,
-                'products' => json_encode($request->products),
+                'products' => isset($request->products) ? json_encode($request->products) : null,
                 'featured' => ($request->featured == 'on') ? true : false,
                 'image' => '/storage/' . $blogfilePath,
                 'status' => $request->status,
                 'author_id' => Auth::id(),
             ];
-
-            blog::where('id', '=', $id)->update($blog);
-
-            return redirect()->route('blog#list')->with(['success_message' => 'Successfully <strong>saved!</strong>']);
         } else {
-            return back();
+            $blog = [
+                'title' => $request->title,
+                'content' => $request->content,
+                'title_burmese' => $request->title_burmese,
+                'content_burmese' => $request->content_burmese,
+                'url_slug' => $request->slug_url,
+                'category_id' => $request->category,
+                'products' => isset($request->products) ? json_encode($request->products) : null,
+                'featured' => ($request->featured == 'on') ? true : false,
+                'status' => $request->status,
+                'author_id' => Auth::id(),
+            ];
         }
+
+        blog::where('id', '=', $id)->update($blog);
+
+        return redirect()->route('blog#list')->with(['success_message' => 'Successfully <strong>updated!</strong>']);
     }
 
     /**

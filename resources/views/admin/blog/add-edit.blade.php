@@ -130,7 +130,9 @@
                                     <select name="products[]" class="duallistbox" multiple="multiple"
                                         aria-describedby="modulesHelp">
                                         @foreach ($blog_products as $product)
-                                            <option value="{{ $product->slug_url }}"{{ in_array($product->slug_url, json_decode($blog->products)) ? ' selected' : '' }}>{{ $product->title }}</option>
+                                            <option value="{{ $product->slug_url }}"
+                                                {{ isset($blog->products)? (in_array($product->slug_url, json_decode($blog->products))? ' selected': ''): '' }}>
+                                                {{ $product->title }}</option>
                                         @endforeach
                                     </select>
                                     <small id="modulesHelp" class="form-text text-muted">Please select the related
@@ -315,9 +317,11 @@
                     benefit: {
                         required: true,
                     },
-                    blog: {
+                    @if ($action == 'new')
+                        blog: {
                         required: true,
-                    },
+                        },
+                    @endif
                 },
                 messages: {
                     title: {
@@ -335,9 +339,11 @@
                     content_burmese: {
                         required: "You need to fill description.",
                     },
-                    blog: {
+                    @if ($action == 'new')
+                        blog: {
                         required: "You need to upload image.",
-                    },
+                        },
+                    @endif
                 },
                 errorElement: 'span',
                 errorPlacement: function(error, element) {
