@@ -311,11 +311,11 @@ class ProductController extends Controller
     public function destroy($id)
     {
         try {
-            $team = Product::where('id', '=', Crypt::decryptString($id))->first();
+            $product = Product::where('id', '=', Crypt::decryptString($id))->first();
             $flag = false;
             $message = 'deactivated';
 
-            if ($team->is_active) {
+            if ($product->is_active) {
                 $flag = false;
                 $message = 'deactivated';
             } else {

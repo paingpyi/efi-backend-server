@@ -54,29 +54,37 @@
                                             </a></td>
                                         <td>{{ $blog->category_name }}</td>
                                         <td class="text-nowrap">
-                                            <form
-                                                action="{{ route('deactivate#product', Illuminate\Support\Facades\Crypt::encryptString($blog->id)) }}"
-                                                method="post">
-                                                @csrf
-                                                <div class="btn-group">
-                                                    <button type="submit"
-                                                        class="btn {{ $blog->status == 'published' ? 'btn-success' : 'btn-danger' }}">{!! $blog->status
+                                            <div class="btn-group">
+                                                <button type="submit"
+                                                    class="btn {{ $blog->status == 'published' ? 'btn-success' : 'btn-danger' }}">{!! $blog->status
     ? '<i
                                                     class="fas fa-check-square"></i> Published'
     : '<i class="fas fa-square"></i> Deactivated' !!}</button>
-                                                    <button type="button"
-                                                        class="btn {{ $blog->status == 'published' ? 'btn-success' : 'btn-danger' }} dropdown-toggle dropdown-toggle-split"
-                                                        data-toggle="dropdown" aria-expanded="false">
-                                                        <span class="sr-only">Toggle Dropdown</span>
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item"
-                                                            href="{{ route('edit#blog', Illuminate\Support\Facades\Crypt::encryptString($blog->id)) }}">Edit</a>
+                                                <button type="button"
+                                                    class="btn {{ $blog->status == 'published' ? 'btn-success' : 'btn-danger' }} dropdown-toggle dropdown-toggle-split"
+                                                    data-toggle="dropdown" aria-expanded="false">
+                                                    <span class="sr-only">Toggle Dropdown</span>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('edit#blog', Illuminate\Support\Facades\Crypt::encryptString($blog->id)) }}">Edit</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <form
+                                                        action="{{ route('unpublishing#blog', Illuminate\Support\Facades\Crypt::encryptString($blog->id)) }}"
+                                                        method="post">
+                                                        @csrf
                                                         <button type="submit"
                                                             class="dropdown-item">{{ $blog->status == 'published' ? 'Unpublish' : 'Publish' }}</button>
-                                                    </div>
+                                                    </form>
+                                                    @if ($blog->status == 'published')
+                                                        <form
+                                                            action="{{ route('unpublishing#blog', Illuminate\Support\Facades\Crypt::encryptString($blog->id)) }}"
+                                                            method="post">
+                                                            <button type="submit" class="dropdown-item">Draft</button>
+                                                        </form>
+                                                    @endif
                                                 </div>
-                                            </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

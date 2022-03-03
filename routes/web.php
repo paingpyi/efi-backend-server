@@ -98,6 +98,6 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
         Route::get('/edit/{id}', [BlogController::class, 'edit'])->name('edit#blog');
         Route::post('/edit/{id}', [BlogController::class, 'update'])->name('update#data#blog');
 
-        /*Route::post('/deactivate/{id}', [BlogController::class, 'destroy'])->name('deactivate#product');*/
+        Route::post('/unpublishing/{id}', [BlogController::class, 'destroy'])->name('unpublishing#blog');
     });
 });

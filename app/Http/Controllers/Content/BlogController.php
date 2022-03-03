@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Content;
 
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -20,7 +22,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = $this->getBlogs(0);
+        $blogs = $this->getBlogs(0, 'blogs.status', '=', 'published');
 
         return view('admin.blog.list')->with(['blogs' => $blogs]);
     }
@@ -144,7 +146,24 @@ class BlogController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $blog = blog::where('id', '=', Crypt::decryptString($id))->first();
+            $flag = 'unpublished';
+
+            if ($blog->status == 'published') {
+                $flag = 'unpublished';
+            } else {
+                $flag = 'published';
+            }
+
+            blog::where('id', '=', Crypt::decryptString($id))->update(['status' => $flag]);
+
+            return redirect()
+                ->route('blog#list')
+                ->with(['success_message' => 'Successfully <strong>' . $flag . '!</strong>']);
+        } catch (DecryptException $e) {
+            abort(404, 'Decrypt Exception occured.');
+        }
     }
 
     private function getBlogs($paginate, $search_column = null, $search_operator = null, $search_value = null)
