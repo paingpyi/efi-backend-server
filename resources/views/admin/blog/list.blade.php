@@ -55,21 +55,37 @@
                                         <td>{{ $blog->category_name }}</td>
                                         <td class="text-nowrap">
                                             <div class="btn-group">
-                                                <button type="submit"
-                                                    class="btn {{ $blog->status == 'published' ? 'btn-success' : 'btn-danger' }}">{!! $blog->status
-    ? '<i
-                                                    class="fas fa-check-square"></i> Published'
-    : '<i class="fas fa-square"></i> Deactivated' !!}</button>
-                                                <button type="button"
-                                                    class="btn {{ $blog->status == 'published' ? 'btn-success' : 'btn-danger' }} dropdown-toggle dropdown-toggle-split"
-                                                    data-toggle="dropdown" aria-expanded="false">
-                                                    <span class="sr-only">Toggle Dropdown</span>
-                                                </button>
+                                                @if ($blog->status == 'published')
+                                                    <button id="btn-publish" type="type" class="btn btn-success text-capitalize"><i
+                                                            class="fas fa-check-square"></i> {{ $blog->status }}</button>
+                                                    <button type="button"
+                                                        class="btn btn-success dropdown-toggle dropdown-toggle-split"
+                                                        data-toggle="dropdown" aria-expanded="false">
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </button>
+                                                @elseif($blog->status == 'unpublished')
+                                                    <button id="btn-publish" type="type" class="btn btn-danger text-capitalize"><i
+                                                            class="fas fa-square"></i> {{ $blog->status }}</button>
+                                                    <button type="button"
+                                                        class="btn btn-danger dropdown-toggle dropdown-toggle-split"
+                                                        data-toggle="dropdown" aria-expanded="false">
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </button>
+                                                @else
+                                                    <button id="btn-publish" type="type" class="btn btn-warning text-capitalize"><i
+                                                            class="fas fa-file"></i> {{ $blog->status }}</button>
+                                                    <button type="button"
+                                                        class="btn btn-warning dropdown-toggle dropdown-toggle-split"
+                                                        data-toggle="dropdown" aria-expanded="false">
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </button>
+                                                @endif
+
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item"
                                                         href="{{ route('edit#blog', Illuminate\Support\Facades\Crypt::encryptString($blog->id)) }}">Edit</a>
                                                     <div class="dropdown-divider"></div>
-                                                    <form
+                                                    <form id="publish-form"
                                                         action="{{ route('unpublishing#blog', Illuminate\Support\Facades\Crypt::encryptString($blog->id)) }}"
                                                         method="post">
                                                         @csrf
@@ -78,8 +94,9 @@
                                                     </form>
                                                     @if ($blog->status == 'published')
                                                         <form
-                                                            action="{{ route('unpublishing#blog', Illuminate\Support\Facades\Crypt::encryptString($blog->id)) }}"
+                                                            action="{{ route('drafting#blog', Illuminate\Support\Facades\Crypt::encryptString($blog->id)) }}"
                                                             method="post">
+                                                            @csrf
                                                             <button type="submit" class="dropdown-item">Draft</button>
                                                         </form>
                                                     @endif
@@ -142,6 +159,10 @@
                 "autoWidth": true,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#data-table_wrapper .col-md-6:eq(0)');
+
+            $("#btn-publish").click(function() {
+                $("#publish-form").submit();
+            });
 
             @if (Session::has('success_message'))
                 $( document ).ready(function() {

@@ -92,6 +92,8 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
 
         Route::get('/unpublished', [BlogController::class, 'unpublished'])->name('unpublished#blog#list');
 
+        Route::get('/drafted', [BlogController::class, 'drafted'])->name('drafted#blog#list');
+
         Route::get('/new', [BlogController::class, 'create'])->name('new#blog');
         Route::post('/new', [BlogController::class, 'store'])->name('store#data#blog');
 
@@ -99,5 +101,7 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
         Route::post('/edit/{id}', [BlogController::class, 'update'])->name('update#data#blog');
 
         Route::post('/unpublishing/{id}', [BlogController::class, 'destroy'])->name('unpublishing#blog');
+
+        Route::post('/drafting/{id}', [BlogController::class, 'draft'])->name('drafting#blog');
     });
 });

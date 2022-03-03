@@ -7,5 +7,6 @@
     </button>
     <div class="dropdown-menu">
         <a class="dropdown-item" href="{{ route('unpublished#blog#list') }}">Unpublished List</a>
+        <a class="dropdown-item" href="{{ route('drafted#blog#list') }}">Drafted List</a>
     </div>
 </div>

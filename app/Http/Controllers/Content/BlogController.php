@@ -40,6 +40,18 @@ class BlogController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function drafted()
+    {
+        $blogs = $this->getBlogs(0, 'blogs.status', '=', 'draft');
+
+        return view('admin.blog.list')->with(['blogs' => $blogs]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -161,6 +173,25 @@ class BlogController extends Controller
             return redirect()
                 ->route('blog#list')
                 ->with(['success_message' => 'Successfully <strong>' . $flag . '!</strong>']);
+        } catch (DecryptException $e) {
+            abort(404, 'Decrypt Exception occured.');
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function draft($id)
+    {
+        try {
+            blog::where('id', '=', Crypt::decryptString($id))->update(['status' => 'draft']);
+
+            return redirect()
+                ->route('blog#list')
+                ->with(['success_message' => 'Successfully <strong>drafted!</strong>']);
         } catch (DecryptException $e) {
             abort(404, 'Decrypt Exception occured.');
         }
