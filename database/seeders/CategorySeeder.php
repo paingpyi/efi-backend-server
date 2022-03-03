@@ -59,6 +59,26 @@ class CategorySeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
+            [
+                'name' => 'General',
+                'description' => 'General Blogs',
+                'name_burmese' => 'အထွေထွေ',
+                'description_burmese' => 'အထွေထွေ',
+                'parent_id' => 2,
+                'is_active' => true,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'name' => 'Knowledge',
+                'description' => 'Knowledge Blogs',
+                'name_burmese' => 'ဗဟုသုတ',
+                'description_burmese' => 'ဗဟုသုတ',
+                'parent_id' => 2,
+                'is_active' => true,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
         ]);
     }
 }

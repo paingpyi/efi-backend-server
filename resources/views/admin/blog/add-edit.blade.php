@@ -16,6 +16,11 @@
     <link href="{{ asset('adminlite/plugins/bootstrap-imageupload/bootstrap-imageupload.css') }}" rel="stylesheet">
     <!-- flag-icon-css -->
     <link rel="stylesheet" href="{{ asset('adminlite/plugins/flag-icon-css/css/flag-icon.min.css') }}">
+<<<<<<< HEAD
+=======
+    <!-- Bootstrap4 Duallistbox -->
+    <link rel="stylesheet" href="{{ asset('adminlite/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
+>>>>>>> dev
 @endsection
 {{-- /. Head Stylesheets --}}
 
@@ -25,11 +30,19 @@
         <div class="col">
             <div class="card">
                 <form id="inputForm"
+<<<<<<< HEAD
                     action="{{ $action == 'new'? route('store#data#product'): route('update#data#product', isset($product->id) ? $product->id : null) }}"
                     method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card-header">
                         @include('admin.product.menu')
+=======
+                    action="{{ $action == 'new' ? route('store#data#blog') : route('update#data#blog', isset($blog->id) ? $blog->id : 0) }}"
+                    method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="card-header">
+                        @include('admin.blog.menu')
+>>>>>>> dev
                         <div class="card-tools">
                             <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
                         </div>
@@ -54,15 +67,22 @@
                                             <label for="title"><i class="flag-icon flag-icon-us mr-2"></i> Title <span
                                                     class="text-danger">*</span></label>
                                             <input type="text" name="title"
+<<<<<<< HEAD
                                                 value="{{ old('title', isset($product->title) ? $product->title : null) }}"
                                                 class="form-control" id="title" aria-describedby="titleHelp">
                                             <small id="titleHelp" class="form-text text-muted">Please enter product's
                                                 title.</small>
+=======
+                                                value="{{ old('title', isset($blog->title) ? $blog->title : null) }}"
+                                                class="form-control title2slug" id="title" aria-describedby="titleHelp">
+                                            <small id="titleHelp" class="form-text text-muted">Please enter title.</small>
+>>>>>>> dev
                                             @error('title')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="form-group">
+<<<<<<< HEAD
                                             <label for="slogan"><i class="flag-icon flag-icon-us mr-2"></i> Slogan <span
                                                     class="text-danger">*</span></label>
                                             <input type="text" name="slogan"
@@ -111,6 +131,12 @@
                                                 Block</label>
                                             <textarea name="applythis" class="summernote" required
                                                 id="applythis">{{ old('applythis', isset($product->applythis_block) ? $product->applythis_block : '') }}</textarea>
+=======
+                                            <label for="content"><i class="flag-icon flag-icon-us mr-2"></i> Content Body
+                                                <span class="text-danger">*</span></label>
+                                            <textarea name="content" class="summernote" required
+                                                id="content">{{ old('content', isset($blog->content) ? $blog->content : '') }}</textarea>
+>>>>>>> dev
                                         </div>
                                     </div>
                                     <div class="tab-pane fade pt-3" id="nav-mm" role="tabpanel"
@@ -119,17 +145,26 @@
                                             <label for="title_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
                                                 <span class="text-danger">*</span></label>
                                             <input type="text" name="title_burmese"
+<<<<<<< HEAD
                                                 value="{{ old('title_burmese', isset($product->title_burmese) ? $product->title_burmese : null) }}"
                                                 class="form-control" id="title_burmese"
                                                 aria-describedby="title_burmeseHelp">
                                             <small id="title_burmeseHelp" class="form-text text-muted">Please enter
                                                 product's title
+=======
+                                                value="{{ old('title_burmese', isset($blog->title_burmese) ? $blog->title_burmese : null) }}"
+                                                class="form-control" id="title_burmese"
+                                                aria-describedby="title_burmeseHelp">
+                                            <small id="title_burmeseHelp" class="form-text text-muted">Please enter
+                                                title
+>>>>>>> dev
                                                 (burmese).</small>
                                             @error('title_burmese')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="form-group">
+<<<<<<< HEAD
                                             <label for="slogan_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Slogan
                                                 <span class="text-danger">*</span></label>
                                             <input type="text" name="slogan_burmese"
@@ -183,12 +218,20 @@
                                                 Block</label>
                                             <textarea name="applythis_burmese" class="summernote" required
                                                 id="applythis_burmese">{{ old('applythis_burmese', isset($product->applythis_block_burmese) ? $product->applythis_block_burmese : '') }}</textarea>
+=======
+                                            <label for="content_burmese"><i class="flag-icon flag-icon-mm mr-2"></i>
+                                                Content Body
+                                                <span class="text-danger">*</span></label>
+                                            <textarea name="content_burmese" class="summernote" required
+                                                id="content_burmese">{{ old('content_burmese', isset($blog->content_burmese) ? $blog->content_burmese : '') }}</textarea>
+>>>>>>> dev
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-4 bg-secondary p-3">
                                 <div class="form-group">
+<<<<<<< HEAD
                                     <label>Benefit Image <span class="text-danger">*</span></label>
                                     @isset($product->benefits_image)
                                         <div class="card">
@@ -266,6 +309,78 @@
                                             <div class="card-body">
                                                 <img src="{{ asset($product->product_photo) }}" alt="Product image"
                                                     class="img-thumbnail">
+=======
+                                    <label for="slug_url">Slug URL
+                                        <span class="text-danger">*</span></label>
+                                    <input type="text" name="slug_url"
+                                        value="{{ old('slug_url', isset($blog->url_slug) ? $blog->url_slug : null) }}"
+                                        class="form-control" id="slug_url" aria-describedby="slug_urlHelp">
+                                    <small id="slug_urlHelp" class="form-text text-white">Do not use the special charaters
+                                        but you can you dash (-).</small>
+                                    @error('slug_url')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="category">Category <span class="text-danger">*</span></label>
+                                    <select name="category" id="category" class="form-control select2" style="width: 100%;">
+                                        <option value="">Please choose the category.</option>
+                                        @foreach ($blog_category as $cat)
+                                            @if ($action == 'new')
+                                                <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                            @else
+                                                <option value="{{ $cat->id }}"
+                                                    {{ $blog->category_id == $cat->id ? ' selected' : '' }}>
+                                                    {{ $cat->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <label>Related Product</label>
+                                    <select name="products[]" class="duallistbox" multiple="multiple"
+                                        aria-describedby="modulesHelp">
+                                        @foreach ($blog_products as $product)
+                                            <option value="{{ $product->slug_url }}"
+                                                {{ isset($blog->products)? (in_array($product->slug_url, json_decode($blog->products))? ' selected': ''): '' }}>
+                                                {{ $product->title }}</option>
+                                        @endforeach
+                                    </select>
+                                    <small id="modulesHelp" class="form-text text-muted">Please select the related
+                                        products.</small>
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <label for="featured">Featured: </label>
+                                    <input type="checkbox" id="featured" name="featured"
+                                        {{ (old('featured', isset($blog->featured) ? $blog->featured : null) == true or $action == 'new')? 'checked': '' }}
+                                        data-bootstrap-switch data-on-color="success">
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <label for="status">Status <span class="text-danger">*</span></label>
+                                    <select name="status" id="status" class="form-control select2" style="width: 100%;">
+                                        <option value="">Please choose the status.</option>
+                                        <option value="published"
+                                            {{ isset($blog->status) ? ($blog->status == 'published' ? ' selected' : '') : '' }}>
+                                            published</option>
+                                        <option value="draft"
+                                            {{ isset($blog->status) ? ($blog->status == 'draft' ? ' selected' : '') : '' }}>
+                                            draft</option>
+                                        <option value="unpublished"
+                                            {{ isset($blog->status) ? ($blog->status == 'unpublished' ? ' selected' : '') : '' }}>
+                                            unpublished</option>
+                                    </select>
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <label>Blog Image <span class="text-danger">*</span></label>
+                                    @isset($blog->image)
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <img src="{{ asset($blog->image) }}" alt="Blog image" class="img-thumbnail">
+>>>>>>> dev
                                             </div>
                                         </div>
                                     @endisset
@@ -296,7 +411,11 @@
 
                                                     <!-- The file is stored here. -->
 
+<<<<<<< HEAD
                                                     <input type="file" name="product">
+=======
+                                                    <input type="file" name="blog">
+>>>>>>> dev
 
                                                 </div>
 
@@ -323,11 +442,16 @@
 
                                             <!-- The URL is stored here. -->
 
+<<<<<<< HEAD
                                             <input type="hidden" name="product-image-url">
+=======
+                                            <input type="hidden" name="blog-image-url">
+>>>>>>> dev
 
                                         </div>
 
                                     </div>
+<<<<<<< HEAD
                                 </div> <!-- /. Product Image -->
                                 <hr>
                                 <div class="form-group">
@@ -353,6 +477,9 @@
                                         {{ (old('is_active', isset($product->is_active) ? $product->is_active : null) == true or $action == 'new')? 'checked': '' }}
                                         data-bootstrap-switch data-on-color="success">
                                 </div>
+=======
+                                </div><!-- /. Blog Image -->
+>>>>>>> dev
                             </div>
                         </div>
                     </div>
@@ -384,6 +511,11 @@
     <script src="{{ asset('adminlite/plugins/summernote/summernote-bs4.min.js') }}"></script>
     <!-- Image Upload -->
     <script src="{{ asset('adminlite/plugins/bootstrap-imageupload/bootstrap-imageupload.js') }}"></script>
+<<<<<<< HEAD
+=======
+    <!-- Bootstrap4 Duallistbox -->
+    <script src="{{ asset('adminlite/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
+>>>>>>> dev
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('adminlite/dist/js/demo.js') }}"></script>
     <!-- Page specific script -->
@@ -400,6 +532,7 @@
 
             // Summernote
             $('.summernote').summernote({
+<<<<<<< HEAD
                 height: 350,
                 placeholder: 'Write content here...',
             });
@@ -422,15 +555,38 @@
 
             $('.imageupload').imageupload();
 
+=======
+                height: 800,
+                placeholder: 'Write content here...',
+            });
+
+            $('.imageupload').imageupload();
+
+            //Bootstrap Duallistbox
+            $('.duallistbox').bootstrapDualListbox();
+
+            $(".title2slug").keyup(function() {
+                var Text = $(this).val();
+                Text = Text.toLowerCase()
+                    .replace(/[^\w ]+/g, '')
+                    .replace(/ +/g, '-');
+                $("#slug_url").val(Text);
+            });
+
+>>>>>>> dev
             $('#inputForm').validate({
                 rules: {
                     title: {
                         required: true,
                     },
+<<<<<<< HEAD
                     slogan: {
                         required: true,
                     },
                     description: {
+=======
+                    content: {
+>>>>>>> dev
                         required: true,
                     },
                     category: {
@@ -439,6 +595,7 @@
                     title_burmese: {
                         required: true,
                     },
+<<<<<<< HEAD
                     slogan_burmese: {
                         required: true,
                     },
@@ -446,24 +603,40 @@
                         required: true,
                     },
                     category_burmese: {
+=======
+                    content_burmese: {
+>>>>>>> dev
                         required: true,
                     },
                     benefit: {
                         required: true,
                     },
+<<<<<<< HEAD
                     product: {
                         required: true,
                     },
+=======
+                    @if ($action == 'new')
+                        blog: {
+                        required: true,
+                        },
+                    @endif
+>>>>>>> dev
                 },
                 messages: {
                     title: {
                         required: "You need to fill product title.",
                     },
+<<<<<<< HEAD
                     slogan: {
                         required: "You need to fill slogan.",
                     },
                     description: {
                         required: "You need to fill description.",
+=======
+                    content: {
+                        required: "You need to fill content.",
+>>>>>>> dev
                     },
                     category: {
                         required: "You need to choose the category of product.",
@@ -471,6 +644,7 @@
                     title_burmese: {
                         required: "You need to fill product title.",
                     },
+<<<<<<< HEAD
                     slogan_burmese: {
                         required: "You need to fill slogan.",
                     },
@@ -490,6 +664,20 @@
                 errorElement: 'span',
                 errorPlacement: function(error, element) {
                     error.addClass('invalid-feedback');
+=======
+                    content_burmese: {
+                        required: "You need to fill description.",
+                    },
+                    @if ($action == 'new')
+                        blog: {
+                        required: "You need to upload image.",
+                        },
+                    @endif
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback bg-danger p-1');
+>>>>>>> dev
                     element.closest('.form-group').append(error);
                 },
                 highlight: function(element, errorClass, validClass) {

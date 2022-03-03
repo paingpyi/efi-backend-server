@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Crypt;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\Category;
 use App\Models\Product;
 
@@ -105,11 +106,14 @@ class ProductController extends Controller
                 'category_id' => $request->category,
                 'product_photo' => '/storage/' . $productfilePath,
                 'is_active' => ($request->is_active == 'on') ? true : false,
+                'slug_url' => Str::slug($request->title, '-'),
             ];
 
             Product::create($product);
 
             return redirect()->route('product#list')->with(['success_message' => 'Successfully <strong>saved!</strong>']);
+        } else {
+            return redirect()->route('new#product');
         }
     }
 
@@ -196,6 +200,7 @@ class ProductController extends Controller
                     'category_id' => $request->category,
                     'product_photo' => '/storage/' . $productfilePath,
                     'is_active' => ($request->is_active == 'on') ? true : false,
+                    'slug_url' => Str::slug($request->title, '-'),
                 ];
             } else if (!is_null($request->benefit)) {
                 $benefitfileName = time() . '_' . $request->benefit->getClientOriginalName();
@@ -306,11 +311,11 @@ class ProductController extends Controller
     public function destroy($id)
     {
         try {
-            $team = Product::where('id', '=', Crypt::decryptString($id))->first();
+            $product = Product::where('id', '=', Crypt::decryptString($id))->first();
             $flag = false;
             $message = 'deactivated';
 
-            if ($team->is_active) {
+            if ($product->is_active) {
                 $flag = false;
                 $message = 'deactivated';
             } else {

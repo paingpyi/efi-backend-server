@@ -31,7 +31,11 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-tools">
+<<<<<<< HEAD
                         @include('admin.product.menu')
+=======
+                        @include('admin.blog.menu')
+>>>>>>> dev
                     </div>
                 </div>
                 <!-- /.card-header -->
@@ -42,14 +46,19 @@
                                 <tr>
                                     <th>Title</th>
                                     <th>Category</th>
+<<<<<<< HEAD
                                     <th>Author</th>
                                     <th></th>
+=======
+                                    <th>Active</th>
+>>>>>>> dev
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($blogs as $blog)
                                     <tr>
                                         <td class="text-nowrap"><a
+<<<<<<< HEAD
                                                 href="{{ route('edit#product', Illuminate\Support\Facades\Crypt::encryptString($blog->id)) }}">{{ $blog->title }}<br><span
                                                     class="badge badge-info">{{ $blog->title }}</span>
                                             </a></td>
@@ -79,6 +88,61 @@
                                                     </div>
                                                 </div>
                                             </form>
+=======
+                                                href="{{ route('edit#blog', Illuminate\Support\Facades\Crypt::encryptString($blog->id)) }}">{{ $blog->title }}<br><span
+                                                    class="badge badge-info">{{ $blog->title_burmese }}</span>
+                                            </a></td>
+                                        <td>{{ $blog->category_name }}</td>
+                                        <td class="text-nowrap">
+                                            <div class="btn-group">
+                                                @if ($blog->status == 'published')
+                                                    <button id="btn-publish" type="type" class="btn btn-success text-capitalize"><i
+                                                            class="fas fa-check-square"></i> {{ $blog->status }}</button>
+                                                    <button type="button"
+                                                        class="btn btn-success dropdown-toggle dropdown-toggle-split"
+                                                        data-toggle="dropdown" aria-expanded="false">
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </button>
+                                                @elseif($blog->status == 'unpublished')
+                                                    <button id="btn-publish" type="type" class="btn btn-danger text-capitalize"><i
+                                                            class="fas fa-square"></i> {{ $blog->status }}</button>
+                                                    <button type="button"
+                                                        class="btn btn-danger dropdown-toggle dropdown-toggle-split"
+                                                        data-toggle="dropdown" aria-expanded="false">
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </button>
+                                                @else
+                                                    <button id="btn-publish" type="type" class="btn btn-warning text-capitalize"><i
+                                                            class="fas fa-file"></i> {{ $blog->status }}</button>
+                                                    <button type="button"
+                                                        class="btn btn-warning dropdown-toggle dropdown-toggle-split"
+                                                        data-toggle="dropdown" aria-expanded="false">
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </button>
+                                                @endif
+
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('edit#blog', Illuminate\Support\Facades\Crypt::encryptString($blog->id)) }}">Edit</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <form id="publish-form"
+                                                        action="{{ route('unpublishing#blog', Illuminate\Support\Facades\Crypt::encryptString($blog->id)) }}"
+                                                        method="post">
+                                                        @csrf
+                                                        <button type="submit"
+                                                            class="dropdown-item">{{ $blog->status == 'published' ? 'Unpublish' : 'Publish' }}</button>
+                                                    </form>
+                                                    @if ($blog->status == 'published')
+                                                        <form
+                                                            action="{{ route('drafting#blog', Illuminate\Support\Facades\Crypt::encryptString($blog->id)) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            <button type="submit" class="dropdown-item">Draft</button>
+                                                        </form>
+                                                    @endif
+                                                </div>
+                                            </div>
+>>>>>>> dev
                                         </td>
                                     </tr>
                                 @endforeach
@@ -87,8 +151,12 @@
                                 <tr>
                                     <th>Title</th>
                                     <th>Category</th>
+<<<<<<< HEAD
                                     <th>Author</th>
                                     <th></th>
+=======
+                                    <th>Active</th>
+>>>>>>> dev
                                 </tr>
                             </tfoot>
                         </table>
@@ -138,6 +206,13 @@
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#data-table_wrapper .col-md-6:eq(0)');
 
+<<<<<<< HEAD
+=======
+            $("#btn-publish").click(function() {
+                $("#publish-form").submit();
+            });
+
+>>>>>>> dev
             @if (Session::has('success_message'))
                 $( document ).ready(function() {
                 toastr.success('{!! Session::get('success_message') !!}');

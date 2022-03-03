@@ -5,6 +5,7 @@ use App\Http\Controllers\User\TeamController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Content\BlogController;
 use App\Http\Controllers\Content\ProductController;
+use App\Http\Controllers\Content\BlogController;
 use App\Http\Controllers\Setting\CategoryController;
 use App\Http\Middleware\AdminCheckMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -90,6 +91,7 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
     Route::group(['prefix' => 'blog', 'namespace' => 'Content'], function () {
         Route::get('/', [BlogController::class, 'index'])->name('blog#list');
 
+<<<<<<< HEAD
         /*Route::get('/deactivated', [BlogController::class, 'deactivated'])->name('deactivated#product#list');
 
         Route::get('/new', [BlogController::class, 'create'])->name('new#product');
@@ -99,5 +101,20 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
         Route::post('/edit/{id}', [BlogController::class, 'update'])->name('update#data#product');
 
         Route::post('/deactivate/{id}', [BlogController::class, 'destroy'])->name('deactivate#product');*/
+=======
+        Route::get('/unpublished', [BlogController::class, 'unpublished'])->name('unpublished#blog#list');
+
+        Route::get('/drafted', [BlogController::class, 'drafted'])->name('drafted#blog#list');
+
+        Route::get('/new', [BlogController::class, 'create'])->name('new#blog');
+        Route::post('/new', [BlogController::class, 'store'])->name('store#data#blog');
+
+        Route::get('/edit/{id}', [BlogController::class, 'edit'])->name('edit#blog');
+        Route::post('/edit/{id}', [BlogController::class, 'update'])->name('update#data#blog');
+
+        Route::post('/unpublishing/{id}', [BlogController::class, 'destroy'])->name('unpublishing#blog');
+
+        Route::post('/drafting/{id}', [BlogController::class, 'draft'])->name('drafting#blog');
+>>>>>>> dev
     });
 });
