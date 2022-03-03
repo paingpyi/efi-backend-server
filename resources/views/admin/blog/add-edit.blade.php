@@ -27,7 +27,7 @@
         <div class="col">
             <div class="card">
                 <form id="inputForm"
-                    action="{{ $action == 'new' ? route('store#data#blog') : route('update#data#blog', isset($blog->id) ? $blog->id : null) }}"
+                    action="{{ $action == 'new' ? route('store#data#blog') : route('update#data#blog', isset($blog->id) ? $blog->id : 0) }}"
                     method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card-header">
@@ -91,7 +91,7 @@
                                                 Content Body
                                                 <span class="text-danger">*</span></label>
                                             <textarea name="content_burmese" class="summernote" required
-                                                id="content_burmese">{{ old('content_burmese', isset($product->content_burmese) ? $product->content_burmese : '') }}</textarea>
+                                                id="content_burmese">{{ old('content_burmese', isset($blog->content_burmese) ? $blog->content_burmese : '') }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -101,7 +101,7 @@
                                     <label for="slug_url">Slug URL
                                         <span class="text-danger">*</span></label>
                                     <input type="text" name="slug_url"
-                                        value="{{ old('slug_url', isset($blog->slug_url) ? $blog->slug_url : null) }}"
+                                        value="{{ old('slug_url', isset($blog->url_slug) ? $blog->url_slug : null) }}"
                                         class="form-control" id="slug_url" aria-describedby="slug_urlHelp">
                                     <small id="slug_urlHelp" class="form-text text-white">Do not use the special charaters
                                         but you can you dash (-).</small>
@@ -130,10 +130,11 @@
                                     <select name="products[]" class="duallistbox" multiple="multiple"
                                         aria-describedby="modulesHelp">
                                         @foreach ($blog_products as $product)
-                                            <option value="{{ $product->slug_url }}">{{ $product->title }}</option>
+                                            <option value="{{ $product->slug_url }}"{{ in_array($product->slug_url, json_decode($blog->products)) ? ' selected' : '' }}>{{ $product->title }}</option>
                                         @endforeach
                                     </select>
-                                    <small id="modulesHelp" class="form-text text-muted">Please select the related products.</small>
+                                    <small id="modulesHelp" class="form-text text-muted">Please select the related
+                                        products.</small>
                                 </div>
                                 <hr>
                                 <div class="form-group">
@@ -147,9 +148,15 @@
                                     <label for="status">Status <span class="text-danger">*</span></label>
                                     <select name="status" id="status" class="form-control select2" style="width: 100%;">
                                         <option value="">Please choose the status.</option>
-                                        <option value="published">published</option>
-                                        <option value="draft">draft</option>
-                                        <option value="unpublished">unpublished</option>
+                                        <option value="published"
+                                            {{ isset($blog->status) ? ($blog->status == 'published' ? ' selected' : '') : '' }}>
+                                            published</option>
+                                        <option value="draft"
+                                            {{ isset($blog->status) ? ($blog->status == 'draft' ? ' selected' : '') : '' }}>
+                                            draft</option>
+                                        <option value="unpublished"
+                                            {{ isset($blog->status) ? ($blog->status == 'unpublished' ? ' selected' : '') : '' }}>
+                                            unpublished</option>
                                     </select>
                                 </div>
                                 <hr>
@@ -283,8 +290,8 @@
             $(".title2slug").keyup(function() {
                 var Text = $(this).val();
                 Text = Text.toLowerCase()
-                            .replace(/[^\w ]+/g, '')
-                            .replace(/ +/g, '-');
+                    .replace(/[^\w ]+/g, '')
+                    .replace(/ +/g, '-');
                 $("#slug_url").val(Text);
             });
 

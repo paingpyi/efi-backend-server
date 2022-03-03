@@ -40,7 +40,7 @@ class BlogController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a drafted blog list.
      *
      * @return \Illuminate\Http\Response
      */
@@ -58,7 +58,6 @@ class BlogController extends Controller
      */
     public function create()
     {
-        //
         $blog_category = Category::where('is_active', '=', true)->where('parent_id', '=', 2)->get();
         $blog_products = Product::where('is_active', '=', true)->get();
 
@@ -113,6 +112,8 @@ class BlogController extends Controller
             blog::create($blog);
 
             return redirect()->route('blog#list')->with(['success_message' => 'Successfully <strong>saved!</strong>']);
+        } else {
+            return back();
         }
     }
 
@@ -135,7 +136,11 @@ class BlogController extends Controller
      */
     public function edit($id)
     {
-        //
+        $blog = blog::where('id', '=', Crypt::decryptString($id))->first();
+        $blog_category = Category::where('is_active', '=', true)->where('parent_id', '=', 2)->get();
+        $blog_products = Product::where('is_active', '=', true)->get();
+
+        return view('admin.blog.add-edit')->with(['action' => 'update', 'blog_category' => $blog_category, 'blog_products' => $blog_products, 'blog' => $blog]);
     }
 
     /**
@@ -147,7 +152,49 @@ class BlogController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|unique:blogs|max:255',
+            'content' => 'required',
+            'title_burmese' => 'required|unique:blogs|max:255',
+            'content_burmese' => 'required',
+            'slug_url' => 'required|unique:blogs,url_slug',
+            'category' => 'required',
+            'blog' => 'required|mimes:jpg,jpeg,png,gif|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->route('new#blog')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $blog = [];
+
+        if ($request->file()) {
+            $blogfileName = time() . '_' . $request->blog->getClientOriginalName();
+            $blogfilePath = $request->file('blog')->storeAs('uploads', $blogfileName, 'public');
+
+            $blog = [
+                'title' => $request->title,
+                'content' => $request->content,
+                'title_burmese' => $request->title_burmese,
+                'content_burmese' => $request->content_burmese,
+                'url_slug' => $request->slug_url,
+                'category_id' => $request->category,
+                'products' => json_encode($request->products),
+                'featured' => ($request->featured == 'on') ? true : false,
+                'image' => '/storage/' . $blogfilePath,
+                'status' => $request->status,
+                'author_id' => Auth::id(),
+            ];
+
+            blog::where('id', '=', $id)->update($blog);
+
+            return redirect()->route('blog#list')->with(['success_message' => 'Successfully <strong>saved!</strong>']);
+        } else {
+            return back();
+        }
     }
 
     /**
