@@ -10,11 +10,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Category;
-<<<<<<< HEAD
-=======
 use App\Models\Product;
 use App\Models\blog;
->>>>>>> dev
 
 class BlogController extends Controller
 {
@@ -25,9 +22,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-<<<<<<< HEAD
         $blogs = $this->getBlogs(0);
-=======
         $blogs = $this->getBlogs(0, 'blogs.status', '=', 'published');
 
         return view('admin.blog.list')->with(['blogs' => $blogs]);
@@ -53,7 +48,6 @@ class BlogController extends Controller
     public function drafted()
     {
         $blogs = $this->getBlogs(0, 'blogs.status', '=', 'draft');
->>>>>>> dev
 
         return view('admin.blog.list')->with(['blogs' => $blogs]);
     }
@@ -66,14 +60,11 @@ class BlogController extends Controller
     public function create()
     {
         $blog_category = Category::where('is_active', '=', true)->where('parent_id', '=', 2)->get();
-<<<<<<< HEAD
 
         return view('admin.product.add-edit')->with(['action' => 'new', 'blog_category' => $blog_category]);
-=======
         $blog_products = Product::where('is_active', '=', true)->get();
 
         return view('admin.blog.add-edit')->with(['action' => 'new', 'blog_category' => $blog_category, 'blog_products' => $blog_products]);
->>>>>>> dev
     }
 
     /**
@@ -276,33 +267,27 @@ class BlogController extends Controller
                 'blogs.id as id',
                 'blogs.title as title',
                 'blogs.content as content',
-<<<<<<< HEAD
                 'blogs.image as image',
                 'blogs.url_slug',
                 'blogs.status',
                 'blogs.category_id',
                 'blogs.featured as featured',
-=======
                 'blogs.title_burmese as title_burmese',
                 'blogs.content_burmese as content_burmese',
                 'blogs.category_id',
                 'blogs.status as status',
->>>>>>> dev
                 'blogs.created_at as created_at',
                 'blogs.updated_at as updated_at',
                 'categories.name as category_name',
                 'categories.description as category_description',
                 'categories.is_active as category_is_active',
-<<<<<<< HEAD
                 'blogs.author_id as author_id',
                 'users.name as author_name',
                 'users.email as author_email',
                 'users.profile_photo_path as author_photo',
-=======
                 'users.name as author_name',
                 'users.email as author_email',
                 'users.profile_photo_path as author_photo'
->>>>>>> dev
             );
 
         if (is_null($search_column) and is_null($search_operator) and is_null($search_value)) {
