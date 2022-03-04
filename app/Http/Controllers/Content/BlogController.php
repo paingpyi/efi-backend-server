@@ -60,8 +60,6 @@ class BlogController extends Controller
     public function create()
     {
         $blog_category = Category::where('is_active', '=', true)->where('parent_id', '=', 2)->get();
-
-        return view('admin.product.add-edit')->with(['action' => 'new', 'blog_category' => $blog_category]);
         $blog_products = Product::where('is_active', '=', true)->get();
 
         return view('admin.blog.add-edit')->with(['action' => 'new', 'blog_category' => $blog_category, 'blog_products' => $blog_products]);
