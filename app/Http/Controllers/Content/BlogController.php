@@ -22,7 +22,6 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = $this->getBlogs(0);
         $blogs = $this->getBlogs(0, 'blogs.status', '=', 'published');
 
         return view('admin.blog.list')->with(['blogs' => $blogs]);

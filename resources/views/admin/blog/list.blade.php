@@ -31,11 +31,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-tools">
-<<<<<<< HEAD
-                        @include('admin.product.menu')
-=======
                         @include('admin.blog.menu')
->>>>>>> dev
                     </div>
                 </div>
                 <!-- /.card-header -->
@@ -46,49 +42,13 @@
                                 <tr>
                                     <th>Title</th>
                                     <th>Category</th>
-<<<<<<< HEAD
-                                    <th>Author</th>
-                                    <th></th>
-=======
                                     <th>Active</th>
->>>>>>> dev
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($blogs as $blog)
                                     <tr>
                                         <td class="text-nowrap"><a
-<<<<<<< HEAD
-                                                href="{{ route('edit#product', Illuminate\Support\Facades\Crypt::encryptString($blog->id)) }}">{{ $blog->title }}<br><span
-                                                    class="badge badge-info">{{ $blog->title }}</span>
-                                            </a></td>
-                                        <td>{{ $blog->category_name }}</td>
-                                        <td>{{ $blog->author_name }}</td>
-                                        <td class="text-nowrap">
-                                            <form
-                                                action="{{ route('deactivate#product', Illuminate\Support\Facades\Crypt::encryptString($product->id)) }}"
-                                                method="post">
-                                                @csrf
-                                                <div class="btn-group">
-                                                    <button type="submit"
-                                                        class="btn {{ $product->is_active ? 'btn-success' : 'btn-danger' }}">{!! $product->is_active
-    ? '<i
-                                                    class="fas fa-check-square"></i> Active'
-    : '<i class="fas fa-square"></i> Deactivated' !!}</button>
-                                                    <button type="button"
-                                                        class="btn {{ $product->is_active ? 'btn-success' : 'btn-danger' }} dropdown-toggle dropdown-toggle-split"
-                                                        data-toggle="dropdown" aria-expanded="false">
-                                                        <span class="sr-only">Toggle Dropdown</span>
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item"
-                                                            href="{{ route('edit#product', Illuminate\Support\Facades\Crypt::encryptString($product->id)) }}">Edit</a>
-                                                        <button type="submit"
-                                                            class="dropdown-item">{{ $product->is_active ? 'Deactivate' : 'Activate' }}</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-=======
                                                 href="{{ route('edit#blog', Illuminate\Support\Facades\Crypt::encryptString($blog->id)) }}">{{ $blog->title }}<br><span
                                                     class="badge badge-info">{{ $blog->title_burmese }}</span>
                                             </a></td>
@@ -142,7 +102,6 @@
                                                     @endif
                                                 </div>
                                             </div>
->>>>>>> dev
                                         </td>
                                     </tr>
                                 @endforeach
@@ -151,12 +110,7 @@
                                 <tr>
                                     <th>Title</th>
                                     <th>Category</th>
-<<<<<<< HEAD
-                                    <th>Author</th>
-                                    <th></th>
-=======
                                     <th>Active</th>
->>>>>>> dev
                                 </tr>
                             </tfoot>
                         </table>
@@ -206,13 +160,10 @@
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#data-table_wrapper .col-md-6:eq(0)');
 
-<<<<<<< HEAD
-=======
             $("#btn-publish").click(function() {
                 $("#publish-form").submit();
             });
 
->>>>>>> dev
             @if (Session::has('success_message'))
                 $( document ).ready(function() {
                 toastr.success('{!! Session::get('success_message') !!}');

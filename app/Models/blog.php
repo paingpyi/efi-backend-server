@@ -22,10 +22,6 @@ class blog extends Model
         'category_id',
         'author_id',
         'featured',
-<<<<<<< HEAD
-        'related_product_id',
-=======
         'products'
->>>>>>> dev
     ];
 }
