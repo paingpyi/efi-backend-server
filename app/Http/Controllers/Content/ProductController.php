@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 use App\Models\Category;
 use App\Models\Product;
 use Response;
@@ -334,15 +335,115 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function list($locale = 'en', $category = null)
+    public function list($para = null)
     {
-        if (is_null($category)) {
-            $products = $this->getProducts(0, null, null, null, $locale);
-        } else {
-            $products = $this->getProducts(0, 'categories.name', '=', Str::replace('+', ' ', $category), $locale);
+        $parameters = explode('&', $para);
+        $locale = '';
+        $conditions = [];
+
+        foreach ($parameters as $check) {
+            $value = explode('=', $check);
+
+            if (Str::lower($value[0]) == 'locale') {
+                if (isset($value[1])) {
+                    $locale = $value[1];
+                }
+            } else {
+                $conditions[] = [
+                    'key' => Str::lower($value[0]),
+                    'value' => isset($value[1]) ? $value[1] : null,
+                ];
+            }
         }
 
-        if($products->count() > 0) {
+        if ($locale == 'en') {
+            $product_db = DB::table('products')
+                ->join('categories', 'categories.id', '=', 'products.category_id')
+                ->select(
+                    'products.id as id',
+                    'products.title as title',
+                    'products.slogan',
+                    'products.description as description',
+                    'products.benefits_block',
+                    'products.benefits_image',
+                    'products.table_block',
+                    'products.why_block',
+                    'products.downloadable_block',
+                    'products.applythis_block',
+                    'products.product_photo',
+                    'products.category_id',
+                    'products.is_active as is_active',
+                    'products.created_at as created_at',
+                    'products.updated_at as updated_at',
+                    'categories.name as category_name',
+                    'categories.description as category_description',
+                    'categories.is_active as category_is_active'
+                );
+        } else if ($locale == 'mm') {
+            $product_db = DB::table('products')
+                ->join('categories', 'categories.id', '=', 'products.category_id')
+                ->select(
+                    'products.id as id',
+                    'products.title_burmese',
+                    'products.slogan_burmese',
+                    'products.description_burmese',
+                    'products.benefits_block_burmese',
+                    'products.table_block_burmese',
+                    'products.why_block_burmese',
+                    'products.downloadable_block_burmese',
+                    'products.applythis_block_burmese',
+                    'products.product_photo',
+                    'products.category_id',
+                    'products.is_active as is_active',
+                    'products.created_at as created_at',
+                    'products.updated_at as updated_at',
+                    'categories.name as category_name',
+                    'categories.description as category_description',
+                    'categories.is_active as category_is_active'
+                );
+        } else {
+            $product_db = DB::table('products')
+                ->join('categories', 'categories.id', '=', 'products.category_id')
+                ->select(
+                    'products.id as id',
+                    'products.title as title',
+                    'products.slogan',
+                    'products.description as description',
+                    'products.benefits_block',
+                    'products.benefits_image',
+                    'products.table_block',
+                    'products.why_block',
+                    'products.downloadable_block',
+                    'products.applythis_block',
+                    'products.title_burmese',
+                    'products.slogan_burmese',
+                    'products.description_burmese',
+                    'products.benefits_block_burmese',
+                    'products.table_block_burmese',
+                    'products.why_block_burmese',
+                    'products.downloadable_block_burmese',
+                    'products.applythis_block_burmese',
+                    'products.product_photo',
+                    'products.category_id',
+                    'products.is_active as is_active',
+                    'products.created_at as created_at',
+                    'products.updated_at as updated_at',
+                    'categories.name as category_name',
+                    'categories.description as category_description',
+                    'categories.is_active as category_is_active'
+                );
+        }
+
+        foreach ($conditions as $con) {
+            if ($con['key'] == 'cat')
+            {
+                $product_db->where('categories.name', '=', Str::replace('+', ' ', $con['value']));
+            }
+        }
+
+        $products = $product_db->get();
+
+        if ($products->count() > 0) {
             $response = [
                 'code' => 200,
                 'status' => 'success',

@@ -20,5 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'products', 'namespace' => 'Content'], function () {
-    Route::get('/{locale?}/{category?}', [ProductController::class, 'list']);
+    Route::get('/{para?}', [ProductController::class, 'list']);
 });
