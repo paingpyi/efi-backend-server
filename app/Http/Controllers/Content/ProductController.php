@@ -442,34 +442,61 @@ class ProductController extends Controller
                 );
         }
 
+        /***
+         *
+         * Parameters for conditions to retrieve the products
+         *
+         */
         foreach ($conditions as $con) {
-            if ($con['key'] == 'cat')
-            {
+            /***
+             *
+             * Retrieve products by category name
+             *
+             **/
+            if ($con['key'] == 'cat') {
                 $product_db->where('categories.name', '=', Str::replace('+', ' ', $con['value']));
-            } else if ($con['key'] == 'order')
-            {
-                if(isset($con['value']))
-                {
-                    $orderBy = explode(',',$con['value']);
+            } //End of retreiving products by category name
 
-                    if($orderBy[0]=='desc')
-                    {
-                        if(isset($orderBy[1]))
-                        {
-                            $product_db->orderByDesc('products.'.$orderBy[1]);
+            /***
+             *
+             * Retrieve products with order by
+             *
+             **/
+            else if ($con['key'] == 'order') {
+                if (isset($con['value'])) {
+                    $orderBy = explode(',', $con['value']);
+
+                    if ($orderBy[0] == 'desc') {
+                        if (isset($orderBy[1])) {
+                            if ($orderBy[1] == 'title') {
+                                if($locale == 'mm') {
+                                    $product_db->orderByDesc('products.title_burmese');
+                                } else {
+                                    $product_db->orderByDesc('products.title');
+                                }
+                            } else if($orderBy[1] == 'slogan') {
+                                if($locale == 'mm') {
+                                    $product_db->orderByDesc('products.slogan_burmese');
+                                } else {
+                                    $product_db->orderByDesc('products.slogan');
+                                }
+                            } else if($orderBy[1] == 'created') {
+                                $product_db->orderByDesc('products.created_at');
+                            } else if($orderBy[1] == 'updated') {
+                                $product_db->orderByDesc('products.updated_at');
+                            }
                         } else {
                             $product_db->orderByDesc('products.created_at');
                         }
-                    } else if ($orderBy[0]=='asc') {
-                        if(isset($orderBy[1]))
-                        {
-                            $product_db->orderBy('products.'.$orderBy[1]);
+                    } else if ($orderBy[0] == 'asc') {
+                        if (isset($orderBy[1])) {
+                            $product_db->orderBy('products.' . $orderBy[1]);
                         } else {
                             $product_db->orderBy('products.created_at');
                         }
                     } else {
                         $response = [
-                            'code' => 204,
+                            'code' => 400,
                             'status' => 'Order by key has been mismatched.',
                         ];
 
@@ -478,8 +505,8 @@ class ProductController extends Controller
                 } else {
                     $product_db->orderByDesc('products.created_at');
                 }
-            }
-        }
+            } //End of order by
+        } //End of conditions
 
         $products = $product_db->get();
 
