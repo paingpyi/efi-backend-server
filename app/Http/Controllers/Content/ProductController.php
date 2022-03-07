@@ -456,6 +456,18 @@ class ProductController extends Controller
             if ($con['key'] == 'cat') {
                 $product_db->where('categories.name', '=', Str::replace('+', ' ', $con['value']));
             } //End of retreiving products by category name
+            /***
+             *
+             * Retrieve products by title
+             *
+             **/
+            if ($con['key'] == 'title') {
+                if ($locale == 'mm') {
+                    $product_db->where('products.title_burmese', '=', Str::replace('+', ' ', $con['value']));
+                } else {
+                    $product_db->where('products.title', '=', Str::replace('+', ' ', $con['value']));
+                }
+            } //End of retreiving products by title
 
             /***
              *
@@ -469,28 +481,48 @@ class ProductController extends Controller
                     if ($orderBy[0] == 'desc') {
                         if (isset($orderBy[1])) {
                             if ($orderBy[1] == 'title') {
-                                if($locale == 'mm') {
+                                if ($locale == 'mm') {
                                     $product_db->orderByDesc('products.title_burmese');
                                 } else {
                                     $product_db->orderByDesc('products.title');
                                 }
-                            } else if($orderBy[1] == 'slogan') {
-                                if($locale == 'mm') {
+                            } else if ($orderBy[1] == 'slogan') {
+                                if ($locale == 'mm') {
                                     $product_db->orderByDesc('products.slogan_burmese');
                                 } else {
                                     $product_db->orderByDesc('products.slogan');
                                 }
-                            } else if($orderBy[1] == 'created') {
+                            } else if ($orderBy[1] == 'created') {
                                 $product_db->orderByDesc('products.created_at');
-                            } else if($orderBy[1] == 'updated') {
+                            } else if ($orderBy[1] == 'updated') {
                                 $product_db->orderByDesc('products.updated_at');
+                            } else {
+                                $product_db->orderByDesc('products.created_at');
                             }
                         } else {
                             $product_db->orderByDesc('products.created_at');
                         }
                     } else if ($orderBy[0] == 'asc') {
                         if (isset($orderBy[1])) {
-                            $product_db->orderBy('products.' . $orderBy[1]);
+                            if ($orderBy[1] == 'title') {
+                                if ($locale == 'mm') {
+                                    $product_db->orderBy('products.title_burmese');
+                                } else {
+                                    $product_db->orderBy('products.title');
+                                }
+                            } else if ($orderBy[1] == 'slogan') {
+                                if ($locale == 'mm') {
+                                    $product_db->orderBy('products.slogan_burmese');
+                                } else {
+                                    $product_db->orderBy('products.slogan');
+                                }
+                            } else if ($orderBy[1] == 'created') {
+                                $product_db->orderBy('products.created_at');
+                            } else if ($orderBy[1] == 'updated') {
+                                $product_db->orderBy('products.updated_at');
+                            } else {
+                                $product_db->orderBy('products.created_at');
+                            }
                         } else {
                             $product_db->orderBy('products.created_at');
                         }
