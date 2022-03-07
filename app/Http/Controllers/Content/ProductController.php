@@ -446,6 +446,38 @@ class ProductController extends Controller
             if ($con['key'] == 'cat')
             {
                 $product_db->where('categories.name', '=', Str::replace('+', ' ', $con['value']));
+            } else if ($con['key'] == 'order')
+            {
+                if(isset($con['value']))
+                {
+                    $orderBy = explode(',',$con['value']);
+
+                    if($orderBy[0]=='desc')
+                    {
+                        if(isset($orderBy[1]))
+                        {
+                            $product_db->orderByDesc('products.'.$orderBy[1]);
+                        } else {
+                            $product_db->orderByDesc('products.created_at');
+                        }
+                    } else if ($orderBy[0]=='asc') {
+                        if(isset($orderBy[1]))
+                        {
+                            $product_db->orderBy('products.'.$orderBy[1]);
+                        } else {
+                            $product_db->orderBy('products.created_at');
+                        }
+                    } else {
+                        $response = [
+                            'code' => 204,
+                            'status' => 'Order by key has been mismatched.',
+                        ];
+
+                        return response()->json($response);
+                    }
+                } else {
+                    $product_db->orderByDesc('products.created_at');
+                }
             }
         }
 
