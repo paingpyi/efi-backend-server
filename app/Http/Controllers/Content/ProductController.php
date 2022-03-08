@@ -326,11 +326,7 @@ class ProductController extends Controller
     }
 
     /*
-    * API Methods
-    *
-    */
-    /**
-     * Display the specified resource.
+     * API Methods
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -434,112 +430,12 @@ class ProductController extends Controller
                 );
         }
 
-<<<<<<< HEAD
         foreach ($conditions as $con) {
             if ($con['key'] == 'cat')
             {
                 $product_db->where('categories.name', '=', Str::replace('+', ' ', $con['value']));
             }
         }
-=======
-        /***
-         *
-         * Parameters for conditions to retrieve the products
-         *
-         */
-        foreach ($conditions as $con) {
-            /***
-             *
-             * Retrieve products by category name
-             *
-             **/
-            if ($con['key'] == 'cat') {
-                $product_db->where('categories.name', '=', Str::replace('+', ' ', $con['value']));
-            } //End of retreiving products by category name
-            /***
-             *
-             * Retrieve products by title
-             *
-             **/
-            if ($con['key'] == 'title') {
-                if ($locale == 'mm') {
-                    $product_db->where('products.title_burmese', '=', Str::replace('+', ' ', $con['value']));
-                } else {
-                    $product_db->where('products.title', '=', Str::replace('+', ' ', $con['value']));
-                }
-            } //End of retreiving products by title
-
-            /***
-             *
-             * Retrieve products with order by
-             *
-             **/
-            else if ($con['key'] == 'order') {
-                if (isset($con['value'])) {
-                    $orderBy = explode(',', $con['value']);
-
-                    if ($orderBy[0] == 'desc') {
-                        if (isset($orderBy[1])) {
-                            if ($orderBy[1] == 'title') {
-                                if ($locale == 'mm') {
-                                    $product_db->orderByDesc('products.title_burmese');
-                                } else {
-                                    $product_db->orderByDesc('products.title');
-                                }
-                            } else if ($orderBy[1] == 'slogan') {
-                                if ($locale == 'mm') {
-                                    $product_db->orderByDesc('products.slogan_burmese');
-                                } else {
-                                    $product_db->orderByDesc('products.slogan');
-                                }
-                            } else if ($orderBy[1] == 'created') {
-                                $product_db->orderByDesc('products.created_at');
-                            } else if ($orderBy[1] == 'updated') {
-                                $product_db->orderByDesc('products.updated_at');
-                            } else {
-                                $product_db->orderByDesc('products.created_at');
-                            }
-                        } else {
-                            $product_db->orderByDesc('products.created_at');
-                        }
-                    } else if ($orderBy[0] == 'asc') {
-                        if (isset($orderBy[1])) {
-                            if ($orderBy[1] == 'title') {
-                                if ($locale == 'mm') {
-                                    $product_db->orderBy('products.title_burmese');
-                                } else {
-                                    $product_db->orderBy('products.title');
-                                }
-                            } else if ($orderBy[1] == 'slogan') {
-                                if ($locale == 'mm') {
-                                    $product_db->orderBy('products.slogan_burmese');
-                                } else {
-                                    $product_db->orderBy('products.slogan');
-                                }
-                            } else if ($orderBy[1] == 'created') {
-                                $product_db->orderBy('products.created_at');
-                            } else if ($orderBy[1] == 'updated') {
-                                $product_db->orderBy('products.updated_at');
-                            } else {
-                                $product_db->orderBy('products.created_at');
-                            }
-                        } else {
-                            $product_db->orderBy('products.created_at');
-                        }
-                    } else {
-                        $response = [
-                            'code' => 400,
-                            'status' => 'Order by key has been mismatched.',
-                        ];
-
-                        return response()->json($response);
-                    }
-                } else {
-                    $product_db->orderByDesc('products.created_at');
-                }
-            } //End of order by
-        } //End of conditions
->>>>>>> dev
 
         $products = $product_db->get();
 
@@ -559,11 +455,7 @@ class ProductController extends Controller
         return response()->json($response);
     }
 
-<<<<<<< HEAD
     private function getProducts($paginate, $search_column = null, $search_operator = null, $search_value = null, $locale = 'all')
-=======
-    private function getProducts($paginate, $search_column = null, $search_operator = null, $search_value = null)
->>>>>>> dev
     {
         if ($locale == 'all') {
             $product_db = DB::table('products')
