@@ -334,11 +334,7 @@ class ProductController extends Controller
     }
 
     /*
-    * API Methods
-    *
-    */
-    /**
-     * Display the specified resource.
+     * API Methods
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
