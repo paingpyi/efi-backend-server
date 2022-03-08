@@ -297,10 +297,15 @@
                 $("#slug_url").val(Text);
             });
 
+            $.validator.addMethod("titleRegex", function(value, element) {
+                return this.optional(element) || /^[a-z0-9\-\s]+$/i.test(value);
+            }, "Title must contain only letters, numbers, or dashes.");
+
             $('#inputForm').validate({
                 rules: {
                     title: {
                         required: true,
+                        titleRegex: true,
                     },
                     content: {
                         required: true,
@@ -326,6 +331,7 @@
                 messages: {
                     title: {
                         required: "You need to fill product title.",
+                        titleRegex: "Title must contain only letters, numbers, or dashes.",
                     },
                     content: {
                         required: "You need to fill content.",
