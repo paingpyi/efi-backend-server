@@ -11,6 +11,8 @@ class blog extends Model
 
     protected $fillable = [
         'title',
+        'title_burmese',
+        'content_burmese',
         'content',
         'title_burmese',
         'content_burmese',

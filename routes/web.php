@@ -3,8 +3,8 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\User\TeamController;
 use App\Http\Controllers\User\UserController;
-use App\Http\Controllers\Content\ProductController;
 use App\Http\Controllers\Content\BlogController;
+use App\Http\Controllers\Content\ProductController;
 use App\Http\Controllers\Setting\CategoryController;
 use App\Http\Middleware\AdminCheckMiddleware;
 use Illuminate\Support\Facades\Route;
