@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\blog;
@@ -255,9 +256,213 @@ class BlogController extends Controller
         }
     }
 
+    /*
+     * API Methods
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function list($para = null)
+    {
+        $parameters = explode('&', $para);
+        $locale = '';
+        $conditions = [];
+
+        foreach ($parameters as $check) {
+            $value = explode('=', $check);
+
+            if (Str::lower($value[0]) == 'locale') {
+                if (isset($value[1])) {
+                    $locale = $value[1];
+                }
+            } else {
+                $conditions[] = [
+                    'key' => Str::lower($value[0]),
+                    'value' => isset($value[1]) ? $value[1] : null,
+                ];
+            }
+        }
+
+        if ($locale == 'en') {
+            $blog_db = DB::table('blogs')
+            ->join('categories', 'categories.id', '=', 'blogs.category_id')
+            ->join('users', 'users.id', '=', 'blogs.author_id')
+                ->select(
+                    'blogs.id as id',
+                    'blogs.title as title',
+                    'blogs.content as content',
+                    'blogs.category_id',
+                    'blogs.status as status',
+                    'blogs.created_at as created_at',
+                    'blogs.updated_at as updated_at',
+                    'categories.name as category_name',
+                    'categories.description as category_description',
+                    'categories.is_active as category_is_active',
+                    'users.name as author_name',
+                    'users.email as author_email',
+                    'users.profile_photo_path as author_photo'
+                );
+        } else if ($locale == 'mm') {
+            $blog_db = DB::table('blogs')
+            ->join('categories', 'categories.id', '=', 'blogs.category_id')
+            ->join('users', 'users.id', '=', 'blogs.author_id')
+                ->select(
+                    'blogs.id as id',
+                    'blogs.title_burmese as title_burmese',
+                    'blogs.content_burmese as content_burmese',
+                    'blogs.category_id',
+                    'blogs.status as status',
+                    'blogs.created_at as created_at',
+                    'blogs.updated_at as updated_at',
+                    'categories.name as category_name',
+                    'categories.description as category_description',
+                    'categories.is_active as category_is_active',
+                    'users.name as author_name',
+                    'users.email as author_email',
+                    'users.profile_photo_path as author_photo'
+                );
+        } else {
+            $blog_db = DB::table('blogs')
+            ->join('categories', 'categories.id', '=', 'blogs.category_id')
+            ->join('users', 'users.id', '=', 'blogs.author_id')
+                ->select(
+                    'blogs.id as id',
+                    'blogs.title as title',
+                    'blogs.content as content',
+                    'blogs.title_burmese as title_burmese',
+                    'blogs.content_burmese as content_burmese',
+                    'blogs.category_id',
+                    'blogs.status as status',
+                    'blogs.created_at as created_at',
+                    'blogs.updated_at as updated_at',
+                    'categories.name as category_name',
+                    'categories.description as category_description',
+                    'categories.is_active as category_is_active',
+                    'users.name as author_name',
+                    'users.email as author_email',
+                    'users.profile_photo_path as author_photo'
+                );
+        }
+
+        /***
+         *
+         * Parameters for conditions to retrieve the products
+         *
+         */
+        foreach ($conditions as $con) {
+            /***
+             *
+             * Retrieve BLOGs by category name
+             *
+             **/
+            if ($con['key'] == 'cat') {
+                $blog_db->where('categories.name', '=', Str::replace('+', ' ', $con['value']));
+            } //End of retreiving BLOGs by category name
+            /***
+             *
+             * Retrieve BLOGs by title
+             *
+             **/
+            else if ($con['key'] == 'title') {
+                if ($locale == 'mm') {
+                    $blog_db->where('blogs.title_burmese', '=', Str::replace('+', ' ', $con['value']));
+                } else {
+                    $blog_db->where('blogs.title', '=', Str::replace('+', ' ', $con['value']));
+                }
+            } //End of retreiving BLOGs by title
+            /***
+             *
+             * Retrieve BLOGs by author
+             *
+             **/
+            else if ($con['key'] == 'author') {
+                $blog_db->where('users.name', '=', Str::replace('+', ' ', $con['value']));
+            } //End of retreiving BLOGs by author
+
+            /***
+             *
+             * Retrieve BLOGs with order by
+             *
+             **/
+            else if ($con['key'] == 'order') {
+                if (isset($con['value'])) {
+                    $orderBy = explode(',', $con['value']);
+
+                    if ($orderBy[0] == 'desc') {
+                        if (isset($orderBy[1])) {
+                            if ($orderBy[1] == 'title') {
+                                if ($locale == 'mm') {
+                                    $blog_db->orderByDesc('blogs.title_burmese');
+                                } else {
+                                    $blog_db->orderByDesc('blogs.title');
+                                }
+                            } else if ($orderBy[1] == 'author') {
+                                $blog_db->orderByDesc('users.name');
+                            } else if ($orderBy[1] == 'created') {
+                                $blog_db->orderByDesc('blogs.created_at');
+                            } else if ($orderBy[1] == 'updated') {
+                                $blog_db->orderByDesc('blogs.updated_at');
+                            } else {
+                                $blog_db->orderByDesc('blogs.created_at');
+                            }
+                        } else {
+                            $blog_db->orderByDesc('blogs.created_at');
+                        }
+                    } else if ($orderBy[0] == 'asc') {
+                        if (isset($orderBy[1])) {
+                            if ($orderBy[1] == 'title') {
+                                if ($locale == 'mm') {
+                                    $blog_db->orderBy('blogs.title_burmese');
+                                } else {
+                                    $blog_db->orderBy('blogs.title');
+                                }
+                            } else if ($orderBy[1] == 'author') {
+                                $blog_db->orderByDesc('users.name');
+                            }else if ($orderBy[1] == 'created') {
+                                $blog_db->orderBy('blogs.created_at');
+                            } else if ($orderBy[1] == 'updated') {
+                                $blog_db->orderBy('blogs.updated_at');
+                            } else {
+                                $blog_db->orderBy('blogs.created_at');
+                            }
+                        } else {
+                            $blog_db->orderBy('blogs.created_at');
+                        }
+                    } else {
+                        $response = [
+                            'code' => 400,
+                            'status' => 'Order by key has been mismatched.',
+                        ];
+
+                        return response()->json($response);
+                    }
+                } else {
+                    $blog_db->orderByDesc('blogs.created_at');
+                }
+            } //End of order by
+        } //End of conditions
+
+        $blogs = $blog_db->get();
+
+        if ($blogs->count() > 0) {
+            $response = [
+                'code' => 200,
+                'status' => 'success',
+                'data' => $blogs,
+            ];
+        } else {
+            $response = [
+                'code' => 204,
+                'status' => 'no content',
+            ];
+        }
+
+        return response()->json($response);
+    }
+
     private function getBlogs($paginate, $search_column = null, $search_operator = null, $search_value = null)
     {
-        $product_db = DB::table('blogs')
+        $blog_db = DB::table('blogs')
             ->join('categories', 'categories.id', '=', 'blogs.category_id')
             ->join('users', 'users.id', '=', 'blogs.author_id')
             ->select(
@@ -280,15 +485,15 @@ class BlogController extends Controller
 
         if (is_null($search_column) and is_null($search_operator) and is_null($search_value)) {
             if ($paginate > 0) {
-                return $product_db->paginate($paginate);
+                return $blog_db->paginate($paginate);
             } else {
-                return $product_db->get();
+                return $blog_db->get();
             }
         } else {
             if ($paginate > 0) {
-                return $product_db->where($search_column, $search_operator, $search_value)->paginate($paginate);
+                return $blog_db->where($search_column, $search_operator, $search_value)->paginate($paginate);
             } else {
-                return $product_db->where($search_column, $search_operator, $search_value)->get();
+                return $blog_db->where($search_column, $search_operator, $search_value)->get();
             }
         }
     }

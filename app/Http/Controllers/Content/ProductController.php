@@ -457,7 +457,7 @@ class ProductController extends Controller
              * Retrieve products by title
              *
              **/
-            if ($con['key'] == 'title') {
+            else if ($con['key'] == 'title') {
                 if ($locale == 'mm') {
                     $product_db->where('products.title_burmese', '=', Str::replace('+', ' ', $con['value']));
                 } else {
