@@ -28,4 +28,6 @@ Route::group(['prefix' => 'products', 'namespace' => 'Content'], function () {
 
 Route::group(['prefix' => 'blogs', 'namespace' => 'Content'], function () {
     Route::get('/{para?}', [BlogController::class, 'list']);
+
+    Route::post('/', [BlogController::class, 'apiList']);
 });

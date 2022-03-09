@@ -285,8 +285,8 @@ class BlogController extends Controller
 
         if ($locale == 'en') {
             $blog_db = DB::table('blogs')
-            ->join('categories', 'categories.id', '=', 'blogs.category_id')
-            ->join('users', 'users.id', '=', 'blogs.author_id')
+                ->join('categories', 'categories.id', '=', 'blogs.category_id')
+                ->join('users', 'users.id', '=', 'blogs.author_id')
                 ->select(
                     'blogs.id as id',
                     'blogs.title as title',
@@ -305,8 +305,8 @@ class BlogController extends Controller
                 );
         } else if ($locale == 'mm') {
             $blog_db = DB::table('blogs')
-            ->join('categories', 'categories.id', '=', 'blogs.category_id')
-            ->join('users', 'users.id', '=', 'blogs.author_id')
+                ->join('categories', 'categories.id', '=', 'blogs.category_id')
+                ->join('users', 'users.id', '=', 'blogs.author_id')
                 ->select(
                     'blogs.id as id',
                     'blogs.title_burmese as title_burmese',
@@ -325,8 +325,8 @@ class BlogController extends Controller
                 );
         } else {
             $blog_db = DB::table('blogs')
-            ->join('categories', 'categories.id', '=', 'blogs.category_id')
-            ->join('users', 'users.id', '=', 'blogs.author_id')
+                ->join('categories', 'categories.id', '=', 'blogs.category_id')
+                ->join('users', 'users.id', '=', 'blogs.author_id')
                 ->select(
                     'blogs.id as id',
                     'blogs.title as title',
@@ -421,7 +421,7 @@ class BlogController extends Controller
                                 }
                             } else if ($orderBy[1] == 'author') {
                                 $blog_db->orderByDesc('users.name');
-                            }else if ($orderBy[1] == 'created') {
+                            } else if ($orderBy[1] == 'created') {
                                 $blog_db->orderBy('blogs.created_at');
                             } else if ($orderBy[1] == 'updated') {
                                 $blog_db->orderBy('blogs.updated_at');
@@ -472,7 +472,7 @@ class BlogController extends Controller
     public function apiList(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'max:255',
+            'title' => 'nullable|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -493,84 +493,70 @@ class BlogController extends Controller
          * MM for my-MM/Burmese and EN for en-US/English
          */
         if (isset($data['locale']) and Str::lower($data['locale']) == 'en') {
-            $blog_db = DB::table('products')
-                ->join('categories', 'categories.id', '=', 'products.category_id')
+            $blog_db = DB::table('blogs')
+                ->join('categories', 'categories.id', '=', 'blogs.category_id')
+                ->join('users', 'users.id', '=', 'blogs.author_id')
                 ->select(
-                    'products.id as id',
-                    'products.title as title',
-                    'products.slogan',
-                    'products.description as description',
-                    'products.benefits_block',
-                    'products.benefits_image',
-                    'products.table_block',
-                    'products.why_block',
-                    'products.downloadable_block',
-                    'products.applythis_block',
-                    'products.product_photo',
-                    'products.category_id',
-                    'products.is_active as is_active',
-                    'products.created_at as created_at',
-                    'products.updated_at as updated_at',
+                    'blogs.id as id',
+                    'blogs.title as title',
+                    'blogs.content as content',
+                    'blogs.category_id',
+                    'blogs.products as related_products',
+                    'blogs.status as status',
+                    'blogs.created_at as created_at',
+                    'blogs.updated_at as updated_at',
                     'categories.name as category_name',
                     'categories.description as category_description',
-                    'categories.is_active as category_is_active'
+                    'categories.is_active as category_is_active',
+                    'users.name as author_name',
+                    'users.email as author_email',
+                    'users.profile_photo_path as author_photo'
                 );
 
             $localeData = ['lang' => 'en-US', 'name' => 'English'];
         } else if (isset($data['locale']) and Str::lower($data['locale']) == 'mm') {
-            $blog_db = DB::table('products')
-                ->join('categories', 'categories.id', '=', 'products.category_id')
+            $blog_db = DB::table('blogs')
+                ->join('categories', 'categories.id', '=', 'blogs.category_id')
+                ->join('users', 'users.id', '=', 'blogs.author_id')
                 ->select(
-                    'products.id as id',
-                    'products.title_burmese',
-                    'products.slogan_burmese',
-                    'products.description_burmese',
-                    'products.benefits_block_burmese',
-                    'products.table_block_burmese',
-                    'products.why_block_burmese',
-                    'products.downloadable_block_burmese',
-                    'products.applythis_block_burmese',
-                    'products.product_photo',
-                    'products.category_id',
-                    'products.is_active as is_active',
-                    'products.created_at as created_at',
-                    'products.updated_at as updated_at',
+                    'blogs.id as id',
+                    'blogs.title_burmese as title_burmese',
+                    'blogs.content_burmese as content_burmese',
+                    'blogs.category_id',
+                    'blogs.products as related_products',
+                    'blogs.status as status',
+                    'blogs.created_at as created_at',
+                    'blogs.updated_at as updated_at',
                     'categories.name as category_name',
                     'categories.description as category_description',
-                    'categories.is_active as category_is_active'
+                    'categories.is_active as category_is_active',
+                    'users.name as author_name',
+                    'users.email as author_email',
+                    'users.profile_photo_path as author_photo'
                 );
 
             $localeData = ['lang' => 'my-MM', 'name' => 'Burmese'];
         } else {
-            $blog_db = DB::table('products')
-                ->join('categories', 'categories.id', '=', 'products.category_id')
+            $blog_db = DB::table('blogs')
+                ->join('categories', 'categories.id', '=', 'blogs.category_id')
+                ->join('users', 'users.id', '=', 'blogs.author_id')
                 ->select(
-                    'products.id as id',
-                    'products.title as title',
-                    'products.slogan',
-                    'products.description as description',
-                    'products.benefits_block',
-                    'products.benefits_image',
-                    'products.table_block',
-                    'products.why_block',
-                    'products.downloadable_block',
-                    'products.applythis_block',
-                    'products.title_burmese',
-                    'products.slogan_burmese',
-                    'products.description_burmese',
-                    'products.benefits_block_burmese',
-                    'products.table_block_burmese',
-                    'products.why_block_burmese',
-                    'products.downloadable_block_burmese',
-                    'products.applythis_block_burmese',
-                    'products.product_photo',
-                    'products.category_id',
-                    'products.is_active as is_active',
-                    'products.created_at as created_at',
-                    'products.updated_at as updated_at',
+                    'blogs.id as id',
+                    'blogs.title as title',
+                    'blogs.content as content',
+                    'blogs.title_burmese as title_burmese',
+                    'blogs.content_burmese as content_burmese',
+                    'blogs.category_id',
+                    'blogs.products as related_products',
+                    'blogs.status as status',
+                    'blogs.created_at as created_at',
+                    'blogs.updated_at as updated_at',
                     'categories.name as category_name',
                     'categories.description as category_description',
-                    'categories.is_active as category_is_active'
+                    'categories.is_active as category_is_active',
+                    'users.name as author_name',
+                    'users.email as author_email',
+                    'users.profile_photo_path as author_photo'
                 );
 
             $localeData = ['lang' => 'en-US/my-MM', 'name' => 'English/Burmese'];
@@ -578,56 +564,56 @@ class BlogController extends Controller
 
         /***
          *
-         * Retrieve products by id
+         * Retrieve blogs by id
          *
          **/
         if (isset($data['id'])) {
-            $blog_db->where('products.id', '=', $data['id']);
-        } //End of retreiving products by id
+            $blog_db->where('blogs.id', '=', $data['id']);
+        } //End of retreiving blogs by id
 
         /***
          *
-         * Retrieve products by title
+         * Retrieve blogs by title
          *
          **/
         if (isset($data['title'])) {
             if (isset($data['locale']) and Str::lower($data['locale']) == 'en') {
-                $blog_db->where('products.title', '=', $data['title']);
+                $blog_db->where('blogs.title', '=', $data['title']);
             } else {
-                $blog_db->where('products.title_burmese', '=', $data['title']);
+                $blog_db->where('blogs.title_burmese', '=', $data['title']);
             }
-        } //End of retreiving products by title
+        } //End of retreiving blogs by title
 
         /***
          *
-         * Retrieve products by isActive
+         * Retrieve blogs by status
          *
          **/
-        if (isset($data['isActive'])) {
-            $blog_db->where('products.is_active', '=', $data['isActive']);
-        } //End of retreiving products by isActive
+        if (isset($data['status'])) {
+            $blog_db->where('blogs.status', '=', $data['status']);
+        } //End of retreiving blogs by status
 
         /***
          *
-         * Retrieve products by title
+         * Retrieve blogs by title
          *
          **/
         if (isset($data['created'])) {
-            $blog_db->where('products.created_at', '=', $data['created']);
-        } //End of retreiving products by created
+            $blog_db->where('blogs.created_at', '=', $data['created']);
+        } //End of retreiving blogs by created
 
         /***
          *
-         * Retrieve products by category name
+         * Retrieve blogs by category name
          *
          **/
         if (isset($data['category'])) {
             $blog_db->where('categories.name', '=', $data['category']);
-        } //End of retreiving products by category name
+        } //End of retreiving blogs by category name
 
         /***
          *
-         * Retrieve products ordered by
+         * Retrieve blogs ordered by
          *
          **/
         if (isset($data['order'])) {
@@ -636,13 +622,13 @@ class BlogController extends Controller
                     if (isset($data['order']['orderto'])) {
                         $blog_db->orderByDesc(Str::lower($data['order']['orderto']));
                     } else {
-                        $blog_db->orderByDesc('products.title');
+                        $blog_db->orderByDesc('blogs.title');
                     }
                 } else {
                     if (isset($data['order']['orderto'])) {
                         $blog_db->orderBy(Str::lower($data['order']['orderto']));
                     } else {
-                        $blog_db->orderBy('products.title');
+                        $blog_db->orderBy('blogs.title');
                     }
                 }
             } else {
@@ -650,17 +636,17 @@ class BlogController extends Controller
                     if (isset($data['order']['orderto'])) {
                         $blog_db->orderByDesc(Str::lower($data['order']['orderto']) . '_burmese');
                     } else {
-                        $blog_db->orderByDesc('products.title_burmese');
+                        $blog_db->orderByDesc('blogs.title_burmese');
                     }
                 } else {
                     if (isset($data['order']['orderto'])) {
                         $blog_db->orderBy(Str::lower($data['order']['orderto']) . '_burmese');
                     } else {
-                        $blog_db->orderBy('products.title_burmese');
+                        $blog_db->orderBy('blogs.title_burmese');
                     }
                 }
             }
-        } //End of retreiving products ordered by
+        } //End of retreiving blogs ordered by
 
         /*
          * Limit the number of results.
@@ -673,14 +659,14 @@ class BlogController extends Controller
             }
         } // End of limit the number of results.
 
-        $products = $blog_db->get();
+        $blogs = $blog_db->get();
 
-        if ($products->count() > 0) {
+        if ($blogs->count() > 0) {
             $response = [
                 'code' => 200,
                 'status' => 'success',
                 'locale' => $localeData,
-                'data' => $products,
+                'data' => $blogs,
             ];
         } else {
             $response = [
