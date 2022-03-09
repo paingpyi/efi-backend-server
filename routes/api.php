@@ -21,7 +21,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'products', 'namespace' => 'Content'], function () {
-    Route::get('/{para?}', [ProductController::class, 'list']);
+    //Route::get('/{para?}', [ProductController::class, 'list']);
+
+    Route::post('/', [ProductController::class, 'apiList']);
 });
 
 Route::group(['prefix' => 'blogs', 'namespace' => 'Content'], function () {

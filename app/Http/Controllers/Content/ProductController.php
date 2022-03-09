@@ -343,6 +343,7 @@ class ProductController extends Controller
     {
         $parameters = explode('&', $para);
         $locale = '';
+        $localeData = [];
         $conditions = [];
 
         foreach ($parameters as $check) {
@@ -383,6 +384,8 @@ class ProductController extends Controller
                     'categories.description as category_description',
                     'categories.is_active as category_is_active'
                 );
+
+            $localeData = ['lang' => 'en-US', 'name' => 'English'];
         } else if ($locale == 'mm') {
             $product_db = DB::table('products')
                 ->join('categories', 'categories.id', '=', 'products.category_id')
@@ -405,6 +408,8 @@ class ProductController extends Controller
                     'categories.description as category_description',
                     'categories.is_active as category_is_active'
                 );
+
+            $localeData = ['lang' => 'my-MM', 'name' => 'Burmese'];
         } else {
             $product_db = DB::table('products')
                 ->join('categories', 'categories.id', '=', 'products.category_id')
@@ -542,6 +547,236 @@ class ProductController extends Controller
             $response = [
                 'code' => 200,
                 'status' => 'success',
+                'locale' => $localeData,
+                'data' => $products,
+            ];
+        } else {
+            $response = [
+                'code' => 204,
+                'status' => 'no content',
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * API List with Post data.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function apiList(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'title' => 'max:255',
+        ]);
+
+        if ($validator->fails()) {
+            $response = [
+                'code' => 400,
+                'status' => 'The server could not understand the request that it was sent.',
+                'errors' => $validator->errors(),
+            ];
+
+            return response()->json($response);
+        }
+
+        $data = $request->json()->all();
+
+        /*
+         * Locale
+         *
+         * MM for my-MM/Burmese and EN for en-US/English
+         */
+        if (isset($data['locale']) and Str::lower($data['locale']) == 'en') {
+            $product_db = DB::table('products')
+                ->join('categories', 'categories.id', '=', 'products.category_id')
+                ->select(
+                    'products.id as id',
+                    'products.title as title',
+                    'products.slogan',
+                    'products.description as description',
+                    'products.benefits_block',
+                    'products.benefits_image',
+                    'products.table_block',
+                    'products.why_block',
+                    'products.downloadable_block',
+                    'products.applythis_block',
+                    'products.product_photo',
+                    'products.category_id',
+                    'products.is_active as is_active',
+                    'products.created_at as created_at',
+                    'products.updated_at as updated_at',
+                    'categories.name as category_name',
+                    'categories.description as category_description',
+                    'categories.is_active as category_is_active'
+                );
+
+            $localeData = ['lang' => 'en-US', 'name' => 'English'];
+        } else if (isset($data['locale']) and Str::lower($data['locale']) == 'mm') {
+            $product_db = DB::table('products')
+                ->join('categories', 'categories.id', '=', 'products.category_id')
+                ->select(
+                    'products.id as id',
+                    'products.title_burmese',
+                    'products.slogan_burmese',
+                    'products.description_burmese',
+                    'products.benefits_block_burmese',
+                    'products.table_block_burmese',
+                    'products.why_block_burmese',
+                    'products.downloadable_block_burmese',
+                    'products.applythis_block_burmese',
+                    'products.product_photo',
+                    'products.category_id',
+                    'products.is_active as is_active',
+                    'products.created_at as created_at',
+                    'products.updated_at as updated_at',
+                    'categories.name as category_name',
+                    'categories.description as category_description',
+                    'categories.is_active as category_is_active'
+                );
+
+            $localeData = ['lang' => 'my-MM', 'name' => 'Burmese'];
+        } else {
+            $product_db = DB::table('products')
+                ->join('categories', 'categories.id', '=', 'products.category_id')
+                ->select(
+                    'products.id as id',
+                    'products.title as title',
+                    'products.slogan',
+                    'products.description as description',
+                    'products.benefits_block',
+                    'products.benefits_image',
+                    'products.table_block',
+                    'products.why_block',
+                    'products.downloadable_block',
+                    'products.applythis_block',
+                    'products.title_burmese',
+                    'products.slogan_burmese',
+                    'products.description_burmese',
+                    'products.benefits_block_burmese',
+                    'products.table_block_burmese',
+                    'products.why_block_burmese',
+                    'products.downloadable_block_burmese',
+                    'products.applythis_block_burmese',
+                    'products.product_photo',
+                    'products.category_id',
+                    'products.is_active as is_active',
+                    'products.created_at as created_at',
+                    'products.updated_at as updated_at',
+                    'categories.name as category_name',
+                    'categories.description as category_description',
+                    'categories.is_active as category_is_active'
+                );
+
+            $localeData = ['lang' => 'en-US/my-MM', 'name' => 'English/Burmese'];
+        }
+
+        /***
+         *
+         * Retrieve products by id
+         *
+         **/
+        if (isset($data['id'])) {
+            $product_db->where('products.id', '=', $data['id']);
+        } //End of retreiving products by id
+
+        /***
+         *
+         * Retrieve products by title
+         *
+         **/
+        if (isset($data['title'])) {
+            if (isset($data['locale']) and Str::lower($data['locale']) == 'en') {
+                $product_db->where('products.title', '=', $data['title']);
+            } else {
+                $product_db->where('products.title_burmese', '=', $data['title']);
+            }
+        } //End of retreiving products by title
+
+        /***
+         *
+         * Retrieve products by isActive
+         *
+         **/
+        if (isset($data['isActive'])) {
+            $product_db->where('products.is_active', '=', $data['isActive']);
+        } //End of retreiving products by isActive
+
+        /***
+         *
+         * Retrieve products by title
+         *
+         **/
+        if (isset($data['created'])) {
+            $product_db->where('products.created_at', '=', $data['created']);
+        } //End of retreiving products by created
+
+        /***
+         *
+         * Retrieve products by category name
+         *
+         **/
+        if (isset($data['category'])) {
+            $product_db->where('categories.name', '=', $data['category']);
+        } //End of retreiving products by category name
+
+        /***
+         *
+         * Retrieve products ordered by
+         *
+         **/
+        if (isset($data['order'])) {
+            if (isset($data['locale']) and Str::lower($data['locale']) == 'en') {
+                if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
+                    if (isset($data['order']['orderto'])) {
+                        $product_db->orderByDesc(Str::lower($data['order']['orderto']));
+                    } else {
+                        $product_db->orderByDesc('products.title');
+                    }
+                } else {
+                    if (isset($data['order']['orderto'])) {
+                        $product_db->orderBy(Str::lower($data['order']['orderto']));
+                    } else {
+                        $product_db->orderBy('products.title');
+                    }
+                }
+            } else {
+                if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
+                    if (isset($data['order']['orderto'])) {
+                        $product_db->orderByDesc(Str::lower($data['order']['orderto']) . '_burmese');
+                    } else {
+                        $product_db->orderByDesc('products.title_burmese');
+                    }
+                } else {
+                    if (isset($data['order']['orderto'])) {
+                        $product_db->orderBy(Str::lower($data['order']['orderto']) . '_burmese');
+                    } else {
+                        $product_db->orderBy('products.title_burmese');
+                    }
+                }
+            }
+        } //End of retreiving products ordered by
+
+        /*
+         * Limit the number of results.
+         */
+        if (isset($data['limit'])) {
+            if (isset($data['skip'])) {
+                $product_db->skip($data['skip'])->take($data['limit']);
+            } else {
+                $product_db->skip(0)->take($data['limit']);
+            }
+        } // End of limit the number of results.
+
+        $products = $product_db->get();
+
+        if ($products->count() > 0) {
+            $response = [
+                'code' => 200,
+                'status' => 'success',
+                'locale' => $localeData,
                 'data' => $products,
             ];
         } else {
