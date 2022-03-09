@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Content\ProductController;
+use App\Http\Controllers\Content\BlogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,5 +21,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'products', 'namespace' => 'Content'], function () {
-    Route::get('/{para?}', [ProductController::class, 'list']);
+    //Route::get('/{para?}', [ProductController::class, 'list']);
+
+    Route::post('/', [ProductController::class, 'apiList']);
+});
+
+Route::group(['prefix' => 'blogs', 'namespace' => 'Content'], function () {
+    Route::get('/{para?}', [BlogController::class, 'list']);
 });
