@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Content;
 
+use Algolia\AlgoliaSearch\Http\Psr7\Response as Psr7Response;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Crypt;
@@ -9,8 +10,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 use App\Models\Category;
 use App\Models\Product;
+use Response;
 
 class ProductController extends Controller
 {
@@ -115,17 +118,6 @@ class ProductController extends Controller
         } else {
             return redirect()->route('new#product');
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -789,38 +781,40 @@ class ProductController extends Controller
         return response()->json($response);
     }
 
+
     private function getProducts($paginate, $search_column = null, $search_operator = null, $search_value = null)
     {
-        $product_db = DB::table('products')
-            ->join('categories', 'categories.id', '=', 'products.category_id')
-            ->select(
-                'products.id as id',
-                'products.title as title',
-                'products.slogan',
-                'products.description as description',
-                'products.benefits_block',
-                'products.benefits_image',
-                'products.table_block',
-                'products.why_block',
-                'products.downloadable_block',
-                'products.applythis_block',
-                'products.title_burmese',
-                'products.slogan_burmese',
-                'products.description_burmese',
-                'products.benefits_block_burmese',
-                'products.table_block_burmese',
-                'products.why_block_burmese',
-                'products.downloadable_block_burmese',
-                'products.applythis_block_burmese',
-                'products.product_photo',
-                'products.category_id',
-                'products.is_active as is_active',
-                'products.created_at as created_at',
-                'products.updated_at as updated_at',
-                'categories.name as category_name',
-                'categories.description as category_description',
-                'categories.is_active as category_is_active'
-            );
+         $product_db = DB::table('products')
+                ->join('categories', 'categories.id', '=', 'products.category_id')
+                ->select(
+                    'products.id as id',
+                    'products.title as title',
+                    'products.slogan',
+                    'products.description as description',
+                    'products.benefits_block',
+                    'products.benefits_image',
+                    'products.table_block',
+                    'products.why_block',
+                    'products.downloadable_block',
+                    'products.applythis_block',
+                    'products.title_burmese',
+                    'products.slogan_burmese',
+                    'products.description_burmese',
+                    'products.benefits_block_burmese',
+                    'products.table_block_burmese',
+                    'products.why_block_burmese',
+                    'products.downloadable_block_burmese',
+                    'products.applythis_block_burmese',
+                    'products.product_photo',
+                    'products.category_id',
+                    'products.is_active as is_active',
+                    'products.created_at as created_at',
+                    'products.updated_at as updated_at',
+                    'categories.name as category_name',
+                    'categories.description as category_description',
+                    'categories.is_active as category_is_active'
+                );
+
 
         if (is_null($search_column) and is_null($search_operator) and is_null($search_value)) {
             if ($paginate > 0) {

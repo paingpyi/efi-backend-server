@@ -25,7 +25,11 @@ return new class extends Migration
             $table->foreignId('category_id');
             $table->foreignId('author_id');
             $table->boolean('featured')->default(false);
+<<<<<<< HEAD
+            $table->string('related_product_id')->nullable();
+=======
             $table->longText('products')->nullable();
+>>>>>>> dev
             $table->timestamps();
         });
     }
