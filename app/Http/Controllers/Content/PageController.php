@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Content;
 
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Crypt;
 use App\Http\Controllers\Controller;
 use App\Models\Page;
 use App\Models\Category;
@@ -55,11 +57,11 @@ class PageController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|unique:blogs|max:255',
+            'title' => 'required|unique:pages|max:255',
             'content' => 'required',
-            'title_burmese' => 'required|unique:blogs|max:255',
+            'title_burmese' => 'required|unique:pages|max:255',
             'content_burmese' => 'required',
-            'slug_url' => 'required|unique:blogs,url_slug',
+            'slug_url' => 'required|unique:pages,url_slug',
             'page' => 'required|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
 
@@ -82,7 +84,7 @@ class PageController extends Controller
                 'title_burmese' => $request->title_burmese,
                 'content_burmese' => $request->content_burmese,
                 'url_slug' => $request->slug_url,
-                'related_contents' => isset($request->products) ? json_encode($request->products) : null,
+                'related_contents' => isset($request->category) ? json_encode($request->category) : null,
                 'is_active' => ($request->active == 'on') ? true : false,
                 'image' => '/storage/' . $pagefilePath,
             ];
@@ -114,7 +116,10 @@ class PageController extends Controller
      */
     public function edit($id)
     {
-        //
+        $page = Page::where('id', '=', Crypt::decryptString($id))->first();
+        $category = Category::where('is_active', '=', true)->get();
+
+        return view('admin.page.add-edit')->with(['action' => 'update', 'category' => $category, 'page' => $page]);
     }
 
     /**
@@ -126,7 +131,53 @@ class PageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|max:255',
+            'content' => 'required',
+            'title_burmese' => 'required|max:255',
+            'content_burmese' => 'required',
+            'slug_url' => 'required',
+            'page' => 'nullable|mimes:jpg,jpeg,png,gif|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->route('edit#page', Crypt::encryptString($id))
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $page = [];
+
+        if ($request->file()) {
+            $pagefileName = time() . '_' . $request->page->getClientOriginalName();
+            $pagefilePath = $request->file('page')->storeAs('uploads', $pagefileName, 'public');
+
+            $page = [
+                'title' => $request->title,
+                'content' => $request->content,
+                'title_burmese' => $request->title_burmese,
+                'content_burmese' => $request->content_burmese,
+                'url_slug' => $request->slug_url,
+                'related_contents' => isset($request->category) ? json_encode($request->category) : null,
+                'is_active' => ($request->active == 'on') ? true : false,
+                'image' => '/storage/' . $pagefilePath,
+            ];
+        } else {
+            $page = [
+                'title' => $request->title,
+                'content' => $request->content,
+                'title_burmese' => $request->title_burmese,
+                'content_burmese' => $request->content_burmese,
+                'url_slug' => $request->slug_url,
+                'related_contents' => isset($request->category) ? json_encode($request->category) : null,
+                'is_active' => ($request->active == 'on') ? true : false,
+            ];
+        }
+
+        Page::where('id', '=', $id)->update($page);
+
+        return redirect()->route('page#list')->with(['success_message' => 'Successfully <strong>updated!</strong>']);
     }
 
     /**
@@ -137,7 +188,27 @@ class PageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $page = Page::where('id', '=', Crypt::decryptString($id))->first();
+            $flag = false;
+            $message = 'deactivated';
+
+            if ($page->is_active) {
+                $flag = false;
+                $message = 'deactivated';
+            } else {
+                $flag = true;
+                $message = 'activated';
+            }
+
+            Page::where('id', '=', Crypt::decryptString($id))->update(['is_active' => $flag]);
+
+            return redirect()
+                ->route('page#list')
+                ->with(['success_message' => 'Successfully <strong>' . $message . '!</strong>']);
+        } catch (DecryptException $e) {
+            abort(404, 'Decrypt Exception occured.');
+        }
     }
 
     private function getPages($paginate, $search_column = null, $search_operator = null, $search_value = null)

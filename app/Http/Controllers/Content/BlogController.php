@@ -165,7 +165,7 @@ class BlogController extends Controller
 
         if ($validator->fails()) {
             return redirect()
-                ->route('edit#blog')
+                ->route('edit#blog', Crypt::encryptString($id))
                 ->withErrors($validator)
                 ->withInput();
         }
