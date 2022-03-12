@@ -5,6 +5,7 @@ use App\Http\Controllers\User\TeamController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Content\BlogController;
 use App\Http\Controllers\Content\ProductController;
+use App\Http\Controllers\Content\PageController;
 use App\Http\Controllers\Setting\CategoryController;
 use App\Http\Middleware\AdminCheckMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -103,5 +104,19 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
         Route::post('/unpublishing/{id}', [BlogController::class, 'destroy'])->name('unpublishing#blog');
 
         Route::post('/drafting/{id}', [BlogController::class, 'draft'])->name('drafting#blog');
+    });
+
+    Route::group(['prefix' => 'page', 'namespace' => 'Content'], function () {
+        Route::get('/', [PageController::class, 'index'])->name('page#list');
+
+        Route::get('/deactivated', [PageController::class, 'deactivated'])->name('deactivated#page#list');
+
+        Route::get('/new', [PageController::class, 'create'])->name('new#page');
+        Route::post('/new', [PageController::class, 'store'])->name('store#data#page');
+
+        Route::get('/edit/{id}', [PageController::class, 'edit'])->name('edit#page');
+        Route::post('/edit/{id}', [PageController::class, 'update'])->name('update#data#page');
+
+        Route::post('/deactivate/{id}', [PageController::class, 'destroy'])->name('deactivate#page');
     });
 });
