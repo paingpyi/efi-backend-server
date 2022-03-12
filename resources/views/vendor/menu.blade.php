@@ -28,6 +28,35 @@ with font-awesome or any other icon font library -->
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        @if (in_array('page#list', json_decode($checkPermission->permissions)))
+                            <li class="nav-item">
+                                <a href="{{ route('page#list') }}" class="nav-link">
+                                    <i class="fas fa-file nav-icon"></i>
+                                    <p>Pages</p>
+                                    <i class="fas fa-angle-left right"></i>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @if (in_array('page#list', json_decode($checkPermission->permissions)))
+                                        <li class="nav-item">
+                                            <a href="{{ route('page#list') }}" class="nav-link">
+                                                <i class="fas fa-file nav-icon"></i>
+                                                <p>Page List</p>
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                    @if (in_array('new#page', json_decode($checkPermission->permissions)))
+                                        <li class="nav-item">
+                                            <a href="{{ route('new#page') }}" class="nav-link">
+                                                <i class="fas fa-file nav-icon"></i>
+                                                <p>New page</p>
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                </ul>
+                            </li>
+                        @endif
                         @if (in_array('blog#list', json_decode($checkPermission->permissions)))
                             <li class="nav-item">
                                 <a href="{{ route('blog#list') }}" class="nav-link">

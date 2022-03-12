@@ -43,7 +43,7 @@ class PageController extends Controller
      */
     public function create()
     {
-        $category = Category::where('is_active', '=', true)->get();
+        $category = Category::where('is_active', '=', true)->where('parent_id', '=', null)->get();
 
         return view('admin.page.add-edit')->with(['action' => 'new', 'category' => $category]);
     }
@@ -117,7 +117,7 @@ class PageController extends Controller
     public function edit($id)
     {
         $page = Page::where('id', '=', Crypt::decryptString($id))->first();
-        $category = Category::where('is_active', '=', true)->get();
+        $category = Category::where('is_active', '=', true)->where('parent_id', '=', null)->get();
 
         return view('admin.page.add-edit')->with(['action' => 'update', 'category' => $category, 'page' => $page]);
     }

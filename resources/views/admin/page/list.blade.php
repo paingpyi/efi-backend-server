@@ -52,7 +52,7 @@
                                                 href="{{ route('edit#page', Illuminate\Support\Facades\Crypt::encryptString($page->id)) }}">{{ $page->title }}<br><span
                                                     class="badge badge-info">{{ $page->title_burmese }}</span>
                                             </a></td>
-                                        <td>{{ $page->related_content }}</td>
+                                        <td><span class="badge badge-warning text-lg">{{ json_decode($page->related_contents) }}</span></td>
                                         <td class="text-nowrap">
                                             <form
                                                 action="{{ route('deactivate#page', Illuminate\Support\Facades\Crypt::encryptString($page->id)) }}"

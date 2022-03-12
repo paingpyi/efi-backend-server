@@ -110,15 +110,16 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="category">Related Contents based on Category <span class="text-danger">*</span></label>
+                                    <label for="category">Related Contents based on Category <span
+                                            class="text-danger">*</span></label>
                                     <select name="category" id="category" class="form-control select2" style="width: 100%;">
                                         <option value="">Please choose the category.</option>
                                         @foreach ($category as $cat)
                                             @if ($action == 'new')
-                                                <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                                <option value="{{ $cat->name }}">{{ $cat->name }}</option>
                                             @else
-                                                <option value="{{ $cat->id }}"
-                                                    {{ $page->related_contents == $cat->id ? ' selected' : '' }}>
+                                                <option value="{{ $cat->name }}"
+                                                    {{ isset($page->related_contents)? (in_array($cat->name, json_decode($page->related_contents))? ' selected': ''): '' }}>
                                                     {{ $cat->name }}</option>
                                             @endif
                                         @endforeach
