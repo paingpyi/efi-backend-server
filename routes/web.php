@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\User\TeamController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Content\NewsController;
 use App\Http\Controllers\Content\BlogController;
 use App\Http\Controllers\Content\ProductController;
 use App\Http\Controllers\Content\PageController;
@@ -118,5 +119,23 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
         Route::post('/edit/{id}', [PageController::class, 'update'])->name('update#data#page');
 
         Route::post('/deactivate/{id}', [PageController::class, 'destroy'])->name('deactivate#page');
+    });
+
+    Route::group(['prefix' => 'news', 'namespace' => 'Content'], function () {
+        Route::get('/', [NewsController::class, 'index'])->name('news#list');
+
+        Route::get('/unpublished', [NewsController::class, 'unpublished'])->name('unpublished#news#list');
+
+        Route::get('/drafted', [NewsController::class, 'drafted'])->name('drafted#news#list');
+
+        Route::get('/new', [NewsController::class, 'create'])->name('new#news');
+        Route::post('/new', [NewsController::class, 'store'])->name('store#data#news');
+
+        Route::get('/edit/{id}', [NewsController::class, 'edit'])->name('edit#news');
+        Route::post('/edit/{id}', [NewsController::class, 'update'])->name('update#data#news');
+
+        Route::post('/unpublishing/{id}', [NewsController::class, 'destroy'])->name('unpublishing#news');
+
+        Route::post('/drafting/{id}', [NewsController::class, 'draft'])->name('drafting#blog');
     });
 });
