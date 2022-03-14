@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Content\ProductController;
 use App\Http\Controllers\Content\BlogController;
+use App\Http\Controllers\Content\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +31,10 @@ Route::group(['prefix' => 'blogs', 'namespace' => 'Content'], function () {
     Route::get('/{para?}', [BlogController::class, 'list']);
 
     Route::post('/', [BlogController::class, 'apiList']);
+});
+
+Route::group(['prefix' => 'pages', 'namespace' => 'Content'], function () {
+    //Route::get('/{para?}', [BlogController::class, 'list']);
+
+    Route::post('/', [PageController::class, 'apiList']);
 });

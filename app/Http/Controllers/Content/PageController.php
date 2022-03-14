@@ -6,6 +6,8 @@ use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use App\Models\Page;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -209,6 +211,187 @@ class PageController extends Controller
         } catch (DecryptException $e) {
             abort(404, 'Decrypt Exception occured.');
         }
+    }
+
+    /*
+     * API Methods
+     *
+     * @param  string  $locale
+     * @return \Illuminate\Http\Response
+     */
+    public function list($locale = '')
+    {
+    }
+
+    /**
+     * API List with Post data.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function apiList(Request $request)
+    {
+        $data = $request->json()->all();
+
+        /*
+         * Locale
+         *
+         * MM for my-MM/Burmese and EN for en-US/English
+         */
+        if (isset($data['locale']) and Str::lower($data['locale']) == 'en') {
+            $page_db = DB::table('pages')
+                ->select(
+                    'id',
+                    'title',
+                    'content',
+                    'image',
+                    'url_slug',
+                    'related_contents',
+                    'is_active',
+                    'created_at',
+                    'updated_at',
+                );
+
+            $localeData = ['lang' => 'en-US', 'name' => 'English'];
+        } else if (isset($data['locale']) and Str::lower($data['locale']) == 'mm') {
+            $page_db = DB::table('pages')
+                ->select(
+                    'id',
+                    'title_burmese',
+                    'content_burmese',
+                    'image',
+                    'url_slug',
+                    'related_contents',
+                    'is_active',
+                    'created_at',
+                    'updated_at',
+                );
+
+            $localeData = ['lang' => 'my-MM', 'name' => 'Burmese'];
+        } else {
+            $page_db = DB::table('pages')
+                ->select(
+                    'id',
+                    'title',
+                    'content',
+                    'title_burmese',
+                    'content_burmese',
+                    'image',
+                    'url_slug',
+                    'related_contents',
+                    'is_active',
+                    'created_at',
+                    'updated_at',
+                );
+
+            $localeData = ['lang' => 'en-US/my-MM', 'name' => 'English/Burmese'];
+        }
+
+        /***
+         *
+         * Retrieve blogs by id
+         *
+         **/
+        if (isset($data['id'])) {
+            $page_db->where('id', '=', $data['id']);
+        } //End of retreiving blogs by id
+
+        /***
+         *
+         * Retrieve blogs by title
+         *
+         **/
+        if (isset($data['title'])) {
+            if (isset($data['locale']) and Str::lower($data['locale']) == 'en') {
+                $page_db->where('title', '=', $data['title']);
+            } else {
+                $page_db->where('title_burmese', '=', $data['title']);
+            }
+        } //End of retreiving blogs by title
+
+        /***
+         *
+         * Retrieve blogs by status
+         *
+         **/
+        if (isset($data['status'])) {
+            $page_db->where('is_active', '=', $data['status']);
+        } //End of retreiving blogs by status
+
+        /***
+         *
+         * Retrieve blogs by title
+         *
+         **/
+        if (isset($data['created'])) {
+            $page_db->where('created_at', '=', $data['created']);
+        } //End of retreiving blogs by created
+
+        /***
+         *
+         * Retrieve pages ordered by
+         *
+         **/
+        if (isset($data['order'])) {
+            if (isset($data['locale']) and Str::lower($data['locale']) == 'en') {
+                if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
+                    if (isset($data['order']['orderto'])) {
+                        $page_db->orderByDesc(Str::lower($data['order']['orderto']));
+                    } else {
+                        $page_db->orderByDesc('title');
+                    }
+                } else {
+                    if (isset($data['order']['orderto'])) {
+                        $page_db->orderBy(Str::lower($data['order']['orderto']));
+                    } else {
+                        $page_db->orderBy('title');
+                    }
+                }
+            } else {
+                if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
+                    if (isset($data['order']['orderto'])) {
+                        $page_db->orderByDesc(Str::lower($data['order']['orderto']) . '_burmese');
+                    } else {
+                        $page_db->orderByDesc('title_burmese');
+                    }
+                } else {
+                    if (isset($data['order']['orderto'])) {
+                        $page_db->orderBy(Str::lower($data['order']['orderto']) . '_burmese');
+                    } else {
+                        $page_db->orderBy('title_burmese');
+                    }
+                }
+            }
+        } //End of retreiving blogs ordered by
+
+        /*
+         * Limit the number of results.
+         */
+        if (isset($data['limit'])) {
+            if (isset($data['skip'])) {
+                $page_db->skip($data['skip'])->take($data['limit']);
+            } else {
+                $page_db->skip(0)->take($data['limit']);
+            }
+        } // End of limit the number of results.
+
+        $blogs = $page_db->get();
+
+        if ($blogs->count() > 0) {
+            $response = [
+                'code' => 200,
+                'status' => 'success',
+                'locale' => $localeData,
+                'data' => $blogs,
+            ];
+        } else {
+            $response = [
+                'code' => 204,
+                'status' => 'no content',
+            ];
+        }
+
+        return response()->json($response);
     }
 
     private function getPages($paginate, $search_column = null, $search_operator = null, $search_value = null)
