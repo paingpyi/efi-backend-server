@@ -124,6 +124,35 @@ with font-awesome or any other icon font library -->
                                 </ul>
                             </li>
                         @endif
+                        @if (in_array('news#list', json_decode($checkPermission->permissions)))
+                            <li class="nav-item">
+                                <a href="{{ route('news#list') }}" class="nav-link">
+                                    <i class="fas fa-newspaper nav-icon"></i>
+                                    <p>News</p>
+                                    <i class="fas fa-angle-left right"></i>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @if (in_array('news#list', json_decode($checkPermission->permissions)))
+                                        <li class="nav-item">
+                                            <a href="{{ route('news#list') }}" class="nav-link">
+                                                <i class="fas fa-newspaper nav-icon"></i>
+                                                <p>News List</p>
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                    @if (in_array('new#news', json_decode($checkPermission->permissions)))
+                                        <li class="nav-item">
+                                            <a href="{{ route('new#news') }}" class="nav-link">
+                                                <i class="fa fa-list-alt nav-icon"></i>
+                                                <p>New News</p>
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                </ul>
+                            </li>
+                        @endif
                     </ul>
                 </li>
             @endif
