@@ -136,6 +136,6 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
 
         Route::post('/unpublishing/{id}', [NewsController::class, 'destroy'])->name('unpublishing#news');
 
-        Route::post('/drafting/{id}', [NewsController::class, 'draft'])->name('drafting#blog');
+        Route::post('/drafting/{id}', [NewsController::class, 'draft'])->name('drafting#news');
     });
 });

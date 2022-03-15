@@ -27,7 +27,7 @@
         <div class="col">
             <div class="card">
                 <form id="inputForm"
-                    action="{{ $action == 'new' ? route('store#data#blog') : route('update#data#blog', isset($blog->id) ? $blog->id : 0) }}"
+                    action="{{ $action == 'new' ? route('store#data#news') : route('update#data#news', isset($news->id) ? $news->id : 0) }}"
                     method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card-header">
@@ -56,7 +56,7 @@
                                             <label for="title"><i class="flag-icon flag-icon-us mr-2"></i> Title <span
                                                     class="text-danger">*</span></label>
                                             <input type="text" name="title"
-                                                value="{{ old('title', isset($blog->title) ? $blog->title : null) }}"
+                                                value="{{ old('title', isset($news->title) ? $news->title : null) }}"
                                                 class="form-control title2slug" id="title" aria-describedby="titleHelp">
                                             <small id="titleHelp" class="form-text text-muted">Please enter title.</small>
                                             @error('title')
@@ -67,7 +67,7 @@
                                             <label for="content"><i class="flag-icon flag-icon-us mr-2"></i> Content Body
                                                 <span class="text-danger">*</span></label>
                                             <textarea name="content" class="summernote" required
-                                                id="content">{{ old('content', isset($blog->content) ? $blog->content : '') }}</textarea>
+                                                id="content">{{ old('content', isset($news->content) ? $news->content : '') }}</textarea>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade pt-3" id="nav-mm" role="tabpanel"
@@ -76,7 +76,7 @@
                                             <label for="title_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
                                                 <span class="text-danger">*</span></label>
                                             <input type="text" name="title_burmese"
-                                                value="{{ old('title_burmese', isset($blog->title_burmese) ? $blog->title_burmese : null) }}"
+                                                value="{{ old('title_burmese', isset($news->title_burmese) ? $news->title_burmese : null) }}"
                                                 class="form-control" id="title_burmese"
                                                 aria-describedby="title_burmeseHelp">
                                             <small id="title_burmeseHelp" class="form-text text-muted">Please enter
@@ -91,7 +91,7 @@
                                                 Content Body
                                                 <span class="text-danger">*</span></label>
                                             <textarea name="content_burmese" class="summernote" required
-                                                id="content_burmese">{{ old('content_burmese', isset($blog->content_burmese) ? $blog->content_burmese : '') }}</textarea>
+                                                id="content_burmese">{{ old('content_burmese', isset($news->content_burmese) ? $news->content_burmese : '') }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -101,7 +101,7 @@
                                     <label for="slug_url">Slug URL
                                         <span class="text-danger">*</span></label>
                                     <input type="text" name="slug_url"
-                                        value="{{ old('slug_url', isset($blog->url_slug) ? $blog->url_slug : null) }}"
+                                        value="{{ old('slug_url', isset($news->url_slug) ? $news->url_slug : null) }}"
                                         class="form-control" id="slug_url" aria-describedby="slug_urlHelp">
                                     <small id="slug_urlHelp" class="form-text text-white">Do not use the special charaters
                                         but you can you dash (-).</small>
@@ -113,7 +113,7 @@
                                 <div class="form-group">
                                     <label for="featured">Featured: </label>
                                     <input type="checkbox" id="featured" name="featured"
-                                        {{ (old('featured', isset($blog->featured) ? $blog->featured : null) == true or $action == 'new')? 'checked': '' }}
+                                        {{ (old('featured', isset($news->featured) ? $news->featured : null) == true or $action == 'new')? 'checked': '' }}
                                         data-bootstrap-switch data-on-color="success">
                                 </div>
                                 <hr>
@@ -122,23 +122,23 @@
                                     <select name="status" id="status" class="form-control select2" style="width: 100%;">
                                         <option value="">Please choose the status.</option>
                                         <option value="published"
-                                            {{ isset($blog->status) ? ($blog->status == 'published' ? ' selected' : '') : '' }}>
+                                            {{ isset($news->status) ? ($news->status == 'published' ? ' selected' : '') : '' }}>
                                             published</option>
                                         <option value="draft"
-                                            {{ isset($blog->status) ? ($blog->status == 'draft' ? ' selected' : '') : '' }}>
+                                            {{ isset($news->status) ? ($news->status == 'draft' ? ' selected' : '') : '' }}>
                                             draft</option>
                                         <option value="unpublished"
-                                            {{ isset($blog->status) ? ($blog->status == 'unpublished' ? ' selected' : '') : '' }}>
+                                            {{ isset($news->status) ? ($news->status == 'unpublished' ? ' selected' : '') : '' }}>
                                             unpublished</option>
                                     </select>
                                 </div>
                                 <hr>
                                 <div class="form-group">
-                                    <label>Blog Image <span class="text-danger">*</span></label>
-                                    @isset($blog->image)
+                                    <label>News Image <span class="text-danger">*</span></label>
+                                    @isset($news->image)
                                         <div class="card">
                                             <div class="card-body">
-                                                <img src="{{ asset($blog->image) }}" alt="Blog image" class="img-thumbnail">
+                                                <img src="{{ asset($news->image) }}" alt="news image" class="img-thumbnail">
                                             </div>
                                         </div>
                                     @endisset
@@ -169,7 +169,7 @@
 
                                                     <!-- The file is stored here. -->
 
-                                                    <input type="file" name="blog">
+                                                    <input type="file" name="news">
 
                                                 </div>
 
@@ -196,12 +196,12 @@
 
                                             <!-- The URL is stored here. -->
 
-                                            <input type="hidden" name="blog-image-url">
+                                            <input type="hidden" name="news-image-url">
 
                                         </div>
 
                                     </div>
-                                </div><!-- /. Blog Image -->
+                                </div><!-- /. news Image -->
                             </div>
                         </div>
                     </div>
@@ -294,7 +294,7 @@
                         required: true,
                     },
                     @if ($action == 'new')
-                        blog: {
+                        news: {
                         required: true,
                         },
                     @endif
@@ -317,7 +317,7 @@
                         required: "You need to fill description.",
                     },
                     @if ($action == 'new')
-                        blog: {
+                        news: {
                         required: "You need to upload image.",
                         },
                     @endif

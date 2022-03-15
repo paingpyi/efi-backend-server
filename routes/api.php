@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Content\ProductController;
 use App\Http\Controllers\Content\BlogController;
 use App\Http\Controllers\Content\PageController;
+use App\Http\Controllers\Content\NewsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,4 +38,10 @@ Route::group(['prefix' => 'pages', 'namespace' => 'Content'], function () {
     //Route::get('/{para?}', [BlogController::class, 'list']);
 
     Route::post('/', [PageController::class, 'apiList']);
+});
+
+Route::group(['prefix' => 'news', 'namespace' => 'Content'], function () {
+    Route::get('/{para?}', [NewsController::class, 'list']);
+
+    Route::post('/', [NewsController::class, 'apiList']);
 });
