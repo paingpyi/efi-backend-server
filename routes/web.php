@@ -128,8 +128,8 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
 
         Route::get('/drafted', [NewsController::class, 'drafted'])->name('drafted#news#list');
 
-        Route::get('/new', [NewsController::class, 'create'])->name('new#news');
-        Route::post('/new', [NewsController::class, 'store'])->name('store#data#news');
+        Route::get('/create', [NewsController::class, 'create'])->name('new#news');
+        Route::post('/create', [NewsController::class, 'store'])->name('store#data#news');
 
         Route::get('/edit/{id}', [NewsController::class, 'edit'])->name('edit#news');
         Route::post('/edit/{id}', [NewsController::class, 'update'])->name('update#data#news');

@@ -145,7 +145,7 @@ with font-awesome or any other icon font library -->
                                         <li class="nav-item">
                                             <a href="{{ route('new#news') }}" class="nav-link">
                                                 <i class="fa fa-list-alt nav-icon"></i>
-                                                <p>New News</p>
+                                                <p>Create News</p>
                                             </a>
                                         </li>
                                     @endif
