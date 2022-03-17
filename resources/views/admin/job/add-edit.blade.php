@@ -69,13 +69,13 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="department"><i class="flag-icon flag-icon-us mr-2"></i> Department</label>
-                                            <input type="text" name="department" id="department" class="form-control">
+                                            <input type="text" name="department" id="department" class="form-control" value="{{ old('department', isset($job->department) ? $job->department : null) }}">
                                         </div>
                                         <div class="form-group">
                                             <label for="jd"><i class="flag-icon flag-icon-us mr-2"></i> Job Description
                                                 <span class="text-danger">*</span></label>
                                             <textarea name="jd" class="summernote" required
-                                                id="jd">{{ old('jd', isset($job->jd) ? $job->jd : '') }}</textarea>
+                                                id="jd">{{ old('jd', isset($job->description) ? $job->description : '') }}</textarea>
                                         </div>
                                     </div> {{-- /. End of English Inputs --}}
                                     <div class="tab-pane fade pt-3" id="nav-mm" role="tabpanel"
@@ -96,17 +96,17 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="department_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Department</label>
-                                            <input type="text" name="department_burmese" id="department_burmese" class="form-control">
+                                            <input type="text" name="department_burmese" id="department_burmese" class="form-control" value="{{ old('department_burmese', isset($job->department_burmese) ? $job->department_burmese : null) }}">
                                         </div>
                                         <div class="form-group">
                                             <label for="jd_burmese"><i class="flag-icon flag-icon-mm mr-2"></i>
                                                 Job Description
                                                 <span class="text-danger">*</span></label>
                                             <textarea name="jd_burmese" class="summernote" required
-                                                id="jd_burmese">{{ old('jd_burmese', isset($job->jd_burmese) ? $job->jd_burmese : '') }}</textarea>
+                                                id="jd_burmese">{{ old('jd_burmese', isset($job->description_burmese) ? $job->description_burmese : '') }}</textarea>
                                         </div>
                                     </div> {{-- /. End of Burmese Inputs --}}
-                                    <div class="tab-pane fade show active pt-3" id="nav-zh" role="tabpanel"
+                                    <div class="tab-pane fade show pt-3" id="nav-zh" role="tabpanel"
                                         aria-labelledby="nav-home-tab">
                                         <div class="form-group">
                                             <label for="position_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Position <span
@@ -121,13 +121,13 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="department_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Department</label>
-                                            <input type="text" name="department_chinese" id="department_chinese" class="form-control">
+                                            <input type="text" name="department_chinese" id="department_chinese" class="form-control" value="{{ old('department_chinese', isset($job->department_chinese) ? $job->department_chinese : null) }}">
                                         </div>
                                         <div class="form-group">
                                             <label for="jd_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Job Description
                                                 <span class="text-danger">*</span></label>
                                             <textarea name="jd_chinese" class="summernote" required
-                                                id="jd_chinese">{{ old('jd_chinese', isset($job->jd_chinese) ? $job->jd_chinese : '') }}</textarea>
+                                                id="jd_chinese">{{ old('jd_chinese', isset($job->description_chinese) ? $job->description_chinese : '') }}</textarea>
                                         </div>
                                     </div> {{-- /. End of Chinese Inputs --}}
                                 </div>
@@ -137,7 +137,7 @@
                                     <label for="slug_url">Slug URL
                                         <span class="text-danger">*</span></label>
                                     <input type="text" name="slug_url"
-                                        value="{{ old('slug_url', isset($job->url_slug) ? $job->url_slug : null) }}"
+                                        value="{{ old('slug_url', isset($job->slug_url) ? $job->slug_url : null) }}"
                                         class="form-control" id="slug_url" aria-describedby="slug_urlHelp">
                                     <small id="slug_urlHelp" class="form-text text-white">Do not use the special charaters
                                         but you can you dash (-).</small>
@@ -162,7 +162,7 @@
                                 <div class="form-group">
                                     <label for="active">Active: </label>
                                     <input type="checkbox" id="active" name="active"
-                                        {{ (old('active', isset($job->is_active) ? $job->is_active : null) == true or $action == 'new')? 'checked': '' }}
+                                        {{ (old('active', isset($job->is_vacant) ? $job->is_vacant : null) == true or $action == 'new')? 'checked': '' }}
                                         data-bootstrap-switch data-on-color="success">
                                 </div>
                             </div>
@@ -217,7 +217,10 @@
 
             //Date picker
             $('#due').datetimepicker({
-                format: 'L'
+                format: 'L',
+                @isset($job->due_date)
+                defaultDate: moment("{{date('Y-m-d', strtotime($job->due_date))}}", "YYYY-MM-DD"),
+                @endisset
             });
 
             // Summernote

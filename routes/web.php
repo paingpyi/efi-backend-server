@@ -143,7 +143,7 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
     Route::group(['prefix' => 'job', 'namespace' => 'Content'], function () {
         Route::get('/', [JobController::class, 'index'])->name('job#list');
 
-        Route::get('/closed', [JobController::class, 'deactivated'])->name('closed#job#list');
+        Route::get('/closed', [JobController::class, 'closed'])->name('closed#job#list');
 
         Route::get('/new', [JobController::class, 'create'])->name('new#job');
         Route::post('/new', [JobController::class, 'store'])->name('store#data#job');

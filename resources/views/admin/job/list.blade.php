@@ -31,7 +31,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-tools">
-                        @include('admin.page.menu')
+                        @include('admin.job.menu')
                     </div>
                 </div>
                 <!-- /.card-header -->
@@ -49,7 +49,7 @@
                                 @foreach ($jobs as $job)
                                     <tr>
                                         <td class="text-nowrap"><a
-                                                href="{{ route('edit#page', Illuminate\Support\Facades\Crypt::encryptString($job->id)) }}">{{ $job->position }}
+                                                href="{{ route('edit#job', Illuminate\Support\Facades\Crypt::encryptString($job->id)) }}">{{ $job->position }}
                                             </a></td>
                                         <td>{{ $job->department }}</td>
                                         <td class="text-nowrap">
