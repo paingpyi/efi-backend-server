@@ -165,7 +165,7 @@ class BlogController extends Controller
 
         if ($validator->fails()) {
             return redirect()
-                ->route('edit#blog')
+                ->route('edit#blog', Crypt::encryptString($id))
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -285,8 +285,8 @@ class BlogController extends Controller
 
         if ($locale == 'en') {
             $blog_db = DB::table('blogs')
-            ->join('categories', 'categories.id', '=', 'blogs.category_id')
-            ->join('users', 'users.id', '=', 'blogs.author_id')
+                ->join('categories', 'categories.id', '=', 'blogs.category_id')
+                ->join('users', 'users.id', '=', 'blogs.author_id')
                 ->select(
                     'blogs.id as id',
                     'blogs.title as title',
@@ -305,8 +305,8 @@ class BlogController extends Controller
                 );
         } else if ($locale == 'mm') {
             $blog_db = DB::table('blogs')
-            ->join('categories', 'categories.id', '=', 'blogs.category_id')
-            ->join('users', 'users.id', '=', 'blogs.author_id')
+                ->join('categories', 'categories.id', '=', 'blogs.category_id')
+                ->join('users', 'users.id', '=', 'blogs.author_id')
                 ->select(
                     'blogs.id as id',
                     'blogs.title_burmese as title_burmese',
@@ -325,8 +325,8 @@ class BlogController extends Controller
                 );
         } else {
             $blog_db = DB::table('blogs')
-            ->join('categories', 'categories.id', '=', 'blogs.category_id')
-            ->join('users', 'users.id', '=', 'blogs.author_id')
+                ->join('categories', 'categories.id', '=', 'blogs.category_id')
+                ->join('users', 'users.id', '=', 'blogs.author_id')
                 ->select(
                     'blogs.id as id',
                     'blogs.title as title',
@@ -421,7 +421,7 @@ class BlogController extends Controller
                                 }
                             } else if ($orderBy[1] == 'author') {
                                 $blog_db->orderByDesc('users.name');
-                            }else if ($orderBy[1] == 'created') {
+                            } else if ($orderBy[1] == 'created') {
                                 $blog_db->orderBy('blogs.created_at');
                             } else if ($orderBy[1] == 'updated') {
                                 $blog_db->orderBy('blogs.updated_at');
@@ -451,6 +451,221 @@ class BlogController extends Controller
             $response = [
                 'code' => 200,
                 'status' => 'success',
+                'data' => $blogs,
+            ];
+        } else {
+            $response = [
+                'code' => 204,
+                'status' => 'no content',
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * API List with Post data.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function apiList(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'title' => 'nullable|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            $response = [
+                'code' => 400,
+                'status' => 'The server could not understand the request that it was sent.',
+                'errors' => $validator->errors(),
+            ];
+
+            return response()->json($response);
+        }
+
+        $data = $request->json()->all();
+
+        /*
+         * Locale
+         *
+         * MM for my-MM/Burmese and EN for en-US/English
+         */
+        if (isset($data['locale']) and Str::lower($data['locale']) == 'en') {
+            $blog_db = DB::table('blogs')
+                ->join('categories', 'categories.id', '=', 'blogs.category_id')
+                ->join('users', 'users.id', '=', 'blogs.author_id')
+                ->select(
+                    'blogs.id as id',
+                    'blogs.title as title',
+                    'blogs.content as content',
+                    'blogs.category_id',
+                    'blogs.products as related_products',
+                    'blogs.status as status',
+                    'blogs.created_at as created_at',
+                    'blogs.updated_at as updated_at',
+                    'categories.name as category_name',
+                    'categories.description as category_description',
+                    'categories.is_active as category_is_active',
+                    'users.name as author_name',
+                    'users.email as author_email',
+                    'users.profile_photo_path as author_photo'
+                );
+
+            $localeData = ['lang' => 'en-US', 'name' => 'English'];
+        } else if (isset($data['locale']) and Str::lower($data['locale']) == 'mm') {
+            $blog_db = DB::table('blogs')
+                ->join('categories', 'categories.id', '=', 'blogs.category_id')
+                ->join('users', 'users.id', '=', 'blogs.author_id')
+                ->select(
+                    'blogs.id as id',
+                    'blogs.title_burmese as title_burmese',
+                    'blogs.content_burmese as content_burmese',
+                    'blogs.category_id',
+                    'blogs.products as related_products',
+                    'blogs.status as status',
+                    'blogs.created_at as created_at',
+                    'blogs.updated_at as updated_at',
+                    'categories.name as category_name',
+                    'categories.description as category_description',
+                    'categories.is_active as category_is_active',
+                    'users.name as author_name',
+                    'users.email as author_email',
+                    'users.profile_photo_path as author_photo'
+                );
+
+            $localeData = ['lang' => 'my-MM', 'name' => 'Burmese'];
+        } else {
+            $blog_db = DB::table('blogs')
+                ->join('categories', 'categories.id', '=', 'blogs.category_id')
+                ->join('users', 'users.id', '=', 'blogs.author_id')
+                ->select(
+                    'blogs.id as id',
+                    'blogs.title as title',
+                    'blogs.content as content',
+                    'blogs.title_burmese as title_burmese',
+                    'blogs.content_burmese as content_burmese',
+                    'blogs.category_id',
+                    'blogs.products as related_products',
+                    'blogs.status as status',
+                    'blogs.created_at as created_at',
+                    'blogs.updated_at as updated_at',
+                    'categories.name as category_name',
+                    'categories.description as category_description',
+                    'categories.is_active as category_is_active',
+                    'users.name as author_name',
+                    'users.email as author_email',
+                    'users.profile_photo_path as author_photo'
+                );
+
+            $localeData = ['lang' => 'en-US/my-MM', 'name' => 'English/Burmese'];
+        }
+
+        /***
+         *
+         * Retrieve blogs by id
+         *
+         **/
+        if (isset($data['id'])) {
+            $blog_db->where('blogs.id', '=', $data['id']);
+        } //End of retreiving blogs by id
+
+        /***
+         *
+         * Retrieve blogs by title
+         *
+         **/
+        if (isset($data['title'])) {
+            if (isset($data['locale']) and Str::lower($data['locale']) == 'en') {
+                $blog_db->where('blogs.title', '=', $data['title']);
+            } else {
+                $blog_db->where('blogs.title_burmese', '=', $data['title']);
+            }
+        } //End of retreiving blogs by title
+
+        /***
+         *
+         * Retrieve blogs by status
+         *
+         **/
+        if (isset($data['status'])) {
+            $blog_db->where('blogs.status', '=', $data['status']);
+        } //End of retreiving blogs by status
+
+        /***
+         *
+         * Retrieve blogs by title
+         *
+         **/
+        if (isset($data['created'])) {
+            $blog_db->where('blogs.created_at', '=', $data['created']);
+        } //End of retreiving blogs by created
+
+        /***
+         *
+         * Retrieve blogs by category name
+         *
+         **/
+        if (isset($data['category'])) {
+            $blog_db->where('categories.name', '=', $data['category']);
+        } //End of retreiving blogs by category name
+
+        /***
+         *
+         * Retrieve blogs ordered by
+         *
+         **/
+        if (isset($data['order'])) {
+            if (isset($data['locale']) and Str::lower($data['locale']) == 'en') {
+                if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
+                    if (isset($data['order']['orderto'])) {
+                        $blog_db->orderByDesc(Str::lower($data['order']['orderto']));
+                    } else {
+                        $blog_db->orderByDesc('blogs.title');
+                    }
+                } else {
+                    if (isset($data['order']['orderto'])) {
+                        $blog_db->orderBy(Str::lower($data['order']['orderto']));
+                    } else {
+                        $blog_db->orderBy('blogs.title');
+                    }
+                }
+            } else {
+                if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
+                    if (isset($data['order']['orderto'])) {
+                        $blog_db->orderByDesc(Str::lower($data['order']['orderto']) . '_burmese');
+                    } else {
+                        $blog_db->orderByDesc('blogs.title_burmese');
+                    }
+                } else {
+                    if (isset($data['order']['orderto'])) {
+                        $blog_db->orderBy(Str::lower($data['order']['orderto']) . '_burmese');
+                    } else {
+                        $blog_db->orderBy('blogs.title_burmese');
+                    }
+                }
+            }
+        } //End of retreiving blogs ordered by
+
+        /*
+         * Limit the number of results.
+         */
+        if (isset($data['limit'])) {
+            if (isset($data['skip'])) {
+                $blog_db->skip($data['skip'])->take($data['limit']);
+            } else {
+                $blog_db->skip(0)->take($data['limit']);
+            }
+        } // End of limit the number of results.
+
+        $blogs = $blog_db->get();
+
+        if ($blogs->count() > 0) {
+            $response = [
+                'code' => 200,
+                'status' => 'success',
+                'locale' => $localeData,
                 'data' => $blogs,
             ];
         } else {

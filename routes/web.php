@@ -3,8 +3,11 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\User\TeamController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Content\NewsController;
 use App\Http\Controllers\Content\BlogController;
 use App\Http\Controllers\Content\ProductController;
+use App\Http\Controllers\Content\PageController;
+use App\Http\Controllers\Content\JobController;
 use App\Http\Controllers\Setting\CategoryController;
 use App\Http\Middleware\AdminCheckMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -103,5 +106,51 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
         Route::post('/unpublishing/{id}', [BlogController::class, 'destroy'])->name('unpublishing#blog');
 
         Route::post('/drafting/{id}', [BlogController::class, 'draft'])->name('drafting#blog');
+    });
+
+    Route::group(['prefix' => 'page', 'namespace' => 'Content'], function () {
+        Route::get('/', [PageController::class, 'index'])->name('page#list');
+
+        Route::get('/deactivated', [PageController::class, 'deactivated'])->name('deactivated#page#list');
+
+        Route::get('/new', [PageController::class, 'create'])->name('new#page');
+        Route::post('/new', [PageController::class, 'store'])->name('store#data#page');
+
+        Route::get('/edit/{id}', [PageController::class, 'edit'])->name('edit#page');
+        Route::post('/edit/{id}', [PageController::class, 'update'])->name('update#data#page');
+
+        Route::post('/deactivate/{id}', [PageController::class, 'destroy'])->name('deactivate#page');
+    });
+
+    Route::group(['prefix' => 'news', 'namespace' => 'Content'], function () {
+        Route::get('/', [NewsController::class, 'index'])->name('news#list');
+
+        Route::get('/unpublished', [NewsController::class, 'unpublished'])->name('unpublished#news#list');
+
+        Route::get('/drafted', [NewsController::class, 'drafted'])->name('drafted#news#list');
+
+        Route::get('/create', [NewsController::class, 'create'])->name('new#news');
+        Route::post('/create', [NewsController::class, 'store'])->name('store#data#news');
+
+        Route::get('/edit/{id}', [NewsController::class, 'edit'])->name('edit#news');
+        Route::post('/edit/{id}', [NewsController::class, 'update'])->name('update#data#news');
+
+        Route::post('/unpublishing/{id}', [NewsController::class, 'destroy'])->name('unpublishing#news');
+
+        Route::post('/drafting/{id}', [NewsController::class, 'draft'])->name('drafting#news');
+    });
+
+    Route::group(['prefix' => 'job', 'namespace' => 'Content'], function () {
+        Route::get('/', [JobController::class, 'index'])->name('job#list');
+
+        Route::get('/closed', [JobController::class, 'closed'])->name('closed#job#list');
+
+        Route::get('/new', [JobController::class, 'create'])->name('new#job');
+        Route::post('/new', [JobController::class, 'store'])->name('store#data#job');
+
+        Route::get('/edit/{id}', [JobController::class, 'edit'])->name('edit#job');
+        Route::post('/edit/{id}', [JobController::class, 'update'])->name('update#data#job');
+
+        Route::post('/close/{id}', [JobController::class, 'destroy'])->name('close#job');
     });
 });

@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('blogs', function (Blueprint $table) {
+        Schema::create('news', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->longText('content');
@@ -22,10 +22,8 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('url_slug')->nullable();
             $table->enum('status', ['published', 'draft', 'unpublished']);
-            $table->foreignId('category_id');
             $table->foreignId('author_id');
             $table->boolean('featured')->default(false);
-            $table->longText('products')->nullable();
             $table->timestamps();
         });
     }
@@ -37,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blogs');
+        Schema::dropIfExists('news');
     }
 };
