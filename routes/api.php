@@ -6,6 +6,7 @@ use App\Http\Controllers\Content\ProductController;
 use App\Http\Controllers\Content\BlogController;
 use App\Http\Controllers\Content\PageController;
 use App\Http\Controllers\Content\NewsController;
+use App\Http\Controllers\Content\JobController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,4 +45,10 @@ Route::group(['prefix' => 'news', 'namespace' => 'Content'], function () {
     Route::get('/{para?}', [NewsController::class, 'list']);
 
     Route::post('/', [NewsController::class, 'apiList']);
+});
+
+Route::group(['prefix' => 'career', 'namespace' => 'Content'], function () {
+    Route::get('/{para?}', [JobController::class, 'show']);
+
+    Route::post('/', [JobController::class, 'apiList']);
 });

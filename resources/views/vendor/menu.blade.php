@@ -153,6 +153,35 @@ with font-awesome or any other icon font library -->
                                 </ul>
                             </li>
                         @endif
+                        @if (in_array('job#list', json_decode($checkPermission->permissions)))
+                            <li class="nav-item">
+                                <a href="{{ route('job#list') }}" class="nav-link">
+                                    <i class="fa fa-address-card nav-icon"></i>
+                                    <p>Job Vacancy</p>
+                                    <i class="fas fa-angle-left right"></i>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @if (in_array('job#list', json_decode($checkPermission->permissions)))
+                                        <li class="nav-item">
+                                            <a href="{{ route('job#list') }}" class="nav-link">
+                                                <i class="fa fa-address-card nav-icon"></i>
+                                                <p>Job Vacancy List</p>
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                    @if (in_array('new#job', json_decode($checkPermission->permissions)))
+                                        <li class="nav-item">
+                                            <a href="{{ route('new#job') }}" class="nav-link">
+                                                <i class="fa fa-address-card nav-icon"></i>
+                                                <p>New Job Vacancy</p>
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                </ul>
+                            </li>
+                        @endif
                     </ul>
                 </li>
             @endif

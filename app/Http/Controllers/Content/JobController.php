@@ -6,7 +6,9 @@ use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\Job;
 
 class JobController extends Controller
@@ -98,17 +100,6 @@ class JobController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -149,7 +140,7 @@ class JobController extends Controller
                 ->route('edit#job')
                 ->withErrors($validator)
                 ->withInput();
-        }//dd($request->all());
+        } //dd($request->all());
 
         $job = [
             'position' => $request->position,
@@ -203,5 +194,476 @@ class JobController extends Controller
         } catch (DecryptException $e) {
             abort(404, 'Decrypt Exception occured.');
         }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($para = null)
+    {
+        // Variables
+        $chinese = 'zh';
+        $burmese = 'mm';
+        $english = 'en';
+
+        $parameters = explode('&', $para);
+        $locale = '';
+        $conditions = [];
+
+        foreach ($parameters as $check) {
+            $value = explode('=', $check);
+
+            if (Str::lower($value[0]) == 'locale') {
+                if (isset($value[1])) {
+                    $locale = $value[1];
+                }
+            } else {
+                $conditions[] = [
+                    'key' => Str::lower($value[0]),
+                    'value' => isset($value[1]) ? $value[1] : null,
+                ];
+            }
+        }
+
+        if ($locale == $english) {
+            $job_db = DB::table('jobs')
+                ->select(
+                    'id',
+                    'position',
+                    'department',
+                    'description',
+                    'due',
+                    'due_date',
+                    'slug_url',
+                    'is_vacant',
+                    'created_at',
+                    'updated_at'
+                );
+        } else if ($locale == $burmese) {
+            $job_db = DB::table('jobs')
+                ->select(
+                    'id',
+                    'position_burmese',
+                    'department_burmese',
+                    'description_burmese',
+                    'due_burmese',
+                    'due_date',
+                    'slug_url',
+                    'is_vacant',
+                    'created_at',
+                    'updated_at'
+                );
+        } else if ($locale == $chinese) {
+            $job_db = DB::table('jobs')
+                ->select(
+                    'id',
+                    'position_chinese',
+                    'department_chinese',
+                    'description_chinese',
+                    'due_chinese',
+                    'due_date',
+                    'slug_url',
+                    'is_vacant',
+                    'created_at',
+                    'updated_at'
+                );
+        } else {
+            $job_db = DB::table('jobs')
+                ->select(
+                    'id',
+                    'position',
+                    'department',
+                    'description',
+                    'due',
+                    'position_burmese',
+                    'department_burmese',
+                    'description_burmese',
+                    'due_burmese',
+                    'position_chinese',
+                    'department_chinese',
+                    'description_chinese',
+                    'due_chinese',
+                    'due_date',
+                    'slug_url',
+                    'is_vacant',
+                    'created_at',
+                    'updated_at'
+                );
+        }
+
+        /***
+         *
+         * Parameters for conditions to retrieve the products
+         *
+         */
+        foreach ($conditions as $con) {
+            /***
+             *
+             * Retrieve Job Vacancy by category name
+             *
+             **/
+            if ($con['key'] == 'dep') {
+                if ($locale == $burmese) {
+                    $job_db->where('department_burmese', '=', Str::replace('+', ' ', $con['value']));
+                } else if ($locale == $chinese) {
+                    $job_db->where('department_chinese', '=', Str::replace('+', ' ', $con['value']));
+                } else {
+                    $job_db->where('department', '=', Str::replace('+', ' ', $con['value']));
+                }
+            } //End of retreiving Job Vacancy by category name
+            /***
+             *
+             * Retrieve Job Vacancy by title
+             *
+             **/
+            else if ($con['key'] == 'post') {
+                if ($locale == $burmese) {
+                    $job_db->where('position_burmese', '=', Str::replace('+', ' ', $con['value']));
+                } else if ($locale == $chinese) {
+                    $job_db->where('position_chinese', '=', Str::replace('+', ' ', $con['value']));
+                } else {
+                    $job_db->where('position', '=', Str::replace('+', ' ', $con['value']));
+                }
+            } //End of retreiving Job Vacancy by title
+            /***
+             *
+             * Retrieve Job Vacancy by author
+             *
+             **/
+            else if ($con['key'] == 'vacant') {
+                $job_db->where('is_vacant', '=', $con['value'] == 'open' ? true : false);
+            } //End of retreiving Job Vacancy by status
+
+            /***
+             *
+             * Retrieve Job Vacancy with order by
+             *
+             **/
+            else if ($con['key'] == 'order') {
+                if (isset($con['value'])) {
+                    $orderBy = explode(',', $con['value']);
+
+                    if ($orderBy[0] == 'desc') {
+                        if (isset($orderBy[1])) {
+                            if ($orderBy[1] == 'post') {
+                                if ($locale == $burmese) {
+                                    $job_db->orderByDesc('position_burmese');
+                                } else if ($locale == $chinese) {
+                                    $job_db->orderByDesc('position_chinese');
+                                } else {
+                                    $job_db->orderByDesc('position');
+                                }
+                            } else if ($orderBy[1] == 'dep') {
+                                if ($locale == $burmese) {
+                                    $job_db->orderByDesc('department_burmese');
+                                } else if ($locale == $chinese) {
+                                    $job_db->orderByDesc('department_chinese');
+                                } else {
+                                    $job_db->orderByDesc('department');
+                                }
+                            } else if ($orderBy[1] == 'created') {
+                                $job_db->orderByDesc('created_at');
+                            } else if ($orderBy[1] == 'updated') {
+                                $job_db->orderByDesc('updated_at');
+                            } else {
+                                $job_db->orderByDesc('created_at');
+                            }
+                        } else {
+                            $job_db->orderByDesc('created_at');
+                        }
+                    } else if ($orderBy[0] == 'asc') {
+                        if (isset($orderBy[1])) {
+                            if ($orderBy[1] == 'post') {
+                                if ($locale == $burmese) {
+                                    $job_db->orderBy('position_burmese');
+                                } else if ($locale == $chinese) {
+                                    $job_db->orderBy('position_chinese');
+                                } else {
+                                    $job_db->orderBy('position');
+                                }
+                            } else if ($orderBy[1] == 'dep') {
+                                if ($locale == $burmese) {
+                                    $job_db->orderBy('department_burmese');
+                                } else if ($locale == $chinese) {
+                                    $job_db->orderBy('department_chinese');
+                                } else {
+                                    $job_db->orderBy('department');
+                                }
+                            } else if ($orderBy[1] == 'created') {
+                                $job_db->orderBy('created_at');
+                            } else if ($orderBy[1] == 'updated') {
+                                $job_db->orderBy('updated_at');
+                            } else {
+                                $job_db->orderBy('created_at');
+                            }
+                        } else {
+                            $job_db->orderBy('created_at');
+                        }
+                    } else {
+                        $response = [
+                            'code' => 400,
+                            'status' => 'Order by key has been mismatched.',
+                        ];
+
+                        return response()->json($response);
+                    }
+                } else {
+                    $job_db->orderByDesc('created_at');
+                }
+            } //End of order by
+        } //End of conditions
+
+        $jobs = $job_db->get();
+
+        if ($jobs->count() > 0) {
+            $response = [
+                'code' => 200,
+                'status' => 'success',
+                'data' => $jobs,
+            ];
+        } else {
+            $response = [
+                'code' => 204,
+                'status' => 'no content',
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * API List with Job Vacancy data.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function apiList(Request $request)
+    {
+        $data = $request->json()->all();
+
+        // Variables
+        $chinese = 'zh';
+        $burmese = 'mm';
+        $english = 'en';
+        $localeData = [];
+
+        /*
+         * Locale
+         *
+         * MM for my-MM/Burmese and EN for en-US/English
+         */
+        if (isset($data['locale']) and Str::lower($data['locale']) == $english) {
+            $job_db = DB::table('jobs')
+                ->select(
+                    'id',
+                    'position',
+                    'department',
+                    'description',
+                    'due',
+                    'due_date',
+                    'slug_url',
+                    'is_vacant',
+                    'created_at',
+                    'updated_at'
+                );
+
+            $localeData = ['lang' => 'en-US', 'name' => 'English'];
+        } else if (isset($data['locale']) and Str::lower($data['locale']) == $burmese) {
+            $job_db = DB::table('jobs')
+                ->select(
+                    'id',
+                    'position_burmese',
+                    'department_burmese',
+                    'description_burmese',
+                    'due_burmese',
+                    'due_date',
+                    'slug_url',
+                    'is_vacant',
+                    'created_at',
+                    'updated_at'
+                );
+
+            $localeData = ['lang' => 'my-MM', 'name' => 'Burmese'];
+        } else if (isset($data['locale']) and Str::lower($data['locale']) == $chinese) {
+            $job_db = DB::table('jobs')
+                ->select(
+                    'id',
+                    'position_chinese',
+                    'department_chinese',
+                    'description_chinese',
+                    'due_chinese',
+                    'due_date',
+                    'slug_url',
+                    'is_vacant',
+                    'created_at',
+                    'updated_at'
+                );
+
+            $localeData = ['lang' => 'zh-CN', 'name' => 'Chinese'];
+        } else {
+            $job_db = DB::table('jobs')
+                ->select(
+                    'id',
+                    'position',
+                    'department',
+                    'description',
+                    'due',
+                    'position_burmese',
+                    'department_burmese',
+                    'description_burmese',
+                    'due_burmese',
+                    'position_chinese',
+                    'department_chinese',
+                    'description_chinese',
+                    'due_chinese',
+                    'due_date',
+                    'slug_url',
+                    'is_vacant',
+                    'created_at',
+                    'updated_at'
+                );
+
+            $localeData = ['lang' => 'en-US/my-MM/zh-CN', 'name' => 'English/Burmese/Chinese'];
+        }
+
+        /***
+         *
+         * Retrieve products by id
+         *
+         **/
+        if (isset($data['id'])) {
+            $job_db->where('id', '=', $data['id']);
+        } //End of retreiving products by id
+
+        /***
+         *
+         * Retrieve Job Vacancy by position
+         *
+         **/
+        if (isset($data['post'])) {
+            if (isset($data['locale']) and Str::lower($data['locale']) == $english) {
+                $job_db->where('position', '=', $data['post']);
+            } else if (isset($data['locale']) and Str::lower($data['locale']) == $burmese) {
+                $job_db->where('position_burmese', '=', $data['post']);
+            } else {
+                $job_db->where('position_chinese', '=', $data['post']);
+            }
+        } //End of retreiving Job Vacancy by position
+
+        /***
+         *
+         * Retrieve Job Vacancy by department
+         *
+         **/
+        if (isset($data['depart'])) {
+            if (isset($data['locale']) and Str::lower($data['locale']) == $english) {
+                $job_db->where('department', '=', $data['depart']);
+            } else if (isset($data['locale']) and Str::lower($data['locale']) == $burmese) {
+                $job_db->where('department_burmese', '=', $data['depart']);
+            } else {
+                $job_db->where('department_chinese', '=', $data['depart']);
+            }
+        } //End of retreiving Job Vacancy by department
+
+        /***
+         *
+         * Retrieve Job Vacancy by status
+         *
+         **/
+        if (isset($data['status'])) {
+            $job_db->where('is_vacant', '=', Str::lower($data['status']) == 'open' ? true : false);
+        } //End of retreiving Job Vacancy by status
+
+        /***
+         *
+         * Retrieve Job Vacancy by title
+         *
+         **/
+        if (isset($data['created'])) {
+            $job_db->where('created_at', '=', date('Y-m-d', strtotime($data['created'])));
+        } //End of retreiving Job Vacancy by created
+
+        /***
+         *
+         * Retrieve Job Vacancy ordered by
+         *
+         **/
+        if (isset($data['order'])) {
+            if (isset($data['locale']) and Str::lower($data['locale']) == $english) {
+                if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
+                    if (isset($data['order']['field'])) {
+                        $job_db->orderByDesc(Str::lower($data['order']['field']));
+                    } else {
+                        $job_db->orderByDesc('position');
+                    }
+                } else {
+                    if (isset($data['order']['field'])) {
+                        $job_db->orderBy(Str::lower($data['order']['field']));
+                    } else {
+                        $job_db->orderBy('position');
+                    }
+                }
+            } else if (isset($data['locale']) and Str::lower($data['locale']) == $chinese) {
+                if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
+                    if (isset($data['order']['field'])) {
+                        $job_db->orderByDesc(Str::lower($data['order']['field']) . '_chinese');
+                    } else {
+                        $job_db->orderByDesc('position_chinese');
+                    }
+                } else {
+                    if (isset($data['order']['field'])) {
+                        $job_db->orderBy(Str::lower($data['order']['field']) . '_chinese');
+                    } else {
+                        $job_db->orderBy('position_chinese');
+                    }
+                }
+            } else {
+                if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
+                    if (isset($data['order']['field'])) {
+                        $job_db->orderByDesc(Str::lower($data['order']['field']) . '_burmese');
+                    } else {
+                        $job_db->orderByDesc('position_burmese');
+                    }
+                } else {
+                    if (isset($data['order']['field'])) {
+                        $job_db->orderBy(Str::lower($data['order']['field']) . '_burmese');
+                    } else {
+                        $job_db->orderBy('position_burmese');
+                    }
+                }
+            }
+        } //End of retreiving products ordered by
+
+        /*
+         * Limit the number of results.
+         */
+        if (isset($data['limit'])) {
+            if (isset($data['skip'])) {
+                $job_db->skip($data['skip'])->take($data['limit']);
+            } else {
+                $job_db->skip(0)->take($data['limit']);
+            }
+        } // End of limit the number of results.
+
+        $products = $job_db->get();
+
+        if ($products->count() > 0) {
+            $response = [
+                'code' => 200,
+                'status' => 'success',
+                'locale' => $localeData,
+                'data' => $products,
+            ];
+        } else {
+            $response = [
+                'code' => 204,
+                'status' => 'no content',
+            ];
+        }
+
+        return response()->json($response);
     }
 }
