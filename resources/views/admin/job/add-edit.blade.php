@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="{{ asset('adminlite/plugins/flag-icon-css/css/flag-icon.min.css') }}">
     <!-- Bootstrap4 Duallistbox -->
     <link rel="stylesheet" href="{{ asset('adminlite/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="{{ asset('adminlite/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
 @endsection
 {{-- /. Head Stylesheets --}}
 
@@ -27,7 +29,7 @@
         <div class="col">
             <div class="card">
                 <form id="inputForm"
-                    action="{{ $action == 'new' ? route('store#data#page') : route('update#data#page', isset($page->id) ? $page->id : 0) }}"
+                    action="{{ $action == 'new' ? route('store#data#job') : route('update#data#job', isset($job->id) ? $job->id : 0) }}"
                     method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card-header">
@@ -47,53 +49,87 @@
                                             role="tab" aria-controls="nav-home" aria-selected="true">English</a>
                                         <a class="nav-link" id="nav-mm-tab" data-toggle="tab" href="#nav-mm"
                                             role="tab" aria-controls="nav-profile" aria-selected="false">Burmese</a>
+                                            <a class="nav-link" id="nav-zh-tab" data-toggle="tab" href="#nav-zh"
+                                            role="tab" aria-controls="nav-profile" aria-selected="false">Chinese</a>
                                     </div>
                                 </nav>
                                 <div class="tab-content pr-2" id="nav-tabContent">
                                     <div class="tab-pane fade show active pt-3" id="nav-eng" role="tabpanel"
                                         aria-labelledby="nav-home-tab">
                                         <div class="form-group">
-                                            <label for="title"><i class="flag-icon flag-icon-us mr-2"></i> Title <span
+                                            <label for="position"><i class="flag-icon flag-icon-us mr-2"></i> Position <span
                                                     class="text-danger">*</span></label>
-                                            <input type="text" name="title"
-                                                value="{{ old('title', isset($page->title) ? $page->title : null) }}"
-                                                class="form-control title2slug" id="title" aria-describedby="titleHelp">
-                                            <small id="titleHelp" class="form-text text-muted">Please enter title.</small>
-                                            @error('title')
+                                            <input type="text" name="position"
+                                                value="{{ old('position', isset($job->position) ? $job->position : null) }}"
+                                                class="form-control position2slug" id="position" aria-describedby="positionHelp">
+                                            <small id="positionHelp" class="form-text text-muted">Please enter vacant position position.</small>
+                                            @error('position')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="content"><i class="flag-icon flag-icon-us mr-2"></i> Content Body
-                                                <span class="text-danger">*</span></label>
-                                            <textarea name="content" class="summernote" required
-                                                id="content">{{ old('content', isset($page->content) ? $page->content : '') }}</textarea>
+                                            <label for="department"><i class="flag-icon flag-icon-us mr-2"></i> Department</label>
+                                            <input type="text" name="department" id="department" class="form-control">
                                         </div>
-                                    </div>
+                                        <div class="form-group">
+                                            <label for="jd"><i class="flag-icon flag-icon-us mr-2"></i> Job Description
+                                                <span class="text-danger">*</span></label>
+                                            <textarea name="jd" class="summernote" required
+                                                id="jd">{{ old('jd', isset($job->jd) ? $job->jd : '') }}</textarea>
+                                        </div>
+                                    </div> {{-- /. End of English Inputs --}}
                                     <div class="tab-pane fade pt-3" id="nav-mm" role="tabpanel"
                                         aria-labelledby="nav-profile-tab">
                                         <div class="form-group">
-                                            <label for="title_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
+                                            <label for="position_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Position
                                                 <span class="text-danger">*</span></label>
-                                            <input type="text" name="title_burmese"
-                                                value="{{ old('title_burmese', isset($page->title_burmese) ? $page->title_burmese : null) }}"
-                                                class="form-control" id="title_burmese"
-                                                aria-describedby="title_burmeseHelp">
-                                            <small id="title_burmeseHelp" class="form-text text-muted">Please enter
-                                                title
+                                            <input type="text" name="position_burmese"
+                                                value="{{ old('position_burmese', isset($job->position_burmese) ? $job->position_burmese : null) }}"
+                                                class="form-control" id="position_burmese"
+                                                aria-describedby="position_burmeseHelp">
+                                            <small id="position_burmeseHelp" class="form-text text-muted">Please enter the vacant
+                                                position title
                                                 (burmese).</small>
-                                            @error('title_burmese')
+                                            @error('position_burmese')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="content_burmese"><i class="flag-icon flag-icon-mm mr-2"></i>
-                                                Content Body
-                                                <span class="text-danger">*</span></label>
-                                            <textarea name="content_burmese" class="summernote" required
-                                                id="content_burmese">{{ old('content_burmese', isset($page->content_burmese) ? $page->content_burmese : '') }}</textarea>
+                                            <label for="department_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Department</label>
+                                            <input type="text" name="department_burmese" id="department_burmese" class="form-control">
                                         </div>
-                                    </div>
+                                        <div class="form-group">
+                                            <label for="jd_burmese"><i class="flag-icon flag-icon-mm mr-2"></i>
+                                                Job Description
+                                                <span class="text-danger">*</span></label>
+                                            <textarea name="jd_burmese" class="summernote" required
+                                                id="jd_burmese">{{ old('jd_burmese', isset($job->jd_burmese) ? $job->jd_burmese : '') }}</textarea>
+                                        </div>
+                                    </div> {{-- /. End of Burmese Inputs --}}
+                                    <div class="tab-pane fade show active pt-3" id="nav-zh" role="tabpanel"
+                                        aria-labelledby="nav-home-tab">
+                                        <div class="form-group">
+                                            <label for="position_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Position <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" name="position_chinese"
+                                                value="{{ old('position_chinese', isset($job->position_chinese) ? $job->position_chinese : null) }}"
+                                                class="form-control" id="position_chinese" aria-describedby="position_chineseHelp">
+                                            <small id="position_chineseHelp" class="form-text text-muted">Please enter vacant position position (Chinese).</small>
+                                            @error('position_chinese')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="department_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Department</label>
+                                            <input type="text" name="department_chinese" id="department_chinese" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="jd_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Job Description
+                                                <span class="text-danger">*</span></label>
+                                            <textarea name="jd_chinese" class="summernote" required
+                                                id="jd_chinese">{{ old('jd_chinese', isset($job->jd_chinese) ? $job->jd_chinese : '') }}</textarea>
+                                        </div>
+                                    </div> {{-- /. End of Chinese Inputs --}}
                                 </div>
                             </div>
                             <div class="col-4 bg-secondary p-3">
@@ -101,7 +137,7 @@
                                     <label for="slug_url">Slug URL
                                         <span class="text-danger">*</span></label>
                                     <input type="text" name="slug_url"
-                                        value="{{ old('slug_url', isset($page->url_slug) ? $page->url_slug : null) }}"
+                                        value="{{ old('slug_url', isset($job->url_slug) ? $job->url_slug : null) }}"
                                         class="form-control" id="slug_url" aria-describedby="slug_urlHelp">
                                     <small id="slug_urlHelp" class="form-text text-white">Do not use the special charaters
                                         but you can you dash (-).</small>
@@ -111,9 +147,22 @@
                                 </div>
                                 <hr>
                                 <div class="form-group">
+                                    <label for="due">Application Due Date</label>
+                                    <div class="input-group date" id="due" data-target-input="nearest" aria-describedby="dueHelp">
+                                        <input name="due" value="{{ old('due') }}" type="text"
+                                            class="form-control datetimepicker-input" data-target="#due" />
+                                        <div class="input-group-append" data-target="#due"
+                                            data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                    <small id="dueHelp" class="form-text text-muted">Please blank this field if you want to open this position until your organization has the right person.</small>
+                                </div>
+                                <hr>
+                                <div class="form-group">
                                     <label for="active">Active: </label>
                                     <input type="checkbox" id="active" name="active"
-                                        {{ (old('active', isset($page->is_active) ? $page->is_active : null) == true or $action == 'new')? 'checked': '' }}
+                                        {{ (old('active', isset($job->is_active) ? $job->is_active : null) == true or $action == 'new')? 'checked': '' }}
                                         data-bootstrap-switch data-on-color="success">
                                 </div>
                             </div>
@@ -149,6 +198,9 @@
     <script src="{{ asset('adminlite/plugins/bootstrap-imageupload/bootstrap-imageupload.js') }}"></script>
     <!-- Bootstrap4 Duallistbox -->
     <script src="{{ asset('adminlite/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="{{ asset('adminlite/plugins/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('adminlite/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('adminlite/dist/js/demo.js') }}"></script>
     <!-- Page specific script -->
@@ -163,10 +215,15 @@
                 $(this).bootstrapSwitch('state', $(this).prop('checked'));
             });
 
+            //Date picker
+            $('#due').datetimepicker({
+                format: 'L'
+            });
+
             // Summernote
             $('.summernote').summernote({
                 height: 800,
-                placeholder: 'Write content here...',
+                placeholder: 'Write job description here...',
             });
 
             $('.imageupload').imageupload();
@@ -174,7 +231,7 @@
             //Bootstrap Duallistbox
             $('.duallistbox').bootstrapDualListbox();
 
-            $(".title2slug").keyup(function() {
+            $(".position2slug").keyup(function() {
                 var Text = $(this).val();
                 Text = Text.toLowerCase()
                     .replace(/[^\w ]+/g, '')
@@ -182,50 +239,60 @@
                 $("#slug_url").val(Text);
             });
 
-            $.validator.addMethod("titleRegex", function(value, element) {
+            $.validator.addMethod("positionRegex", function(value, element) {
                 return this.optional(element) || /^[a-z0-9\-\s]+$/i.test(value);
-            }, "Title must contain only letters, numbers, or dashes.");
+            }, "position must contain only letters, numbers, or dashes.");
 
             $('#inputForm').validate({
                 rules: {
-                    title: {
+                    position: {
                         required: true,
-                        titleRegex: true,
+                        positionRegex: true,
                     },
-                    content: {
-                        required: true,
-                    },
-                    title_burmese: {
+                    department: {
                         required: true,
                     },
-                    content_burmese: {
+                    position_burmese: {
                         required: true,
                     },
-                    @if ($action == 'new')
-                        page: {
+                    department_burmese: {
                         required: true,
-                        },
-                    @endif
+                    },
+                    position_chinese: {
+                        required: true,
+                    },
+                    department_chinese: {
+                        required: true,
+                    },
+                    slug_url: {
+                        required: true,
+                        positionRegex: true,
+                    }
                 },
                 messages: {
-                    title: {
-                        required: "You need to fill product title.",
-                        titleRegex: "Title must contain only letters, numbers, or dashes.",
+                    position: {
+                        required: "You need to fill vacant position.",
+                        positionRegex: "position must contain only letters, numbers, or dashes.",
                     },
-                    content: {
+                    department: {
                         required: "You need to fill content.",
                     },
-                    title_burmese: {
-                        required: "You need to fill product title.",
+                    position_burmese: {
+                        required: "You need to fill vacant position.",
                     },
-                    content_burmese: {
-                        required: "You need to fill description.",
+                    department_burmese: {
+                        required: "You need to fill job description.",
                     },
-                    @if ($action == 'new')
-                        page: {
-                        required: "You need to upload image.",
-                        },
-                    @endif
+                    position_chinese: {
+                        required: "You need to fill vacant position.",
+                    },
+                    department_chinese: {
+                        required: "You need to fill job description.",
+                    },
+                    slug_url: {
+                        required: "You need to fill slug url for SEO.",
+                        positionRegex: "position must contain only letters, numbers, or dashes.",
+                    },
                 },
                 errorElement: 'span',
                 errorPlacement: function(error, element) {

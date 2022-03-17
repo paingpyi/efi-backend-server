@@ -42,7 +42,7 @@
                                 <tr>
                                     <th>Position</th>
                                     <th>Department</th>
-                                    <th></th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -51,7 +51,7 @@
                                         <td class="text-nowrap"><a
                                                 href="{{ route('edit#page', Illuminate\Support\Facades\Crypt::encryptString($job->id)) }}">{{ $job->position }}
                                             </a></td>
-                                        <td><span class="badge badge-warning text-lg">{{ $job->department }}</span></td>
+                                        <td>{{ $job->department }}</td>
                                         <td class="text-nowrap">
                                             <form
                                                 action="{{ route('close#job', Illuminate\Support\Facades\Crypt::encryptString($job->id)) }}"
@@ -84,7 +84,7 @@
                                 <tr>
                                     <th>Position</th>
                                     <th>Department</th>
-                                    <th></th>
+                                    <th>Status</th>
                                 </tr>
                             </tfoot>
                         </table>

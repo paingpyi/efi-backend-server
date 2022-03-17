@@ -14,7 +14,16 @@ class Job extends Model
         'department',
         'description',
         'due',
+        'position_burmese',
+        'department_burmese',
+        'description_burmese',
+        'due_burmese',
+        'position_chinese',
+        'department_chinese',
+        'description_chinese',
+        'due_chinese',
         'due_date',
+        'slug_url',
         'is_vacant',
     ];
 }
