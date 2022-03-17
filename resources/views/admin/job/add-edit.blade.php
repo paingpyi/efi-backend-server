@@ -19,7 +19,8 @@
     <!-- Bootstrap4 Duallistbox -->
     <link rel="stylesheet" href="{{ asset('adminlite/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
     <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href="{{ asset('adminlite/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('adminlite/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
 @endsection
 {{-- /. Head Stylesheets --}}
 
@@ -49,7 +50,7 @@
                                             role="tab" aria-controls="nav-home" aria-selected="true">English</a>
                                         <a class="nav-link" id="nav-mm-tab" data-toggle="tab" href="#nav-mm"
                                             role="tab" aria-controls="nav-profile" aria-selected="false">Burmese</a>
-                                            <a class="nav-link" id="nav-zh-tab" data-toggle="tab" href="#nav-zh"
+                                        <a class="nav-link" id="nav-zh-tab" data-toggle="tab" href="#nav-zh"
                                             role="tab" aria-controls="nav-profile" aria-selected="false">Chinese</a>
                                     </div>
                                 </nav>
@@ -61,15 +62,19 @@
                                                     class="text-danger">*</span></label>
                                             <input type="text" name="position"
                                                 value="{{ old('position', isset($job->position) ? $job->position : null) }}"
-                                                class="form-control position2slug" id="position" aria-describedby="positionHelp">
-                                            <small id="positionHelp" class="form-text text-muted">Please enter vacant position position.</small>
+                                                class="form-control position2slug" id="position"
+                                                aria-describedby="positionHelp">
+                                            <small id="positionHelp" class="form-text text-muted">Please enter vacant
+                                                position position.</small>
                                             @error('position')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="department"><i class="flag-icon flag-icon-us mr-2"></i> Department</label>
-                                            <input type="text" name="department" id="department" class="form-control" value="{{ old('department', isset($job->department) ? $job->department : null) }}">
+                                            <label for="department"><i class="flag-icon flag-icon-us mr-2"></i>
+                                                Department</label>
+                                            <input type="text" name="department" id="department" class="form-control"
+                                                value="{{ old('department', isset($job->department) ? $job->department : null) }}">
                                         </div>
                                         <div class="form-group">
                                             <label for="jd"><i class="flag-icon flag-icon-us mr-2"></i> Job Description
@@ -81,13 +86,15 @@
                                     <div class="tab-pane fade pt-3" id="nav-mm" role="tabpanel"
                                         aria-labelledby="nav-profile-tab">
                                         <div class="form-group">
-                                            <label for="position_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Position
+                                            <label for="position_burmese"><i class="flag-icon flag-icon-mm mr-2"></i>
+                                                Position
                                                 <span class="text-danger">*</span></label>
                                             <input type="text" name="position_burmese"
                                                 value="{{ old('position_burmese', isset($job->position_burmese) ? $job->position_burmese : null) }}"
                                                 class="form-control" id="position_burmese"
                                                 aria-describedby="position_burmeseHelp">
-                                            <small id="position_burmeseHelp" class="form-text text-muted">Please enter the vacant
+                                            <small id="position_burmeseHelp" class="form-text text-muted">Please enter the
+                                                vacant
                                                 position title
                                                 (burmese).</small>
                                             @error('position_burmese')
@@ -95,8 +102,11 @@
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="department_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Department</label>
-                                            <input type="text" name="department_burmese" id="department_burmese" class="form-control" value="{{ old('department_burmese', isset($job->department_burmese) ? $job->department_burmese : null) }}">
+                                            <label for="department_burmese"><i class="flag-icon flag-icon-mm mr-2"></i>
+                                                Department</label>
+                                            <input type="text" name="department_burmese" id="department_burmese"
+                                                class="form-control"
+                                                value="{{ old('department_burmese', isset($job->department_burmese) ? $job->department_burmese : null) }}">
                                         </div>
                                         <div class="form-group">
                                             <label for="jd_burmese"><i class="flag-icon flag-icon-mm mr-2"></i>
@@ -109,22 +119,28 @@
                                     <div class="tab-pane fade show pt-3" id="nav-zh" role="tabpanel"
                                         aria-labelledby="nav-home-tab">
                                         <div class="form-group">
-                                            <label for="position_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Position <span
-                                                    class="text-danger">*</span></label>
+                                            <label for="position_chinese"><i class="flag-icon flag-icon-cn mr-2"></i>
+                                                Position <span class="text-danger">*</span></label>
                                             <input type="text" name="position_chinese"
                                                 value="{{ old('position_chinese', isset($job->position_chinese) ? $job->position_chinese : null) }}"
-                                                class="form-control" id="position_chinese" aria-describedby="position_chineseHelp">
-                                            <small id="position_chineseHelp" class="form-text text-muted">Please enter vacant position position (Chinese).</small>
+                                                class="form-control" id="position_chinese"
+                                                aria-describedby="position_chineseHelp">
+                                            <small id="position_chineseHelp" class="form-text text-muted">Please enter
+                                                vacant position position (Chinese).</small>
                                             @error('position_chinese')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="department_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Department</label>
-                                            <input type="text" name="department_chinese" id="department_chinese" class="form-control" value="{{ old('department_chinese', isset($job->department_chinese) ? $job->department_chinese : null) }}">
+                                            <label for="department_chinese"><i class="flag-icon flag-icon-cn mr-2"></i>
+                                                Department</label>
+                                            <input type="text" name="department_chinese" id="department_chinese"
+                                                class="form-control"
+                                                value="{{ old('department_chinese', isset($job->department_chinese) ? $job->department_chinese : null) }}">
                                         </div>
                                         <div class="form-group">
-                                            <label for="jd_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Job Description
+                                            <label for="jd_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Job
+                                                Description
                                                 <span class="text-danger">*</span></label>
                                             <textarea name="jd_chinese" class="summernote" required
                                                 id="jd_chinese">{{ old('jd_chinese', isset($job->description_chinese) ? $job->description_chinese : '') }}</textarea>
@@ -148,15 +164,16 @@
                                 <hr>
                                 <div class="form-group">
                                     <label for="due">Application Due Date</label>
-                                    <div class="input-group date" id="due" data-target-input="nearest" aria-describedby="dueHelp">
+                                    <div class="input-group date" id="due" data-target-input="nearest"
+                                        aria-describedby="dueHelp">
                                         <input name="due" value="{{ old('due') }}" type="text"
                                             class="form-control datetimepicker-input" data-target="#due" />
-                                        <div class="input-group-append" data-target="#due"
-                                            data-toggle="datetimepicker">
+                                        <div class="input-group-append" data-target="#due" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
                                     </div>
-                                    <small id="dueHelp" class="form-text text-muted">Please blank this field if you want to open this position until your organization has the right person.</small>
+                                    <small id="dueHelp" class="form-text text-muted">Please blank this field if you want to
+                                        open this position until your organization has the right person.</small>
                                 </div>
                                 <hr>
                                 <div class="form-group">
@@ -200,7 +217,8 @@
     <script src="{{ asset('adminlite/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
     <!-- Tempusdominus Bootstrap 4 -->
     <script src="{{ asset('adminlite/plugins/moment/moment.min.js') }}"></script>
-    <script src="{{ asset('adminlite/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+    <script src="{{ asset('adminlite/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}">
+    </script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('adminlite/dist/js/demo.js') }}"></script>
     <!-- Page specific script -->
@@ -219,7 +237,7 @@
             $('#due').datetimepicker({
                 format: 'L',
                 @isset($job->due_date)
-                defaultDate: moment("{{date('Y-m-d', strtotime($job->due_date))}}", "YYYY-MM-DD"),
+                    defaultDate: moment("{{ date('Y-m-d', strtotime($job->due_date)) }}", "YYYY-MM-DD"),
                 @endisset
             });
 
@@ -239,7 +257,14 @@
                 Text = Text.toLowerCase()
                     .replace(/[^\w ]+/g, '')
                     .replace(/ +/g, '-');
-                $("#slug_url").val(Text);
+                var Today = new Date();
+                var TextToday = Today.getFullYear().toString() + '-' + Today.getMonth().toString() + '-' +
+                    Today.getDate().toString() + '-' + Today.getHours().toString() + '-' + Today
+                    .getMinutes().toString() + '-' + Today.getSeconds().toString();
+                TextToday = TextToday.toLowerCase()
+                    .replace(/[^\w ]+/g, '')
+                    .replace(/ +/g, '-');
+                $("#slug_url").val(Text +  '-' + TextToday);
             });
 
             $.validator.addMethod("positionRegex", function(value, element) {
