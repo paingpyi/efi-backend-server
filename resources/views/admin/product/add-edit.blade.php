@@ -126,7 +126,7 @@
                                                 aria-describedby="title_burmeseHelp">
                                             <small id="title_burmeseHelp" class="form-text text-muted">Please enter
                                                 product's title
-                                                (burmese).</small>
+                                                (Burmese).</small>
                                             @error('title_burmese')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
