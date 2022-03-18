@@ -45,6 +45,8 @@
                                             role="tab" aria-controls="nav-home" aria-selected="true">English</a>
                                         <a class="nav-link" id="nav-mm-tab" data-toggle="tab" href="#nav-mm"
                                             role="tab" aria-controls="nav-profile" aria-selected="false">Burmese</a>
+                                        <a class="nav-link" id="nav-zh-tab" data-toggle="tab" href="#nav-zh"
+                                            role="tab" aria-controls="nav-profile" aria-selected="false">Chinese</a>
                                     </div>
                                 </nav>
                                 <div class="tab-content pr-2" id="nav-tabContent">
@@ -112,7 +114,7 @@
                                             <textarea name="applythis" class="summernote" required
                                                 id="applythis">{{ old('applythis', isset($product->applythis_block) ? $product->applythis_block : '') }}</textarea>
                                         </div>
-                                    </div>
+                                    </div> {{-- /. End of English Inputs --}}
                                     <div class="tab-pane fade pt-3" id="nav-mm" role="tabpanel"
                                         aria-labelledby="nav-profile-tab">
                                         <div class="form-group">
@@ -184,7 +186,79 @@
                                             <textarea name="applythis_burmese" class="summernote" required
                                                 id="applythis_burmese">{{ old('applythis_burmese', isset($product->applythis_block_burmese) ? $product->applythis_block_burmese : '') }}</textarea>
                                         </div>
-                                    </div>
+                                    </div> {{-- /. End of Burmese Inputs --}}
+                                    <div class="tab-pane fade pt-3" id="nav-zh" role="tabpanel"
+                                        aria-labelledby="nav-profile-tab">
+                                        <div class="form-group">
+                                            <label for="title_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Title
+                                                <span class="text-danger">*</span></label>
+                                            <input type="text" name="title_chinese"
+                                                value="{{ old('title_chinese', isset($product->title_chinese) ? $product->title_chinese : null) }}"
+                                                class="form-control" id="title_chinese"
+                                                aria-describedby="title_chineseHelp">
+                                            <small id="title_chineseHelp" class="form-text text-muted">Please enter
+                                                product's title
+                                                (Chinese).</small>
+                                            @error('title_chinese')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="slogan_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Slogan
+                                                <span class="text-danger">*</span></label>
+                                            <input type="text" name="slogan_chinese"
+                                                value="{{ old('slogan_chinese', isset($product->slogan_chinese) ? $product->slogan_chinese : null) }}"
+                                                class="form-control" id="slogan_chinese"
+                                                aria-describedby="slogan_chineseHelp">
+                                            <small id="slogan_chineseHelp" class="form-text text-muted">Please enter
+                                                product's
+                                                slogan (Chinese).</small>
+                                            @error('slogan_chinese')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="description_chinese"><i class="flag-icon flag-icon-cn mr-2"></i>
+                                                Description
+                                                <span class="text-danger">*</span></label>
+                                            <textarea name="description_chinese" class="summernote" required
+                                                id="description_chinese">{{ old('description_chinese', isset($product->description_chinese) ? $product->description_chinese : '') }}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="benefits_chinese"><i class="flag-icon flag-icon-cn mr-2"></i>
+                                                Benefits Block
+                                                <span class="text-danger">*</span></label>
+                                            <textarea name="benefits_chinese" class="summernote" required
+                                                id="benefits_chinese">{{ old('benefits_chinese', isset($product->benefits_block_chinese) ? $product->benefits_block_chinese : '') }}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="table_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Table of
+                                                Content
+                                                Block <span class="text-danger">*</span></label>
+                                            <textarea name="table_chinese" required id="table_chinese"
+                                                class="table-block">{{ old('table_chinese',isset($product->table_block_chinese)? $product->table_block_chinese: '<table><thead><tr><th>Head 1<th><th>Head 2<th><th>Head 3<th><th>Head 4<th><th>Head 5<th></tr></thead><tbody><tr><td>Cell 1<td><td>Cell 2<td><td>Cell 3<td><td>Cell 4<td><td>Cell 5<td></tr><tr><td>Cell 6<td><td>Cell 7<td><td>Cell 8<td><td>Cell 9<td><td>Cell 10<td></tr><tr><td>Cell 11<td><td>Cell 12<td><td>Cell 13<td><td>Cell 14<td><td>Cell 15<td></tr></tbody></table>') }}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="why_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Why Work
+                                                With Us
+                                                Block</label>
+                                            <textarea name="why_chinese" class="summernote" required
+                                                id="why_chinese">{{ old('why_chinese', isset($product->why_block_chinese) ? $product->why_block_chinese : '') }}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="downloadable_chinese"><i class="flag-icon flag-icon-cn mr-2"></i>
+                                                Downloadable Block</label>
+                                            <textarea name="downloadable_chinese" class="summernote" required
+                                                id="downloadable_chinese">{{ old('downloadable_chinese',isset($product->downloadable_block_chinese) ? $product->downloadable_block_chinese : '') }}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="applythis_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Apply
+                                                This
+                                                Block</label>
+                                            <textarea name="applythis_chinese" class="summernote" required
+                                                id="applythis_chinese">{{ old('applythis_chinese', isset($product->applythis_block_chinese) ? $product->applythis_block_chinese : '') }}</textarea>
+                                        </div>
+                                    </div> {{-- /. End of Chinese Inputs --}}
                                 </div>
                             </div>
                             <div class="col-4 bg-secondary p-3">

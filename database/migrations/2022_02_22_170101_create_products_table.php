@@ -32,6 +32,14 @@ return new class extends Migration
             $table->longText('why_block_burmese')->nullable();
             $table->longText('downloadable_block_burmese')->nullable();
             $table->longText('applythis_block_burmese')->nullable();
+            $table->string('title_chinese');
+            $table->string('slogan_chinese');
+            $table->longText('description_chinese');
+            $table->longText('benefits_block_chinese');
+            $table->longText('table_block_chinese')->nullable();
+            $table->longText('why_block_chinese')->nullable();
+            $table->longText('downloadable_block_chinese')->nullable();
+            $table->longText('applythis_block_chinese')->nullable();
             $table->string('product_photo', 2048)->nullable();
             $table->foreignId('category_id');
             $table->boolean('is_active')->default(true);
