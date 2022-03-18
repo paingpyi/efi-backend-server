@@ -261,6 +261,9 @@ class NewsController extends Controller
     {
         $parameters = explode('&', $para);
         $locale = '';
+        $lang_english = 'en';
+        $lang_chinese = 'zh';
+        $lang_burmese = 'mm';
         $conditions = [];
 
         foreach ($parameters as $check) {
@@ -278,7 +281,7 @@ class NewsController extends Controller
             }
         }
 
-        if ($locale == 'en') {
+        if ($locale == $lang_english) {
             $news_db = DB::table('news')
                 ->join('users', 'users.id', '=', 'news.author_id')
                 ->select(
@@ -292,7 +295,9 @@ class NewsController extends Controller
                     'users.email as author_email',
                     'users.profile_photo_path as author_photo'
                 );
-        } else if ($locale == 'mm') {
+
+            $localeData = ['lang' => 'en-US', 'name' => 'English'];
+        } else if ($locale == $lang_burmese) {
             $news_db = DB::table('news')
                 ->join('users', 'users.id', '=', 'news.author_id')
                 ->select(
@@ -306,6 +311,24 @@ class NewsController extends Controller
                     'users.email as author_email',
                     'users.profile_photo_path as author_photo'
                 );
+
+                $localeData = ['lang' => 'my-MM', 'name' => 'Burmese'];
+        } else if ($locale == $lang_chinese) {
+            $news_db = DB::table('news')
+                ->join('users', 'users.id', '=', 'news.author_id')
+                ->select(
+                    'news.id as id',
+                    'news.title_chinese as title_chinese',
+                    'news.content_chinese as content_chinese',
+                    'news.status as status',
+                    'news.created_at as created_at',
+                    'news.updated_at as updated_at',
+                    'users.name as author_name',
+                    'users.email as author_email',
+                    'users.profile_photo_path as author_photo'
+                );
+
+                $localeData = ['lang' => 'zh-CN', 'name' => 'Chinese'];
         } else {
             $news_db = DB::table('news')
                 ->join('users', 'users.id', '=', 'news.author_id')
@@ -315,6 +338,8 @@ class NewsController extends Controller
                     'news.content as content',
                     'news.title_burmese as title_burmese',
                     'news.content_burmese as content_burmese',
+                    'news.title_chinese as title_chinese',
+                    'news.content_chinese as content_chinese',
                     'news.status as status',
                     'news.created_at as created_at',
                     'news.updated_at as updated_at',
@@ -322,6 +347,8 @@ class NewsController extends Controller
                     'users.email as author_email',
                     'users.profile_photo_path as author_photo'
                 );
+
+                $localeData = ['lang' => 'en-US/my-MM/zh-CN', 'name' => 'English/Burmese/Chinese'];
         }
 
         /***
@@ -336,8 +363,10 @@ class NewsController extends Controller
              *
              **/
             if ($con['key'] == 'title') {
-                if ($locale == 'mm') {
+                if ($locale == $lang_burmese) {
                     $news_db->where('news.title_burmese', '=', Str::replace('+', ' ', $con['value']));
+                } else if ($locale == $lang_chinese) {
+                    $news_db->where('news.title_chinese', '=', Str::replace('+', ' ', $con['value']));
                 } else {
                     $news_db->where('news.title', '=', Str::replace('+', ' ', $con['value']));
                 }
@@ -363,8 +392,10 @@ class NewsController extends Controller
                     if ($orderBy[0] == 'desc') {
                         if (isset($orderBy[1])) {
                             if ($orderBy[1] == 'title') {
-                                if ($locale == 'mm') {
+                                if ($locale == $lang_burmese) {
                                     $news_db->orderByDesc('news.title_burmese');
+                                } else if ($locale == $lang_chinese) {
+                                    $news_db->orderByDesc('news.title_chinese');
                                 } else {
                                     $news_db->orderByDesc('news.title');
                                 }
@@ -383,8 +414,10 @@ class NewsController extends Controller
                     } else if ($orderBy[0] == 'asc') {
                         if (isset($orderBy[1])) {
                             if ($orderBy[1] == 'title') {
-                                if ($locale == 'mm') {
+                                if ($locale == $lang_burmese) {
                                     $news_db->orderBy('news.title_burmese');
+                                } else if ($locale == $lang_chinese) {
+                                    $news_db->orderBy('news.title_chinese');
                                 } else {
                                     $news_db->orderBy('news.title');
                                 }
@@ -420,6 +453,7 @@ class NewsController extends Controller
             $response = [
                 'code' => 200,
                 'status' => 'success',
+                'locale' => $localeData,
                 'data' => $news,
             ];
         } else {
@@ -440,19 +474,9 @@ class NewsController extends Controller
      */
     public function apiList(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'title' => 'nullable|max:255',
-        ]);
-
-        if ($validator->fails()) {
-            $response = [
-                'code' => 400,
-                'status' => 'The server could not understand the request that it was sent.',
-                'errors' => $validator->errors(),
-            ];
-
-            return response()->json($response);
-        }
+        $lang_english = 'en';
+        $lang_chinese = 'zh';
+        $lang_burmese = 'mm';
 
         $data = $request->json()->all();
 
@@ -461,7 +485,7 @@ class NewsController extends Controller
          *
          * MM for my-MM/Burmese and EN for en-US/English
          */
-        if (isset($data['locale']) and Str::lower($data['locale']) == 'en') {
+        if (isset($data['locale']) and Str::lower($data['locale']) == $lang_english) {
             $news_db = DB::table('news')
                 ->join('users', 'users.id', '=', 'news.author_id')
                 ->select(
@@ -477,7 +501,7 @@ class NewsController extends Controller
                 );
 
             $localeData = ['lang' => 'en-US', 'name' => 'English'];
-        } else if (isset($data['locale']) and Str::lower($data['locale']) == 'mm') {
+        } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_burmese) {
             $news_db = DB::table('news')
                 ->join('users', 'users.id', '=', 'news.author_id')
                 ->select(
@@ -493,6 +517,22 @@ class NewsController extends Controller
                 );
 
             $localeData = ['lang' => 'my-MM', 'name' => 'Burmese'];
+        } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
+            $news_db = DB::table('news')
+                ->join('users', 'users.id', '=', 'news.author_id')
+                ->select(
+                    'news.id as id',
+                    'news.title_chinese as title_chinese',
+                    'news.content_chinese as content_chinese',
+                    'news.status as status',
+                    'news.created_at as created_at',
+                    'news.updated_at as updated_at',
+                    'users.name as author_name',
+                    'users.email as author_email',
+                    'users.profile_photo_path as author_photo'
+                );
+
+            $localeData = ['lang' => 'zh-CN', 'name' => 'Chinese'];
         } else {
             $news_db = DB::table('news')
                 ->join('users', 'users.id', '=', 'news.author_id')
@@ -510,7 +550,7 @@ class NewsController extends Controller
                     'users.profile_photo_path as author_photo'
                 );
 
-            $localeData = ['lang' => 'en-US/my-MM', 'name' => 'English/Burmese'];
+            $localeData = ['lang' => 'en-US/my-MM/zh-CN', 'name' => 'English/Burmese/Chinese'];
         }
 
         /***
@@ -528,8 +568,10 @@ class NewsController extends Controller
          *
          **/
         if (isset($data['title'])) {
-            if (isset($data['locale']) and Str::lower($data['locale']) == 'en') {
+            if (isset($data['locale']) and Str::lower($data['locale']) == $lang_english) {
                 $news_db->where('news.title', '=', $data['title']);
+            } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
+                $news_db->where('news.title_chinese', '=', $data['title']);
             } else {
                 $news_db->where('news.title_burmese', '=', $data['title']);
             }
@@ -559,32 +601,46 @@ class NewsController extends Controller
          *
          **/
         if (isset($data['order'])) {
-            if (isset($data['locale']) and Str::lower($data['locale']) == 'en') {
+            if (isset($data['locale']) and Str::lower($data['locale']) == $lang_english) {
                 if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
-                    if (isset($data['order']['orderto'])) {
-                        $news_db->orderByDesc(Str::lower($data['order']['orderto']));
+                    if (isset($data['order']['field'])) {
+                        $news_db->orderByDesc(Str::lower($data['order']['field']));
                     } else {
                         $news_db->orderByDesc('news.title');
                     }
                 } else {
-                    if (isset($data['order']['orderto'])) {
-                        $news_db->orderBy(Str::lower($data['order']['orderto']));
+                    if (isset($data['order']['field'])) {
+                        $news_db->orderBy(Str::lower($data['order']['field']));
                     } else {
                         $news_db->orderBy('news.title');
                     }
                 }
-            } else {
+            } else if(isset($data['locale']) and Str::lower($data['locale']) == $lang_burmese) {
                 if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
-                    if (isset($data['order']['orderto'])) {
-                        $news_db->orderByDesc(Str::lower($data['order']['orderto']) . '_burmese');
+                    if (isset($data['order']['field'])) {
+                        $news_db->orderByDesc(Str::lower($data['order']['field']) . '_burmese');
                     } else {
                         $news_db->orderByDesc('news.title_burmese');
                     }
                 } else {
-                    if (isset($data['order']['orderto'])) {
-                        $news_db->orderBy(Str::lower($data['order']['orderto']) . '_burmese');
+                    if (isset($data['order']['field'])) {
+                        $news_db->orderBy(Str::lower($data['order']['field']) . '_burmese');
                     } else {
                         $news_db->orderBy('news.title_burmese');
+                    }
+                }
+            } else {
+                if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
+                    if (isset($data['order']['field'])) {
+                        $news_db->orderByDesc(Str::lower($data['order']['field']) . '_chinese');
+                    } else {
+                        $news_db->orderByDesc('news.title_chinese');
+                    }
+                } else {
+                    if (isset($data['order']['field'])) {
+                        $news_db->orderBy(Str::lower($data['order']['field']) . '_chinese');
+                    } else {
+                        $news_db->orderBy('news.title_chinese');
                     }
                 }
             }

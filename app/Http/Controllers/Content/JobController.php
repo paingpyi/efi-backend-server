@@ -140,7 +140,7 @@ class JobController extends Controller
                 ->route('edit#job')
                 ->withErrors($validator)
                 ->withInput();
-        } //dd($request->all());
+        }
 
         $job = [
             'position' => $request->position,
