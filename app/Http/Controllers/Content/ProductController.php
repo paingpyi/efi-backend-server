@@ -106,6 +106,14 @@ class ProductController extends Controller
                 'why_block_burmese' => $request->why_burmese,
                 'downloadable_block_burmese' => $request->downloadable_burmese,
                 'applythis_block_burmese' => $request->applythis_burmese,
+                'title_chinese' => $request->title_chinese,
+                'slogan_chinese' => $request->slogan_chinese,
+                'description_chinese' => $request->description_chinese,
+                'benefits_block_chinese' => $request->benefits_chinese,
+                'table_block_chinese' => $request->table_chinese,
+                'why_block_chinese' => $request->why_chinese,
+                'downloadable_block_chinese' => $request->downloadable_chinese,
+                'applythis_block_chinese' => $request->applythis_chinese,
                 'category_id' => $request->category,
                 'product_photo' => '/storage/' . $productfilePath,
                 'is_active' => ($request->is_active == 'on') ? true : false,
@@ -189,6 +197,14 @@ class ProductController extends Controller
                     'why_block_burmese' => $request->why_burmese,
                     'downloadable_block_burmese' => $request->downloadable_burmese,
                     'applythis_block_burmese' => $request->applythis_burmese,
+                    'title_chinese' => $request->title_chinese,
+                    'slogan_chinese' => $request->slogan_chinese,
+                    'description_chinese' => $request->description_chinese,
+                    'benefits_block_chinese' => $request->benefits_chinese,
+                    'table_block_chinese' => $request->table_chinese,
+                    'why_block_chinese' => $request->why_chinese,
+                    'downloadable_block_chinese' => $request->downloadable_chinese,
+                    'applythis_block_chinese' => $request->applythis_chinese,
                     'category_id' => $request->category,
                     'product_photo' => '/storage/' . $productfilePath,
                     'is_active' => ($request->is_active == 'on') ? true : false,
@@ -216,6 +232,14 @@ class ProductController extends Controller
                     'why_block_burmese' => $request->why_burmese,
                     'downloadable_block_burmese' => $request->downloadable_burmese,
                     'applythis_block_burmese' => $request->applythis_burmese,
+                    'title_chinese' => $request->title_chinese,
+                    'slogan_chinese' => $request->slogan_chinese,
+                    'description_chinese' => $request->description_chinese,
+                    'benefits_block_chinese' => $request->benefits_chinese,
+                    'table_block_chinese' => $request->table_chinese,
+                    'why_block_chinese' => $request->why_chinese,
+                    'downloadable_block_chinese' => $request->downloadable_chinese,
+                    'applythis_block_chinese' => $request->applythis_chinese,
                     'category_id' => $request->category,
                     'is_active' => ($request->is_active == 'on') ? true : false,
                 ];
@@ -240,6 +264,14 @@ class ProductController extends Controller
                     'why_block_burmese' => $request->why_burmese,
                     'downloadable_block_burmese' => $request->downloadable_burmese,
                     'applythis_block_burmese' => $request->applythis_burmese,
+                    'title_chinese' => $request->title_chinese,
+                    'slogan_chinese' => $request->slogan_chinese,
+                    'description_chinese' => $request->description_chinese,
+                    'benefits_block_chinese' => $request->benefits_chinese,
+                    'table_block_chinese' => $request->table_chinese,
+                    'why_block_chinese' => $request->why_chinese,
+                    'downloadable_block_chinese' => $request->downloadable_chinese,
+                    'applythis_block_chinese' => $request->applythis_chinese,
                     'category_id' => $request->category,
                     'product_photo' => '/storage/' . $productfilePath,
                     'is_active' => ($request->is_active == 'on') ? true : false,
@@ -262,6 +294,14 @@ class ProductController extends Controller
                     'why_block_burmese' => $request->why_burmese,
                     'downloadable_block_burmese' => $request->downloadable_burmese,
                     'applythis_block_burmese' => $request->applythis_burmese,
+                    'title_chinese' => $request->title_chinese,
+                    'slogan_chinese' => $request->slogan_chinese,
+                    'description_chinese' => $request->description_chinese,
+                    'benefits_block_chinese' => $request->benefits_chinese,
+                    'table_block_chinese' => $request->table_chinese,
+                    'why_block_chinese' => $request->why_chinese,
+                    'downloadable_block_chinese' => $request->downloadable_chinese,
+                    'applythis_block_chinese' => $request->applythis_chinese,
                     'category_id' => $request->category,
                     'is_active' => ($request->is_active == 'on') ? true : false,
                 ];
@@ -284,6 +324,14 @@ class ProductController extends Controller
                 'why_block_burmese' => $request->why_burmese,
                 'downloadable_block_burmese' => $request->downloadable_burmese,
                 'applythis_block_burmese' => $request->applythis_burmese,
+                'title_chinese' => $request->title_chinese,
+                'slogan_chinese' => $request->slogan_chinese,
+                'description_chinese' => $request->description_chinese,
+                'benefits_block_chinese' => $request->benefits_chinese,
+                'table_block_chinese' => $request->table_chinese,
+                'why_block_chinese' => $request->why_chinese,
+                'downloadable_block_chinese' => $request->downloadable_chinese,
+                'applythis_block_chinese' => $request->applythis_chinese,
                 'category_id' => $request->category,
                 'is_active' => ($request->is_active == 'on') ? true : false,
             ];
@@ -348,19 +396,6 @@ class ProductController extends Controller
      */
     public function apiList(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'title' => 'max:255',
-        ]);
-
-        if ($validator->fails()) {
-            $response = [
-                'code' => 400,
-                'status' => 'The server could not understand the request that it was sent.',
-                'errors' => $validator->errors(),
-            ];
-
-            return response()->json($response);
-        }
 
         $data = $request->json()->all();
 
@@ -572,36 +607,36 @@ class ProductController extends Controller
 
     private function getProducts($paginate, $search_column = null, $search_operator = null, $search_value = null)
     {
-         $product_db = DB::table('products')
-                ->join('categories', 'categories.id', '=', 'products.category_id')
-                ->select(
-                    'products.id as id',
-                    'products.title as title',
-                    'products.slogan',
-                    'products.description as description',
-                    'products.benefits_block',
-                    'products.benefits_image',
-                    'products.table_block',
-                    'products.why_block',
-                    'products.downloadable_block',
-                    'products.applythis_block',
-                    'products.title_burmese',
-                    'products.slogan_burmese',
-                    'products.description_burmese',
-                    'products.benefits_block_burmese',
-                    'products.table_block_burmese',
-                    'products.why_block_burmese',
-                    'products.downloadable_block_burmese',
-                    'products.applythis_block_burmese',
-                    'products.product_photo',
-                    'products.category_id',
-                    'products.is_active as is_active',
-                    'products.created_at as created_at',
-                    'products.updated_at as updated_at',
-                    'categories.name as category_name',
-                    'categories.description as category_description',
-                    'categories.is_active as category_is_active'
-                );
+        $product_db = DB::table('products')
+            ->join('categories', 'categories.id', '=', 'products.category_id')
+            ->select(
+                'products.id as id',
+                'products.title as title',
+                'products.slogan',
+                'products.description as description',
+                'products.benefits_block',
+                'products.benefits_image',
+                'products.table_block',
+                'products.why_block',
+                'products.downloadable_block',
+                'products.applythis_block',
+                'products.title_burmese',
+                'products.slogan_burmese',
+                'products.description_burmese',
+                'products.benefits_block_burmese',
+                'products.table_block_burmese',
+                'products.why_block_burmese',
+                'products.downloadable_block_burmese',
+                'products.applythis_block_burmese',
+                'products.product_photo',
+                'products.category_id',
+                'products.is_active as is_active',
+                'products.created_at as created_at',
+                'products.updated_at as updated_at',
+                'categories.name as category_name',
+                'categories.description as category_description',
+                'categories.is_active as category_is_active'
+            );
 
 
         if (is_null($search_column) and is_null($search_operator) and is_null($search_value)) {
