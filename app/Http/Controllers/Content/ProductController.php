@@ -396,6 +396,11 @@ class ProductController extends Controller
      */
     public function apiList(Request $request)
     {
+        // Variables
+        $lang_chinese = 'zh';
+        $lang_burmese = 'mm';
+        $lang_english = 'en';
+        $localeData = [];
 
         $data = $request->json()->all();
 
@@ -404,7 +409,7 @@ class ProductController extends Controller
          *
          * MM for my-MM/Burmese and EN for en-US/English
          */
-        if (isset($data['locale']) and Str::lower($data['locale']) == 'en') {
+        if (isset($data['locale']) and Str::lower($data['locale']) == $lang_english) {
             $product_db = DB::table('products')
                 ->join('categories', 'categories.id', '=', 'products.category_id')
                 ->select(
@@ -429,7 +434,31 @@ class ProductController extends Controller
                 );
 
             $localeData = ['lang' => 'en-US', 'name' => 'English'];
-        } else if (isset($data['locale']) and Str::lower($data['locale']) == 'mm') {
+        } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
+            $product_db = DB::table('products')
+                ->join('categories', 'categories.id', '=', 'products.category_id')
+                ->select(
+                    'products.id as id',
+                    'products.title_chinese',
+                    'products.slogan_chinese',
+                    'products.description_chinese',
+                    'products.benefits_block_chinese',
+                    'products.table_block_chinese',
+                    'products.why_block_chinese',
+                    'products.downloadable_block_chinese',
+                    'products.applythis_block_chinese',
+                    'products.product_photo',
+                    'products.category_id',
+                    'products.is_active as is_active',
+                    'products.created_at as created_at',
+                    'products.updated_at as updated_at',
+                    'categories.name as category_name',
+                    'categories.description as category_description',
+                    'categories.is_active as category_is_active'
+                );
+
+            $localeData = ['lang' => 'zh-CN', 'name' => 'Chinese'];
+        } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_burmese) {
             $product_db = DB::table('products')
                 ->join('categories', 'categories.id', '=', 'products.category_id')
                 ->select(
@@ -475,6 +504,14 @@ class ProductController extends Controller
                     'products.why_block_burmese',
                     'products.downloadable_block_burmese',
                     'products.applythis_block_burmese',
+                    'products.title_chinese',
+                    'products.slogan_chinese',
+                    'products.description_chinese',
+                    'products.benefits_block_chinese',
+                    'products.table_block_chinese',
+                    'products.why_block_chinese',
+                    'products.downloadable_block_chinese',
+                    'products.applythis_block_chinese',
                     'products.product_photo',
                     'products.category_id',
                     'products.is_active as is_active',
@@ -485,7 +522,7 @@ class ProductController extends Controller
                     'categories.is_active as category_is_active'
                 );
 
-            $localeData = ['lang' => 'en-US/my-MM', 'name' => 'English/Burmese'];
+            $localeData = ['lang' => 'en-US/my-MM/zh-CN', 'name' => 'English/Burmese/Chinese'];
         }
 
         /***
@@ -503,8 +540,10 @@ class ProductController extends Controller
          *
          **/
         if (isset($data['title'])) {
-            if (isset($data['locale']) and Str::lower($data['locale']) == 'en') {
+            if (isset($data['locale']) and Str::lower($data['locale']) == $lang_english) {
                 $product_db->where('products.title', '=', $data['title']);
+            } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
+                $product_db->where('products.title_chinese', '=', $data['title']);
             } else {
                 $product_db->where('products.title_burmese', '=', $data['title']);
             }
@@ -543,30 +582,44 @@ class ProductController extends Controller
          *
          **/
         if (isset($data['order'])) {
-            if (isset($data['locale']) and Str::lower($data['locale']) == 'en') {
+            if (isset($data['locale']) and Str::lower($data['locale']) == $lang_english) {
                 if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
-                    if (isset($data['order']['orderto'])) {
-                        $product_db->orderByDesc(Str::lower($data['order']['orderto']));
+                    if (isset($data['order']['field'])) {
+                        $product_db->orderByDesc(Str::lower($data['order']['field']));
                     } else {
                         $product_db->orderByDesc('products.title');
                     }
                 } else {
-                    if (isset($data['order']['orderto'])) {
-                        $product_db->orderBy(Str::lower($data['order']['orderto']));
+                    if (isset($data['order']['field'])) {
+                        $product_db->orderBy(Str::lower($data['order']['field']));
                     } else {
                         $product_db->orderBy('products.title');
                     }
                 }
+            } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
+                if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
+                    if (isset($data['order']['field'])) {
+                        $product_db->orderByDesc(Str::lower($data['order']['field']) . '_chinese');
+                    } else {
+                        $product_db->orderByDesc('products.title_chinese');
+                    }
+                } else {
+                    if (isset($data['order']['field'])) {
+                        $product_db->orderBy(Str::lower($data['order']['field']) . '_chinese');
+                    } else {
+                        $product_db->orderBy('products.title_chinese');
+                    }
+                }
             } else {
                 if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
-                    if (isset($data['order']['orderto'])) {
-                        $product_db->orderByDesc(Str::lower($data['order']['orderto']) . '_burmese');
+                    if (isset($data['order']['field'])) {
+                        $product_db->orderByDesc(Str::lower($data['order']['field']) . '_burmese');
                     } else {
                         $product_db->orderByDesc('products.title_burmese');
                     }
                 } else {
-                    if (isset($data['order']['orderto'])) {
-                        $product_db->orderBy(Str::lower($data['order']['orderto']) . '_burmese');
+                    if (isset($data['order']['field'])) {
+                        $product_db->orderBy(Str::lower($data['order']['field']) . '_burmese');
                     } else {
                         $product_db->orderBy('products.title_burmese');
                     }

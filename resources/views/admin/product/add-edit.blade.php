@@ -527,12 +527,14 @@
                     category_burmese: {
                         required: true,
                     },
+                    @if ($action == 'new')
                     benefit: {
                         required: true,
                     },
                     product: {
                         required: true,
                     },
+                    @endif
                 },
                 messages: {
                     title: {
@@ -560,12 +562,14 @@
                     category_burmese: {
                         required: "You need to choose the category of product.",
                     },
+                    @if ($action == 'new')
                     benefit: {
                         required: "You need to upload image.",
                     },
                     product: {
                         required: "You need to upload image.",
                     },
+                    @endif
                 },
                 errorElement: 'span',
                 errorPlacement: function(error, element) {
