@@ -63,6 +63,8 @@ class PageController extends Controller
             'content' => 'required',
             'title_burmese' => 'required|unique:pages|max:255',
             'content_burmese' => 'required',
+            'title_chinese' => 'required|unique:pages|max:255',
+            'content_chinese' => 'required',
             'slug_url' => 'required|unique:pages,url_slug',
             'page' => 'required|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
@@ -85,6 +87,8 @@ class PageController extends Controller
                 'content' => $request->content,
                 'title_burmese' => $request->title_burmese,
                 'content_burmese' => $request->content_burmese,
+                'title_chinese' => $request->title_chinese,
+                'content_chinese' => $request->content_chinese,
                 'url_slug' => $request->slug_url,
                 'related_contents' => isset($request->category) ? json_encode($request->category) : null,
                 'is_active' => ($request->active == 'on') ? true : false,
@@ -138,6 +142,8 @@ class PageController extends Controller
             'content' => 'required',
             'title_burmese' => 'required|max:255',
             'content_burmese' => 'required',
+            'title_chinese' => 'required|max:255',
+            'content_chinese' => 'required',
             'slug_url' => 'required',
             'page' => 'nullable|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
@@ -160,6 +166,8 @@ class PageController extends Controller
                 'content' => $request->content,
                 'title_burmese' => $request->title_burmese,
                 'content_burmese' => $request->content_burmese,
+                'title_chinese' => $request->title_chinese,
+                'content_chinese' => $request->content_chinese,
                 'url_slug' => $request->slug_url,
                 'related_contents' => isset($request->category) ? json_encode($request->category) : null,
                 'is_active' => ($request->active == 'on') ? true : false,
@@ -171,6 +179,8 @@ class PageController extends Controller
                 'content' => $request->content,
                 'title_burmese' => $request->title_burmese,
                 'content_burmese' => $request->content_burmese,
+                'title_chinese' => $request->title_chinese,
+                'content_chinese' => $request->content_chinese,
                 'url_slug' => $request->slug_url,
                 'related_contents' => isset($request->category) ? json_encode($request->category) : null,
                 'is_active' => ($request->active == 'on') ? true : false,
@@ -231,6 +241,11 @@ class PageController extends Controller
      */
     public function apiList(Request $request)
     {
+        // Variables
+        $lang_chinese = 'zh';
+        $lang_burmese = 'mm';
+        $lang_english = 'en';
+        $localeData = [];
         $data = $request->json()->all();
 
         /*
@@ -238,7 +253,7 @@ class PageController extends Controller
          *
          * MM for my-MM/Burmese and EN for en-US/English
          */
-        if (isset($data['locale']) and Str::lower($data['locale']) == 'en') {
+        if (isset($data['locale']) and Str::lower($data['locale']) == $lang_english) {
             $page_db = DB::table('pages')
                 ->select(
                     'id',
@@ -253,7 +268,7 @@ class PageController extends Controller
                 );
 
             $localeData = ['lang' => 'en-US', 'name' => 'English'];
-        } else if (isset($data['locale']) and Str::lower($data['locale']) == 'mm') {
+        } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_burmese) {
             $page_db = DB::table('pages')
                 ->select(
                     'id',
@@ -268,6 +283,21 @@ class PageController extends Controller
                 );
 
             $localeData = ['lang' => 'my-MM', 'name' => 'Burmese'];
+        } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
+            $page_db = DB::table('pages')
+                ->select(
+                    'id',
+                    'title_chinese',
+                    'content_chinese',
+                    'image',
+                    'url_slug',
+                    'related_contents',
+                    'is_active',
+                    'created_at',
+                    'updated_at',
+                );
+
+            $localeData = ['lang' => 'zh-CN', 'name' => 'Chinese'];
         } else {
             $page_db = DB::table('pages')
                 ->select(
@@ -276,6 +306,8 @@ class PageController extends Controller
                     'content',
                     'title_burmese',
                     'content_burmese',
+                    'title_chinese',
+                    'content_chinese',
                     'image',
                     'url_slug',
                     'related_contents',
@@ -302,8 +334,10 @@ class PageController extends Controller
          *
          **/
         if (isset($data['title'])) {
-            if (isset($data['locale']) and Str::lower($data['locale']) == 'en') {
+            if (isset($data['locale']) and Str::lower($data['locale']) == $lang_english) {
                 $page_db->where('title', '=', $data['title']);
+            } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
+                $page_db->where('title_chinese', '=', $data['title']);
             } else {
                 $page_db->where('title_burmese', '=', $data['title']);
             }
@@ -333,30 +367,44 @@ class PageController extends Controller
          *
          **/
         if (isset($data['order'])) {
-            if (isset($data['locale']) and Str::lower($data['locale']) == 'en') {
+            if (isset($data['locale']) and Str::lower($data['locale']) == $lang_english) {
                 if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
-                    if (isset($data['order']['orderto'])) {
-                        $page_db->orderByDesc(Str::lower($data['order']['orderto']));
+                    if (isset($data['order']['field'])) {
+                        $page_db->orderByDesc(Str::lower($data['order']['field']));
                     } else {
                         $page_db->orderByDesc('title');
                     }
                 } else {
-                    if (isset($data['order']['orderto'])) {
-                        $page_db->orderBy(Str::lower($data['order']['orderto']));
+                    if (isset($data['order']['field'])) {
+                        $page_db->orderBy(Str::lower($data['order']['field']));
                     } else {
                         $page_db->orderBy('title');
                     }
                 }
+            } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
+                if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
+                    if (isset($data['order']['field'])) {
+                        $page_db->orderByDesc(Str::lower($data['order']['field']) . '_chinese');
+                    } else {
+                        $page_db->orderByDesc('title_chinese');
+                    }
+                } else {
+                    if (isset($data['order']['field'])) {
+                        $page_db->orderBy(Str::lower($data['order']['field']) . '_chinese');
+                    } else {
+                        $page_db->orderBy('title_chinese');
+                    }
+                }
             } else {
                 if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
-                    if (isset($data['order']['orderto'])) {
-                        $page_db->orderByDesc(Str::lower($data['order']['orderto']) . '_burmese');
+                    if (isset($data['order']['field'])) {
+                        $page_db->orderByDesc(Str::lower($data['order']['field']) . '_burmese');
                     } else {
                         $page_db->orderByDesc('title_burmese');
                     }
                 } else {
-                    if (isset($data['order']['orderto'])) {
-                        $page_db->orderBy(Str::lower($data['order']['orderto']) . '_burmese');
+                    if (isset($data['order']['field'])) {
+                        $page_db->orderBy(Str::lower($data['order']['field']) . '_burmese');
                     } else {
                         $page_db->orderBy('title_burmese');
                     }

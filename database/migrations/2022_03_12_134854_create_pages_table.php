@@ -19,6 +19,8 @@ return new class extends Migration
             $table->longText('content');
             $table->string('title_burmese');
             $table->longText('content_burmese');
+            $table->string('title_chinese');
+            $table->longText('content_chinese');
             $table->string('image')->nullable();
             $table->string('url_slug');
             $table->longText('related_contents')->nullable();

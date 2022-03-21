@@ -14,6 +14,8 @@ class Page extends Model
         'content',
         'title_burmese',
         'content_burmese',
+        'title_chinese',
+        'content_chinese',
         'image',
         'url_slug',
         'related_contents',
