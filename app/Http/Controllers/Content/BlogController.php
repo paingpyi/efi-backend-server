@@ -777,8 +777,6 @@ class BlogController extends Controller
                 'blogs.featured as featured',
                 'blogs.title_burmese as title_burmese',
                 'blogs.content_burmese as content_burmese',
-                'blogs.title_chinese as title_chinese',
-                'blogs.content_chinese as content_chinese',
                 'blogs.category_id',
                 'blogs.status as status',
                 'blogs.created_at as created_at',
