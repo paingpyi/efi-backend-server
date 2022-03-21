@@ -47,6 +47,8 @@
                                             role="tab" aria-controls="nav-home" aria-selected="true">English</a>
                                         <a class="nav-link" id="nav-mm-tab" data-toggle="tab" href="#nav-mm"
                                             role="tab" aria-controls="nav-profile" aria-selected="false">Burmese</a>
+                                        <a class="nav-link" id="nav-zh-tab" data-toggle="tab" href="#nav-zh"
+                                            role="tab" aria-controls="nav-profile" aria-selected="false">Chinese</a>
                                     </div>
                                 </nav>
                                 <div class="tab-content pr-2" id="nav-tabContent">
@@ -69,7 +71,7 @@
                                             <textarea name="content" class="summernote" required
                                                 id="content">{{ old('content', isset($blog->content) ? $blog->content : '') }}</textarea>
                                         </div>
-                                    </div>
+                                    </div> {{-- /. End of English Inputs --}}
                                     <div class="tab-pane fade pt-3" id="nav-mm" role="tabpanel"
                                         aria-labelledby="nav-profile-tab">
                                         <div class="form-group">
@@ -81,7 +83,7 @@
                                                 aria-describedby="title_burmeseHelp">
                                             <small id="title_burmeseHelp" class="form-text text-muted">Please enter
                                                 title
-                                                (burmese).</small>
+                                                (Burmese).</small>
                                             @error('title_burmese')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -93,7 +95,31 @@
                                             <textarea name="content_burmese" class="summernote" required
                                                 id="content_burmese">{{ old('content_burmese', isset($blog->content_burmese) ? $blog->content_burmese : '') }}</textarea>
                                         </div>
-                                    </div>
+                                    </div> {{-- /. End of Burmese Inputs --}}
+                                    <div class="tab-pane fade pt-3" id="nav-zh" role="tabpanel"
+                                        aria-labelledby="nav-profile-tab">
+                                        <div class="form-group">
+                                            <label for="title_chinese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
+                                                <span class="text-danger">*</span></label>
+                                            <input type="text" name="title_chinese"
+                                                value="{{ old('title_chinese', isset($blog->title_chinese) ? $blog->title_chinese : null) }}"
+                                                class="form-control" id="title_chinese"
+                                                aria-describedby="title_chineseHelp">
+                                            <small id="title_chineseHelp" class="form-text text-muted">Please enter
+                                                title
+                                                (Chinese).</small>
+                                            @error('title_chinese')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="content_chinese"><i class="flag-icon flag-icon-mm mr-2"></i>
+                                                Content Body
+                                                <span class="text-danger">*</span></label>
+                                            <textarea name="content_chinese" class="summernote" required
+                                                id="content_chinese">{{ old('content_chinese', isset($blog->content_chinese) ? $blog->content_chinese : '') }}</textarea>
+                                        </div>
+                                    </div> {{-- /. End of Chinese Inputs --}}
                                 </div>
                             </div>
                             <div class="col-4 bg-secondary p-3">
@@ -319,6 +345,12 @@
                     content_burmese: {
                         required: true,
                     },
+                    title_chinese: {
+                        required: true,
+                    },
+                    content_chinese: {
+                        required: true,
+                    },
                     benefit: {
                         required: true,
                     },
@@ -330,19 +362,25 @@
                 },
                 messages: {
                     title: {
-                        required: "You need to fill product title.",
+                        required: "You need to fill Blog title.",
                         titleRegex: "Title must contain only letters, numbers, or dashes.",
                     },
                     content: {
                         required: "You need to fill content.",
                     },
                     category: {
-                        required: "You need to choose the category of product.",
+                        required: "You need to choose the category of Blog.",
                     },
                     title_burmese: {
-                        required: "You need to fill product title.",
+                        required: "You need to fill Blog title.",
                     },
                     content_burmese: {
+                        required: "You need to fill description.",
+                    },
+                    title_chinese: {
+                        required: "You need to fill Blog title.",
+                    },
+                    content_chinese: {
                         required: "You need to fill description.",
                     },
                     @if ($action == 'new')

@@ -316,7 +316,7 @@ class PageController extends Controller
                     'updated_at',
                 );
 
-            $localeData = ['lang' => 'en-US/my-MM', 'name' => 'English/Burmese'];
+            $localeData = ['lang' => 'en-US/my-MM/zh-CN', 'name' => 'English/Burmese/Chinese'];
         }
 
         /***
