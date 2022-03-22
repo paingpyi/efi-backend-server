@@ -31,7 +31,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-tools">
-                        @include('admin.blog.menu')
+                        @include('admin.csr.menu')
                     </div>
                 </div>
                 <!-- /.card-header -->
@@ -46,26 +46,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($blogs as $blog)
+                                @foreach ($csrs as $csr)
                                     <tr>
                                         <td class="text-nowrap"><a
-                                                href="{{ route('edit#blog', Illuminate\Support\Facades\Crypt::encryptString($blog->id)) }}">{{ $blog->title }}<br><span
-                                                    class="badge badge-info">{{ $blog->title_burmese }}</span>
+                                                href="{{ route('edit#csr', Illuminate\Support\Facades\Crypt::encryptString($csr->id)) }}">{{ $csr->title }}<br><span
+                                                    class="badge badge-info">{{ $csr->title_burmese }}</span>
                                             </a></td>
-                                        <td>{{ $blog->category_name }}</td>
+                                        <td>{{ $csr->category_name }}</td>
                                         <td class="text-nowrap">
                                             <div class="btn-group">
-                                                @if ($blog->status == 'published')
+                                                @if ($csr->status == 'published')
                                                     <button id="btn-publish" type="type" class="btn btn-success text-capitalize"><i
-                                                            class="fas fa-check-square"></i> {{ $blog->status }}</button>
+                                                            class="fas fa-check-square"></i> {{ $csr->status }}</button>
                                                     <button type="button"
                                                         class="btn btn-success dropdown-toggle dropdown-toggle-split"
                                                         data-toggle="dropdown" aria-expanded="false">
                                                         <span class="sr-only">Toggle Dropdown</span>
                                                     </button>
-                                                @elseif($blog->status == 'unpublished')
+                                                @elseif($csr->status == 'unpublished')
                                                     <button id="btn-publish" type="type" class="btn btn-danger text-capitalize"><i
-                                                            class="fas fa-square"></i> {{ $blog->status }}</button>
+                                                            class="fas fa-square"></i> {{ $csr->status }}</button>
                                                     <button type="button"
                                                         class="btn btn-danger dropdown-toggle dropdown-toggle-split"
                                                         data-toggle="dropdown" aria-expanded="false">
@@ -73,7 +73,7 @@
                                                     </button>
                                                 @else
                                                     <button id="btn-publish" type="type" class="btn btn-warning text-capitalize"><i
-                                                            class="fas fa-file"></i> {{ $blog->status }}</button>
+                                                            class="fas fa-file"></i> {{ $csr->status }}</button>
                                                     <button type="button"
                                                         class="btn btn-warning dropdown-toggle dropdown-toggle-split"
                                                         data-toggle="dropdown" aria-expanded="false">
@@ -83,18 +83,18 @@
 
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item"
-                                                        href="{{ route('edit#blog', Illuminate\Support\Facades\Crypt::encryptString($blog->id)) }}">Edit</a>
+                                                        href="{{ route('edit#csr', Illuminate\Support\Facades\Crypt::encryptString($csr->id)) }}">Edit</a>
                                                     <div class="dropdown-divider"></div>
                                                     <form id="publish-form"
-                                                        action="{{ route('unpublishing#blog', Illuminate\Support\Facades\Crypt::encryptString($blog->id)) }}"
+                                                        action="{{ route('unpublishing#csr', Illuminate\Support\Facades\Crypt::encryptString($csr->id)) }}"
                                                         method="post">
                                                         @csrf
                                                         <button type="submit"
-                                                            class="dropdown-item">{{ $blog->status == 'published' ? 'Unpublish' : 'Publish' }}</button>
+                                                            class="dropdown-item">{{ $csr->status == 'published' ? 'Unpublish' : 'Publish' }}</button>
                                                     </form>
-                                                    @if ($blog->status == 'published')
+                                                    @if ($csr->status == 'published')
                                                         <form
-                                                            action="{{ route('drafting#blog', Illuminate\Support\Facades\Crypt::encryptString($blog->id)) }}"
+                                                            action="{{ route('drafting#csr', Illuminate\Support\Facades\Crypt::encryptString($csr->id)) }}"
                                                             method="post">
                                                             @csrf
                                                             <button type="submit" class="dropdown-item">Draft</button>

@@ -15,9 +15,9 @@ class CsrController extends Controller
      */
     public function index()
     {
-        $blogs = $this->getBlogs(0, 'blogs.status', '=', 'published');
+        $csrs = $this->getCSR(0, 'c_s_r_s.status', '=', 'published');
 
-        return view('admin.csr.list')->with(['blogs' => $blogs]);
+        return view('admin.csr.list')->with(['csrs' => $csrs]);
     }
 
     /**
@@ -27,7 +27,7 @@ class CsrController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.csr.add-edit')->with(['action' => 'new']);
     }
 
     /**
@@ -88,21 +88,19 @@ class CsrController extends Controller
 
     private function getCSR($paginate, $search_column = null, $search_operator = null, $search_value = null)
     {
-        $blog_db = DB::table('c_s_r_s')
+        $csr_db = DB::table('c_s_r_s')
             ->join('users', 'users.id', '=', 'c_s_r_s.author_id')
             ->select(
                 'c_s_r_s.id as id',
                 'c_s_r_s.title as title',
                 'c_s_r_s.content as content',
-                'c_s_r_s.image as image',
-                'c_s_r_s.url_slug',
-                'c_s_r_s.status',
-                'c_s_r_s.category_id',
                 'c_s_r_s.featured as featured',
                 'c_s_r_s.title_burmese as title_burmese',
                 'c_s_r_s.content_burmese as content_burmese',
                 'c_s_r_s.title_chinese as title_chinese',
                 'c_s_r_s.content_chinese as content_chinese',
+                'c_s_r_s.images as images',
+                'c_s_r_s.url_slug as slug_url',
                 'c_s_r_s.status as status',
                 'c_s_r_s.created_at as created_at',
                 'c_s_r_s.updated_at as updated_at',
@@ -117,15 +115,15 @@ class CsrController extends Controller
 
         if (is_null($search_column) and is_null($search_operator) and is_null($search_value)) {
             if ($paginate > 0) {
-                return $blog_db->paginate($paginate);
+                return $csr_db->paginate($paginate);
             } else {
-                return $blog_db->get();
+                return $csr_db->get();
             }
         } else {
             if ($paginate > 0) {
-                return $blog_db->where($search_column, $search_operator, $search_value)->paginate($paginate);
+                return $csr_db->where($search_column, $search_operator, $search_value)->paginate($paginate);
             } else {
-                return $blog_db->where($search_column, $search_operator, $search_value)->get();
+                return $csr_db->where($search_column, $search_operator, $search_value)->get();
             }
         }
     }

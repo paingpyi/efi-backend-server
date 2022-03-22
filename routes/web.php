@@ -8,6 +8,7 @@ use App\Http\Controllers\Content\BlogController;
 use App\Http\Controllers\Content\ProductController;
 use App\Http\Controllers\Content\PageController;
 use App\Http\Controllers\Content\JobController;
+use App\Http\Controllers\Content\CsrController;
 use App\Http\Controllers\Setting\CategoryController;
 use App\Http\Middleware\AdminCheckMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -152,5 +153,23 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
         Route::post('/edit/{id}', [JobController::class, 'update'])->name('update#data#job');
 
         Route::post('/close/{id}', [JobController::class, 'destroy'])->name('close#job');
+    });
+
+    Route::group(['prefix' => 'csr', 'namespace' => 'Content'], function () {
+        Route::get('/', [CsrController::class, 'index'])->name('csr#list');
+
+        Route::get('/unpublished', [CsrController::class, 'unpublished'])->name('unpublished#csr#list');
+
+        Route::get('/drafted', [CsrController::class, 'drafted'])->name('drafted#csr#list');
+
+        Route::get('/new', [CsrController::class, 'create'])->name('new#csr');
+        Route::post('/new', [CsrController::class, 'store'])->name('store#data#csr');
+
+        Route::get('/edit/{id}', [CsrController::class, 'edit'])->name('edit#csr');
+        Route::post('/edit/{id}', [CsrController::class, 'update'])->name('update#data#csr');
+
+        Route::post('/unpublishing/{id}', [CsrController::class, 'destroy'])->name('unpublishing#csr');
+
+        Route::post('/drafting/{id}', [CsrController::class, 'draft'])->name('drafting#csr');
     });
 });
