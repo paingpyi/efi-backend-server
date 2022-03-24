@@ -19,7 +19,7 @@ class CSR extends Model
         'title_chinese',
         'location_chinese',
         'content_chinese',
-        'image',
+        'images',
         'url_slug',
         'status',
         'author_id',

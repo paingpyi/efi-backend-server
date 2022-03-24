@@ -88,11 +88,11 @@ class CsrController extends Controller
                 $images[$i++] = '/storage/' . $csr3filePath;
             }
 
-            if (isset($request->cs4)) {
-                $cs4fileName = time() . '_' . $request->cs4->getClientOriginalName();
-                $cs4filePath = $request->file('cs4')->storeAs('uploads', $cs4fileName, 'public');
+            if (isset($request->csr4)) {
+                $csr4fileName = time() . '_' . $request->csr4->getClientOriginalName();
+                $csr4filePath = $request->file('csr4')->storeAs('uploads', $csr4fileName, 'public');
 
-                $images[$i++] = '/storage/' . $cs4filePath;
+                $images[$i++] = '/storage/' . $csr4filePath;
             }
 
             if (isset($request->csr5)) {
@@ -104,14 +104,17 @@ class CsrController extends Controller
 
             $csr = [
                 'title' => $request->title,
+                'location' => $request->location,
                 'content' => $request->content,
                 'title_burmese' => $request->title_burmese,
+                'location_burmese' => $request->location_burmese,
                 'content_burmese' => $request->content_burmese,
                 'title_chinese' => $request->title_chinese,
+                'location_chinese' => $request->location_chinese,
                 'content_chinese' => $request->content_chinese,
                 'url_slug' => $request->slug_url,
                 'featured' => ($request->featured == 'on') ? true : false,
-                'images' => '/storage/' . $csr1filePath,
+                'images' => json_encode($images),
                 'status' => $request->status,
                 'author_id' => Auth::id(),
             ];

@@ -41,7 +41,6 @@
                             <thead>
                                 <tr>
                                     <th>Title</th>
-                                    <th>Category</th>
                                     <th>Active</th>
                                 </tr>
                             </thead>
@@ -52,7 +51,6 @@
                                                 href="{{ route('edit#csr', Illuminate\Support\Facades\Crypt::encryptString($csr->id)) }}">{{ $csr->title }}<br><span
                                                     class="badge badge-info">{{ $csr->title_burmese }}</span>
                                             </a></td>
-                                        <td>{{ $csr->category_name }}</td>
                                         <td class="text-nowrap">
                                             <div class="btn-group">
                                                 @if ($csr->status == 'published')
@@ -109,7 +107,6 @@
                             <tfoot>
                                 <tr>
                                     <th>Title</th>
-                                    <th>Category</th>
                                     <th>Active</th>
                                 </tr>
                             </tfoot>
