@@ -202,15 +202,19 @@
                                 </div>
                                 <hr>
                                 <div class="form-group">
-                                    <label aria-describedby="imagesHelp">CSR Image <span class="text-danger">*</span></label>
-                                    <small id="imagesHelp" class="form-text text-white">You have to upload a photo for this CSR activity.</small>
-                                    @isset($csr->image)
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <img src="{{ asset($csr->image) }}" alt="csr image" class="img-thumbnail">
-                                            </div>
+                                    <label aria-describedby="imagesHelp">CSR Image <span
+                                            class="text-danger">*</span></label>
+                                    <small id="imagesHelp" class="form-text text-white">You have to upload a photo for this
+                                        CSR activity.</small>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            @isset($csr->images)
+                                                @foreach (json_decode($csr->images) as $image)
+                                                    <img src="{{ asset($image) }}" alt="csr image" class="img-thumbnail" style="max-height: 78px;">
+                                                @endforeach
+                                            @endisset
                                         </div>
-                                    @endisset
+                                    </div>
                                     <!-- bootstrap-imageupload. -->
 
                                     <div class="imageupload panel panel-default card card-secondary bg-secondary">

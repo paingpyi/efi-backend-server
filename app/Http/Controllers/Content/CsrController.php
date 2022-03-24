@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Content;
 
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\CSR;
@@ -146,7 +147,9 @@ class CsrController extends Controller
      */
     public function edit($id)
     {
-        //
+        $csr = CSR::where('id', '=', Crypt::decryptString($id))->first();
+
+        return view('admin.csr.add-edit')->with(['action' => 'update', 'csr' => $csr]);
     }
 
     /**
