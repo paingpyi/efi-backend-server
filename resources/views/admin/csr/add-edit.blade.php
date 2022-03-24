@@ -28,7 +28,7 @@
             <div class="card">
                 <form id="inputForm"
                     action="{{ $action == 'new' ? route('store#data#csr') : route('update#data#csr', isset($csr->id) ? $csr->id : 0) }}"
-                    method="post" enctype="multipart/form-data">
+                    method="post" enctype="multipart/form-data" class="needs-validation" novalidate="">
                     @csrf
                     <div class="card-header">
                         @include('admin.csr.menu')
@@ -66,6 +66,18 @@
                                             @enderror
                                         </div>
                                         <div class="form-group">
+                                            <label for="location"><i class="flag-icon flag-icon-us mr-2"></i> Location
+                                                <span class="text-danger">*</span></label>
+                                            <input type="text" name="location"
+                                                value="{{ old('location', isset($csr->location) ? $csr->location : null) }}"
+                                                class="form-control" id="location" aria-describedby="locationHelp">
+                                            <small id="locationHelp" class="form-text text-muted">Please enter
+                                                location.</small>
+                                            @error('location')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
                                             <label for="content"><i class="flag-icon flag-icon-us mr-2"></i> Content Body
                                                 <span class="text-danger">*</span></label>
                                             <textarea name="content" class="summernote" required
@@ -89,6 +101,21 @@
                                             @enderror
                                         </div>
                                         <div class="form-group">
+                                            <label for="location_burmese"><i class="flag-icon flag-icon-mm mr-2"></i>
+                                                Location
+                                                <span class="text-danger">*</span></label>
+                                            <input type="text" name="location_burmese"
+                                                value="{{ old('location_burmese', isset($csr->location_burmese) ? $csr->location_burmese : null) }}"
+                                                class="form-control" id="location_burmese"
+                                                aria-describedby="location_burmeseHelp">
+                                            <small id="location_burmeseHelp" class="form-text text-muted">Please enter
+                                                location
+                                                (Burmese).</small>
+                                            @error('location_burmese')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
                                             <label for="content_burmese"><i class="flag-icon flag-icon-mm mr-2"></i>
                                                 Content Body
                                                 <span class="text-danger">*</span></label>
@@ -99,7 +126,7 @@
                                     <div class="tab-pane fade pt-3" id="nav-zh" role="tabpanel"
                                         aria-labelledby="nav-profile-tab">
                                         <div class="form-group">
-                                            <label for="title_chinese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
+                                            <label for="title_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Title
                                                 <span class="text-danger">*</span></label>
                                             <input type="text" name="title_chinese"
                                                 value="{{ old('title_chinese', isset($csr->title_chinese) ? $csr->title_chinese : null) }}"
@@ -113,7 +140,22 @@
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="content_chinese"><i class="flag-icon flag-icon-mm mr-2"></i>
+                                            <label for="location_chinese"><i class="flag-icon flag-icon-cn mr-2"></i>
+                                                Location
+                                                <span class="text-danger">*</span></label>
+                                            <input type="text" name="location_chinese"
+                                                value="{{ old('location_chinese', isset($csr->location_chinese) ? $csr->location_chinese : null) }}"
+                                                class="form-control" id="location_chinese"
+                                                aria-describedby="location_chineseHelp">
+                                            <small id="location_chineseHelp" class="form-text text-muted">Please enter
+                                                location
+                                                (Chinese).</small>
+                                            @error('location_chinese')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="content_chinese"><i class="flag-icon flag-icon-cn mr-2"></i>
                                                 Content Body
                                                 <span class="text-danger">*</span></label>
                                             <textarea name="content_chinese" class="summernote" required
@@ -139,7 +181,7 @@
                                 <div class="form-group">
                                     <label for="featured">Featured: </label>
                                     <input type="checkbox" id="featured" name="featured"
-                                        {{ (old('featured', isset($csr->featured) ? $csr->featured : null) == true or $action == 'new')? 'checked': '' }}
+                                        {{ old('featured', isset($csr->featured) ? $csr->featured : null) == true ? 'checked' : '' }}
                                         data-bootstrap-switch data-on-color="success">
                                 </div>
                                 <hr>
@@ -160,7 +202,8 @@
                                 </div>
                                 <hr>
                                 <div class="form-group">
-                                    <label>csr Image <span class="text-danger">*</span></label>
+                                    <label aria-describedby="imagesHelp">CSR Image <span class="text-danger">*</span></label>
+                                    <small id="imagesHelp" class="form-text text-white">You have to upload a photo for this CSR activity.</small>
                                     @isset($csr->image)
                                         <div class="card">
                                             <div class="card-body">
@@ -180,7 +223,39 @@
 
                                                 <button type="button" class="btn btn-default active">File</button>
 
-                                                <button type="button" class="btn btn-default">URL</button>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="file-tab panel-body card-body text-center">
+
+                                            <div class="btn-group">
+                                                <div class="btn btn-primary btn-file">
+
+                                                    <span>Browse</span>
+
+                                                    <!-- The file is stored here. -->
+
+                                                    <input type="file" name="csr1">
+
+                                                </div>
+
+                                                <button type="button" class="btn btn-danger">Remove</button>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="imageupload panel panel-default card card-secondary bg-secondary">
+
+                                        <div class="panel-heading card-heading clearfix p-2">
+
+                                            <h5 class="panel-title card-title pull-left">Select Image file</h5>
+
+                                            <div class="btn-group pull-right float-right">
+
+                                                <button type="button" class="btn btn-default active">File</button>
 
                                             </div>
 
@@ -195,7 +270,7 @@
 
                                                     <!-- The file is stored here. -->
 
-                                                    <input type="file" name="csr">
+                                                    <input type="file" name="csr2">
 
                                                 </div>
 
@@ -204,36 +279,117 @@
 
                                         </div>
 
-                                        <div class="url-tab panel-body card-body">
+                                    </div>
 
-                                            <div class="input-group">
+                                    <div class="imageupload panel panel-default card card-secondary bg-secondary">
 
-                                                <input type="text" class="form-control hasclear" placeholder="Image URL">
+                                        <div class="panel-heading card-heading clearfix p-2">
 
-                                                <div class="input-group-btn input-group-append">
+                                            <h5 class="panel-title card-title pull-left">Select Image file</h5>
 
-                                                    <button type="button" class="btn btn-default">Submit</button>
+                                            <div class="btn-group pull-right float-right">
 
-                                                </div>
+                                                <button type="button" class="btn btn-default active">File</button>
 
                                             </div>
 
-                                            <button type="button" class="btn btn-danger">Remove</button>
+                                        </div>
 
-                                            <!-- The URL is stored here. -->
+                                        <div class="file-tab panel-body card-body text-center">
 
-                                            <input type="hidden" name="csr-image-url">
+                                            <div class="btn-group">
+                                                <div class="btn btn-primary btn-file">
+
+                                                    <span>Browse</span>
+
+                                                    <!-- The file is stored here. -->
+
+                                                    <input type="file" name="csr3">
+
+                                                </div>
+
+                                                <button type="button" class="btn btn-danger">Remove</button>
+                                            </div>
 
                                         </div>
 
                                     </div>
-                                </div><!-- /. csr Image -->
+
+                                    <div class="imageupload panel panel-default card card-secondary bg-secondary">
+
+                                        <div class="panel-heading card-heading clearfix p-2">
+
+                                            <h5 class="panel-title card-title pull-left">Select Image file</h5>
+
+                                            <div class="btn-group pull-right float-right">
+
+                                                <button type="button" class="btn btn-default active">File</button>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="file-tab panel-body card-body text-center">
+
+                                            <div class="btn-group">
+                                                <div class="btn btn-primary btn-file">
+
+                                                    <span>Browse</span>
+
+                                                    <!-- The file is stored here. -->
+
+                                                    <input type="file" name="csr4">
+
+                                                </div>
+
+                                                <button type="button" class="btn btn-danger">Remove</button>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="imageupload panel panel-default card card-secondary bg-secondary">
+
+                                        <div class="panel-heading card-heading clearfix p-2">
+
+                                            <h5 class="panel-title card-title pull-left">Select Image file</h5>
+
+                                            <div class="btn-group pull-right float-right">
+
+                                                <button type="button" class="btn btn-default active">File</button>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="file-tab panel-body card-body text-center">
+
+                                            <div class="btn-group">
+                                                <div class="btn btn-primary btn-file">
+
+                                                    <span>Browse</span>
+
+                                                    <!-- The file is stored here. -->
+
+                                                    <input type="file" name="csr5">
+
+                                                </div>
+
+                                                <button type="button" class="btn btn-danger">Remove</button>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div><!-- /. CSR Image -->
                             </div>
                         </div>
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
-                        <div class="float-right"><button type="submit" class="btn btn-primary"><i
+                        <div class="float-right"><button type="submit" form="inputForm" data-toggle="tooltip"
+                                data-trigger="manual" data-placement="top" data-title="Save" class="btn btn-primary"><i
                                     class="fas fa-save"></i> Save</button></div>
                     </div>
                     <!-- /.card-footer -->
@@ -266,6 +422,9 @@
     <!-- Page specific script -->
     <script>
         $(function() {
+            //Image Upload
+            $('.imageupload').imageupload();
+
             //Initialize Select2 Elements
             $('.select2').select2({
                 theme: 'bootstrap4'
@@ -280,8 +439,6 @@
                 height: 800,
                 placeholder: 'Write content here...',
             });
-
-            $('.imageupload').imageupload();
 
             //Bootstrap Duallistbox
             $('.duallistbox').bootstrapDualListbox();
@@ -326,7 +483,7 @@
                         required: true,
                     },
                     @if ($action == 'new')
-                        csr: {
+                        csr1: {
                         required: true,
                         },
                     @endif
@@ -355,7 +512,7 @@
                         required: "You need to fill description.",
                     },
                     @if ($action == 'new')
-                        csr: {
+                        csr1: {
                         required: "You need to upload image.",
                         },
                     @endif

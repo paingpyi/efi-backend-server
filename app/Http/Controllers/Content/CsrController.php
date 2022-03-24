@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Content;
 
+use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Models\CSR;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -38,7 +42,56 @@ class CsrController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|unique:c_s_r_s|max:255',
+            'content' => 'required',
+            'title_burmese' => 'required|unique:c_s_r_s|max:255',
+            'content_burmese' => 'required',
+            'title_chinese' => 'required|unique:c_s_r_s|max:255',
+            'content_chinese' => 'required',
+            'slug_url' => 'required|unique:c_s_r_s,url_slug',
+            'csr1' => 'required|mimes:jpg,jpeg,png,gif|max:2048',
+            'csr2' => 'nullable|mimes:jpg,jpeg,png,gif|max:2048',
+            'csr3' => 'nullable|mimes:jpg,jpeg,png,gif|max:2048',
+            'csr4' => 'nullable|mimes:jpg,jpeg,png,gif|max:2048',
+            'csr5' => 'nullable|mimes:jpg,jpeg,png,gif|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->route('new#csr')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $csr = [];
+
+        if ($request->file()) {
+            $csr1fileName = time() . '_' . $request->csr1->getClientOriginalName();
+            $csr1filePath = $request->file('csr')->storeAs('uploads', $csr1fileName, 'public');
+
+            $csr = [
+                'title' => $request->title,
+                'content' => $request->content,
+                'title_burmese' => $request->title_burmese,
+                'content_burmese' => $request->content_burmese,
+                'title_chinese' => $request->title_chinese,
+                'content_chinese' => $request->content_chinese,
+                'url_slug' => $request->slug_url,
+                'category_id' => $request->category,
+                'products' => isset($request->products) ? json_encode($request->products) : null,
+                'featured' => ($request->featured == 'on') ? true : false,
+                'image' => '/storage/' . $csr1filePath,
+                'status' => $request->status,
+                'author_id' => Auth::id(),
+            ];
+
+            CSR::create($csr);
+
+            return redirect()->route('csr#list')->with(['success_message' => 'Successfully <strong>saved!</strong>']);
+        } else {
+            return back();
+        }
     }
 
     /**
