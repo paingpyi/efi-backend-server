@@ -210,7 +210,8 @@
                                         <div class="card-body">
                                             @isset($csr->images)
                                                 @foreach (json_decode($csr->images) as $image)
-                                                    <img src="{{ asset($image) }}" alt="csr image" class="img-thumbnail" style="max-height: 78px;">
+                                                    <img src="{{ asset($image) }}" alt="csr image" class="img-thumbnail"
+                                                        style="max-height: 86px;">
                                                 @endforeach
                                             @endisset
                                         </div>
@@ -221,13 +222,8 @@
 
                                         <div class="panel-heading card-heading clearfix p-2">
 
-                                            <h5 class="panel-title card-title pull-left">Select Image file</h5>
-
-                                            <div class="btn-group pull-right float-right">
-
-                                                <button type="button" class="btn btn-default active">File</button>
-
-                                            </div>
+                                            <h5 class="panel-title card-title pull-left">Select Image
+                                                file{{ $action == 'new' ? '' : ' if you want to change image 1.' }}</h5>
 
                                         </div>
 
@@ -255,13 +251,8 @@
 
                                         <div class="panel-heading card-heading clearfix p-2">
 
-                                            <h5 class="panel-title card-title pull-left">Select Image file</h5>
-
-                                            <div class="btn-group pull-right float-right">
-
-                                                <button type="button" class="btn btn-default active">File</button>
-
-                                            </div>
+                                            <h5 class="panel-title card-title pull-left">Select Image
+                                                file{{ $action == 'new' ? '' : ' if you want to change image 2.' }}</h5>
 
                                         </div>
 
@@ -289,13 +280,8 @@
 
                                         <div class="panel-heading card-heading clearfix p-2">
 
-                                            <h5 class="panel-title card-title pull-left">Select Image file</h5>
-
-                                            <div class="btn-group pull-right float-right">
-
-                                                <button type="button" class="btn btn-default active">File</button>
-
-                                            </div>
+                                            <h5 class="panel-title card-title pull-left">Select Image
+                                                file{{ $action == 'new' ? '' : ' if you want to change image 3.' }}</h5>
 
                                         </div>
 
@@ -323,13 +309,8 @@
 
                                         <div class="panel-heading card-heading clearfix p-2">
 
-                                            <h5 class="panel-title card-title pull-left">Select Image file</h5>
-
-                                            <div class="btn-group pull-right float-right">
-
-                                                <button type="button" class="btn btn-default active">File</button>
-
-                                            </div>
+                                            <h5 class="panel-title card-title pull-left">Select Image
+                                                file{{ $action == 'new' ? '' : ' if you want to change image 4.' }}</h5>
 
                                         </div>
 
@@ -357,13 +338,8 @@
 
                                         <div class="panel-heading card-heading clearfix p-2">
 
-                                            <h5 class="panel-title card-title pull-left">Select Image file</h5>
-
-                                            <div class="btn-group pull-right float-right">
-
-                                                <button type="button" class="btn btn-default active">File</button>
-
-                                            </div>
+                                            <h5 class="panel-title card-title pull-left">Select Image
+                                                file{{ $action == 'new' ? '' : ' if you want to change image 5.' }}</h5>
 
                                         </div>
 

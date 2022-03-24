@@ -26,6 +26,30 @@ class CsrController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function unpublished()
+    {
+        $csrs = $this->getCSR(0, 'c_s_r_s.status', '=', 'unpublished');
+
+        return view('admin.csr.list')->with(['csrs' => $csrs]);
+    }
+
+    /**
+     * Display a drafted blog list.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function drafted()
+    {
+        $csrs = $this->getCSR(0, 'c_s_r_s.status', '=', 'draft');
+
+        return view('admin.csr.list')->with(['csrs' => $csrs]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -161,7 +185,117 @@ class CsrController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|max:255',
+            'content' => 'required',
+            'title_burmese' => 'required|max:255',
+            'content_burmese' => 'required',
+            'title_chinese' => 'required|max:255',
+            'content_chinese' => 'required',
+            'slug_url' => 'required',
+            'csr1' => 'nullable|mimes:jpg,jpeg,png,gif|max:2048',
+            'csr2' => 'nullable|mimes:jpg,jpeg,png,gif|max:2048',
+            'csr3' => 'nullable|mimes:jpg,jpeg,png,gif|max:2048',
+            'csr4' => 'nullable|mimes:jpg,jpeg,png,gif|max:2048',
+            'csr5' => 'nullable|mimes:jpg,jpeg,png,gif|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->route('edit#csr', Crypt::encryptString($id))
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $csr = [];
+        $i = 0;
+        $images = [];
+        $old_csr = CSR::where('id', '=', $id)->first();
+        $old_images = json_decode($old_csr->images);
+
+        if ($request->file()) {
+            if (isset($request->csr1)) {
+                $csr1fileName = time() . '_' . $request->csr1->getClientOriginalName();
+                $csr1filePath = $request->file('csr1')->storeAs('uploads', $csr1fileName, 'public');
+
+                $images[0] = '/storage/' . $csr1filePath;
+            } else if (isset($old_images[0])) {
+                $images[0] = $old_images[0];
+            }
+
+            if (isset($request->csr2)) {
+                $csr2fileName = time() . '_' . $request->csr2->getClientOriginalName();
+                $csr2filePath = $request->file('csr2')->storeAs('uploads', $csr2fileName, 'public');
+
+                $images[1] = '/storage/' . $csr2filePath;
+            } else if (isset($old_images[1])) {
+                $images[1] = $old_images[1];
+            }
+
+            if (isset($request->csr3)) {
+                $csr3fileName = time() . '_' . $request->csr3->getClientOriginalName();
+                $csr3filePath = $request->file('csr3')->storeAs('uploads', $csr3fileName, 'public');
+
+                $images[2] = '/storage/' . $csr3filePath;
+            } else if (isset($old_images[2])) {
+                $images[2] = $old_images[2];
+            }
+
+            if (isset($request->csr4)) {
+                $csr4fileName = time() . '_' . $request->csr4->getClientOriginalName();
+                $csr4filePath = $request->file('csr4')->storeAs('uploads', $csr4fileName, 'public');
+
+                $images[3] = '/storage/' . $csr4filePath;
+            } else if (isset($old_images[3])) {
+                $images[3] = $old_images[3];
+            }
+
+            if (isset($request->csr5)) {
+                $csr5fileName = time() . '_' . $request->csr5->getClientOriginalName();
+                $csr5filePath = $request->file('csr5')->storeAs('uploads', $csr5fileName, 'public');
+
+                $images[4] = '/storage/' . $csr5filePath;
+            } else if (isset($old_images[4])) {
+                $images[4] = $old_images[4];
+            }
+
+            $csr = [
+                'title' => $request->title,
+                'location' => $request->location,
+                'content' => $request->content,
+                'title_burmese' => $request->title_burmese,
+                'location_burmese' => $request->location_burmese,
+                'content_burmese' => $request->content_burmese,
+                'title_chinese' => $request->title_chinese,
+                'location_chinese' => $request->location_chinese,
+                'content_chinese' => $request->content_chinese,
+                'url_slug' => $request->slug_url,
+                'featured' => ($request->featured == 'on') ? true : false,
+                'images' => json_encode($images),
+                'status' => $request->status,
+                'author_id' => Auth::id(),
+            ];
+        } else {
+            $csr = [
+                'title' => $request->title,
+                'location' => $request->location,
+                'content' => $request->content,
+                'title_burmese' => $request->title_burmese,
+                'location_burmese' => $request->location_burmese,
+                'content_burmese' => $request->content_burmese,
+                'title_chinese' => $request->title_chinese,
+                'location_chinese' => $request->location_chinese,
+                'content_chinese' => $request->content_chinese,
+                'url_slug' => $request->slug_url,
+                'featured' => ($request->featured == 'on') ? true : false,
+                'status' => $request->status,
+                'author_id' => Auth::id(),
+            ];
+        }
+
+        CSR::where('id', '=', $id)->update($csr);
+
+        return redirect()->route('csr#list')->with(['success_message' => 'Successfully <strong>updated!</strong>']);
     }
 
     /**
