@@ -65,10 +65,42 @@ class CsrController extends Controller
         }
 
         $csr = [];
+        $i = 0;
+        $images = [];
 
         if ($request->file()) {
             $csr1fileName = time() . '_' . $request->csr1->getClientOriginalName();
-            $csr1filePath = $request->file('csr')->storeAs('uploads', $csr1fileName, 'public');
+            $csr1filePath = $request->file('csr1')->storeAs('uploads', $csr1fileName, 'public');
+
+            $images[$i++] = '/storage/' . $csr1filePath;
+
+            if (isset($request->csr2)) {
+                $csr2fileName = time() . '_' . $request->csr2->getClientOriginalName();
+                $csr2filePath = $request->file('csr2')->storeAs('uploads', $csr2fileName, 'public');
+
+                $images[$i++] = '/storage/' . $csr2filePath;
+            }
+
+            if (isset($request->csr3)) {
+                $csr3fileName = time() . '_' . $request->csr3->getClientOriginalName();
+                $csr3filePath = $request->file('csr3')->storeAs('uploads', $csr3fileName, 'public');
+
+                $images[$i++] = '/storage/' . $csr3filePath;
+            }
+
+            if (isset($request->cs4)) {
+                $cs4fileName = time() . '_' . $request->cs4->getClientOriginalName();
+                $cs4filePath = $request->file('cs4')->storeAs('uploads', $cs4fileName, 'public');
+
+                $images[$i++] = '/storage/' . $cs4filePath;
+            }
+
+            if (isset($request->csr5)) {
+                $csr5fileName = time() . '_' . $request->csr5->getClientOriginalName();
+                $csr5filePath = $request->file('csr5')->storeAs('uploads', $csr5fileName, 'public');
+
+                $images[$i++] = '/storage/' . $csr5filePath;
+            }
 
             $csr = [
                 'title' => $request->title,
@@ -78,10 +110,8 @@ class CsrController extends Controller
                 'title_chinese' => $request->title_chinese,
                 'content_chinese' => $request->content_chinese,
                 'url_slug' => $request->slug_url,
-                'category_id' => $request->category,
-                'products' => isset($request->products) ? json_encode($request->products) : null,
                 'featured' => ($request->featured == 'on') ? true : false,
-                'image' => '/storage/' . $csr1filePath,
+                'images' => '/storage/' . $csr1filePath,
                 'status' => $request->status,
                 'author_id' => Auth::id(),
             ];
