@@ -13,7 +13,6 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use App\Models\Category;
 use App\Models\Product;
-use Response;
 
 class ProductController extends Controller
 {
