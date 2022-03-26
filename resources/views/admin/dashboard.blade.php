@@ -142,7 +142,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    Sample Data
+                    <p>Sample Data</p>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
@@ -465,4 +465,14 @@
     <script src="{{ asset('adminlite/dist/js/demo.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('adminlite/dist/js/pages/dashboard.js') }}"></script>
+    <!-- Page specific script -->
+    <script>
+        $(function() {
+            @isset($success_message)
+            $( document ).ready(function() {
+                toastr.success('{!! $success_message !!}');
+                });
+            @endisset
+        });
+    </script>
 @endsection
