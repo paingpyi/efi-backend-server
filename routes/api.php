@@ -7,6 +7,7 @@ use App\Http\Controllers\Content\BlogController;
 use App\Http\Controllers\Content\PageController;
 use App\Http\Controllers\Content\NewsController;
 use App\Http\Controllers\Content\JobController;
+use App\Http\Controllers\Content\CsrController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,4 +52,10 @@ Route::group(['prefix' => 'career', 'namespace' => 'Content'], function () {
     Route::get('/{para?}', [JobController::class, 'show']);
 
     Route::post('/', [JobController::class, 'apiList']);
+});
+
+Route::group(['prefix' => 'csr', 'namespace' => 'Content'], function () {
+    Route::get('/{para?}', [CsrController::class, 'show']);
+
+    Route::post('/', [CsrController::class, 'apiList']);
 });
