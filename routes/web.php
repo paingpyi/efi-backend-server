@@ -10,6 +10,7 @@ use App\Http\Controllers\Content\PageController;
 use App\Http\Controllers\Content\JobController;
 use App\Http\Controllers\Content\CsrController;
 use App\Http\Controllers\Setting\CategoryController;
+use App\Http\Controllers\Setting\SampleController;
 use App\Http\Middleware\AdminCheckMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -171,5 +172,9 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
         Route::post('/unpublishing/{id}', [CsrController::class, 'destroy'])->name('unpublishing#csr');
 
         Route::post('/drafting/{id}', [CsrController::class, 'draft'])->name('drafting#csr');
+    });
+
+    Route::group(['prefix' => 'sample', 'namespace' => 'Setting'], function () {
+        Route::post('/import', [SampleController::class, 'store'])->name('sample#data');
     });
 });
