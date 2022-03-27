@@ -234,7 +234,7 @@ class PageController extends Controller
     }
 
     /**
-     * API List with Post data.
+     * API List with Page data.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -321,16 +321,16 @@ class PageController extends Controller
 
         /***
          *
-         * Retrieve blogs by id
+         * Retrieve pages by id
          *
          **/
         if (isset($data['id'])) {
             $page_db->where('id', '=', $data['id']);
-        } //End of retreiving blogs by id
+        } //End of retreiving pages by id
 
         /***
          *
-         * Retrieve blogs by title
+         * Retrieve pages by title
          *
          **/
         if (isset($data['title'])) {
@@ -341,25 +341,34 @@ class PageController extends Controller
             } else {
                 $page_db->where('title_burmese', '=', $data['title']);
             }
-        } //End of retreiving blogs by title
+        } //End of retreiving pages by title
 
         /***
          *
-         * Retrieve blogs by status
+         * Retrieve pages by status
          *
          **/
         if (isset($data['status'])) {
             $page_db->where('is_active', '=', $data['status']);
-        } //End of retreiving blogs by status
+        } //End of retreiving pages by status
 
         /***
          *
-         * Retrieve blogs by title
+         * Retrieve pages by url slug
+         *
+         **/
+        if (isset($data['url_slug'])) {
+            $page_db->where('url_slug', '=', $data['url_slug']);
+        } //End of retreiving pages by url slug
+
+        /***
+         *
+         * Retrieve pages by title
          *
          **/
         if (isset($data['created'])) {
             $page_db->where('created_at', '=', $data['created']);
-        } //End of retreiving blogs by created
+        } //End of retreiving pages by created
 
         /***
          *
@@ -410,7 +419,7 @@ class PageController extends Controller
                     }
                 }
             }
-        } //End of retreiving blogs ordered by
+        } //End of retreiving pages ordered by
 
         /*
          * Limit the number of results.
@@ -423,14 +432,14 @@ class PageController extends Controller
             }
         } // End of limit the number of results.
 
-        $blogs = $page_db->get();
+        $pages = $page_db->get();
 
-        if ($blogs->count() > 0) {
+        if ($pages->count() > 0) {
             $response = [
                 'code' => 200,
                 'status' => 'success',
                 'locale' => $localeData,
-                'data' => $blogs,
+                'data' => $pages,
             ];
         } else {
             $response = [

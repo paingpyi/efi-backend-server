@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\Page;
 use App\Models\News;
 use App\Models\Job;
+use Carbon\Carbon;
 
 class SampleController extends Controller
 {
@@ -74,6 +75,8 @@ class SampleController extends Controller
                 'product_photo' => '/storage/sample-banner-2.jpg',
                 'is_active' => TRUE,
                 'slug_url' => Str::slug('Tested Product ' . ($i + 1), '-'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ]; //End of products
 
             $pages[] = [
@@ -87,6 +90,8 @@ class SampleController extends Controller
                 'related_contents' => 2,
                 'is_active' => TRUE,
                 'image' => '/storage/sample-banner-1.jpg',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ];
 
             $news[] = [
@@ -101,6 +106,8 @@ class SampleController extends Controller
                 'image' => '/storage/sample-banner-1.jpg',
                 'status' => 'published',
                 'author_id' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ];
 
             $blogs[] = [
@@ -117,6 +124,8 @@ class SampleController extends Controller
                 'image' => '/storage/sample-banner-1.jpg',
                 'status' => 'published',
                 'author_id' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ];
 
             $jobs[] = [
@@ -135,6 +144,8 @@ class SampleController extends Controller
                 'due_date' =>  date('Y-m-d', strtotime('2022-04-30')),
                 'slug_url' => Str::slug('Vacant Job ' . ($i + 1), '-'),
                 'is_vacant' => TRUE,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ];
 
             $csrs[] = [
@@ -152,6 +163,8 @@ class SampleController extends Controller
                 'images' => json_encode(['/storage/sample-banner-1.jpg', '/storage/sample-banner-2.jpg']),
                 'status' => 'published',
                 'author_id' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ];
         }
 
