@@ -39,46 +39,85 @@
                             <div class="col">
                                 <div class="row">
                                     <div class="col">
-                                        <div class="form-group">
-                                            <label for="name"><i class="flag-icon flag-icon-us mr-2"></i> Name <span class="text-danger">*</span></label>
-                                            <input type="text" name="name"
-                                                value="{{ old('name', isset($category->name) ? $category->name : null) }}"
-                                                class="form-control" id="name" aria-describedby="nameHelp">
-                                            <small id="nameHelp" class="form-text text-muted">Please enter category
-                                                name.</small>
-                                            @error('name')
-                                                <div class="alert alert-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label for="name_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Name <span class="text-danger">*</span></label>
-                                            <input type="text" name="name_burmese"
-                                                value="{{ old('name_burmese', isset($category->name_burmese) ? $category->name_burmese : null) }}"
-                                                class="form-control" id="name_burmese"
-                                                aria-describedby="name_burmeseHelp">
-                                            <small id="name_burmeseHelp" class="form-text text-muted">Please enter category
-                                                name.</small>
-                                            @error('name_burmese')
-                                                <div class="alert alert-danger">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label for="description"><i class="flag-icon flag-icon-us mr-2"></i> Description</label>
-                                            <textarea name="description" class="summernote" required
-                                                id="description">{{ old('description', isset($category->description) ? $category->description : '') }}</textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label for="description_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Description</label>
-                                            <textarea name="description_burmese" class="summernote" required
-                                                id="description_burmese">{{ old('description_burmese', isset($category->description_burmese) ? $category->description_burmese : '') }}</textarea>
+                                        <nav>
+                                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                                <a class="nav-link active" id="nav-eng-tab" data-toggle="tab"
+                                                    href="#nav-eng" role="tab" aria-controls="nav-home"
+                                                    aria-selected="true">English</a>
+                                                <a class="nav-link" id="nav-mm-tab" data-toggle="tab" href="#nav-mm"
+                                                    role="tab" aria-controls="nav-profile" aria-selected="false">Burmese</a>
+                                                <a class="nav-link" id="nav-zh-tab" data-toggle="tab" href="#nav-zh"
+                                                    role="tab" aria-controls="nav-profile" aria-selected="false">Chinese</a>
+                                            </div>
+                                        </nav>
+                                        <div class="tab-content pr-2" id="nav-tabContent">
+                                            <div class="tab-pane fade show active pt-3" id="nav-eng" role="tabpanel"
+                                                aria-labelledby="nav-home-tab">
+                                                <div class="form-group">
+                                                    <label for="name"><i class="flag-icon flag-icon-us mr-2"></i> Name <span
+                                                            class="text-danger">*</span></label>
+                                                    <input type="text" name="name"
+                                                        value="{{ old('name', isset($category->name) ? $category->name : null) }}"
+                                                        class="form-control" id="name" aria-describedby="nameHelp">
+                                                    <small id="nameHelp" class="form-text text-muted">Please enter category
+                                                        name.</small>
+                                                    @error('name')
+                                                        <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="description"><i class="flag-icon flag-icon-us mr-2"></i>
+                                                        Description</label>
+                                                    <textarea name="description" class="summernote" required
+                                                        id="description">{{ old('description', isset($category->description) ? $category->description : '') }}</textarea>
+                                                </div>
+                                            </div>{{-- /. End of English Inputs --}}
+                                            <div class="tab-pane fade pt-3" id="nav-mm" role="tabpanel"
+                                                aria-labelledby="nav-profile-tab">
+                                                <div class="form-group">
+                                                    <label for="name_burmese"><i class="flag-icon flag-icon-mm mr-2"></i>
+                                                        Name <span class="text-danger">*</span></label>
+                                                    <input type="text" name="name_burmese"
+                                                        value="{{ old('name_burmese', isset($category->name_burmese) ? $category->name_burmese : null) }}"
+                                                        class="form-control" id="name_burmese"
+                                                        aria-describedby="name_burmeseHelp">
+                                                    <small id="name_burmeseHelp" class="form-text text-muted">Please enter
+                                                        category
+                                                        name.</small>
+                                                    @error('name_burmese')
+                                                        <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="description_burmese"><i class="flag-icon flag-icon-mm mr-2"></i>
+                                                        Description</label>
+                                                    <textarea name="description_burmese" class="summernote" required
+                                                        id="description_burmese">{{ old('description_burmese', isset($category->description_burmese) ? $category->description_burmese : '') }}</textarea>
+                                                </div>
+                                            </div>{{-- /. End of Burmese Inputs --}}
+                                            <div class="tab-pane fade pt-3" id="nav-zh" role="tabpanel"
+                                                aria-labelledby="nav-profile-tab">
+                                                <div class="form-group">
+                                                    <label for="name_chinese"><i class="flag-icon flag-icon-cn mr-2"></i>
+                                                        Name <span class="text-danger">*</span></label>
+                                                    <input type="text" name="name_chinese"
+                                                        value="{{ old('name_chinese', isset($category->name_chinese) ? $category->name_chinese : null) }}"
+                                                        class="form-control" id="name_chinese"
+                                                        aria-describedby="name_chineseHelp">
+                                                    <small id="name_chineseHelp" class="form-text text-muted">Please enter
+                                                        category
+                                                        name.</small>
+                                                    @error('name_chinese')
+                                                        <div class="alert alert-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="description_chinese"><i class="flag-icon flag-icon-cn mr-2"></i>
+                                                        Description</label>
+                                                    <textarea name="description_chinese" class="summernote" required
+                                                        id="description_chinese">{{ old('description_chinese', isset($category->description_chinese) ? $category->description_chinese : '') }}</textarea>
+                                                </div>
+                                            </div>{{-- /. End of Chinese Inputs --}}
                                         </div>
                                     </div>
                                 </div>

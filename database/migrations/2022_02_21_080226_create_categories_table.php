@@ -19,6 +19,8 @@ return new class extends Migration
             $table->longText('description')->nullable();
             $table->string('name_burmese');
             $table->longText('description_burmese')->nullable();
+            $table->string('name_chinese');
+            $table->longText('description_chinese')->nullable();
             $table->integer('parent_id')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
