@@ -377,12 +377,249 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function list()
+    public function list($para = null)
     {
-        $response = [
-            'code' => 405,
-            'status' => 'Method Not Allowed',
-        ];
+        $parameters = explode('&', $para);
+        $locale = '';
+        $lang_english = 'en';
+        $lang_chinese = 'zh';
+        $lang_burmese = 'mm';
+        $conditions = [];
+
+        foreach ($parameters as $check) {
+            $value = explode('=', $check);
+
+            if (Str::lower($value[0]) == 'locale') {
+                if (isset($value[1])) {
+                    $locale = $value[1];
+                }
+            } else {
+                $conditions[] = [
+                    'key' => Str::lower($value[0]),
+                    'value' => isset($value[1]) ? $value[1] : null,
+                ];
+            }
+        }
+
+        if ($locale == $lang_english) {
+            $product_db = DB::table('products')
+                ->join('categories', 'categories.id', '=', 'products.category_id')
+                ->select(
+                    'products.id as id',
+                    'products.title as title',
+                    'products.slogan',
+                    'products.description as description',
+                    'products.benefits_block',
+                    'products.benefits_image',
+                    'products.table_block',
+                    'products.why_block',
+                    'products.downloadable_block',
+                    'products.applythis_block',
+                    'products.product_photo',
+                    'products.category_id',
+                    'products.is_active as is_active',
+                    'products.created_at as created_at',
+                    'products.updated_at as updated_at',
+                    'categories.name as category_name',
+                    'categories.description as category_description',
+                    'categories.is_active as category_is_active'
+                );
+
+            $localeData = ['lang' => 'en-US', 'name' => 'English'];
+        } else if ($locale == $lang_burmese) {
+            $product_db = DB::table('products')
+                ->join('categories', 'categories.id', '=', 'products.category_id')
+                ->select(
+                    'products.id as id',
+                    'products.title_burmese',
+                    'products.slogan_burmese',
+                    'products.description_burmese',
+                    'products.benefits_block_burmese',
+                    'products.table_block_burmese',
+                    'products.why_block_burmese',
+                    'products.downloadable_block_burmese',
+                    'products.applythis_block_burmese',
+                    'products.product_photo',
+                    'products.category_id',
+                    'products.is_active as is_active',
+                    'products.created_at as created_at',
+                    'products.updated_at as updated_at',
+                    'categories.name_burmese as category_name_burmese',
+                    'categories.description_burmese as category_description_burmese',
+                    'categories.is_active as category_is_active'
+                );
+
+                $localeData = ['lang' => 'my-MM', 'name' => 'Burmese'];
+        } else if ($locale == $lang_chinese) {
+            $product_db = DB::table('products')
+                ->join('categories', 'categories.id', '=', 'products.category_id')
+                ->select(
+                    'products.id as id',
+                    'products.title_chinese',
+                    'products.slogan_chinese',
+                    'products.description_chinese',
+                    'products.benefits_block_chinese',
+                    'products.table_block_chinese',
+                    'products.why_block_chinese',
+                    'products.downloadable_block_chinese',
+                    'products.applythis_block_chinese',
+                    'products.product_photo',
+                    'products.category_id',
+                    'products.is_active as is_active',
+                    'products.created_at as created_at',
+                    'products.updated_at as updated_at',
+                    'categories.name_chinese as category_name_chinese',
+                    'categories.description_chinese as category_description_chinese',
+                    'categories.is_active as category_is_active'
+                );
+
+                $localeData = ['lang' => 'zh-CN', 'name' => 'Chinese'];
+        } else {
+            $product_db = DB::table('products')
+                ->join('categories', 'categories.id', '=', 'products.category_id')
+                ->select(
+                    'products.id as id',
+                    'products.title as title',
+                    'products.slogan',
+                    'products.description as description',
+                    'products.benefits_block',
+                    'products.benefits_image',
+                    'products.table_block',
+                    'products.why_block',
+                    'products.downloadable_block',
+                    'products.applythis_block',
+                    'products.title_burmese',
+                    'products.slogan_burmese',
+                    'products.description_burmese',
+                    'products.benefits_block_burmese',
+                    'products.table_block_burmese',
+                    'products.why_block_burmese',
+                    'products.downloadable_block_burmese',
+                    'products.applythis_block_burmese',
+                    'products.title_chinese',
+                    'products.slogan_chinese',
+                    'products.description_chinese',
+                    'products.benefits_block_chinese',
+                    'products.table_block_chinese',
+                    'products.why_block_chinese',
+                    'products.downloadable_block_chinese',
+                    'products.applythis_block_chinese',
+                    'products.product_photo',
+                    'products.category_id',
+                    'products.is_active as is_active',
+                    'products.created_at as created_at',
+                    'products.updated_at as updated_at',
+                    'categories.name as category_name',
+                    'categories.description as category_description',
+                    'categories.name_burmese as category_name_burmese',
+                    'categories.description_burmese as category_description_burmese',
+                    'categories.name_chinese as category_name_chinese',
+                    'categories.description_chinese as category_description_chinese',
+                    'categories.is_active as category_is_active'
+                );
+
+                $localeData = ['lang' => 'en-US/my-MM/zh-CN', 'name' => 'English/Burmese/Chinese'];
+        }
+
+        /***
+         *
+         * Parameters for conditions to retrieve the products
+         *
+         */
+        foreach ($conditions as $con) {
+            /***
+             *
+             * Retrieve products by title
+             *
+             **/
+            if ($con['key'] == 'title') {
+                if ($locale == $lang_burmese) {
+                    $product_db->where('products.title_burmese', '=', Str::replace('+', ' ', $con['value']));
+                } else if ($locale == $lang_chinese) {
+                    $product_db->where('products.title_chinese', '=', Str::replace('+', ' ', $con['value']));
+                } else {
+                    $product_db->where('products.title', '=', Str::replace('+', ' ', $con['value']));
+                }
+            } //End of retreiving products by title
+
+            /***
+             *
+             * Retrieve products with order by
+             *
+             **/
+            else if ($con['key'] == 'order') {
+                if (isset($con['value'])) {
+                    $orderBy = explode(',', $con['value']);
+
+                    if ($orderBy[0] == 'desc') {
+                        if (isset($orderBy[1])) {
+                            if ($orderBy[1] == 'title') {
+                                if ($locale == $lang_burmese) {
+                                    $product_db->orderByDesc('products.title_burmese');
+                                } else if ($locale == $lang_chinese) {
+                                    $product_db->orderByDesc('products.title_chinese');
+                                } else {
+                                    $product_db->orderByDesc('products.title');
+                                }
+                            } else if ($orderBy[1] == 'created') {
+                                $product_db->orderByDesc('products.created_at');
+                            } else if ($orderBy[1] == 'updated') {
+                                $product_db->orderByDesc('products.updated_at');
+                            } else {
+                                $product_db->orderByDesc('products.created_at');
+                            }
+                        } else {
+                            $product_db->orderByDesc('products.created_at');
+                        }
+                    } else if ($orderBy[0] == 'asc') {
+                        if (isset($orderBy[1])) {
+                            if ($orderBy[1] == 'title') {
+                                if ($locale == $lang_burmese) {
+                                    $product_db->orderBy('products.title_burmese');
+                                } else if ($locale == $lang_chinese) {
+                                    $product_db->orderBy('products.title_chinese');
+                                } else {
+                                    $product_db->orderBy('products.title');
+                                }
+                            } else if ($orderBy[1] == 'created') {
+                                $product_db->orderBy('products.created_at');
+                            } else if ($orderBy[1] == 'updated') {
+                                $product_db->orderBy('products.updated_at');
+                            } else {
+                                $product_db->orderBy('products.created_at');
+                            }
+                        } else {
+                            $product_db->orderBy('products.created_at');
+                        }
+                    } else {
+                        $response = [
+                            'code' => 400,
+                            'status' => 'Order by key has been mismatched.',
+                        ];
+
+                        return response()->json($response);
+                    }
+                } else {
+                    $product_db->orderByDesc('products.created_at');
+                }
+            } //End of order by
+        } //End of conditions
+
+        $products = $product_db->get();
+
+        if ($products->count() > 0) {
+            $response = [
+                'code' => 200,
+                'status' => 'success',
+                'locale' => $localeData,
+                'data' => $products,
+            ];
+        } else {
+            $response = [
+                'code' => 204,
+                'status' => 'no content',
+            ];
+        }
 
         return response()->json($response);
     }
