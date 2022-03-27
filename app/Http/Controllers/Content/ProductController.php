@@ -451,8 +451,8 @@ class ProductController extends Controller
                     'products.is_active as is_active',
                     'products.created_at as created_at',
                     'products.updated_at as updated_at',
-                    'categories.name as category_name',
-                    'categories.description as category_description',
+                    'categories.name_chinese as category_name_chinese',
+                    'categories.description_chinese as category_description_chinese',
                     'categories.is_active as category_is_active'
                 );
 
@@ -475,8 +475,8 @@ class ProductController extends Controller
                     'products.is_active as is_active',
                     'products.created_at as created_at',
                     'products.updated_at as updated_at',
-                    'categories.name as category_name',
-                    'categories.description as category_description',
+                    'categories.name_burmese as category_name_burmese',
+                    'categories.description_burmese as category_description_burmese',
                     'categories.is_active as category_is_active'
                 );
 
@@ -518,6 +518,10 @@ class ProductController extends Controller
                     'products.updated_at as updated_at',
                     'categories.name as category_name',
                     'categories.description as category_description',
+                    'categories.name_burmese as category_name_burmese',
+                    'categories.description_burmese as category_description_burmese',
+                    'categories.name_chinese as category_name_chinese',
+                    'categories.description_chinese as category_description_chinese',
                     'categories.is_active as category_is_active'
                 );
 

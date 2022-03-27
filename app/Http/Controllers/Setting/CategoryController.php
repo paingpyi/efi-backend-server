@@ -71,6 +71,8 @@ class CategoryController extends Controller
             'description' => $request->description,
             'name_burmese' => $request->name_burmese,
             'description_burmese' => $request->description_burmese,
+            'name_chinese' => $request->name_chinese,
+            'description_chinese' => $request->description_chinese,
             'parent_id' => (!is_null($request->parent)) ? $request->parent : null,
             'is_active' => ($request->is_active == 'on') ? true : false,
         ];
@@ -119,6 +121,8 @@ class CategoryController extends Controller
             'description' => $request->description,
             'name_burmese' => $request->name_burmese,
             'description_burmese' => $request->description_burmese,
+            'name_chinese' => $request->name_chinese,
+            'description_chinese' => $request->description_chinese,
             'parent_id' => (!is_null($request->parent)) ? $request->parent : null,
             'is_active' => ($request->is_active == 'on') ? true : false,
         ];
