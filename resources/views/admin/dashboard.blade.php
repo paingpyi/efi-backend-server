@@ -142,7 +142,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <p>Sample Data</p>
+                    <p class="p-3">Sample Data Importing Process.</p>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">

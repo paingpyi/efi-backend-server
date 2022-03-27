@@ -145,7 +145,7 @@
                                                 <option value="{{ $cat->name }}">{{ $cat->name }}</option>
                                             @else
                                                 <option value="{{ $cat->name }}"
-                                                    {{ isset($page->related_contents)? (in_array($cat->name, json_decode($page->related_contents))? ' selected': ''): '' }}>
+                                                    {{ isset($page->related_contents)? ($cat->name == json_decode($page->related_contents)? ' selected': ''): '' }}>
                                                     {{ $cat->name }}</option>
                                             @endif
                                         @endforeach

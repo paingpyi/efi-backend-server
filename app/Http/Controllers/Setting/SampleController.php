@@ -87,7 +87,7 @@ class SampleController extends Controller
                 'title_chinese' => '高標催極用' . ($i + 1),
                 'content_chinese' => '<p>新社違育人交日主根界際連。幹製高心破事候晴腰無舌一取行意野改。存分軒余調能義以文期浩季佐際連届止導県功。高標催極用結枝動総暮護納意司。島賠甲分画件史訪合見詳問歳気挑高知打月松。虫元記止表購途桂料記少今治。手康権術込著中井今必人終。育様美幕求氏後塾政中抗編記走表。迫相示良提入様立発料問変泉返蒼都平。</p><p>中岩宣尚王激失母分階施級。夏川面結地勝覧署喜金亡無就事天。社意度恵症出助中責豪作車対質。聞片上徳覧質属側体自左員査言残加昨白。作気関変業盤決訴処耳前儲。源平無原子位都点分活首止聞気応府自未党孤。方金話度終面凱邦形全覧後覧的愛扱。革県式分料流地入籍断断情。使聞体徹的役書強察分種務家林困功入問加。指番国成統常期術全場夜本</p>',
                 'url_slug' => Str::slug('Page ' . ($i + 1), '-'),
-                'related_contents' => 2,
+                'related_contents' => json_encode('Life Products'),
                 'is_active' => TRUE,
                 'image' => '/storage/uploads/sample-banner-1.jpg',
                 'created_at' => Carbon::now(),
