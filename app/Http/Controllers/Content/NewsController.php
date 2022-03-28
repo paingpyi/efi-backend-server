@@ -289,6 +289,9 @@ class NewsController extends Controller
                     'news.title as title',
                     'news.content as content',
                     'news.status as status',
+                    'news.featured as featured',
+                    'news.url_slug as url_slug',
+                    'news.image as image',
                     'news.created_at as created_at',
                     'news.updated_at as updated_at',
                     'users.name as author_name',
@@ -305,6 +308,9 @@ class NewsController extends Controller
                     'news.title_burmese as title_burmese',
                     'news.content_burmese as content_burmese',
                     'news.status as status',
+                    'news.featured as featured',
+                    'news.url_slug as url_slug',
+                    'news.image as image',
                     'news.created_at as created_at',
                     'news.updated_at as updated_at',
                     'users.name as author_name',
@@ -321,6 +327,9 @@ class NewsController extends Controller
                     'news.title_chinese as title_chinese',
                     'news.content_chinese as content_chinese',
                     'news.status as status',
+                    'news.featured as featured',
+                    'news.url_slug as url_slug',
+                    'news.image as image',
                     'news.created_at as created_at',
                     'news.updated_at as updated_at',
                     'users.name as author_name',
@@ -341,6 +350,9 @@ class NewsController extends Controller
                     'news.title_chinese as title_chinese',
                     'news.content_chinese as content_chinese',
                     'news.status as status',
+                    'news.featured as featured',
+                    'news.url_slug as url_slug',
+                    'news.image as image',
                     'news.created_at as created_at',
                     'news.updated_at as updated_at',
                     'users.name as author_name',
@@ -493,6 +505,9 @@ class NewsController extends Controller
                     'news.title as title',
                     'news.content as content',
                     'news.status as status',
+                    'news.featured as featured',
+                    'news.url_slug as url_slug',
+                    'news.image as image',
                     'news.created_at as created_at',
                     'news.updated_at as updated_at',
                     'users.name as author_name',
@@ -509,6 +524,9 @@ class NewsController extends Controller
                     'news.title_burmese as title_burmese',
                     'news.content_burmese as content_burmese',
                     'news.status as status',
+                    'news.featured as featured',
+                    'news.url_slug as url_slug',
+                    'news.image as image',
                     'news.created_at as created_at',
                     'news.updated_at as updated_at',
                     'users.name as author_name',
@@ -525,6 +543,9 @@ class NewsController extends Controller
                     'news.title_chinese as title_chinese',
                     'news.content_chinese as content_chinese',
                     'news.status as status',
+                    'news.featured as featured',
+                    'news.url_slug as url_slug',
+                    'news.image as image',
                     'news.created_at as created_at',
                     'news.updated_at as updated_at',
                     'users.name as author_name',
@@ -542,7 +563,12 @@ class NewsController extends Controller
                     'news.content as content',
                     'news.title_burmese as title_burmese',
                     'news.content_burmese as content_burmese',
+                    'news.title_chinese as title_chinese',
+                    'news.content_chinese as content_chinese',
                     'news.status as status',
+                    'news.featured as featured',
+                    'news.url_slug as url_slug',
+                    'news.image as image',
                     'news.created_at as created_at',
                     'news.updated_at as updated_at',
                     'users.name as author_name',
@@ -588,7 +614,34 @@ class NewsController extends Controller
 
         /***
          *
-         * Retrieve news by title
+         * Retrieve news by author
+         *
+         **/
+        if (isset($data['author'])) {
+            $news_db->where('users.name', '=', $data['author']);
+        } //End of retreiving news by author
+
+        /***
+         *
+         * Retrieve news by featured
+         *
+         **/
+        if (isset($data['featured'])) {
+            $news_db->where('news.featured', '=', $data['featured']);
+        } //End of retreiving news by featured
+
+        /***
+         *
+         * Retrieve news by url_slug
+         *
+         **/
+        if (isset($data['url_slug'])) {
+            $news_db->where('news.url_slug', '=', $data['url_slug']);
+        } //End of retreiving news by url_slug
+
+        /***
+         *
+         * Retrieve news by created
          *
          **/
         if (isset($data['created'])) {
