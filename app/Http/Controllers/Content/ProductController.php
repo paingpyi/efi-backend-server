@@ -381,9 +381,9 @@ class ProductController extends Controller
     {
         $parameters = explode('&', $para);
         $locale = '';
-        $lang_english = 'en';
-        $lang_chinese = 'zh';
-        $lang_burmese = 'mm';
+        $lang_english = 'en-us';
+        $lang_chinese = 'zh-cn';
+        $lang_burmese = 'my-mm';
         $conditions = [];
 
         foreach ($parameters as $check) {
@@ -401,14 +401,14 @@ class ProductController extends Controller
             }
         }
 
-        if ($locale == $lang_english) {
+        if (Str::lower($locale) == $lang_english) {
             $product_db = DB::table('products')
                 ->join('categories', 'categories.id', '=', 'products.category_id')
                 ->select(
                     'products.id as id',
                     'products.title as title',
                     'products.slogan',
-                    'products.description as description',
+                    'products.description',
                     'products.benefits_block',
                     'products.benefits_image',
                     'products.table_block',
@@ -426,50 +426,50 @@ class ProductController extends Controller
                 );
 
             $localeData = ['lang' => 'en-US', 'name' => 'English'];
-        } else if ($locale == $lang_burmese) {
+        } else if (Str::lower($locale) == $lang_burmese) {
             $product_db = DB::table('products')
                 ->join('categories', 'categories.id', '=', 'products.category_id')
                 ->select(
                     'products.id as id',
-                    'products.title_burmese',
-                    'products.slogan_burmese',
-                    'products.description_burmese',
-                    'products.benefits_block_burmese',
-                    'products.table_block_burmese',
-                    'products.why_block_burmese',
-                    'products.downloadable_block_burmese',
-                    'products.applythis_block_burmese',
+                    'products.title_burmese as title',
+                    'products.slogan_burmese as slogan',
+                    'products.description_burmese as description',
+                    'products.benefits_block_burmese as benefits_block',
+                    'products.table_block_burmese as table_block',
+                    'products.why_block_burmese as why_block',
+                    'products.downloadable_block_burmese as downloadable_block',
+                    'products.applythis_block_burmese as applythis_block',
                     'products.product_photo',
                     'products.category_id',
                     'products.is_active as is_active',
                     'products.created_at as created_at',
                     'products.updated_at as updated_at',
-                    'categories.name_burmese as category_name_burmese',
-                    'categories.description_burmese as category_description_burmese',
+                    'categories.name_burmese as category_name',
+                    'categories.description_burmese as category_description',
                     'categories.is_active as category_is_active'
                 );
 
                 $localeData = ['lang' => 'my-MM', 'name' => 'Burmese'];
-        } else if ($locale == $lang_chinese) {
+        } else if (Str::lower($locale) == $lang_chinese) {
             $product_db = DB::table('products')
                 ->join('categories', 'categories.id', '=', 'products.category_id')
                 ->select(
                     'products.id as id',
-                    'products.title_chinese',
-                    'products.slogan_chinese',
-                    'products.description_chinese',
-                    'products.benefits_block_chinese',
-                    'products.table_block_chinese',
-                    'products.why_block_chinese',
-                    'products.downloadable_block_chinese',
-                    'products.applythis_block_chinese',
+                    'products.title_chinese as title',
+                    'products.slogan_chinese as slogan',
+                    'products.description_chinese as description',
+                    'products.benefits_block_chinese as benefits_block',
+                    'products.table_block_chinese as table_block',
+                    'products.why_block_chinese as why_block',
+                    'products.downloadable_block_chinese as downloadable_block',
+                    'products.applythis_block_chinese as applythis_block',
                     'products.product_photo',
                     'products.category_id',
                     'products.is_active as is_active',
                     'products.created_at as created_at',
                     'products.updated_at as updated_at',
-                    'categories.name_chinese as category_name_chinese',
-                    'categories.description_chinese as category_description_chinese',
+                    'categories.name_chinese as category_name',
+                    'categories.description_chinese as category_description',
                     'categories.is_active as category_is_active'
                 );
 
