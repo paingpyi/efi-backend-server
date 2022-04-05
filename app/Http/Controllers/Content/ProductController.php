@@ -873,9 +873,13 @@ class ProductController extends Controller
             }
         } //End of retreiving products ordered by
 
+        /*
+        * Record count
+        */
         $count_db = $product_db;
 
         $total_count = $count_db->count();
+        // End of record count
 
         /*
          * Limit the number of results.

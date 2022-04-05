@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\Category;
 
 class CategoryController extends Controller
@@ -75,6 +76,7 @@ class CategoryController extends Controller
             'description_chinese' => $request->description_chinese,
             'parent_id' => (!is_null($request->parent)) ? $request->parent : null,
             'is_active' => ($request->is_active == 'on') ? true : false,
+            'machine' => Str::slug($request->name),
         ];
 
         Category::create($category);

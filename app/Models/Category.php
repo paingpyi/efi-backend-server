@@ -16,5 +16,6 @@ class Category extends Model
         'description_burmese',
         'parent_id',
         'is_active',
+        'machine',
     ];
 }

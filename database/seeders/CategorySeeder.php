@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 
 class CategorySeeder extends Seeder
@@ -28,6 +29,7 @@ class CategorySeeder extends Seeder
                 'description_chinese' => '試育内来待止将闘生碗伝',
                 'parent_id' => null,
                 'is_active' => true,
+                'machine' => Str::slug('Products'),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
@@ -40,6 +42,7 @@ class CategorySeeder extends Seeder
                 'description_chinese' => '試育内来待止将闘生碗伝',
                 'parent_id' => null,
                 'is_active' => true,
+                'machine' => Str::slug('Blogs'),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
@@ -52,6 +55,7 @@ class CategorySeeder extends Seeder
                 'description_chinese' => '試育内来待止将闘生碗伝',
                 'parent_id' => 1,
                 'is_active' => true,
+                'machine' => Str::slug('Life Products'),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
@@ -64,6 +68,7 @@ class CategorySeeder extends Seeder
                 'description_chinese' => '試育内来待止将闘生碗伝',
                 'parent_id' => 1,
                 'is_active' => true,
+                'machine' => Str::slug('General Insurance Products'),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
@@ -76,6 +81,7 @@ class CategorySeeder extends Seeder
                 'description_chinese' => '試育内来待止将闘生碗伝',
                 'parent_id' => 2,
                 'is_active' => true,
+                'machine' => Str::slug('General'),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
@@ -88,6 +94,7 @@ class CategorySeeder extends Seeder
                 'description_chinese' => '試育内来待止将闘生碗伝',
                 'parent_id' => 2,
                 'is_active' => true,
+                'machine' => Str::slug('Knowledge'),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],

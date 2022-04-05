@@ -229,7 +229,7 @@ class PageController extends Controller
      * @param  string  $locale
      * @return \Illuminate\Http\Response
      */
-    public function list($locale = '')
+    public function getlist($locale = null)
     {
     }
 
@@ -239,12 +239,12 @@ class PageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function apiList(Request $request)
+    public function postList(Request $request)
     {
         // Variables
-        $lang_chinese = 'zh';
-        $lang_burmese = 'mm';
-        $lang_english = 'en';
+        $lang_english = 'en-us';
+        $lang_chinese = 'zh-cn';
+        $lang_burmese = 'my-mm';
         $localeData = [];
         $data = $request->json()->all();
 
@@ -272,8 +272,8 @@ class PageController extends Controller
             $page_db = DB::table('pages')
                 ->select(
                     'id',
-                    'title_burmese',
-                    'content_burmese',
+                    'title_burmese as title',
+                    'content_burmese as content',
                     'image',
                     'url_slug',
                     'related_contents',
@@ -287,8 +287,8 @@ class PageController extends Controller
             $page_db = DB::table('pages')
                 ->select(
                     'id',
-                    'title_chinese',
-                    'content_chinese',
+                    'title_chinese as title',
+                    'content_chinese as content',
                     'image',
                     'url_slug',
                     'related_contents',
@@ -367,7 +367,7 @@ class PageController extends Controller
          *
          **/
         if (isset($data['created'])) {
-            $page_db->where('created_at', '=', $data['created']);
+            $page_db->whereDate('created_at', '=', date("Y-m-d", strtotime($data['created'])));
         } //End of retreiving pages by created
 
         /***
@@ -422,11 +422,19 @@ class PageController extends Controller
         } //End of retreiving pages ordered by
 
         /*
+        * Record count
+        */
+        $count_db = $page_db;
+
+        $total_count = $count_db->count();
+        // End of record count
+
+        /*
          * Limit the number of results.
          */
         if (isset($data['limit'])) {
-            if (isset($data['skip'])) {
-                $page_db->skip($data['skip'])->take($data['limit']);
+            if (isset($data['page'])) {
+                $page_db->skip($data['page'])->take($data['limit']);
             } else {
                 $page_db->skip(0)->take($data['limit']);
             }
@@ -439,6 +447,7 @@ class PageController extends Controller
                 'code' => 200,
                 'status' => 'success',
                 'locale' => $localeData,
+                'count' => $total_count,
                 'data' => $pages,
             ];
         } else {

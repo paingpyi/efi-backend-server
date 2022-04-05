@@ -23,6 +23,7 @@ return new class extends Migration
             $table->longText('description_chinese')->nullable();
             $table->integer('parent_id')->nullable();
             $table->boolean('is_active')->default(true);
+            $table->string('machine');
             $table->timestamps();
         });
     }
