@@ -377,7 +377,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function list($para = null)
+    public function getlist($para = null)
     {
         $parameters = explode('&', $para);
         $locale = '';
@@ -449,7 +449,7 @@ class ProductController extends Controller
                     'categories.is_active as category_is_active'
                 );
 
-                $localeData = ['lang' => 'my-MM', 'name' => 'Burmese'];
+            $localeData = ['lang' => 'my-MM', 'name' => 'Burmese'];
         } else if (Str::lower($locale) == $lang_chinese) {
             $product_db = DB::table('products')
                 ->join('categories', 'categories.id', '=', 'products.category_id')
@@ -473,7 +473,7 @@ class ProductController extends Controller
                     'categories.is_active as category_is_active'
                 );
 
-                $localeData = ['lang' => 'zh-CN', 'name' => 'Chinese'];
+            $localeData = ['lang' => 'zh-CN', 'name' => 'Chinese'];
         } else {
             $product_db = DB::table('products')
                 ->join('categories', 'categories.id', '=', 'products.category_id')
@@ -518,7 +518,7 @@ class ProductController extends Controller
                     'categories.is_active as category_is_active'
                 );
 
-                $localeData = ['lang' => 'en-US/my-MM/zh-CN', 'name' => 'English/Burmese/Chinese'];
+            $localeData = ['lang' => 'en-US/my-MM/zh-CN', 'name' => 'English/Burmese/Chinese'];
         }
 
         /***
@@ -630,12 +630,12 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function apiList(Request $request)
+    public function postList(Request $request)
     {
         // Variables
-        $lang_chinese = 'zh';
-        $lang_burmese = 'mm';
-        $lang_english = 'en';
+        $lang_english = 'en-us';
+        $lang_chinese = 'zh-cn';
+        $lang_burmese = 'my-mm';
         $localeData = [];
 
         $data = $request->json()->all();
@@ -675,21 +675,21 @@ class ProductController extends Controller
                 ->join('categories', 'categories.id', '=', 'products.category_id')
                 ->select(
                     'products.id as id',
-                    'products.title_chinese',
-                    'products.slogan_chinese',
-                    'products.description_chinese',
-                    'products.benefits_block_chinese',
-                    'products.table_block_chinese',
-                    'products.why_block_chinese',
-                    'products.downloadable_block_chinese',
-                    'products.applythis_block_chinese',
+                    'products.title_chinese as title',
+                    'products.slogan_chinese as slogan',
+                    'products.description_chinese as description',
+                    'products.benefits_block_chinese as benefits_block',
+                    'products.table_block_chinese as table_block',
+                    'products.why_block_chinese as why_block',
+                    'products.downloadable_block_chinese as downloadable_block',
+                    'products.applythis_block_chinese as applythis_block',
                     'products.product_photo',
                     'products.category_id',
                     'products.is_active as is_active',
                     'products.created_at as created_at',
                     'products.updated_at as updated_at',
-                    'categories.name_chinese as category_name_chinese',
-                    'categories.description_chinese as category_description_chinese',
+                    'categories.name_chinese as category_name',
+                    'categories.description_chinese as category_description',
                     'categories.is_active as category_is_active'
                 );
 
@@ -699,21 +699,21 @@ class ProductController extends Controller
                 ->join('categories', 'categories.id', '=', 'products.category_id')
                 ->select(
                     'products.id as id',
-                    'products.title_burmese',
-                    'products.slogan_burmese',
-                    'products.description_burmese',
-                    'products.benefits_block_burmese',
-                    'products.table_block_burmese',
-                    'products.why_block_burmese',
-                    'products.downloadable_block_burmese',
-                    'products.applythis_block_burmese',
+                    'products.title_burmese as title',
+                    'products.slogan_burmese as slogan',
+                    'products.description_burmese as description',
+                    'products.benefits_block_burmese as benefits_block',
+                    'products.table_block_burmese as table_block',
+                    'products.why_block_burmese as why_block',
+                    'products.downloadable_block_burmese as downloadable_block',
+                    'products.applythis_block_burmese as applythis_block',
                     'products.product_photo',
                     'products.category_id',
                     'products.is_active as is_active',
                     'products.created_at as created_at',
                     'products.updated_at as updated_at',
-                    'categories.name_burmese as category_name_burmese',
-                    'categories.description_burmese as category_description_burmese',
+                    'categories.name_burmese as category_name',
+                    'categories.description_burmese as category_description',
                     'categories.is_active as category_is_active'
                 );
 
@@ -800,12 +800,12 @@ class ProductController extends Controller
 
         /***
          *
-         * Retrieve products by title
+         * Retrieve products by created date
          *
          **/
         if (isset($data['created'])) {
-            $product_db->where('products.created_at', '=', $data['created']);
-        } //End of retreiving products by created
+            $product_db->whereDate('products.created_at', '=', date("Y-m-d", strtotime($data['created'])));
+        } //End of retreiving products by created date
 
         /***
          *
@@ -813,7 +813,13 @@ class ProductController extends Controller
          *
          **/
         if (isset($data['category'])) {
-            $product_db->where('categories.name', '=', $data['category']);
+            if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
+                $product_db->where('categories.name_chinese', '=', $data['category']);
+            } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_burmese) {
+                $product_db->where('categories.name_burmese', '=', $data['category']);
+            } else {
+                $product_db->where('categories.name', '=', $data['category']);
+            }
         } //End of retreiving products by category name
 
         /***
@@ -867,12 +873,16 @@ class ProductController extends Controller
             }
         } //End of retreiving products ordered by
 
+        $count_db = $product_db;
+
+        $total_count = $count_db->count();
+
         /*
          * Limit the number of results.
          */
         if (isset($data['limit'])) {
-            if (isset($data['skip'])) {
-                $product_db->skip($data['skip'])->take($data['limit']);
+            if (isset($data['page'])) {
+                $product_db->skip($data['page'])->take($data['limit']);
             } else {
                 $product_db->skip(0)->take($data['limit']);
             }
@@ -885,6 +895,7 @@ class ProductController extends Controller
                 'code' => 200,
                 'status' => 'success',
                 'locale' => $localeData,
+                'count' => $total_count,
                 'data' => $products,
             ];
         } else {
