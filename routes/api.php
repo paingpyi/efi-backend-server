@@ -55,7 +55,7 @@ Route::group(['prefix' => 'career', 'namespace' => 'Content'], function () {
 });
 
 Route::group(['prefix' => 'csr', 'namespace' => 'Content'], function () {
-    Route::get('/{para?}', [CsrController::class, 'show']);
+    Route::get('/{para?}', [CsrController::class, 'getList']);
 
-    Route::post('/', [CsrController::class, 'apiList']);
+    Route::post('/', [CsrController::class, 'postList']);
 });

@@ -351,12 +351,12 @@ class CsrController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function list($para = null)
+    public function getList($para = null)
     {
         // Variables
-        $lang_chinese = 'zh';
-        $lang_burmese = 'mm';
-        $lang_english = 'en';
+        $lang_english = 'en-us';
+        $lang_chinese = 'zh-cn';
+        $lang_burmese = 'my-mm';
         $localeData = [];
 
         $parameters = explode('&', $para);
@@ -378,7 +378,7 @@ class CsrController extends Controller
             }
         }
 
-        if ($locale == $lang_english) {
+        if (Str::lower($locale) == $lang_english) {
             $csr_db = DB::table('c_s_r_s')
                 ->join('users', 'users.id', '=', 'c_s_r_s.author_id')
                 ->select(
@@ -394,13 +394,13 @@ class CsrController extends Controller
                 );
 
             $localeData = ['lang' => 'en-US', 'name' => 'English'];
-        } else if ($locale == $lang_burmese) {
+        } else if (Str::lower($locale) == $lang_burmese) {
             $csr_db = DB::table('c_s_r_s')
                 ->join('users', 'users.id', '=', 'c_s_r_s.author_id')
                 ->select(
                     'c_s_r_s.id as id',
-                    'c_s_r_s.title_burmese as title_burmese',
-                    'c_s_r_s.content_burmese as content_burmese',
+                    'c_s_r_s.title_burmese as title',
+                    'c_s_r_s.content_burmese as content',
                     'c_s_r_s.status as status',
                     'c_s_r_s.created_at as created_at',
                     'c_s_r_s.updated_at as updated_at',
@@ -410,13 +410,13 @@ class CsrController extends Controller
                 );
 
             $localeData = ['lang' => 'my-MM', 'name' => 'Burmese'];
-        } else if ($locale == $lang_chinese) {
+        } else if (Str::lower($locale) == $lang_chinese) {
             $csr_db = DB::table('c_s_r_s')
                 ->join('users', 'users.id', '=', 'c_s_r_s.author_id')
                 ->select(
                     'c_s_r_s.id as id',
-                    'c_s_r_s.title_chinese as title_chinese',
-                    'c_s_r_s.content_chinese as content_chinese',
+                    'c_s_r_s.title_chinese as title',
+                    'c_s_r_s.content_chinese as content',
                     'c_s_r_s.status as status',
                     'c_s_r_s.created_at as created_at',
                     'c_s_r_s.updated_at as updated_at',
@@ -460,9 +460,9 @@ class CsrController extends Controller
              *
              **/
             if ($con['key'] == 'title') {
-                if ($locale == $lang_burmese) {
+                if (Str::lower($locale) == $lang_burmese) {
                     $csr_db->where('c_s_r_s.title_burmese', '=', Str::replace('+', ' ', $con['value']));
-                } else if ($locale == $lang_chinese) {
+                } else if (Str::lower($locale) == $lang_chinese) {
                     $csr_db->where('c_s_r_s.title_chinese', '=', Str::replace('+', ' ', $con['value']));
                 } else {
                     $csr_db->where('c_s_r_s.title', '=', Str::replace('+', ' ', $con['value']));
@@ -489,9 +489,9 @@ class CsrController extends Controller
                     if ($orderBy[0] == 'desc') {
                         if (isset($orderBy[1])) {
                             if ($orderBy[1] == 'title') {
-                                if ($locale == $lang_burmese) {
+                                if (Str::lower($locale) == $lang_burmese) {
                                     $csr_db->orderByDesc('c_s_r_s.title_burmese');
-                                } else if ($locale == $lang_chinese) {
+                                } else if (Str::lower($locale) == $lang_chinese) {
                                     $csr_db->orderByDesc('c_s_r_s.title_chinese');
                                 } else {
                                     $csr_db->orderByDesc('c_s_r_s.title');
@@ -511,9 +511,9 @@ class CsrController extends Controller
                     } else if ($orderBy[0] == 'asc') {
                         if (isset($orderBy[1])) {
                             if ($orderBy[1] == 'title') {
-                                if ($locale == $lang_burmese) {
+                                if (Str::lower($locale) == $lang_burmese) {
                                     $csr_db->orderBy('c_s_r_s.title_burmese');
-                                } else if ($locale == $lang_chinese) {
+                                } else if (Str::lower($locale) == $lang_chinese) {
                                     $csr_db->orderBy('c_s_r_s.title_chinese');
                                 } else {
                                     $csr_db->orderBy('c_s_r_s.title');
@@ -569,12 +569,12 @@ class CsrController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function apiList(Request $request)
+    public function postList(Request $request)
     {
         // Variables
-        $lang_chinese = 'zh';
-        $lang_burmese = 'mm';
-        $lang_english = 'en';
+        $lang_english = 'en-us';
+        $lang_chinese = 'zh-cn';
+        $lang_burmese = 'my-mm';
         $localeData = [];
 
         $data = $request->json()->all();
@@ -605,8 +605,8 @@ class CsrController extends Controller
                 ->join('users', 'users.id', '=', 'c_s_r_s.author_id')
                 ->select(
                     'c_s_r_s.id as id',
-                    'c_s_r_s.title_burmese as title_burmese',
-                    'c_s_r_s.content_burmese as content_burmese',
+                    'c_s_r_s.title_burmese as title',
+                    'c_s_r_s.content_burmese as content',
                     'c_s_r_s.status as status',
                     'c_s_r_s.created_at as created_at',
                     'c_s_r_s.updated_at as updated_at',
@@ -641,6 +641,8 @@ class CsrController extends Controller
                     'c_s_r_s.content as content',
                     'c_s_r_s.title_burmese as title_burmese',
                     'c_s_r_s.content_burmese as content_burmese',
+                    'c_s_r_s.title_chinese as title_chinese',
+                    'c_s_r_s.content_chinese as content_chinese',
                     'c_s_r_s.status as status',
                     'c_s_r_s.created_at as created_at',
                     'c_s_r_s.updated_at as updated_at',
@@ -687,12 +689,12 @@ class CsrController extends Controller
 
         /***
          *
-         * Retrieve c_s_r_s by title
+         * Retrieve pages by title
          *
          **/
         if (isset($data['created'])) {
-            $csr_db->where('c_s_r_s.created_at', '=', $data['created']);
-        } //End of retreiving c_s_r_s by created
+            $csr_db->whereDate('c_s_r_s.created_at', '=', date("Y-m-d", strtotime($data['created'])));
+        } //End of retreiving pages by created
 
         /***
          *
@@ -746,11 +748,19 @@ class CsrController extends Controller
         } //End of retreiving c_s_r_s ordered by
 
         /*
+        * Record count
+        */
+        $count_db = $csr_db;
+
+        $total_count = $count_db->count();
+        // End of record count
+
+        /*
          * Limit the number of results.
          */
         if (isset($data['limit'])) {
-            if (isset($data['skip'])) {
-                $csr_db->skip($data['skip'])->take($data['limit']);
+            if (isset($data['page'])) {
+                $csr_db->skip($data['page'])->take($data['limit']);
             } else {
                 $csr_db->skip(0)->take($data['limit']);
             }
@@ -763,6 +773,7 @@ class CsrController extends Controller
                 'code' => 200,
                 'status' => 'success',
                 'locale' => $localeData,
+                'count' => $total_count,
                 'data' => $c_s_r_s,
             ];
         } else {
