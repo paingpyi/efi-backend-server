@@ -272,12 +272,12 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function list($para = null)
+    public function getList($para = null)
     {
         // Variables
-        $lang_chinese = 'zh';
-        $lang_burmese = 'mm';
-        $lang_english = 'en';
+        $lang_english = 'en-us';
+        $lang_chinese = 'zh-cn';
+        $lang_burmese = 'my-mm';
         $localeData = [];
 
         $parameters = explode('&', $para);
@@ -289,7 +289,7 @@ class BlogController extends Controller
 
             if (Str::lower($value[0]) == 'locale') {
                 if (isset($value[1])) {
-                    $locale = $value[1];
+                    $locale = Str::lower($value[1]);
                 }
             } else {
                 $conditions[] = [
@@ -331,19 +331,19 @@ class BlogController extends Controller
                 ->join('users', 'users.id', '=', 'blogs.author_id')
                 ->select(
                     'blogs.id as id',
-                    'blogs.title_burmese as title_burmese',
-                    'blogs.content_burmese as content_burmese',
+                    'blogs.title_burmese as title',
+                    'blogs.content_burmese as content',
                     'blogs.category_id',
                     'blogs.products as related_products',
                     'blogs.status as status',
-                    'blogs.url_slug as url_slug',
+                    'blogs.url_slug as slug_url',
                     'blogs.featured as featured',
                     'blogs.image as image',
                     'blogs.products as related_products',
                     'blogs.created_at as created_at',
                     'blogs.updated_at as updated_at',
-                    'categories.name_burmese as category_name_burmese',
-                    'categories.description_burmese as category_description_burmese',
+                    'categories.name_burmese as category_name',
+                    'categories.description_burmese as category_description',
                     'categories.is_active as category_is_active',
                     'users.name as author_name',
                     'users.email as author_email',
@@ -357,8 +357,8 @@ class BlogController extends Controller
                 ->join('users', 'users.id', '=', 'blogs.author_id')
                 ->select(
                     'blogs.id as id',
-                    'blogs.title_chinese as title_chinese',
-                    'blogs.content_chinese as content_chinese',
+                    'blogs.title_chinese as title',
+                    'blogs.content_chinese as content',
                     'blogs.category_id',
                     'blogs.products as related_products',
                     'blogs.status as status',
@@ -368,8 +368,8 @@ class BlogController extends Controller
                     'blogs.products as related_products',
                     'blogs.created_at as created_at',
                     'blogs.updated_at as updated_at',
-                    'categories.name_chinese as category_name_chinese',
-                    'categories.description_chinese as category_description_chinese',
+                    'categories.name_chinese as category_name',
+                    'categories.description_chinese as category_description',
                     'categories.is_active as category_is_active',
                     'users.name as author_name',
                     'users.email as author_email',
@@ -424,7 +424,13 @@ class BlogController extends Controller
              *
              **/
             if ($con['key'] == 'cat') {
-                $blog_db->where('categories.name', '=', Str::replace('+', ' ', $con['value']));
+                if ($locale == $lang_burmese) {
+                    $blog_db->where('categories.name_burmese', '=', Str::replace('+', ' ', $con['value']));
+                } else if ($locale == $lang_chinese) {
+                    $blog_db->where('categories.name_chinese', '=', Str::replace('+', ' ', $con['value']));
+                } else {
+                    $blog_db->where('categories.name', '=', Str::replace('+', ' ', $con['value']));
+                }
             } //End of retreiving BLOGs by category name
             /***
              *
@@ -541,12 +547,12 @@ class BlogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function apiList(Request $request)
+    public function postList(Request $request)
     {
         // Variables
-        $lang_chinese = 'zh';
-        $lang_burmese = 'mm';
-        $lang_english = 'en';
+        $lang_english = 'en-us';
+        $lang_chinese = 'zh-cn';
+        $lang_burmese = 'my-mm';
         $localeData = [];
 
         $data = $request->json()->all();
@@ -584,15 +590,15 @@ class BlogController extends Controller
                 ->join('users', 'users.id', '=', 'blogs.author_id')
                 ->select(
                     'blogs.id as id',
-                    'blogs.title_burmese as title_burmese',
-                    'blogs.content_burmese as content_burmese',
+                    'blogs.title_burmese as title',
+                    'blogs.content_burmese as content',
                     'blogs.category_id',
                     'blogs.products as related_products',
                     'blogs.status as status',
                     'blogs.created_at as created_at',
                     'blogs.updated_at as updated_at',
-                    'categories.name as category_name',
-                    'categories.description as category_description',
+                    'categories.name_burmese as category_name',
+                    'categories.description_burmese as category_description',
                     'categories.is_active as category_is_active',
                     'users.name as author_name',
                     'users.email as author_email',
@@ -606,15 +612,15 @@ class BlogController extends Controller
                 ->join('users', 'users.id', '=', 'blogs.author_id')
                 ->select(
                     'blogs.id as id',
-                    'blogs.title_chinese as title_chinese',
-                    'blogs.content_chinese as content_chinese',
+                    'blogs.title_chinese as title',
+                    'blogs.content_chinese as content',
                     'blogs.category_id',
                     'blogs.products as related_products',
                     'blogs.status as status',
                     'blogs.created_at as created_at',
                     'blogs.updated_at as updated_at',
-                    'categories.name as category_name',
-                    'categories.description as category_description',
+                    'categories.name_chinese as category_name',
+                    'categories.description_chinese as category_description',
                     'categories.is_active as category_is_active',
                     'users.name as author_name',
                     'users.email as author_email',
@@ -639,6 +645,10 @@ class BlogController extends Controller
                     'blogs.updated_at as updated_at',
                     'categories.name as category_name',
                     'categories.description as category_description',
+                    'categories.name_burmese as category_name_burmese',
+                    'categories.description_burmese as category_description_burmese',
+                    'categories.name_chinese as category_name_chinese',
+                    'categories.description_chinese as category_description_chinese',
                     'categories.is_active as category_is_active',
                     'users.name as author_name',
                     'users.email as author_email',
@@ -687,7 +697,7 @@ class BlogController extends Controller
          *
          **/
         if (isset($data['created'])) {
-            $blog_db->where('blogs.created_at', '=', $data['created']);
+            $blog_db->where('blogs.created_at', '=', date("Y-m-d", strtotime($data['created'])));
         } //End of retreiving blogs by created
 
         /***
@@ -696,8 +706,23 @@ class BlogController extends Controller
          *
          **/
         if (isset($data['category'])) {
-            $blog_db->where('categories.name', '=', $data['category']);
+            if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
+                $blog_db->where('categories.name_chinese', '=', $data['category']);
+            } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_burmese) {
+                $blog_db->where('categories.name_burmese', '=', $data['category']);
+            } else {
+                $blog_db->where('categories.name', '=', $data['category']);
+            }
         } //End of retreiving blogs by category name
+
+        /***
+         *
+         * Retrieve products by category's machine name
+         *
+         **/
+        if (isset($data['category_machine_name'])) {
+            $blog_db->where('categories.machine', '=', $data['category_machine_name']);
+        } // End of products by category's machine name
 
         /***
          *
@@ -751,11 +776,19 @@ class BlogController extends Controller
         } //End of retreiving blogs ordered by
 
         /*
+        * Record count
+        */
+        $count_db = $blog_db;
+
+        $total_count = $count_db->count();
+        // End of record count
+
+        /*
          * Limit the number of results.
          */
         if (isset($data['limit'])) {
-            if (isset($data['skip'])) {
-                $blog_db->skip($data['skip'])->take($data['limit']);
+            if (isset($data['page'])) {
+                $blog_db->skip($data['page'])->take($data['limit']);
             } else {
                 $blog_db->skip(0)->take($data['limit']);
             }
@@ -768,6 +801,7 @@ class BlogController extends Controller
                 'code' => 200,
                 'status' => 'success',
                 'locale' => $localeData,
+                'count' => $total_count,
                 'data' => $blogs,
             ];
         } else {
