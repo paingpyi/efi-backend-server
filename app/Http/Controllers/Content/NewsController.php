@@ -257,13 +257,13 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function list($para = null)
+    public function getlist($para = null)
     {
         $parameters = explode('&', $para);
         $locale = '';
-        $lang_english = 'en';
-        $lang_chinese = 'zh';
-        $lang_burmese = 'mm';
+        $lang_english = 'en-us';
+        $lang_chinese = 'zh-cn';
+        $lang_burmese = 'my-mm';
         $conditions = [];
 
         foreach ($parameters as $check) {
@@ -305,8 +305,8 @@ class NewsController extends Controller
                 ->join('users', 'users.id', '=', 'news.author_id')
                 ->select(
                     'news.id as id',
-                    'news.title_burmese as title_burmese',
-                    'news.content_burmese as content_burmese',
+                    'news.title_burmese as title',
+                    'news.content_burmese as content',
                     'news.status as status',
                     'news.featured as featured',
                     'news.url_slug as url_slug',
@@ -324,8 +324,8 @@ class NewsController extends Controller
                 ->join('users', 'users.id', '=', 'news.author_id')
                 ->select(
                     'news.id as id',
-                    'news.title_chinese as title_chinese',
-                    'news.content_chinese as content_chinese',
+                    'news.title_chinese as title',
+                    'news.content_chinese as content',
                     'news.status as status',
                     'news.featured as featured',
                     'news.url_slug as url_slug',
@@ -484,11 +484,11 @@ class NewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function apiList(Request $request)
+    public function postList(Request $request)
     {
-        $lang_english = 'en';
-        $lang_chinese = 'zh';
-        $lang_burmese = 'mm';
+        $lang_english = 'en-us';
+        $lang_chinese = 'zh-cn';
+        $lang_burmese = 'my-mm';
 
         $data = $request->json()->all();
 
@@ -521,8 +521,8 @@ class NewsController extends Controller
                 ->join('users', 'users.id', '=', 'news.author_id')
                 ->select(
                     'news.id as id',
-                    'news.title_burmese as title_burmese',
-                    'news.content_burmese as content_burmese',
+                    'news.title_burmese as title',
+                    'news.content_burmese as content',
                     'news.status as status',
                     'news.featured as featured',
                     'news.url_slug as url_slug',
@@ -540,8 +540,8 @@ class NewsController extends Controller
                 ->join('users', 'users.id', '=', 'news.author_id')
                 ->select(
                     'news.id as id',
-                    'news.title_chinese as title_chinese',
-                    'news.content_chinese as content_chinese',
+                    'news.title_chinese as title',
+                    'news.content_chinese as content',
                     'news.status as status',
                     'news.featured as featured',
                     'news.url_slug as url_slug',
@@ -645,7 +645,7 @@ class NewsController extends Controller
          *
          **/
         if (isset($data['created'])) {
-            $news_db->where('news.created_at', '=', $data['created']);
+            $news_db->whereDate('news.created_at', '=', date("Y-m-d", strtotime($data['created'])));
         } //End of retreiving news by created
 
         /***
@@ -700,6 +700,14 @@ class NewsController extends Controller
         } //End of retreiving news ordered by
 
         /*
+        * Record count
+        */
+        $count_db = $news_db;
+
+        $total_count = $count_db->count();
+        // End of record count
+
+        /*
          * Limit the number of results.
          */
         if (isset($data['limit'])) {
@@ -717,6 +725,7 @@ class NewsController extends Controller
                 'code' => 200,
                 'status' => 'success',
                 'locale' => $localeData,
+                'count' => $total_count,
                 'data' => $news,
             ];
         } else {

@@ -43,9 +43,9 @@ Route::group(['prefix' => 'pages', 'namespace' => 'Content'], function () {
 });
 
 Route::group(['prefix' => 'news', 'namespace' => 'Content'], function () {
-    Route::get('/{para?}', [NewsController::class, 'list']);
+    Route::get('/{para?}', [NewsController::class, 'getlist']);
 
-    Route::post('/', [NewsController::class, 'apiList']);
+    Route::post('/', [NewsController::class, 'postList']);
 });
 
 Route::group(['prefix' => 'career', 'namespace' => 'Content'], function () {

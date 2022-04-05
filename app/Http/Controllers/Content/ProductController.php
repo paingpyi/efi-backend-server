@@ -421,6 +421,7 @@ class ProductController extends Controller
                     'products.created_at as created_at',
                     'products.updated_at as updated_at',
                     'categories.name as category_name',
+                    'categories.machine as category_machine_name',
                     'categories.description as category_description',
                     'categories.is_active as category_is_active'
                 );
@@ -445,6 +446,7 @@ class ProductController extends Controller
                     'products.created_at as created_at',
                     'products.updated_at as updated_at',
                     'categories.name_burmese as category_name',
+                    'categories.machine as category_machine_name',
                     'categories.description_burmese as category_description',
                     'categories.is_active as category_is_active'
                 );
@@ -469,6 +471,7 @@ class ProductController extends Controller
                     'products.created_at as created_at',
                     'products.updated_at as updated_at',
                     'categories.name_chinese as category_name',
+                    'categories.machine as category_machine_name',
                     'categories.description_chinese as category_description',
                     'categories.is_active as category_is_active'
                 );
@@ -515,6 +518,7 @@ class ProductController extends Controller
                     'categories.description_burmese as category_description_burmese',
                     'categories.name_chinese as category_name_chinese',
                     'categories.description_chinese as category_description_chinese',
+                    'categories.machine as category_machine_name',
                     'categories.is_active as category_is_active'
                 );
 
@@ -666,6 +670,7 @@ class ProductController extends Controller
                     'products.updated_at as updated_at',
                     'categories.name as category_name',
                     'categories.description as category_description',
+                    'categories.machine as category_machine_name',
                     'categories.is_active as category_is_active'
                 );
 
@@ -690,6 +695,7 @@ class ProductController extends Controller
                     'products.updated_at as updated_at',
                     'categories.name_chinese as category_name',
                     'categories.description_chinese as category_description',
+                    'categories.machine as category_machine_name',
                     'categories.is_active as category_is_active'
                 );
 
@@ -714,6 +720,7 @@ class ProductController extends Controller
                     'products.updated_at as updated_at',
                     'categories.name_burmese as category_name',
                     'categories.description_burmese as category_description',
+                    'categories.machine as category_machine_name',
                     'categories.is_active as category_is_active'
                 );
 
@@ -759,6 +766,7 @@ class ProductController extends Controller
                     'categories.description_burmese as category_description_burmese',
                     'categories.name_chinese as category_name_chinese',
                     'categories.description_chinese as category_description_chinese',
+                    'categories.machine as category_machine_name',
                     'categories.is_active as category_is_active'
                 );
 
@@ -821,6 +829,15 @@ class ProductController extends Controller
                 $product_db->where('categories.name', '=', $data['category']);
             }
         } //End of retreiving products by category name
+
+        /***
+         *
+         * Retrieve products by category's machine name
+         *
+         **/
+        if (isset($data['category_machine_name'])) {
+            $product_db->where('categories.machine', '=', $data['category_machine_name']);
+        } // End of products by category's machine name
 
         /***
          *
