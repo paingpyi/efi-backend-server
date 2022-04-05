@@ -202,12 +202,13 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($para = null)
+    public function getlist($para = null)
     {
         // Variables
-        $chinese = 'zh';
-        $burmese = 'mm';
-        $english = 'en';
+        $localeData = [];
+        $lang_english = 'en-us';
+        $lang_chinese = 'zh-cn';
+        $lang_burmese = 'my-mm';
 
         $parameters = explode('&', $para);
         $locale = '';
@@ -228,7 +229,7 @@ class JobController extends Controller
             }
         }
 
-        if ($locale == $english) {
+        if (Str::lower($locale) == $lang_english) {
             $job_db = DB::table('jobs')
                 ->select(
                     'id',
@@ -242,7 +243,9 @@ class JobController extends Controller
                     'created_at',
                     'updated_at'
                 );
-        } else if ($locale == $burmese) {
+
+            $localeData = ['lang' => 'en-US', 'name' => 'English'];
+        } else if (Str::lower($locale) == $lang_burmese) {
             $job_db = DB::table('jobs')
                 ->select(
                     'id',
@@ -256,7 +259,9 @@ class JobController extends Controller
                     'created_at',
                     'updated_at'
                 );
-        } else if ($locale == $chinese) {
+
+            $localeData = ['lang' => 'my-MM', 'name' => 'Burmese'];
+        } else if (Str::lower($locale) == $lang_chinese) {
             $job_db = DB::table('jobs')
                 ->select(
                     'id',
@@ -270,6 +275,8 @@ class JobController extends Controller
                     'created_at',
                     'updated_at'
                 );
+
+            $localeData = ['lang' => 'zh-CN', 'name' => 'Chinese'];
         } else {
             $job_db = DB::table('jobs')
                 ->select(
@@ -292,6 +299,8 @@ class JobController extends Controller
                     'created_at',
                     'updated_at'
                 );
+
+            $localeData = ['lang' => 'en-US/my-MM/zh-CN', 'name' => 'English/Burmese/Chinese'];
         }
 
         /***
@@ -306,9 +315,9 @@ class JobController extends Controller
              *
              **/
             if ($con['key'] == 'dep') {
-                if ($locale == $burmese) {
+                if (Str::lower($locale) == $lang_burmese) {
                     $job_db->where('department_burmese', '=', Str::replace('+', ' ', $con['value']));
-                } else if ($locale == $chinese) {
+                } else if (Str::lower($locale) == $lang_chinese) {
                     $job_db->where('department_chinese', '=', Str::replace('+', ' ', $con['value']));
                 } else {
                     $job_db->where('department', '=', Str::replace('+', ' ', $con['value']));
@@ -320,9 +329,9 @@ class JobController extends Controller
              *
              **/
             else if ($con['key'] == 'post') {
-                if ($locale == $burmese) {
+                if (Str::lower($locale) == $lang_burmese) {
                     $job_db->where('position_burmese', '=', Str::replace('+', ' ', $con['value']));
-                } else if ($locale == $chinese) {
+                } else if (Str::lower($locale) == $lang_chinese) {
                     $job_db->where('position_chinese', '=', Str::replace('+', ' ', $con['value']));
                 } else {
                     $job_db->where('position', '=', Str::replace('+', ' ', $con['value']));
@@ -349,17 +358,17 @@ class JobController extends Controller
                     if ($orderBy[0] == 'desc') {
                         if (isset($orderBy[1])) {
                             if ($orderBy[1] == 'post') {
-                                if ($locale == $burmese) {
+                                if (Str::lower($locale) == $lang_burmese) {
                                     $job_db->orderByDesc('position_burmese');
-                                } else if ($locale == $chinese) {
+                                } else if (Str::lower($locale) == $lang_chinese) {
                                     $job_db->orderByDesc('position_chinese');
                                 } else {
                                     $job_db->orderByDesc('position');
                                 }
                             } else if ($orderBy[1] == 'dep') {
-                                if ($locale == $burmese) {
+                                if (Str::lower($locale) == $lang_burmese) {
                                     $job_db->orderByDesc('department_burmese');
-                                } else if ($locale == $chinese) {
+                                } else if (Str::lower($locale) == $lang_chinese) {
                                     $job_db->orderByDesc('department_chinese');
                                 } else {
                                     $job_db->orderByDesc('department');
@@ -377,17 +386,17 @@ class JobController extends Controller
                     } else if ($orderBy[0] == 'asc') {
                         if (isset($orderBy[1])) {
                             if ($orderBy[1] == 'post') {
-                                if ($locale == $burmese) {
+                                if (Str::lower($locale) == $lang_burmese) {
                                     $job_db->orderBy('position_burmese');
-                                } else if ($locale == $chinese) {
+                                } else if (Str::lower($locale) == $lang_chinese) {
                                     $job_db->orderBy('position_chinese');
                                 } else {
                                     $job_db->orderBy('position');
                                 }
                             } else if ($orderBy[1] == 'dep') {
-                                if ($locale == $burmese) {
+                                if (Str::lower($locale) == $lang_burmese) {
                                     $job_db->orderBy('department_burmese');
-                                } else if ($locale == $chinese) {
+                                } else if (Str::lower($locale) == $lang_burmese) {
                                     $job_db->orderBy('department_chinese');
                                 } else {
                                     $job_db->orderBy('department');
@@ -422,6 +431,7 @@ class JobController extends Controller
             $response = [
                 'code' => 200,
                 'status' => 'success',
+                'locale' => $localeData,
                 'data' => $jobs,
             ];
         } else {
@@ -440,14 +450,14 @@ class JobController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function apiList(Request $request)
+    public function postList(Request $request)
     {
         $data = $request->json()->all();
 
         // Variables
-        $chinese = 'zh';
-        $burmese = 'mm';
-        $english = 'en';
+        $lang_english = 'en-us';
+        $lang_chinese = 'zh-cn';
+        $lang_burmese = 'my-mm';
         $localeData = [];
 
         /*
@@ -455,7 +465,7 @@ class JobController extends Controller
          *
          * MM for my-MM/Burmese and EN for en-US/English
          */
-        if (isset($data['locale']) and Str::lower($data['locale']) == $english) {
+        if (isset($data['locale']) and Str::lower($data['locale']) == $lang_english) {
             $job_db = DB::table('jobs')
                 ->select(
                     'id',
@@ -471,14 +481,14 @@ class JobController extends Controller
                 );
 
             $localeData = ['lang' => 'en-US', 'name' => 'English'];
-        } else if (isset($data['locale']) and Str::lower($data['locale']) == $burmese) {
+        } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_burmese) {
             $job_db = DB::table('jobs')
                 ->select(
                     'id',
-                    'position_burmese',
-                    'department_burmese',
-                    'description_burmese',
-                    'due_burmese',
+                    'position_burmese as position',
+                    'department_burmese as department',
+                    'description_burmese as description',
+                    'due_burmese as due',
                     'due_date',
                     'slug_url',
                     'is_vacant',
@@ -487,14 +497,14 @@ class JobController extends Controller
                 );
 
             $localeData = ['lang' => 'my-MM', 'name' => 'Burmese'];
-        } else if (isset($data['locale']) and Str::lower($data['locale']) == $chinese) {
+        } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
             $job_db = DB::table('jobs')
                 ->select(
                     'id',
-                    'position_chinese',
-                    'department_chinese',
-                    'description_chinese',
-                    'due_chinese',
+                    'position_chinese as position',
+                    'department_chinese as department',
+                    'description_chinese as description',
+                    'due_chinese as due',
                     'due_date',
                     'slug_url',
                     'is_vacant',
@@ -540,13 +550,22 @@ class JobController extends Controller
 
         /***
          *
+         * Retrieve products by slug
+         *
+         **/
+        if (isset($data['slug'])) {
+            $job_db->where('slug_url', '=', $data['slug']);
+        } //End of retreiving products by slug
+
+        /***
+         *
          * Retrieve Job Vacancy by position
          *
          **/
         if (isset($data['post'])) {
-            if (isset($data['locale']) and Str::lower($data['locale']) == $english) {
+            if (isset($data['locale']) and Str::lower($data['locale']) == $lang_english) {
                 $job_db->where('position', '=', $data['post']);
-            } else if (isset($data['locale']) and Str::lower($data['locale']) == $burmese) {
+            } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_burmese) {
                 $job_db->where('position_burmese', '=', $data['post']);
             } else {
                 $job_db->where('position_chinese', '=', $data['post']);
@@ -559,9 +578,9 @@ class JobController extends Controller
          *
          **/
         if (isset($data['depart'])) {
-            if (isset($data['locale']) and Str::lower($data['locale']) == $english) {
+            if (isset($data['locale']) and Str::lower($data['locale']) == $lang_english) {
                 $job_db->where('department', '=', $data['depart']);
-            } else if (isset($data['locale']) and Str::lower($data['locale']) == $burmese) {
+            } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_burmese) {
                 $job_db->where('department_burmese', '=', $data['depart']);
             } else {
                 $job_db->where('department_chinese', '=', $data['depart']);
@@ -579,7 +598,7 @@ class JobController extends Controller
 
         /***
          *
-         * Retrieve Job Vacancy by title
+         * Retrieve Job Vacancy by created
          *
          **/
         if (isset($data['created'])) {
@@ -592,7 +611,7 @@ class JobController extends Controller
          *
          **/
         if (isset($data['order'])) {
-            if (isset($data['locale']) and Str::lower($data['locale']) == $english) {
+            if (isset($data['locale']) and Str::lower($data['locale']) == $lang_english) {
                 if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
                     if (isset($data['order']['field'])) {
                         $job_db->orderByDesc(Str::lower($data['order']['field']));
@@ -606,7 +625,7 @@ class JobController extends Controller
                         $job_db->orderBy('position');
                     }
                 }
-            } else if (isset($data['locale']) and Str::lower($data['locale']) == $chinese) {
+            } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
                 if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
                     if (isset($data['order']['field'])) {
                         $job_db->orderByDesc(Str::lower($data['order']['field']) . '_chinese');
@@ -638,11 +657,19 @@ class JobController extends Controller
         } //End of retreiving products ordered by
 
         /*
+        * Record count
+        */
+        $count_db = $job_db;
+
+        $total_count = $count_db->count();
+        // End of record count
+
+        /*
          * Limit the number of results.
          */
         if (isset($data['limit'])) {
-            if (isset($data['skip'])) {
-                $job_db->skip($data['skip'])->take($data['limit']);
+            if (isset($data['page'])) {
+                $job_db->skip($data['page'])->take($data['limit']);
             } else {
                 $job_db->skip(0)->take($data['limit']);
             }
@@ -655,6 +682,7 @@ class JobController extends Controller
                 'code' => 200,
                 'status' => 'success',
                 'locale' => $localeData,
+                'count' => $total_count,
                 'data' => $products,
             ];
         } else {
