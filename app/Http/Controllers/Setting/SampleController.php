@@ -34,6 +34,13 @@ class SampleController extends Controller
     public function store(Request $request)
     {
         $collection = collect([1, 2, 3, 4, 5]);
+        $product_info = [
+            ['Comprehensive motor insurance', '/demo/product-icons/general/motorcycle.svg', 4],
+            ['Fire insurance', '/demo/product-icons/general/home-insurance.svg', 4],
+            ['Marine cargo insurance', '/demo/product-icons/general/cargo-ship-3.svg', 3],
+            ['Oversea marine cargo insurance', '/demo/product-icons/general/cargo-ship-1.svg', 3],
+            ['Marine hull insurance', '/demo/product-icons/general/cargo-ship-2.svg', 3],
+        ];
         $product_cats = collect([3,4]);
         $products = [];
         $pages = [];
