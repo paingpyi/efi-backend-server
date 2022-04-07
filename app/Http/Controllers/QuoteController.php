@@ -14,6 +14,7 @@ class QuoteController extends Controller
     private $error400status_eng = 'Bad Request';
     private $error_operators_eng = 'Condition operator is not valid. The operator must be "<, >, <=, >=, ==".';
     private $error_arithmetic_eng = 'Arithmetic operator is not valid. The operator must be "+, -, *, /".';
+    private $required_error_eng = ' field is required to fill.';
     private $success_eng = 'success';
     // End of English
 
@@ -54,6 +55,41 @@ class QuoteController extends Controller
      */
     public function calculateShortTermEndowment(Request $request)
     {
+        $data = $request->json()->all();
+
+        if (!isset($data['insured_amount'])) {
+            $response = [
+                'code' => 400,
+                'status' => $this->error400status_eng,
+                'errors' => 'insured_amount' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response);
+        }
+
+        if (!isset($data['insured_age'])) {
+            $response = [
+                'code' => 400,
+                'status' => $this->error400status_eng,
+                'errors' => 'insured_age' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response);
+        }
+
+        if (!isset($data['term'])) {
+            $response = [
+                'code' => 400,
+                'status' => $this->error400status_eng,
+                'errors' => 'term' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response);
+        }
+
         $validator = Validator::make($request->all(), [
             'insured_amount' => 'required|numeric',
             'insured_age' => 'required',
