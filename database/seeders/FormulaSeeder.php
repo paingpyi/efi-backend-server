@@ -19,10 +19,11 @@ class FormulaSeeder extends Seeder
     {
         DB::table('formulas')->insert([
             [
+                'method' => 'calculateShortTermEndowment',
                 'conditions' => json_encode([
                     ['field' => 'insured_age', 'operator' => '>=', 'value' => 10],
                     ['field' => 'insured_age', 'operator' => '<=', 'value' => 27],
-                    ['field' => 'term', 'operator' => '=', 'value' => 5]
+                    ['field' => 'term', 'operator' => '==', 'value' => 5]
                 ]),
                 'formulas' => json_encode([
                     ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
@@ -32,10 +33,11 @@ class FormulaSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
+                'method' => 'calculateShortTermEndowment',
                 'conditions' => json_encode([
                     ['field' => 'insured_age', 'operator' => '>=', 'value' => 10],
                     ['field' => 'insured_age', 'operator' => '<=', 'value' => 27],
-                    ['field' => 'term', 'operator' => '=', 'value' => 7]
+                    ['field' => 'term', 'operator' => '==', 'value' => 7]
                 ]),
                 'formulas' => json_encode([
                     ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
@@ -45,10 +47,11 @@ class FormulaSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
+                'method' => 'calculateShortTermEndowment',
                 'conditions' => json_encode([
                     ['field' => 'insured_age', 'operator' => '>=', 'value' => 10],
                     ['field' => 'insured_age', 'operator' => '<=', 'value' => 27],
-                    ['field' => 'term', 'operator' => '=', 'value' => 10]
+                    ['field' => 'term', 'operator' => '==', 'value' => 10]
                 ]),
                 'formulas' => json_encode([
                     ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
@@ -58,10 +61,11 @@ class FormulaSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
+                'method' => 'calculateShortTermEndowment',
                 'conditions' => json_encode([
                     ['field' => 'insured_age', 'operator' => '>=', 'value' => 28],
                     ['field' => 'insured_age', 'operator' => '<=', 'value' => 32],
-                    ['field' => 'term', 'operator' => '=', 'value' => 5]
+                    ['field' => 'term', 'operator' => '==', 'value' => 5]
                 ]),
                 'formulas' => json_encode([
                     ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
@@ -71,10 +75,11 @@ class FormulaSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
+                'method' => 'calculateShortTermEndowment',
                 'conditions' => json_encode([
                     ['field' => 'insured_age', 'operator' => '>=', 'value' => 28],
                     ['field' => 'insured_age', 'operator' => '<=', 'value' => 32],
-                    ['field' => 'term', 'operator' => '=', 'value' => 7]
+                    ['field' => 'term', 'operator' => '==', 'value' => 7]
                 ]),
                 'formulas' => json_encode([
                     ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
@@ -84,10 +89,11 @@ class FormulaSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
+                'method' => 'calculateShortTermEndowment',
                 'conditions' => json_encode([
                     ['field' => 'insured_age', 'operator' => '>=', 'value' => 28],
                     ['field' => 'insured_age', 'operator' => '<=', 'value' => 32],
-                    ['field' => 'term', 'operator' => '=', 'value' => 10]
+                    ['field' => 'term', 'operator' => '==', 'value' => 10]
                 ]),
                 'formulas' => json_encode([
                     ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],

@@ -10,6 +10,7 @@ class Formula extends Model
     use HasFactory;
 
     protected $fillable = [
+        'method',
         'conditions',
         'formulas',
     ];

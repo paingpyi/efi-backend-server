@@ -62,5 +62,11 @@ Route::group(['prefix' => 'csr', 'namespace' => 'Content'], function () {
 });
 
 Route::group(['prefix' => 'quotes'], function () {
-    Route::post('comprehensive-motor-insurance', [QuoteController::class, 'calculateMotor']);
+    Route::group(['prefix' => 'general'], function () {
+        Route::post('comprehensive-motor-insurance', [QuoteController::class, 'calculateMotor']);
+    });
+
+    Route::group(['prefix' => 'life'], function () {
+        Route::post('short-term-endowment', [QuoteController::class, 'calculateShortTermEndowment']);
+    });
 });

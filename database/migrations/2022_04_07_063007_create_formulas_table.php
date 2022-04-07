@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('formulas', function (Blueprint $table) {
             $table->id();
+            $table->string('method');
             $table->json('conditions');
             $table->json('formulas');
             $table->timestamps();
