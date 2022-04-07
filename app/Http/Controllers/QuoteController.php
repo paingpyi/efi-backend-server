@@ -24,8 +24,10 @@ class QuoteController extends Controller
 
         if ($validator->fails()) {
             $response = [
-                'code' => 204,
-                'status' => 'no content',
+                'code' => 400,
+                'status' => 'Bad Request',
+                'error' => $validator->errors(),
+                'old' => $request->all(),
             ];
 
             return response()->json($response);

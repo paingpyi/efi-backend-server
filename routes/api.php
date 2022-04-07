@@ -8,6 +8,7 @@ use App\Http\Controllers\Content\PageController;
 use App\Http\Controllers\Content\NewsController;
 use App\Http\Controllers\Content\JobController;
 use App\Http\Controllers\Content\CsrController;
+use App\Http\Controllers\QuoteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,4 +59,8 @@ Route::group(['prefix' => 'csr', 'namespace' => 'Content'], function () {
     Route::get('/{para?}', [CsrController::class, 'getList']);
 
     Route::post('/', [CsrController::class, 'postList']);
+});
+
+Route::group(['prefix' => 'quotes'], function () {
+    Route::post('comprehensive-motor-insurance', [QuoteController::class, 'calculateMotor']);
 });
