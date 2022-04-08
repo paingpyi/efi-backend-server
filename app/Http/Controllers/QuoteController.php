@@ -15,6 +15,7 @@ class QuoteController extends Controller
     private $error_operators_eng = 'Condition operator is not valid. The operator must be "<, >, <=, >=, ==".';
     private $error_arithmetic_eng = 'Arithmetic operator is not valid. The operator must be "+, -, *, /".';
     private $required_error_eng = ' field is required to fill.';
+    private $numeric_error_eng = ' field must be numeric.';
     private $success_eng = 'success';
     // End of English
 
@@ -90,17 +91,33 @@ class QuoteController extends Controller
             return response()->json($response);
         }
 
-        $validator = Validator::make($request->all(), [
-            'insured_amount' => 'required|numeric',
-            'insured_age' => 'required',
-            'term' => 'required',
-        ]);
-
-        if ($validator->fails()) {
+        if (!is_numeric($data['insured_amount'])) {
             $response = [
                 'code' => 400,
                 'status' => $this->error400status_eng,
-                'errors' => $validator->errors(),
+                'errors' => 'insured_amount' . $this->numeric_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response);
+        }
+
+        if (!is_numeric($data['insured_age'])) {
+            $response = [
+                'code' => 400,
+                'status' => $this->error400status_eng,
+                'errors' => 'insured_age' . $this->numeric_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response);
+        }
+
+        if (!is_numeric($data['term'])) {
+            $response = [
+                'code' => 400,
+                'status' => $this->error400status_eng,
+                'errors' => 'term' . $this->numeric_error_eng,
                 'olds' => $request->all(),
             ];
 
@@ -113,31 +130,31 @@ class QuoteController extends Controller
         foreach(Formula::where('method', '=', 'calculateShortTermEndowment')->get() as $formula) {
             foreach(json_decode($formula->conditions) as $condition) {
                 if($condition->operator == '<') {
-                    if($request->input($condition->field) < $condition->value) {
+                    if($data[$condition->field] < $condition->value) {
                         $flag = true;
                     } else {
                         $flag = false;break;
                     }
                 } else if($condition->operator == '>') {
-                    if($request->input($condition->field) > $condition->value) {
+                    if($data[$condition->field] > $condition->value) {
                         $flag = true;
                     } else {
                         $flag = false;break;
                     }
                 } else if($condition->operator == '<=') {
-                    if($request->input($condition->field) <= $condition->value) {
+                    if($data[$condition->field] <= $condition->value) {
                         $flag = true;
                     } else {
                         $flag = false;break;
                     }
                 } else if($condition->operator == '>=') {
-                    if($request->input($condition->field) >= $condition->value) {
+                    if($data[$condition->field] >= $condition->value) {
                         $flag = true;
                     } else {
                         $flag = false;break;
                     }
                 } else if($condition->operator == '==') {
-                    if($request->input($condition->field) == $condition->value) {
+                    if($data[$condition->field] == $condition->value) {
                         $flag = true;
                     } else {
                         $flag = false;break;
@@ -158,25 +175,25 @@ class QuoteController extends Controller
                 foreach(json_decode($formula->formulas) as $formula) {
                     if($formula == '+') {
                         if($result == 0) {
-                            $result = $request->input($formula->field) + $formula->value;
+                            $result = $data[$formula->field] + $formula->value;
                         } else {
                             $result = $result + $formula->value;
                         }
                     } else if($formula->operator == '-') {
                         if($result == 0) {
-                            $result = $request->input($formula->field) - $formula->value;
+                            $result = $data[$formula->field] - $formula->value;
                         } else {
                             $result = $result - $formula->value;
                         }
                     } else if($formula->operator == '*') {
                         if($result == 0) {
-                            $result = $request->input($formula->field) * $formula->value;
+                            $result = $data[$formula->field] * $formula->value;
                         } else {
                             $result = $result * $formula->value;
                         }
                     } else if($formula->operator == '/') {
                         if($result == 0) {
-                            $result = $request->input($formula->field) / $formula->value;
+                            $result = $data[$formula->field] / $formula->value;
                         } else {
                             $result = $result / $formula->value;
                         }
