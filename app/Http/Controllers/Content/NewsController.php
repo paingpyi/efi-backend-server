@@ -711,8 +711,8 @@ class NewsController extends Controller
          * Limit the number of results.
          */
         if (isset($data['limit'])) {
-            if (isset($data['skip'])) {
-                $news_db->skip($data['skip'])->take($data['limit']);
+            if (isset($data['page'])) {
+                $news_db->skip($data['page'])->take($data['limit']);
             } else {
                 $news_db->skip(0)->take($data['limit']);
             }
