@@ -186,7 +186,7 @@ with font-awesome or any other icon font library -->
                             <li class="nav-item">
                                 <a href="{{ route('csr#list') }}" class="nav-link">
                                     <i class="fa fa-address-card nav-icon"></i>
-                                    <p>Job Vacancy</p>
+                                    <p>CSR Activity</p>
                                     <i class="fas fa-angle-left right"></i>
                                 </a>
                                 <ul class="nav nav-treeview">

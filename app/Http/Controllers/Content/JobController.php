@@ -466,75 +466,132 @@ class JobController extends Controller
          * MM for my-MM/Burmese and EN for en-US/English
          */
         if (isset($data['locale']) and Str::lower($data['locale']) == $lang_english) {
-            $job_db = DB::table('jobs')
-                ->select(
-                    'id',
-                    'position',
-                    'department',
-                    'description',
-                    'due',
-                    'due_date',
-                    'slug_url',
-                    'is_vacant',
-                    'created_at',
-                    'updated_at'
-                );
+            if (isset($data['view']) and Str::lower($data['view']) == 'list') {
+                $job_db = DB::table('jobs')
+                    ->select(
+                        'position',
+                        'department',
+                        'due',
+                        'due_date',
+                        'slug_url',
+                        'is_vacant',
+                    );
+            } else {
+                $job_db = DB::table('jobs')
+                    ->select(
+                        'id',
+                        'position',
+                        'department',
+                        'description',
+                        'due',
+                        'due_date',
+                        'slug_url',
+                        'is_vacant',
+                        'created_at',
+                        'updated_at'
+                    );
+            }
 
             $localeData = ['lang' => 'en-US', 'name' => 'English'];
         } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_burmese) {
-            $job_db = DB::table('jobs')
-                ->select(
-                    'id',
-                    'position_burmese as position',
-                    'department_burmese as department',
-                    'description_burmese as description',
-                    'due_burmese as due',
-                    'due_date',
-                    'slug_url',
-                    'is_vacant',
-                    'created_at',
-                    'updated_at'
-                );
+            if (isset($data['view']) and Str::lower($data['view']) == 'list') {
+                $job_db = DB::table('jobs')
+                    ->select(
+                        'id',
+                        'position_burmese as position',
+                        'department_burmese as department',
+                        'due_burmese as due',
+                        'due_date',
+                        'slug_url',
+                        'is_vacant',
+                    );
+            } else {
+                $job_db = DB::table('jobs')
+                    ->select(
+                        'id',
+                        'position_burmese as position',
+                        'department_burmese as department',
+                        'description_burmese as description',
+                        'due_burmese as due',
+                        'due_date',
+                        'slug_url',
+                        'is_vacant',
+                        'created_at',
+                        'updated_at'
+                    );
+            }
 
             $localeData = ['lang' => 'my-MM', 'name' => 'Burmese'];
         } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
-            $job_db = DB::table('jobs')
-                ->select(
-                    'id',
-                    'position_chinese as position',
-                    'department_chinese as department',
-                    'description_chinese as description',
-                    'due_chinese as due',
-                    'due_date',
-                    'slug_url',
-                    'is_vacant',
-                    'created_at',
-                    'updated_at'
-                );
+            if (isset($data['view']) and Str::lower($data['view']) == 'list') {
+                $job_db = DB::table('jobs')
+                    ->select(
+                        'id',
+                        'position_chinese as position',
+                        'department_chinese as department',
+                        'due_chinese as due',
+                        'due_date',
+                        'slug_url',
+                        'is_vacant',
+                    );
+            } else {
+                $job_db = DB::table('jobs')
+                    ->select(
+                        'id',
+                        'position_chinese as position',
+                        'department_chinese as department',
+                        'description_chinese as description',
+                        'due_chinese as due',
+                        'due_date',
+                        'slug_url',
+                        'is_vacant',
+                        'created_at',
+                        'updated_at'
+                    );
+            }
 
             $localeData = ['lang' => 'zh-CN', 'name' => 'Chinese'];
         } else {
-            $job_db = DB::table('jobs')
-                ->select(
-                    'id',
-                    'position',
-                    'department',
-                    'description',
-                    'due',
-                    'position_burmese',
-                    'department_burmese',
-                    'description_burmese',
-                    'due_burmese',
-                    'position_chinese',
-                    'department_chinese',
-                    'description_chinese',
-                    'due_chinese',
-                    'due_date',
-                    'slug_url',
-                    'is_vacant',
-                    'created_at',
-                    'updated_at'
-                );
+            if (isset($data['view']) and Str::lower($data['view']) == 'list') {
+                $job_db = DB::table('jobs')
+                    ->select(
+                        'id',
+                        'position',
+                        'department',
+                        'due',
+                        'position_burmese',
+                        'department_burmese',
+                        'due_burmese',
+                        'position_chinese',
+                        'department_chinese',
+                        'due_chinese',
+                        'due_date',
+                        'slug_url',
+                        'is_vacant',
+                    );
+            } else {
+                $job_db = DB::table('jobs')
+                    ->select(
+                        'id',
+                        'position',
+                        'department',
+                        'description',
+                        'due',
+                        'position_burmese',
+                        'department_burmese',
+                        'description_burmese',
+                        'due_burmese',
+                        'position_chinese',
+                        'department_chinese',
+                        'description_chinese',
+                        'due_chinese',
+                        'due_date',
+                        'slug_url',
+                        'is_vacant',
+                        'created_at',
+                        'updated_at'
+                    );
+            }
 
             $localeData = ['lang' => 'en-US/my-MM/zh-CN', 'name' => 'English/Burmese/Chinese'];
         }
