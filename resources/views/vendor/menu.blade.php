@@ -185,7 +185,7 @@ with font-awesome or any other icon font library -->
                         @if (in_array('csr#list', json_decode($checkPermission->permissions)))
                             <li class="nav-item">
                                 <a href="{{ route('csr#list') }}" class="nav-link">
-                                    <i class="fa fa-address-card nav-icon"></i>
+                                    <i class="fa fa-handshake-angle nav-icon"></i>
                                     <p>CSR Activity</p>
                                     <i class="fas fa-angle-left right"></i>
                                 </a>
@@ -193,7 +193,7 @@ with font-awesome or any other icon font library -->
                                     @if (in_array('csr#list', json_decode($checkPermission->permissions)))
                                         <li class="nav-item">
                                             <a href="{{ route('csr#list') }}" class="nav-link">
-                                                <i class="fa fa-address-card nav-icon"></i>
+                                                <i class="fa fa-handshake-angle nav-icon"></i>
                                                 <p>CSR Activity List</p>
                                             </a>
                                         </li>
@@ -202,7 +202,7 @@ with font-awesome or any other icon font library -->
                                     @if (in_array('new#csr', json_decode($checkPermission->permissions)))
                                         <li class="nav-item">
                                             <a href="{{ route('new#csr') }}" class="nav-link">
-                                                <i class="fa fa-address-card nav-icon"></i>
+                                                <i class="fa fa-handshake-angle nav-icon"></i>
                                                 <p>New CSR Activity Post</p>
                                             </a>
                                         </li>

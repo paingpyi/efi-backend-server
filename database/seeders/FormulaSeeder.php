@@ -18,6 +18,11 @@ class FormulaSeeder extends Seeder
     public function run()
     {
         DB::table('formulas')->insert([
+            /****
+             *
+             * Short Term Endowment
+             *
+             */
             [
                 'method' => 'calculateShortTermEndowment',
                 'conditions' => json_encode([
@@ -482,6 +487,7 @@ class FormulaSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
+            // End of Short Term Endowment
         ]);
     }
 }
