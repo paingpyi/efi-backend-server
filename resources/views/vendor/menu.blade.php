@@ -182,6 +182,35 @@ with font-awesome or any other icon font library -->
                                 </ul>
                             </li>
                         @endif
+                        @if (in_array('csr#list', json_decode($checkPermission->permissions)))
+                            <li class="nav-item">
+                                <a href="{{ route('csr#list') }}" class="nav-link">
+                                    <i class="fa fa-address-card nav-icon"></i>
+                                    <p>Job Vacancy</p>
+                                    <i class="fas fa-angle-left right"></i>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @if (in_array('csr#list', json_decode($checkPermission->permissions)))
+                                        <li class="nav-item">
+                                            <a href="{{ route('csr#list') }}" class="nav-link">
+                                                <i class="fa fa-address-card nav-icon"></i>
+                                                <p>CSR Activity List</p>
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                    @if (in_array('new#csr', json_decode($checkPermission->permissions)))
+                                        <li class="nav-item">
+                                            <a href="{{ route('new#csr') }}" class="nav-link">
+                                                <i class="fa fa-address-card nav-icon"></i>
+                                                <p>New CSR Activity Post</p>
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                </ul>
+                            </li>
+                        @endif
                     </ul>
                 </li>
             @endif
