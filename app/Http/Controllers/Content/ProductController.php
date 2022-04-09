@@ -67,8 +67,8 @@ class ProductController extends Controller
             'benefits' => 'required',
             'table' => 'required',
             'category' => 'required',
-            'benefit' => 'required|mimes:jpg,jpeg,png,gif|max:2048',
-            'product' => 'required|mimes:jpg,jpeg,png,gif|max:2048',
+            'benefit' => 'required|mimes:jpg,jpeg,png,gif,svg|max:2048',
+            'product' => 'required|mimes:jpg,jpeg,png,gif,svg|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -157,8 +157,8 @@ class ProductController extends Controller
             'benefits' => 'required',
             'table' => 'required',
             'category' => 'required',
-            'benefit' => 'nullable|mimes:jpg,jpeg,png,gif|max:2048',
-            'product' => 'nullable|mimes:jpg,jpeg,png,gif|max:2048',
+            'benefit' => 'nullable|mimes:jpg,jpeg,png,gif,svg|max:2048',
+            'product' => 'nullable|mimes:jpg,jpeg,png,gif,svg|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -842,6 +842,15 @@ class ProductController extends Controller
         if (isset($data['category_machine_name'])) {
             $product_db->where('categories.machine', '=', $data['category_machine_name']);
         } // End of products by category's machine name
+
+        /***
+         *
+         * Retrieve products by slug
+         *
+         **/
+        if (isset($data['slug'])) {
+            $product_db->where('products.slug_url', '=', $data['slug']);
+        } //End of retreiving products by slug
 
         /***
          *
