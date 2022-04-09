@@ -16,6 +16,7 @@ class QuoteController extends Controller
     private $error_arithmetic_eng = 'Arithmetic operator is not valid. The operator must be "+, -, *, /".';
     private $required_error_eng = ' field is required to fill.';
     private $numeric_error_eng = ' field must be numeric.';
+    private $not_eligible_error_eng = 'You are not eligible to buy this premium.';
     private $success_eng = 'success';
     // End of English
 
@@ -210,6 +211,17 @@ class QuoteController extends Controller
                 } // End of formula
             }
         } // End of Formula Table
+
+        if($result < 0) {
+            $response = [
+                'code' => 400,
+                'status' => $this->error400status_eng,
+                'errors' => $this->not_eligible_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response);
+        }
 
         $output = [];
 
