@@ -697,6 +697,15 @@ class CsrController extends Controller
 
         /***
          *
+         * Retrieve c_s_r_s by slug url
+         *
+         **/
+        if (isset($data['slug'])) {
+            $csr_db->where('c_s_r_s.url_slug', '=', $data['slug']);
+        } //End of retreiving c_s_r_s by slug url
+
+        /***
+         *
          * Retrieve pages by title
          *
          **/
