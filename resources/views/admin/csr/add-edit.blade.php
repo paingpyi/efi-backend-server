@@ -210,7 +210,7 @@
                                         <div class="card-body">
                                             @isset($csr->images)
                                                 @foreach (json_decode($csr->images) as $image)
-                                                    <img src="{{ asset($image) }}" alt="csr image" class="img-thumbnail"
+                                                    <img src="{{ $image }}" alt="csr image" class="img-thumbnail"
                                                         style="max-height: 86px;">
                                                 @endforeach
                                             @endisset

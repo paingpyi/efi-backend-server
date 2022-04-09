@@ -98,34 +98,34 @@ class CsrController extends Controller
             $csr1fileName = time() . '_' . $request->csr1->getClientOriginalName();
             $csr1filePath = $request->file('csr1')->storeAs('uploads', $csr1fileName, 'public');
 
-            $images[$i++] = '/storage/' . $csr1filePath;
+            $images[$i++] = Str::replace('/admin/csr', '', url()->current()) . '/storage/' . $csr1filePath;
 
             if (isset($request->csr2)) {
                 $csr2fileName = time() . '_' . $request->csr2->getClientOriginalName();
                 $csr2filePath = $request->file('csr2')->storeAs('uploads', $csr2fileName, 'public');
 
-                $images[$i++] = '/storage/' . $csr2filePath;
+                $images[$i++] = Str::replace('/admin/csr', '', url()->current()) . '/storage/' . $csr2filePath;
             }
 
             if (isset($request->csr3)) {
                 $csr3fileName = time() . '_' . $request->csr3->getClientOriginalName();
                 $csr3filePath = $request->file('csr3')->storeAs('uploads', $csr3fileName, 'public');
 
-                $images[$i++] = '/storage/' . $csr3filePath;
+                $images[$i++] = Str::replace('/admin/csr', '', url()->current()) . '/storage/' . $csr3filePath;
             }
 
             if (isset($request->csr4)) {
                 $csr4fileName = time() . '_' . $request->csr4->getClientOriginalName();
                 $csr4filePath = $request->file('csr4')->storeAs('uploads', $csr4fileName, 'public');
 
-                $images[$i++] = '/storage/' . $csr4filePath;
+                $images[$i++] = Str::replace('/admin/csr', '', url()->current()) . '/storage/' . $csr4filePath;
             }
 
             if (isset($request->csr5)) {
                 $csr5fileName = time() . '_' . $request->csr5->getClientOriginalName();
                 $csr5filePath = $request->file('csr5')->storeAs('uploads', $csr5fileName, 'public');
 
-                $images[$i++] = '/storage/' . $csr5filePath;
+                $images[$i++] = Str::replace('/admin/csr', '', url()->current()) . '/storage/' . $csr5filePath;
             }
 
             $csr = [
@@ -194,11 +194,11 @@ class CsrController extends Controller
             'title_chinese' => 'required|max:255',
             'content_chinese' => 'required',
             'slug_url' => 'required',
-            'csr1' => 'nullable|mimes:jpg,jpeg,png,gif|max:2048',
-            'csr2' => 'nullable|mimes:jpg,jpeg,png,gif|max:2048',
-            'csr3' => 'nullable|mimes:jpg,jpeg,png,gif|max:2048',
-            'csr4' => 'nullable|mimes:jpg,jpeg,png,gif|max:2048',
-            'csr5' => 'nullable|mimes:jpg,jpeg,png,gif|max:2048',
+            'csr1' => 'nullable|mimes:jpg,jpeg,png,gif,svg|max:2048',
+            'csr2' => 'nullable|mimes:jpg,jpeg,png,gif,svg|max:2048',
+            'csr3' => 'nullable|mimes:jpg,jpeg,png,gif,svg|max:2048',
+            'csr4' => 'nullable|mimes:jpg,jpeg,png,gif,svg|max:2048',
+            'csr5' => 'nullable|mimes:jpg,jpeg,png,gif,svg|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -218,7 +218,7 @@ class CsrController extends Controller
                 $csr1fileName = time() . '_' . $request->csr1->getClientOriginalName();
                 $csr1filePath = $request->file('csr1')->storeAs('uploads', $csr1fileName, 'public');
 
-                $images[0] = '/storage/' . $csr1filePath;
+                $images[0] = Str::replace('/admin/csr', '', url()->current()) . '/storage/' . $csr1filePath;
             } else if (isset($old_images[0])) {
                 $images[0] = $old_images[0];
             }
@@ -227,7 +227,7 @@ class CsrController extends Controller
                 $csr2fileName = time() . '_' . $request->csr2->getClientOriginalName();
                 $csr2filePath = $request->file('csr2')->storeAs('uploads', $csr2fileName, 'public');
 
-                $images[1] = '/storage/' . $csr2filePath;
+                $images[1] = Str::replace('/admin/csr', '', url()->current()) . '/storage/' . $csr2filePath;
             } else if (isset($old_images[1])) {
                 $images[1] = $old_images[1];
             }
@@ -236,7 +236,7 @@ class CsrController extends Controller
                 $csr3fileName = time() . '_' . $request->csr3->getClientOriginalName();
                 $csr3filePath = $request->file('csr3')->storeAs('uploads', $csr3fileName, 'public');
 
-                $images[2] = '/storage/' . $csr3filePath;
+                $images[2] = Str::replace('/admin/csr', '', url()->current()) . '/storage/' . $csr3filePath;
             } else if (isset($old_images[2])) {
                 $images[2] = $old_images[2];
             }
@@ -245,7 +245,7 @@ class CsrController extends Controller
                 $csr4fileName = time() . '_' . $request->csr4->getClientOriginalName();
                 $csr4filePath = $request->file('csr4')->storeAs('uploads', $csr4fileName, 'public');
 
-                $images[3] = '/storage/' . $csr4filePath;
+                $images[3] = Str::replace('/admin/csr', '', url()->current()) . '/storage/' . $csr4filePath;
             } else if (isset($old_images[3])) {
                 $images[3] = $old_images[3];
             }
@@ -254,7 +254,7 @@ class CsrController extends Controller
                 $csr5fileName = time() . '_' . $request->csr5->getClientOriginalName();
                 $csr5filePath = $request->file('csr5')->storeAs('uploads', $csr5fileName, 'public');
 
-                $images[4] = '/storage/' . $csr5filePath;
+                $images[4] = Str::replace('/admin/csr', '', url()->current()) . '/storage/' . $csr5filePath;
             } else if (isset($old_images[4])) {
                 $images[4] = $old_images[4];
             }
