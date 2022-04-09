@@ -212,7 +212,7 @@ class QuoteController extends Controller
             }
         } // End of Formula Table
 
-        if($result < 0) {
+        if($result <= 0) {
             $response = [
                 'code' => 400,
                 'status' => $this->error400status_eng,
