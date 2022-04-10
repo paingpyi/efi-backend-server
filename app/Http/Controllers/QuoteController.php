@@ -21,8 +21,8 @@ class QuoteController extends Controller
     // End of English
 
     /**
-     * Calculate Comprehensive Motor Insurance API via form data.
-     * General Insurance
+     * Calculate Comprehensive Motor Insurance API via JSON.
+     * Life Insurance
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -239,5 +239,28 @@ class QuoteController extends Controller
         ];
 
         return response()->json($response);
+    }
+
+    /**
+     * Calculate Student Life Insurance API via JSON.
+     * Life Insurance
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function calculateStudentLife(Request $request)
+    {
+        $data = $request->json()->all();
+
+        if (!isset($data['insured_age'])) {
+            $response = [
+                'code' => 400,
+                'status' => $this->error400status_eng,
+                'errors' => 'insured_age' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response);
+        }
     }
 }

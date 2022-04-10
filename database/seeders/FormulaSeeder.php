@@ -488,6 +488,103 @@ class FormulaSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             // End of Short Term Endowment
+
+            /****
+             *
+             * Student Life
+             *
+             */
+            [
+                'method' => 'calculateShortTermEndowment',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '==', 'value' => 1],
+                    ['field' => 'premium_type', 'operator' => '==', 'value' => 'annual'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'policy_term', 'operator' => '=', 'value' => 19],
+                    ['field' => 'premium_term', 'operator' => '=', 'value' => 16],
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 41.55],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateShortTermEndowment',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '==', 'value' => 1],
+                    ['field' => 'premium_type', 'operator' => '==', 'value' => 'semi-annual'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'policy_term', 'operator' => '=', 'value' => 19],
+                    ['field' => 'premium_term', 'operator' => '=', 'value' => 16],
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 21.24],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateShortTermEndowment',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '==', 'value' => 1],
+                    ['field' => 'premium_type', 'operator' => '==', 'value' => 'quarterly'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'policy_term', 'operator' => '=', 'value' => 19],
+                    ['field' => 'premium_term', 'operator' => '=', 'value' => 16],
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 10.74],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateShortTermEndowment',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '==', 'value' => 2],
+                    ['field' => 'premium_type', 'operator' => '==', 'value' => 'annual'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'policy_term', 'operator' => '=', 'value' => 18],
+                    ['field' => 'premium_term', 'operator' => '=', 'value' => 15],
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 45.25],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateShortTermEndowment',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '==', 'value' => 2],
+                    ['field' => 'premium_type', 'operator' => '==', 'value' => 'semi-annual'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'policy_term', 'operator' => '=', 'value' => 18],
+                    ['field' => 'premium_term', 'operator' => '=', 'value' => 15],
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 23.13],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateShortTermEndowment',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '==', 'value' => 2],
+                    ['field' => 'premium_type', 'operator' => '==', 'value' => 'quarterly'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'policy_term', 'operator' => '=', 'value' => 18],
+                    ['field' => 'premium_term', 'operator' => '=', 'value' => 15],
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 11.7],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            // End of Student Life
         ]);
     }
 }
