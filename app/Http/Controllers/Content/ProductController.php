@@ -704,15 +704,14 @@ class ProductController extends Controller
                     'locale' => $this->getLang($data),
                     'id' => $products->id,
                     'title' => $products->title,
-                    'slogan' => $products->slogan,
-                    'description' => $products->description,
-                    'benefits_block' => $products->benefits_block,
-                    'table_block' => $products->table_block,
-                    'why_block' => $products->why_block,
-                    'downloadable_block' => $products->downloadable_block,
-                    'applythis_block' => $products->applythis_block,
-                    'benefits_image' => $products->benefits_image,
-                    'product_image' => $products->product_image,
+                    'image' => $products->image,
+                    'apply_insurance' => $products->apply_insurance,
+                    'why_work_with_us' => $products->why_work_with_us,
+                    'lr' => $products->lr,
+                    'faq' => $products->faq,
+                    'attachments' => $products->attachments,
+                    'additional_benifits' => $products->additional_benifits,
+                    'diagrams_and_table' => $products->diagrams_and_table,
                     'slug_url' => $products->slug_url,
                     'is_active' => $products->is_active,
                     'created_at' => $products->created_at,
@@ -766,132 +765,29 @@ class ProductController extends Controller
         $lang_chinese = 'zh-cn';
         $lang_burmese = 'my-mm';
 
-        /*
-         * Locale
-         *
-         * MM for my-MM/Burmese and EN for en-US/English
-         */
-        if (isset($data['locale']) and Str::lower($data['locale']) == $lang_english) {
-            $product_db = DB::table('products')
-                ->join('categories', 'categories.id', '=', 'products.category_id')
-                ->select(
-                    'products.id as id',
-                    'products.title as title',
-                    'products.slogan',
-                    'products.description as description',
-                    'products.benefits_block',
-                    DB::raw('CONCAT(\'' . Str::replace('/api/products', '', url()->current()) . '\', products.benefits_image) as benefits_image'),
-                    'products.table_block',
-                    'products.why_block',
-                    'products.downloadable_block',
-                    'products.applythis_block',
-                    DB::raw('CONCAT(\'' . Str::replace('/api/products', '', url()->current()) . '\', products.product_photo) as product_image'),
-                    'products.category_id',
-                    'products.slug_url',
-                    'products.is_active as is_active',
-                    'products.created_at as created_at',
-                    'products.updated_at as updated_at',
-                    'categories.name as category_name',
-                    'categories.description as category_description',
-                    'categories.machine as category_machine_name',
-                    'categories.is_active as category_is_active'
-                );
-        } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
-            $product_db = DB::table('products')
-                ->join('categories', 'categories.id', '=', 'products.category_id')
-                ->select(
-                    'products.id as id',
-                    'products.title_chinese as title',
-                    'products.slogan_chinese as slogan',
-                    'products.description_chinese as description',
-                    'products.benefits_block_chinese as benefits_block',
-                    DB::raw('CONCAT(\'' . Str::replace('/api/products', '', url()->current()) . '\', products.benefits_image) as benefits_image'),
-                    'products.table_block_chinese as table_block',
-                    'products.why_block_chinese as why_block',
-                    'products.downloadable_block_chinese as downloadable_block',
-                    'products.applythis_block_chinese as applythis_block',
-                    DB::raw('CONCAT(\'' . Str::replace('/api/products', '', url()->current()) . '\', products.product_photo) as product_image'),
-                    'products.category_id',
-                    'products.slug_url',
-                    'products.is_active as is_active',
-                    'products.created_at as created_at',
-                    'products.updated_at as updated_at',
-                    'categories.name_chinese as category_name',
-                    'categories.description_chinese as category_description',
-                    'categories.machine as category_machine_name',
-                    'categories.is_active as category_is_active'
-                );
-        } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_burmese) {
-            $product_db = DB::table('products')
-                ->join('categories', 'categories.id', '=', 'products.category_id')
-                ->select(
-                    'products.id as id',
-                    'products.title_burmese as title',
-                    'products.slogan_burmese as slogan',
-                    'products.description_burmese as description',
-                    'products.benefits_block_burmese as benefits_block',
-                    DB::raw('CONCAT(\'' . Str::replace('/api/products', '', url()->current()) . '\', products.benefits_image) as benefits_image'),
-                    'products.table_block_burmese as table_block',
-                    'products.why_block_burmese as why_block',
-                    'products.downloadable_block_burmese as downloadable_block',
-                    'products.applythis_block_burmese as applythis_block',
-                    DB::raw('CONCAT(\'' . Str::replace('/api/products', '', url()->current()) . '\', products.product_photo) as product_image'),
-                    'products.category_id',
-                    'products.slug_url',
-                    'products.is_active as is_active',
-                    'products.created_at as created_at',
-                    'products.updated_at as updated_at',
-                    'categories.name_burmese as category_name',
-                    'categories.description_burmese as category_description',
-                    'categories.machine as category_machine_name',
-                    'categories.is_active as category_is_active'
-                );
-        } else {
-            $product_db = DB::table('products')
-                ->join('categories', 'categories.id', '=', 'products.category_id')
-                ->select(
-                    'products.id as id',
-                    'products.title as title',
-                    'products.slogan',
-                    'products.description as description',
-                    'products.benefits_block',
-                    DB::raw('CONCAT(\'' . Str::replace('/api/products', '', url()->current()) . '\', products.benefits_image) as benefits_image'),
-                    'products.table_block',
-                    'products.why_block',
-                    'products.downloadable_block',
-                    'products.applythis_block',
-                    'products.title_burmese',
-                    'products.slogan_burmese',
-                    'products.description_burmese',
-                    'products.benefits_block_burmese',
-                    'products.table_block_burmese',
-                    'products.why_block_burmese',
-                    'products.downloadable_block_burmese',
-                    'products.applythis_block_burmese',
-                    'products.title_chinese',
-                    'products.slogan_chinese',
-                    'products.description_chinese',
-                    'products.benefits_block_chinese',
-                    'products.table_block_chinese',
-                    'products.why_block_chinese',
-                    'products.downloadable_block_chinese',
-                    'products.applythis_block_chinese',
-                    DB::raw('CONCAT(\'' . Str::replace('/api/products', '', url()->current()) . '\', products.product_photo) as product_image'),
-                    'products.category_id',
-                    'products.slug_url',
-                    'products.is_active as is_active',
-                    'products.created_at as created_at',
-                    'products.updated_at as updated_at',
-                    'categories.name as category_name',
-                    'categories.description as category_description',
-                    'categories.name_burmese as category_name_burmese',
-                    'categories.description_burmese as category_description_burmese',
-                    'categories.name_chinese as category_name_chinese',
-                    'categories.description_chinese as category_description_chinese',
-                    'categories.machine as category_machine_name',
-                    'categories.is_active as category_is_active'
-                );
-        }
+        $product_db = DB::table('products')
+            ->join('categories', 'categories.id', '=', 'products.category_id')
+            ->select(
+                'products.id',
+                DB::raw('JSON_EXTRACT(products.title, "$.' . Str::lower($data['locale']) . '") as title'),
+                'products.image',
+                DB::raw('JSON_EXTRACT(products.apply_insurance, "$.' . Str::lower($data['locale']) . '") as apply_insurance'),
+                DB::raw('JSON_EXTRACT(products.why_work_with_us, "$.' . Str::lower($data['locale']) . '") as why_work_with_us'),
+                DB::raw('JSON_EXTRACT(products.lr, "$.' . Str::lower($data['locale']) . '") as lr'),
+                DB::raw('JSON_EXTRACT(products.faq, "$.' . Str::lower($data['locale']) . '") as faq'),
+                DB::raw('JSON_EXTRACT(products.attachments, "$.' . Str::lower($data['locale']) . '") as attachments'),
+                DB::raw('JSON_EXTRACT(products.additional_benifits, "$.' . Str::lower($data['locale']) . '") as additional_benifits'),
+                DB::raw('JSON_EXTRACT(products.diagrams_and_table, "$.' . Str::lower($data['locale']) . '") as diagrams_and_table'),
+                'products.is_active',
+                'products.slug_url',
+                'products.created_at',
+                'products.updated_at',
+                'products.category_id',
+                'categories.name as category_name',
+                'categories.description as category_description',
+                'categories.machine as category_machine_name',
+                'categories.is_active as category_is_active'
+            );
 
         /***
          *
@@ -908,13 +804,7 @@ class ProductController extends Controller
          *
          **/
         if (isset($data['title'])) {
-            if (isset($data['locale']) and Str::lower($data['locale']) == $lang_english) {
-                $product_db->where('products.title', '=', $data['title']);
-            } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
-                $product_db->where('products.title_chinese', '=', $data['title']);
-            } else {
-                $product_db->where('products.title_burmese', '=', $data['title']);
-            }
+            $product_db->where('JSON_EXTRACT(products.title, "$.' . Str::lower($data['locale']) . '")', '=', $data['title']);
         } //End of retreiving products by title
 
         /***
@@ -974,48 +864,10 @@ class ProductController extends Controller
          *
          **/
         if (isset($data['order'])) {
-            if (isset($data['locale']) and Str::lower($data['locale']) == $lang_english) {
-                if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
-                    if (isset($data['order']['field'])) {
-                        $product_db->orderByDesc(Str::lower($data['order']['field']));
-                    } else {
-                        $product_db->orderByDesc('products.title');
-                    }
-                } else {
-                    if (isset($data['order']['field'])) {
-                        $product_db->orderBy(Str::lower($data['order']['field']));
-                    } else {
-                        $product_db->orderBy('products.title');
-                    }
-                }
-            } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
-                if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
-                    if (isset($data['order']['field'])) {
-                        $product_db->orderByDesc(Str::lower($data['order']['field']) . '_chinese');
-                    } else {
-                        $product_db->orderByDesc('products.title_chinese');
-                    }
-                } else {
-                    if (isset($data['order']['field'])) {
-                        $product_db->orderBy(Str::lower($data['order']['field']) . '_chinese');
-                    } else {
-                        $product_db->orderBy('products.title_chinese');
-                    }
-                }
+            if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
+                $product_db->orderByDesc(Str::lower($data['order']['field']));
             } else {
-                if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
-                    if (isset($data['order']['field'])) {
-                        $product_db->orderByDesc(Str::lower($data['order']['field']) . '_burmese');
-                    } else {
-                        $product_db->orderByDesc('products.title_burmese');
-                    }
-                } else {
-                    if (isset($data['order']['field'])) {
-                        $product_db->orderBy(Str::lower($data['order']['field']) . '_burmese');
-                    } else {
-                        $product_db->orderBy('products.title_burmese');
-                    }
-                }
+                $product_db->orderBy(Str::lower($data['order']['field']));
             }
         } //End of retreiving products ordered by
 
