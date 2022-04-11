@@ -29,6 +29,8 @@ Route::group(['prefix' => 'products', 'namespace' => 'Content'], function () {
     Route::get('/', [ProductController::class, 'getlist']);
 
     Route::post('/', [ProductController::class, 'postList']);
+
+    Route::post('/detail', [ProductController::class, 'postDetail']);
 });
 
 Route::group(['prefix' => 'blogs', 'namespace' => 'Content'], function () {

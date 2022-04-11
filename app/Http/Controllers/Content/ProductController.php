@@ -637,12 +637,129 @@ class ProductController extends Controller
     public function postList(Request $request)
     {
         // Variables
+        $data = $request->json()->all();
+
+        $product_db = $this->getProductsAPI($data);
+
+        /*
+        * Record count
+        */
+        $count_db = $product_db;
+
+        $total_count = $count_db->count();
+        // End of record count
+
+        /*
+         * Limit the number of results.
+         */
+        if (isset($data['limit'])) {
+            if (isset($data['page'])) {
+                $product_db->skip($data['page'])->take($data['limit']);
+            } else {
+                $product_db->skip(0)->take($data['limit']);
+            }
+        } // End of limit the number of results.
+
+        $products = $product_db->get();
+
+        if ($products->count() > 0) {
+            $response = [
+                'code' => 200,
+                'status' => 'success',
+                'locale' => $this->getLang($data),
+                'count' => $total_count,
+                'data' => $products,
+            ];
+        } else {
+            $response = [
+                'code' => 204,
+                'status' => 'no content',
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    /**
+     * API List with Post data.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function postDetail(Request $request)
+    {
+        // Variables
+        $data = $request->json()->all();
+
+        if ((isset($data['slug_url']) or isset($data['id'])) and isset($data['locale'])) {
+            $product_db = $this->getProductsAPI($data);
+
+            $products = $product_db->first();
+
+            if (isset($products)) {
+                $response = [
+                    'code' => 200,
+                    'status' => 'success',
+                    'locale' => $this->getLang($data),
+                    'id' => $products->id,
+                    'title' => $products->title,
+                    'slogan' => $products->slogan,
+                    'description' => $products->description,
+                    'benefits_block' => $products->benefits_block,
+                    'table_block' => $products->table_block,
+                    'why_block' => $products->why_block,
+                    'downloadable_block' => $products->downloadable_block,
+                    'applythis_block' => $products->applythis_block,
+                    'benefits_image' => $products->benefits_image,
+                    'product_image' => $products->product_image,
+                    'slug_url' => $products->slug_url,
+                    'is_active' => $products->is_active,
+                    'created_at' => $products->created_at,
+                    'updated_at' => $products->updated_at,
+                    'category_id' => $products->category_id,
+                    'category_name' => $products->category_name,
+                    'category_description' => $products->category_description,
+                    'category_machine_name' => $products->category_machine_name,
+                    'category_is_active' => $products->category_is_active,
+                ];
+            } else {
+                $response = [
+                    'code' => 404,
+                    'status' => 'no content',
+                ];
+            }
+        } else {
+            $response = [
+                'code' => 400,
+                'status' => 'Input JSON must have "locale" and ("id" or "slug_url").',
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    private function getLang($data)
+    {
         $lang_english = 'en-us';
         $lang_chinese = 'zh-cn';
         $lang_burmese = 'my-mm';
-        $localeData = [];
 
-        $data = $request->json()->all();
+        if (isset($data['locale']) and Str::lower($data['locale']) == $lang_english) {
+            return ['lang' => 'en-US', 'name' => 'English'];
+        } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
+            return ['lang' => 'zh-CN', 'name' => 'Chinese'];
+        } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_burmese) {
+            return ['lang' => 'my-MM', 'name' => 'Burmese'];
+        } else {
+            return ['lang' => 'en-US/my-MM/zh-CN', 'name' => 'English/Burmese/Chinese'];
+        }
+    }
+
+    private function getProductsAPI($data)
+    {
+        $lang_english = 'en-us';
+        $lang_chinese = 'zh-cn';
+        $lang_burmese = 'my-mm';
 
         /*
          * Locale
@@ -674,8 +791,6 @@ class ProductController extends Controller
                     'categories.machine as category_machine_name',
                     'categories.is_active as category_is_active'
                 );
-
-            $localeData = ['lang' => 'en-US', 'name' => 'English'];
         } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
             $product_db = DB::table('products')
                 ->join('categories', 'categories.id', '=', 'products.category_id')
@@ -701,8 +816,6 @@ class ProductController extends Controller
                     'categories.machine as category_machine_name',
                     'categories.is_active as category_is_active'
                 );
-
-            $localeData = ['lang' => 'zh-CN', 'name' => 'Chinese'];
         } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_burmese) {
             $product_db = DB::table('products')
                 ->join('categories', 'categories.id', '=', 'products.category_id')
@@ -728,8 +841,6 @@ class ProductController extends Controller
                     'categories.machine as category_machine_name',
                     'categories.is_active as category_is_active'
                 );
-
-            $localeData = ['lang' => 'my-MM', 'name' => 'Burmese'];
         } else {
             $product_db = DB::table('products')
                 ->join('categories', 'categories.id', '=', 'products.category_id')
@@ -775,8 +886,6 @@ class ProductController extends Controller
                     'categories.machine as category_machine_name',
                     'categories.is_active as category_is_active'
                 );
-
-            $localeData = ['lang' => 'en-US/my-MM/zh-CN', 'name' => 'English/Burmese/Chinese'];
         }
 
         /***
@@ -850,8 +959,8 @@ class ProductController extends Controller
          * Retrieve products by slug
          *
          **/
-        if (isset($data['slug'])) {
-            $product_db->where('products.slug_url', '=', $data['slug']);
+        if (isset($data['slug_url'])) {
+            $product_db->where('products.slug_url', '=', $data['slug_url']);
         } //End of retreiving products by slug
 
         /***
@@ -905,43 +1014,7 @@ class ProductController extends Controller
             }
         } //End of retreiving products ordered by
 
-        /*
-        * Record count
-        */
-        $count_db = $product_db;
-
-        $total_count = $count_db->count();
-        // End of record count
-
-        /*
-         * Limit the number of results.
-         */
-        if (isset($data['limit'])) {
-            if (isset($data['page'])) {
-                $product_db->skip($data['page'])->take($data['limit']);
-            } else {
-                $product_db->skip(0)->take($data['limit']);
-            }
-        } // End of limit the number of results.
-
-        $products = $product_db->get();
-
-        if ($products->count() > 0) {
-            $response = [
-                'code' => 200,
-                'status' => 'success',
-                'locale' => $localeData,
-                'count' => $total_count,
-                'data' => $products,
-            ];
-        } else {
-            $response = [
-                'code' => 204,
-                'status' => 'no content',
-            ];
-        }
-
-        return response()->json($response);
+        return $product_db;
     }
 
 
