@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->json('title');
             $table->longText('image');
             $table->json('apply_insurance');
             $table->json('why_work_with_us');

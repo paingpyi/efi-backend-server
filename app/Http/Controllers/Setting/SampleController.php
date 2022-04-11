@@ -71,14 +71,14 @@ class SampleController extends Controller
             * Product Sample Data Inputs
             */
             if ($i < 23) {
-                $products[] = [
-                    'title' => [
+                Product::create( [
+                    'title' => json_encode([
                         'en-us' => $product_info[$i][0],
                         'my-mm' => 'စမ်းသပ် ထုတ်ကုန် ' . ($i + 1),
                         'zh-cn' => '高標催極用 ' . ($i + 1)
-                    ],
+                    ]),
                     'image' => $product_info[$i][1],
-                    'apply_insurance' => [
+                    'apply_insurance' => json_encode([
                         'en-us' => [
                             'title' => 'Apply This Insurance',
                             'description' => '<p>Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It\'s also called placeholder (or filler) text. It\'s a convenient tool for mock-ups. It helps to outline the visual elements of a document or presentation, eg typography, font, or layout. Lorem ipsum is mostly a part of a Latin text by the classical author and philosopher Cicero. Its words and letters have been changed by addition or removal, so to deliberately render its content nonsensical; it\'s not genuine, correct, or comprehensible Latin anymore. While lorem ipsum\'s still resembles classical Latin, it actually has no meaning whatsoever. As Cicero\'s text doesn\'t contain the letters K, W, or Z, alien to latin, these, and others are often inserted randomly to mimic the typographic appearence of European languages, as are digraphs not to be found in the original.</p><p>In a professional context it often happens that private or corporate clients corder a publication to be made and presented with the actual content still not being ready. Think of a news blog that\'s filled with content hourly on the day of going live. However, reviewers tend to be distracted by comprehensible content, say, a random text copied from a newspaper or the internet. The are likely to focus on the text, disregarding the layout and its elements. Besides, random text risks to be unintendedly humorous or offensive, an unacceptable risk in corporate environments. Lorem ipsum and its many variants have been employed since the early 1960ies, and quite likely since the sixteenth century.</p>',
@@ -94,8 +94,8 @@ class SampleController extends Controller
                             'description' => '<p>新社違育人交日主根界際連。幹製高心破事候晴腰無舌一取行意野改。存分軒余調能義以文期浩季佐際連届止導県功。高標催極用結枝動総暮護納意司。島賠甲分画件史訪合見詳問歳気挑高知打月松。虫元記止表購途桂料記少今治。手康権術込著中井今必人終。育様美幕求氏後塾政中抗編記走表。迫相示良提入様立発料問変泉返蒼都平。</p><p>中岩宣尚王激失母分階施級。夏川面結地勝覧署喜金亡無就事天。社意度恵症出助中責豪作車対質。聞片上徳覧質属側体自左員査言残加昨白。作気関変業盤決訴処耳前儲。源平無原子位都点分活首止聞気応府自未党孤。方金話度終面凱邦形全覧後覧的愛扱。革県式分料流地入籍断断情。使聞体徹的役書強察分種務家林困功入問加。指番国成統常期術全場夜本</p>',
                             'buttonText' => '高標催極用'
                         ],
-                    ],
-                    'why_work_with_us' => [
+                    ]),
+                    'why_work_with_us' => json_encode([
                         'en-us' => [
                             'title' => 'Why Work With EFI G',
                             'description' => '<p>Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It\'s also called placeholder (or filler) text. It\'s a convenient tool for mock-ups. It helps to outline the visual elements of a document or presentation, eg typography, font, or layout. Lorem ipsum is mostly a part of a Latin text by the classical author and philosopher Cicero. Its words and letters have been changed by addition or removal, so to deliberately render its content nonsensical; it\'s not genuine, correct, or comprehensible Latin anymore. While lorem ipsum\'s still resembles classical Latin, it actually has no meaning whatsoever. As Cicero\'s text doesn\'t contain the letters K, W, or Z, alien to latin, these, and others are often inserted randomly to mimic the typographic appearence of European languages, as are digraphs not to be found in the original.</p><p>In a professional context it often happens that private or corporate clients corder a publication to be made and presented with the actual content still not being ready. Think of a news blog that\'s filled with content hourly on the day of going live. However, reviewers tend to be distracted by comprehensible content, say, a random text copied from a newspaper or the internet. The are likely to focus on the text, disregarding the layout and its elements. Besides, random text risks to be unintendedly humorous or offensive, an unacceptable risk in corporate environments. Lorem ipsum and its many variants have been employed since the early 1960ies, and quite likely since the sixteenth century.</p>',
@@ -111,8 +111,8 @@ class SampleController extends Controller
                             'description' => '<p>新社違育人交日主根界際連。幹製高心破事候晴腰無舌一取行意野改。存分軒余調能義以文期浩季佐際連届止導県功。高標催極用結枝動総暮護納意司。島賠甲分画件史訪合見詳問歳気挑高知打月松。虫元記止表購途桂料記少今治。手康権術込著中井今必人終。育様美幕求氏後塾政中抗編記走表。迫相示良提入様立発料問変泉返蒼都平。</p><p>中岩宣尚王激失母分階施級。夏川面結地勝覧署喜金亡無就事天。社意度恵症出助中責豪作車対質。聞片上徳覧質属側体自左員査言残加昨白。作気関変業盤決訴処耳前儲。源平無原子位都点分活首止聞気応府自未党孤。方金話度終面凱邦形全覧後覧的愛扱。革県式分料流地入籍断断情。使聞体徹的役書強察分種務家林困功入問加。指番国成統常期術全場夜本</p>',
                             'image' => $product_info[$i][1]
                         ],
-                    ],
-                    'lr' => [
+                    ]),
+                    'lr' => json_encode([
                         [
                             'en-us' => [
                                 'title' => 'Product Description',
@@ -130,8 +130,8 @@ class SampleController extends Controller
                                 'image' => $product_info[$i][1]
                             ],
                         ],
-                    ],
-                    'faq' => [
+                    ]),
+                    'faq' => json_encode([
                         'en-us' => [
                             'title' => 'Frequently Asked Questions',
                             'data' => [
@@ -207,8 +207,8 @@ class SampleController extends Controller
                                 ],
                             ],
                         ],
-                    ],
-                    'attachments' => [
+                    ]),
+                    'attachments' => json_encode([
                         'en-us' => [
                             'title' => 'Lorem Ipsum Dolor',
                             'description' => '<p>Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It\'s also called placeholder (or filler) text. It\'s a convenient tool for mock-ups. It helps to outline the visual elements of a document or presentation, eg typography, font, or layout. Lorem ipsum is mostly a part of a Latin text by the classical author and philosopher Cicero. Its words and letters have been changed by addition or removal, so to deliberately render its content nonsensical; it\'s not genuine, correct, or comprehensible Latin anymore. While lorem ipsum\'s still resembles classical Latin, it actually has no meaning whatsoever. As Cicero\'s text doesn\'t contain the letters K, W, or Z, alien to latin, these, and others are often inserted randomly to mimic the typographic appearence of European languages, as are digraphs not to be found in the original.</p><p>In a professional context it often happens that private or corporate clients corder a publication to be made and presented with the actual content still not being ready. Think of a news blog that\'s filled with content hourly on the day of going live. However, reviewers tend to be distracted by comprehensible content, say, a random text copied from a newspaper or the internet. The are likely to focus on the text, disregarding the layout and its elements. Besides, random text risks to be unintendedly humorous or offensive, an unacceptable risk in corporate environments. Lorem ipsum and its many variants have been employed since the early 1960ies, and quite likely since the sixteenth century.</p>',
@@ -227,8 +227,8 @@ class SampleController extends Controller
                             'icon' => $product_info[$i][1],
                             'buttonText' => '高標催極用'
                         ],
-                    ],
-                    'additional_benifits' => [
+                    ]),
+                    'additional_benifits' => json_encode([
                         'en-us' => [
                             'title' => 'Enjoy Additional Benefits',
                             'data' => [
@@ -280,8 +280,8 @@ class SampleController extends Controller
                                 ],
                             ],
                         ],
-                    ],
-                    'diagrams_and_table' => [
+                    ]),
+                    'diagrams_and_table' => json_encode([
                         [
                             'en-us' => [
                                 'title' => 'Benefits Diagram and Table',
@@ -316,13 +316,13 @@ class SampleController extends Controller
                                 'image' => $product_info[$i][1]
                             ],
                         ],
-                    ],
+                    ]),
                     'category_id' => $product_info[$i][2],
                     'is_active' => TRUE,
                     'slug_url' => Str::slug($product_info[$i][0], '-'),
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now()
-                ];
+                ]);
             } //End of products
 
             $pages[] = [
@@ -414,8 +414,6 @@ class SampleController extends Controller
             ];
         }
 
-
-        Product::insert($products);
         $message = '<li>Sample data of Products has been successfully imported.</li>';
 
         Page::insert($pages);
