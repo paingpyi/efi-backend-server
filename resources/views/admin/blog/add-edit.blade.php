@@ -190,13 +190,16 @@
                                 <hr>
                                 <div class="form-group">
                                     <label>Blog Image <span class="text-danger">*</span></label>
-                                    @isset($blog->image)
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <img src="{{ asset($blog->image) }}" alt="Blog image" class="img-thumbnail">
-                                            </div>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            @isset($blog->images)
+                                                @foreach (json_decode($blog->images) as $image)
+                                                    <img src="{{ $image }}" alt="blog image" class="img-thumbnail"
+                                                        style="max-height: 86px;">
+                                                @endforeach
+                                            @endisset
                                         </div>
-                                    @endisset
+                                    </div>
                                     <!-- bootstrap-imageupload. -->
 
                                     <div class="imageupload panel panel-default card card-secondary bg-secondary">

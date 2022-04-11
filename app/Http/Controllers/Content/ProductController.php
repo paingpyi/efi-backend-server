@@ -689,6 +689,7 @@ class ProductController extends Controller
     public function postDetail(Request $request)
     {
         // Variables
+        $response_code = 200;
         $data = $request->json()->all();
 
         if ((isset($data['slug_url']) or isset($data['id'])) and isset($data['locale'])) {
@@ -727,15 +728,19 @@ class ProductController extends Controller
                     'code' => 404,
                     'status' => 'no content',
                 ];
+
+                $response_code = 404;
             }
         } else {
             $response = [
                 'code' => 400,
                 'status' => 'Input JSON must have "locale" and ("id" or "slug_url").',
             ];
+
+            $response_code = 400;
         }
 
-        return response()->json($response);
+        return response()->json($response, $response_code);
     }
 
     private function getLang($data)

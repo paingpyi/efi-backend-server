@@ -21,13 +21,13 @@ return new class extends Migration
             $table->longText('content_burmese');
             $table->string('title_chinese');
             $table->longText('content_chinese');
-            $table->string('image')->nullable();
+            $table->json('images')->nullable();
             $table->string('url_slug')->nullable();
             $table->enum('status', ['published', 'draft', 'unpublished']);
-            $table->foreignId('category_id');
+            $table->json('category_id');
             $table->foreignId('author_id');
             $table->boolean('featured')->default(false);
-            $table->longText('products')->nullable();
+            $table->json('products')->nullable();
             $table->timestamps();
         });
     }
