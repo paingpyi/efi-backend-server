@@ -827,7 +827,7 @@ class BlogController extends Controller
                 'blogs.id as id',
                 'blogs.title as title',
                 'blogs.content as content',
-                'blogs.image as image',
+                'blogs.images as images',
                 'blogs.url_slug',
                 'blogs.status',
                 'blogs.category_id',

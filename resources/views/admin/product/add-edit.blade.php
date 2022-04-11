@@ -252,13 +252,32 @@
                                                 id="downloadable_chinese">{{ old('downloadable_chinese',isset($product->downloadable_block_chinese) ? $product->downloadable_block_chinese : '') }}</textarea>
                                         </div>
                                         <div class="form-group">
-                                            <label for="applythis_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Apply
+                                            <label for="applythis_chinese"><i class="flag-icon flag-icon-cn mr-2"></i>
+                                                Apply
                                                 This
                                                 Block</label>
                                             <textarea name="applythis_chinese" class="summernote" required
                                                 id="applythis_chinese">{{ old('applythis_chinese', isset($product->applythis_block_chinese) ? $product->applythis_block_chinese : '') }}</textarea>
                                         </div>
                                     </div> {{-- /. End of Chinese Inputs --}}
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label for="">Enter Task</label>
+                                        <input type="text" placeholder="Enter task" class="form-control form-control-sm" name="task_name"  id="task_name" value="">
+                                        <font style="color:red"> {{ $errors->has('task_name') ?  $errors->first('task_name') : '' }} </font>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="">Enter Cost</label>
+                                        <input type="number" placeholder="Enter task" class="form-control form-control-sm" name="cost"  id="cost" value="">
+                                        <font style="color:red"> {{ $errors->has('cost') ?  $errors->first('cost') : '' }} </font>
+                                    </div>
+                                    <div class="col-md-2" style="margin-top:26px;">
+                                        <button id="addMore" class="btn btn-success btn-sm">Add More </button>
+                                    </div>
+                                 </div>
+                                <div id="addRow" class="addRow row">
+
                                 </div>
                             </div>
                             <div class="col-4 bg-secondary p-3">
@@ -458,8 +477,27 @@
     <script src="{{ asset('adminlite/plugins/summernote/summernote-bs4.min.js') }}"></script>
     <!-- Image Upload -->
     <script src="{{ asset('adminlite/plugins/bootstrap-imageupload/bootstrap-imageupload.js') }}"></script>
+    <!-- Handle Bars -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('adminlite/dist/js/demo.js') }}"></script>
+    <!-- Dynamic Form -->
+    <script id="document-template" type="text/x-handlebars-template">
+        <div class="delete_add_more_item row" id="delete_add_more_item">
+
+                <div class="form-group">
+                  <input type="text" class="form-control" name="task_name[]" value="@{{ task_name }}">
+                </div>
+                <div class="form-group">
+                  <input type="number" class="form-control" class="cost" name="cost[]" value="@{{ cost }}">
+                </div>
+
+                <div class="form-group">
+                 <i class="removeaddmore" class="btn btn-danger">Remove</i>
+                </div>
+
+            </div>
+           </script>
     <!-- Page specific script -->
     <script>
         $(function() {
@@ -528,12 +566,12 @@
                         required: true,
                     },
                     @if ($action == 'new')
-                    benefit: {
+                        benefit: {
                         required: true,
-                    },
-                    product: {
+                        },
+                        product: {
                         required: true,
-                    },
+                        },
                     @endif
                 },
                 messages: {
@@ -563,12 +601,12 @@
                         required: "You need to choose the category of product.",
                     },
                     @if ($action == 'new')
-                    benefit: {
+                        benefit: {
                         required: "You need to upload image.",
-                    },
-                    product: {
+                        },
+                        product: {
                         required: "You need to upload image.",
-                    },
+                        },
                     @endif
                 },
                 errorElement: 'span',
@@ -583,6 +621,30 @@
                     $(element).removeClass('is-invalid');
                 }
             });
+
+            /*
+             * Dynamic Form
+             */
+            $(document).on('click', '#addMore', function() {
+
+                var task_name = $("#task_name").val();
+                var cost = $("#cost").val();
+                var source = $("#document-template").html();
+                var template = Handlebars.compile(source);
+
+                var data = {
+                    task_name: task_name,
+                    cost: cost
+                }
+
+                var html = template(data);
+                $("#addRow").append(html);
+            });
+
+            $(document).on('click', '.removeaddmore', function(event) {
+                $(this).closest('.delete_add_more_item').remove();
+            });
+            //End of Dynamic Form
         });
     </script>
 @endsection

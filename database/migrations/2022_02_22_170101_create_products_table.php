@@ -16,8 +16,16 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->longText('image');
+            $table->json('apply_insurance');
+            $table->json('why_work_with_us');
+            $table->json('lr');
+            $table->json('faq')->nullable();
+            $table->json('attachments')->nullable();
+            $table->json('additional_benifits')->nullable();
             $table->string('slogan');
             $table->longText('description');
+            $table->string('title_burmese');
             $table->longText('benefits_block');
             $table->longText('benefits_image');
             $table->longText('table_block')->nullable();

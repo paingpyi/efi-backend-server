@@ -148,7 +148,7 @@ class SampleController extends Controller
                 'category_id' => 2,
                 'products' => json_encode([$collection->random(), $collection->random()]),
                 'featured' => TRUE,
-                'images' => json_encode([Str::replace('/admin/sample/import', '', url()->current()) . '/storage/uploads/sample-banner-1.jpg', Str::replace('/admin/sample/import', '', url()->current()) . '/storage/sample-banner-2.jpg']),
+                'images' => json_encode([Str::replace('/admin/sample/import', '', url()->current()) . '/storage/uploads/sample-banner-1.jpg', Str::replace('/admin/sample/import', '', url()->current()) . '/storage/uploads/sample-banner-2.jpg']),
                 'status' => 'published',
                 'author_id' => 1,
                 'created_at' => Carbon::now(),
