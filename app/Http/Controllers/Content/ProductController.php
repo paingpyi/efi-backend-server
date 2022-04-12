@@ -638,6 +638,7 @@ class ProductController extends Controller
     {
         // Variables
         $data = $request->json()->all();
+        $result = [];
 
         $product_db = $this->getProductsAPI($data);
 
@@ -662,13 +663,37 @@ class ProductController extends Controller
 
         $products = $product_db->get();
 
+        foreach ($products as $row) {
+            $result[] = [
+                'id' => $row->id,
+                'title' => $row->title,
+                'image' => $row->image,
+                'apply_insurance' => json_decode($row->apply_insurance),
+                'why_work_with_us' => json_decode($row->why_work_with_us),
+                'lr' => json_decode($row->lr),
+                'faq' => json_decode($row->faq),
+                'attachments' => json_decode($row->attachments),
+                'additional_benifits' => json_decode($row->additional_benifits),
+                'diagrams_and_table' => json_decode($row->diagrams_and_table),
+                'slug_url' => $row->slug_url,
+                'is_active' => $row->is_active,
+                'created_at' => $row->created_at,
+                'updated_at' => $row->updated_at,
+                'category_id' => $row->category_id,
+                'category_name' => $row->category_name,
+                'category_description' => $row->category_description,
+                'category_machine_name' => $row->category_machine_name,
+                'category_is_active' => $row->category_is_active,
+            ];
+        }
+
         if ($products->count() > 0) {
             $response = [
                 'code' => 200,
                 'status' => 'success',
                 'locale' => $this->getLang($data),
                 'count' => $total_count,
-                'data' => $products,
+                'data' => $result,
             ];
         } else {
             $response = [
@@ -705,13 +730,13 @@ class ProductController extends Controller
                     'id' => $products->id,
                     'title' => $products->title,
                     'image' => $products->image,
-                    'apply_insurance' => $products->apply_insurance,
-                    'why_work_with_us' => $products->why_work_with_us,
-                    'lr' => $products->lr,
-                    'faq' => $products->faq,
-                    'attachments' => $products->attachments,
-                    'additional_benifits' => $products->additional_benifits,
-                    'diagrams_and_table' => $products->diagrams_and_table,
+                    'apply_insurance' => json_decode($products->apply_insurance),
+                    'why_work_with_us' => json_decode($products->why_work_with_us),
+                    'lr' => json_decode($products->lr),
+                    'faq' => json_decode($products->faq),
+                    'attachments' => json_decode($products->attachments),
+                    'additional_benifits' => json_decode($products->additional_benifits),
+                    'diagrams_and_table' => json_decode($products->diagrams_and_table),
                     'slug_url' => $products->slug_url,
                     'is_active' => $products->is_active,
                     'created_at' => $products->created_at,

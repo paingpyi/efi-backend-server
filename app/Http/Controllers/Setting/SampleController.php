@@ -422,8 +422,8 @@ class SampleController extends Controller
         News::insert($news);
         $message .= '<li>Sample data of News has been successfully imported.</li>';
 
-        blog::insert($blogs);
-        $message .= '<li>Sample data of Blogs has been successfully imported.</li>';
+        /*blog::insert($blogs);
+        $message .= '<li>Sample data of Blogs has been successfully imported.</li>';*/
 
         Job::insert($jobs);
         $message .= '<li>Sample data of Job Vacancies has been successfully imported.</li>';
