@@ -547,15 +547,15 @@ class ProductController extends Controller
             ->join('categories', 'categories.id', '=', 'products.category_id')
             ->select(
                 'products.id',
-                DB::raw('JSON_EXTRACT(products.title, "$.' . Str::lower($data['locale']) . '") as title'),
+                DB::raw('JSON_EXTRACT(products.title, \'$."' . Str::lower($data['locale']) . '"\') as title'),
                 'products.image',
-                DB::raw('JSON_EXTRACT(products.apply_insurance, "$.' . Str::lower($data['locale']) . '") as apply_insurance'),
-                DB::raw('JSON_EXTRACT(products.why_work_with_us, "$.' . Str::lower($data['locale']) . '") as why_work_with_us'),
-                DB::raw('JSON_EXTRACT(products.lr, "$.' . Str::lower($data['locale']) . '") as lr'),
-                DB::raw('JSON_EXTRACT(products.faq, "$.' . Str::lower($data['locale']) . '") as faq'),
-                DB::raw('JSON_EXTRACT(products.attachments, "$.' . Str::lower($data['locale']) . '") as attachments'),
-                DB::raw('JSON_EXTRACT(products.additional_benifits, "$.' . Str::lower($data['locale']) . '") as additional_benifits'),
-                DB::raw('JSON_EXTRACT(products.diagrams_and_table, "$.' . Str::lower($data['locale']) . '") as diagrams_and_table'),
+                DB::raw('JSON_EXTRACT(products.apply_insurance, \'$."' . Str::lower($data['locale']) . '"\') as apply_insurance'),
+                DB::raw('JSON_EXTRACT(products.why_work_with_us, \'$."' . Str::lower($data['locale']) . '"\') as why_work_with_us'),
+                DB::raw('JSON_EXTRACT(products.lr, \'$."' . Str::lower($data['locale']) . '"\') as lr'),
+                DB::raw('JSON_EXTRACT(products.faq, \'$."' . Str::lower($data['locale']) . '"\') as faq'),
+                DB::raw('JSON_EXTRACT(products.attachments, \'$."' . Str::lower($data['locale']) . '"\') as attachments'),
+                DB::raw('JSON_EXTRACT(products.additional_benifits, \'$."' . Str::lower($data['locale']) . '"\') as additional_benifits'),
+                DB::raw('JSON_EXTRACT(products.diagrams_and_table, \'$."' . Str::lower($data['locale']) . '"\') as diagrams_and_table'),
                 'products.is_active',
                 'products.slug_url',
                 'products.created_at',
@@ -582,7 +582,7 @@ class ProductController extends Controller
          *
          **/
         if (isset($data['title'])) {
-            $product_db->where('JSON_EXTRACT(products.title, "$.' . Str::lower($data['locale']) . '")', '=', $data['title']);
+            $product_db->where('JSON_EXTRACT(products.title, \'$."' . Str::lower($data['locale']) . '"\')', '=', $data['title']);
         } //End of retreiving products by title
 
         /***
