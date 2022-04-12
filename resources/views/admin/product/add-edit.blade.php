@@ -65,6 +65,7 @@
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
+                                        <!-- Apply Insurance Block -->
                                         <h4>Apply Insurance Block</h4>
                                         <div class="form-group">
                                             <label for="apply_insurance_title"><i class="flag-icon flag-icon-us mr-2"></i> Title
@@ -76,6 +77,27 @@
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
+                                        <div class="form-group">
+                                            <label for="apply_insurance_description"><i class="flag-icon flag-icon-us mr-2"></i>
+                                                Description
+                                                <span class="text-danger">*</span></label>
+                                            <textarea name="apply_insurance_description" class="summernote" required
+                                                id="apply_insurance_description">{{ old('apply_insurance_description') }}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="apply_insurance_buttonText"><i class="flag-icon flag-icon-us mr-2"></i> Button Text
+                                                <span class="text-danger">*</span></label>
+                                            <input type="text" name="apply_insurance_buttonText"
+                                                value="{{ old('apply_insurance_buttonText') }}"
+                                                class="form-control" id="apply_insurance_buttonText">
+                                            @error('apply_insurance_buttonText')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <!-- /. End of Apply Insurance Block -->
+                                        <!-- Why Work With Us Block -->
+                                        <h4>Why work with us</h4>
+                                        <!-- /. End of Why Work With Us Block -->
                                     </div>
                                     <div class="tab-pane fade pt-3" id="nav-mm" role="tabpanel"
                                         aria-labelledby="nav-profile-tab">
@@ -93,6 +115,7 @@
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
+                                        <!-- Apply Insurance Block -->
                                         <h4>Apply Insurance Block</h4>
                                         <div class="form-group">
                                             <label for="apply_insurance_title_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
@@ -104,6 +127,27 @@
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
+                                        <div class="form-group">
+                                            <label for="apply_insurance_description_burmese"><i class="flag-icon flag-icon-mm mr-2"></i>
+                                                Description
+                                                <span class="text-danger">*</span></label>
+                                            <textarea name="apply_insurance_description_burmese" class="summernote" required
+                                                id="apply_insurance_description_burmese">{{ old('apply_insurance_description_burmese') }}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="apply_insurance_buttonText_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Button Text
+                                                <span class="text-danger">*</span></label>
+                                            <input type="text" name="apply_insurance_buttonText_burmese"
+                                                value="{{ old('apply_insurance_buttonText_burmese') }}"
+                                                class="form-control" id="apply_insurance_buttonText_burmese">
+                                            @error('apply_insurance_buttonText_burmese')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <!-- /. End of Apply Insurance Block -->
+                                        <!-- Why Work With Us Block -->
+                                        <h4>Why work with us</h4>
+                                        <!-- /. End of Why Work With Us Block -->
                                     </div>
                                     <div class="tab-pane fade pt-3" id="nav-zh" role="tabpanel"
                                         aria-labelledby="nav-profile-tab">
@@ -121,6 +165,7 @@
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
+                                        <!-- Apply Innsurance Block -->
                                         <h4>Apply Insurance Block</h4>
                                         <div class="form-group">
                                             <label for="apply_insurance_title_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Title
@@ -132,6 +177,27 @@
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
+                                        <div class="form-group">
+                                            <label for="apply_insurance_description_chinese"><i class="flag-icon flag-icon-cn mr-2"></i>
+                                                Description
+                                                <span class="text-danger">*</span></label>
+                                            <textarea name="apply_insurance_description_chinese" class="summernote" required
+                                                id="apply_insurance_description_chinese">{{ old('apply_insurance_description_chinese') }}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="apply_insurance_buttonText_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Button Text
+                                                <span class="text-danger">*</span></label>
+                                            <input type="text" name="apply_insurance_buttonText_chinese"
+                                                value="{{ old('apply_insurance_buttonText_chinese') }}"
+                                                class="form-control" id="apply_insurance_buttonText_chinese">
+                                            @error('apply_insurance_buttonText_chinese')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <!-- /. End of Apply Insurance Block -->
+                                        <!-- Why Work With Us Block -->
+                                        <h4>Why work with us</h4>
+                                        <!-- /. End of Why Work With Us Block -->
                                     </div>
                                 </div>
                             </div>
