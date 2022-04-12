@@ -52,6 +52,86 @@
                                 <div class="tab-content pr-2" id="nav-tabContent">
                                     <div class="tab-pane fade show active pt-3" id="nav-eng" role="tabpanel"
                                         aria-labelledby="nav-home-tab">
+                                        <div class="form-group">
+                                            <label for="title"><i class="flag-icon flag-icon-us mr-2"></i> Title
+                                                <span class="text-danger">*</span></label>
+                                            <input type="text" name="title"
+                                                value="{{ old('title') }}"
+                                                class="form-control" id="title"
+                                                aria-describedby="titleHelp">
+                                            <small id="titleHelp" class="form-text text-muted">Please enter
+                                                title.</small>
+                                            @error('title')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <h4>Apply Insurance Block</h4>
+                                        <div class="form-group">
+                                            <label for="apply_insurance_title"><i class="flag-icon flag-icon-us mr-2"></i> Title
+                                                <span class="text-danger">*</span></label>
+                                            <input type="text" name="apply_insurance_title"
+                                                value="{{ old('apply_insurance_title') }}"
+                                                class="form-control" id="apply_insurance_title">
+                                            @error('apply_insurance_title')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade pt-3" id="nav-mm" role="tabpanel"
+                                        aria-labelledby="nav-profile-tab">
+                                        <div class="form-group">
+                                            <label for="title_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
+                                                <span class="text-danger">*</span></label>
+                                            <input type="text" name="title_burmese"
+                                                value="{{ old('title_burmese') }}"
+                                                class="form-control" id="title_burmese"
+                                                aria-describedby="title_burmeseHelp">
+                                            <small id="title_burmeseHelp" class="form-text text-muted">Please enter
+                                                title
+                                                (Burmese).</small>
+                                            @error('title_burmese')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <h4>Apply Insurance Block</h4>
+                                        <div class="form-group">
+                                            <label for="apply_insurance_title_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
+                                                <span class="text-danger">*</span></label>
+                                            <input type="text" name="apply_insurance_title_burmese"
+                                                value="{{ old('apply_insurance_title_burmese') }}"
+                                                class="form-control" id="apply_insurance_title_burmese">
+                                            @error('apply_insurance_title_burmese')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade pt-3" id="nav-zh" role="tabpanel"
+                                        aria-labelledby="nav-profile-tab">
+                                        <div class="form-group">
+                                            <label for="title_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Title
+                                                <span class="text-danger">*</span></label>
+                                            <input type="text" name="title_chinese"
+                                                value="{{ old('title_chinese') }}"
+                                                class="form-control" id="title_chinese"
+                                                aria-describedby="title_chineseHelp">
+                                            <small id="title_chineseHelp" class="form-text text-muted">Please enter
+                                                title
+                                                (Chinese).</small>
+                                            @error('title_chinese')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <h4>Apply Insurance Block</h4>
+                                        <div class="form-group">
+                                            <label for="apply_insurance_title_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Title
+                                                <span class="text-danger">*</span></label>
+                                            <input type="text" name="apply_insurance_title_chinese"
+                                                value="{{ old('apply_insurance_title_chinese') }}"
+                                                class="form-control" id="apply_insurance_title_chinese">
+                                            @error('apply_insurance_title_chinese')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
                             </div>
