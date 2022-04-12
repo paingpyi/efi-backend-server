@@ -63,6 +63,71 @@
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
+                                        <!-- Paragraphs -->
+                                        <h4>Description</h4>
+                                        <div class="form-group">
+                                            <label for="lr_title"><i class="flag-icon flag-icon-us mr-2"></i> Title
+                                                <span class="text-danger">*</span></label>
+                                            <input type="text" name="lr_title" value="{{ old('lr_title') }}"
+                                                class="form-control" id="lr_title">
+                                            @error('lr_title')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lr_description"><i class="flag-icon flag-icon-us mr-2"></i>
+                                                Description
+                                                <span class="text-danger">*</span></label>
+                                            <textarea name="lr_description" class="summernote" required
+                                                id="lr_description">{{ old('lr_description') }}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Image <span class="text-danger">*</span></label>
+                                            @isset($product->product_photo)
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <img src="{{ asset($product->product_photo) }}"
+                                                            alt="Why Work With US Image" class="img-thumbnail">
+                                                    </div>
+                                                </div>
+                                            @endisset
+                                            <!-- bootstrap-imageupload. -->
+
+                                            <div class="imageupload panel panel-default card card-secondary bg-secondary">
+
+                                                <div class="panel-heading card-heading clearfix p-2">
+
+                                                    <h5 class="panel-title card-title pull-left">Select Image file</h5>
+
+                                                    <div class="btn-group pull-right float-right">
+
+                                                        <button type="button" class="btn btn-default active">File</button>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="file-tab panel-body card-body text-center">
+
+                                                    <div class="btn-group">
+                                                        <div class="btn btn-primary btn-file">
+
+                                                            <span>Browse</span>
+
+                                                            <!-- The file is stored here. -->
+
+                                                            <input type="file" name="lr_image">
+
+                                                        </div>
+
+                                                        <button type="button" class="btn btn-danger">Remove</button>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div> <!-- /. Why Work With Us Image -->
+                                        <!-- /. End of Paragraphs -->
                                         <!-- Apply Insurance Block -->
                                         <h4>Apply Insurance Block</h4>
                                         <div class="form-group">
@@ -161,76 +226,279 @@
                                             </div>
                                         </div> <!-- /. Why Work With Us Image -->
                                         <!-- /. End of Why Work With Us Block -->
-                                        <!-- Paragraphs -->
-                                        <div id="lr">
-                                            <h4>Description <button type="button" class="btn btn-primary float-right"
-                                                    id="btn_para"><i class="fas fa-plus"></i> Add Paragraph</button></h4>
-                                            <div class="form-group">
-                                                <label for="lr_title[0]"><i class="flag-icon flag-icon-us mr-2"></i> Title
-                                                    <span class="text-danger">*</span></label>
-                                                <input type="text" name="lr_title[0]" value="{{ old('lr_title[0]') }}"
-                                                    class="form-control" id="lr_title[0]">
-                                                @error('lr_title[0]')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="lr_description[0]"><i class="flag-icon flag-icon-us mr-2"></i>
-                                                    Description
-                                                    <span class="text-danger">*</span></label>
-                                                <textarea name="lr_description[0]" class="summernote" required
-                                                    id="lr_description[0]">{{ old('lr_description[0]') }}</textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Image <span class="text-danger">*</span></label>
-                                                @isset($product->product_photo)
-                                                    <div class="card">
-                                                        <div class="card-body">
-                                                            <img src="{{ asset($product->product_photo) }}"
-                                                                alt="Why Work With US Image" class="img-thumbnail">
-                                                        </div>
+                                        <!-- Additional Benifits -->
+                                        <h4>Additional Benifits</h4>
+                                        <div class="form-group">
+                                            <label for="additional_title"><i class="flag-icon flag-icon-us mr-2"></i> Title
+                                                <span class="text-danger">*</span></label>
+                                            <input type="text" name="additional_title" value="{{ old('additional_title') }}"
+                                                class="form-control" id="additional_title">
+                                            @error('additional_title')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <hr>
+                                        <div class="form-group">
+                                            <label>Icon <span class="text-danger">*</span></label>
+                                            @isset($product->product_photo)
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <img src="{{ asset($product->product_photo) }}"
+                                                            alt="Why Work With US Image" class="img-thumbnail">
                                                     </div>
-                                                @endisset
-                                                <!-- bootstrap-imageupload. -->
+                                                </div>
+                                            @endisset
+                                            <!-- bootstrap-imageupload. -->
 
-                                                <div
-                                                    class="imageupload panel panel-default card card-secondary bg-secondary">
+                                            <div class="imageupload panel panel-default card card-secondary bg-secondary">
 
-                                                    <div class="panel-heading card-heading clearfix p-2">
+                                                <div class="panel-heading card-heading clearfix p-2">
 
-                                                        <h5 class="panel-title card-title pull-left">Select Image file</h5>
+                                                    <h5 class="panel-title card-title pull-left">Select Icon file</h5>
 
-                                                        <div class="btn-group pull-right float-right">
+                                                    <div class="btn-group pull-right float-right">
 
-                                                            <button type="button"
-                                                                class="btn btn-default active">File</button>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                    <div class="file-tab panel-body card-body text-center">
-
-                                                        <div class="btn-group">
-                                                            <div class="btn btn-primary btn-file">
-
-                                                                <span>Browse</span>
-
-                                                                <!-- The file is stored here. -->
-
-                                                                <input type="file" name="lr_image[0]">
-
-                                                            </div>
-
-                                                            <button type="button" class="btn btn-danger">Remove</button>
-                                                        </div>
+                                                        <button type="button" class="btn btn-default active">File</button>
 
                                                     </div>
 
                                                 </div>
-                                            </div> <!-- /. Why Work With Us Image -->
-                                        </div>
-                                        <!-- /. End of Paragraphs -->
+
+                                                <div class="file-tab panel-body card-body text-center">
+
+                                                    <div class="btn-group">
+                                                        <div class="btn btn-primary btn-file">
+
+                                                            <span>Browse</span>
+
+                                                            <!-- The file is stored here. -->
+
+                                                            <input type="file" name="additional_icon">
+
+                                                        </div>
+
+                                                        <button type="button" class="btn btn-danger">Remove</button>
+                                                    </div>
+                                                    <div class="row pt-3">
+                                                        <input type="text" name="additional_iconText" value="{{ old('additional_iconText') }}"
+                                                            class="form-control" id="additional_iconText" placeholder="Icon Text">
+                                                        @error('additional_iconText')
+                                                            <div class="alert alert-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div> <!-- /. Additional Benefit Image -->
+                                        <div class="form-group">
+                                            <label>Icon <span class="text-danger">*</span></label>
+                                            @isset($product->product_photo)
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <img src="{{ asset($product->product_photo) }}"
+                                                            alt="Why Work With US Image" class="img-thumbnail">
+                                                    </div>
+                                                </div>
+                                            @endisset
+                                            <!-- bootstrap-imageupload. -->
+
+                                            <div class="imageupload panel panel-default card card-secondary bg-secondary">
+
+                                                <div class="panel-heading card-heading clearfix p-2">
+
+                                                    <h5 class="panel-title card-title pull-left">Select Icon file</h5>
+
+                                                    <div class="btn-group pull-right float-right">
+
+                                                        <button type="button" class="btn btn-default active">File</button>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="file-tab panel-body card-body text-center">
+
+                                                    <div class="btn-group">
+                                                        <div class="btn btn-primary btn-file">
+
+                                                            <span>Browse</span>
+
+                                                            <!-- The file is stored here. -->
+
+                                                            <input type="file" name="additional_icon">
+
+                                                        </div>
+
+                                                        <button type="button" class="btn btn-danger">Remove</button>
+                                                    </div>
+                                                    <div class="row pt-3">
+                                                        <input type="text" name="additional_iconText" value="{{ old('additional_iconText') }}"
+                                                            class="form-control" id="additional_iconText" placeholder="Icon Text">
+                                                        @error('additional_iconText')
+                                                            <div class="alert alert-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div> <!-- /. Additional Benefit Image -->
+                                        <div class="form-group">
+                                            <label>Icon <span class="text-danger">*</span></label>
+                                            @isset($product->product_photo)
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <img src="{{ asset($product->product_photo) }}"
+                                                            alt="Why Work With US Image" class="img-thumbnail">
+                                                    </div>
+                                                </div>
+                                            @endisset
+                                            <!-- bootstrap-imageupload. -->
+
+                                            <div class="imageupload panel panel-default card card-secondary bg-secondary">
+
+                                                <div class="panel-heading card-heading clearfix p-2">
+
+                                                    <h5 class="panel-title card-title pull-left">Select Icon file</h5>
+
+                                                    <div class="btn-group pull-right float-right">
+
+                                                        <button type="button" class="btn btn-default active">File</button>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="file-tab panel-body card-body text-center">
+
+                                                    <div class="btn-group">
+                                                        <div class="btn btn-primary btn-file">
+
+                                                            <span>Browse</span>
+
+                                                            <!-- The file is stored here. -->
+
+                                                            <input type="file" name="additional_icon">
+
+                                                        </div>
+
+                                                        <button type="button" class="btn btn-danger">Remove</button>
+                                                    </div>
+                                                    <div class="row pt-3">
+                                                        <input type="text" name="additional_iconText" value="{{ old('additional_iconText') }}"
+                                                            class="form-control" id="additional_iconText" placeholder="Icon Text">
+                                                        @error('additional_iconText')
+                                                            <div class="alert alert-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div> <!-- /. Additional Benefit Image -->
+                                        <div class="form-group">
+                                            <label>Icon <span class="text-danger">*</span></label>
+                                            @isset($product->product_photo)
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <img src="{{ asset($product->product_photo) }}"
+                                                            alt="Why Work With US Image" class="img-thumbnail">
+                                                    </div>
+                                                </div>
+                                            @endisset
+                                            <!-- bootstrap-imageupload. -->
+
+                                            <div class="imageupload panel panel-default card card-secondary bg-secondary">
+
+                                                <div class="panel-heading card-heading clearfix p-2">
+
+                                                    <h5 class="panel-title card-title pull-left">Select Icon file</h5>
+
+                                                    <div class="btn-group pull-right float-right">
+
+                                                        <button type="button" class="btn btn-default active">File</button>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="file-tab panel-body card-body text-center">
+
+                                                    <div class="btn-group">
+                                                        <div class="btn btn-primary btn-file">
+
+                                                            <span>Browse</span>
+
+                                                            <!-- The file is stored here. -->
+
+                                                            <input type="file" name="additional_icon">
+
+                                                        </div>
+
+                                                        <button type="button" class="btn btn-danger">Remove</button>
+                                                    </div>
+                                                    <div class="row pt-3">
+                                                        <input type="text" name="additional_iconText" value="{{ old('additional_iconText') }}"
+                                                            class="form-control" id="additional_iconText" placeholder="Icon Text">
+                                                        @error('additional_iconText')
+                                                            <div class="alert alert-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div> <!-- /. Additional Benefit Image -->
+                                        <div class="form-group">
+                                            <label>Icon <span class="text-danger">*</span></label>
+                                            @isset($product->product_photo)
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <img src="{{ asset($product->product_photo) }}"
+                                                            alt="Why Work With US Image" class="img-thumbnail">
+                                                    </div>
+                                                </div>
+                                            @endisset
+                                            <!-- bootstrap-imageupload. -->
+
+                                            <div class="imageupload panel panel-default card card-secondary bg-secondary">
+
+                                                <div class="panel-heading card-heading clearfix p-2">
+
+                                                    <h5 class="panel-title card-title pull-left">Select Icon file</h5>
+
+                                                    <div class="btn-group pull-right float-right">
+
+                                                        <button type="button" class="btn btn-default active">File</button>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="file-tab panel-body card-body text-center">
+
+                                                    <div class="btn-group">
+                                                        <div class="btn btn-primary btn-file">
+
+                                                            <span>Browse</span>
+
+                                                            <!-- The file is stored here. -->
+
+                                                            <input type="file" name="additional_icon">
+
+                                                        </div>
+
+                                                        <button type="button" class="btn btn-danger">Remove</button>
+                                                    </div>
+                                                    <div class="row pt-3">
+                                                        <input type="text" name="additional_iconText" value="{{ old('additional_iconText') }}"
+                                                            class="form-control" id="additional_iconText" placeholder="Icon Text">
+                                                        @error('additional_iconText')
+                                                            <div class="alert alert-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div> <!-- /. Additional Benefit Image -->
+                                        <!-- Additional Benifits -->
                                     </div>
                                     <div class="tab-pane fade pt-3" id="nav-mm" role="tabpanel"
                                         aria-labelledby="nav-profile-tab">
@@ -247,6 +515,73 @@
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
+                                        <!-- Paragraphs -->
+                                        <h4>Description</h4>
+                                        <div class="form-group">
+                                            <label for="lr_title_burmese"><i class="flag-icon flag-icon-mm mr-2"></i>
+                                                Title
+                                                <span class="text-danger">*</span></label>
+                                            <input type="text" name="lr_title_burmese"
+                                                value="{{ old('lr_title_burmese') }}" class="form-control"
+                                                id="lr_title_burmese">
+                                            @error('lr_title_burmese')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lr_description_burmese"><i class="flag-icon flag-icon-mm mr-2"></i>
+                                                Description
+                                                <span class="text-danger">*</span></label>
+                                            <textarea name="lr_description_burmese" class="summernote" required
+                                                id="lr_description_burmese">{{ old('lr_description_burmese') }}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Image <span class="text-danger">*</span></label>
+                                            @isset($product->product_photo)
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <img src="{{ asset($product->product_photo) }}"
+                                                            alt="Why Work With US Image" class="img-thumbnail">
+                                                    </div>
+                                                </div>
+                                            @endisset
+                                            <!-- bootstrap-imageupload. -->
+
+                                            <div class="imageupload panel panel-default card card-secondary bg-secondary">
+
+                                                <div class="panel-heading card-heading clearfix p-2">
+
+                                                    <h5 class="panel-title card-title pull-left">Select Image file</h5>
+
+                                                    <div class="btn-group pull-right float-right">
+
+                                                        <button type="button" class="btn btn-default active">File</button>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="file-tab panel-body card-body text-center">
+
+                                                    <div class="btn-group">
+                                                        <div class="btn btn-primary btn-file">
+
+                                                            <span>Browse</span>
+
+                                                            <!-- The file is stored here. -->
+
+                                                            <input type="file" name="lr_image_burmese">
+
+                                                        </div>
+
+                                                        <button type="button" class="btn btn-danger">Remove</button>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div> <!-- /. Why Work With Us Image -->
+                                        <!-- /. End of Paragraphs -->
                                         <!-- Apply Insurance Block -->
                                         <h4>Apply Insurance Block</h4>
                                         <div class="form-group">
@@ -348,78 +683,6 @@
                                             </div>
                                         </div> <!-- /. Why Work With Us Image -->
                                         <!-- /. End of Why Work With Us Block -->
-                                        <!-- Paragraphs -->
-                                        <div id="lr-my">
-                                            <h4>Description</h4>
-                                            <div class="form-group">
-                                                <label for="lr_title_burmese[0]"><i class="flag-icon flag-icon-mm mr-2"></i>
-                                                    Title
-                                                    <span class="text-danger">*</span></label>
-                                                <input type="text" name="lr_title_burmese[0]"
-                                                    value="{{ old('lr_title_burmese[0]') }}" class="form-control"
-                                                    id="lr_title_burmese[0]">
-                                                @error('lr_title_burmese[0]')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="lr_description_burmese[0]"><i
-                                                        class="flag-icon flag-icon-mm mr-2"></i>
-                                                    Description
-                                                    <span class="text-danger">*</span></label>
-                                                <textarea name="lr_description_burmese[0]" class="summernote" required
-                                                    id="lr_description_burmese[0]">{{ old('lr_description_burmese[0]') }}</textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Image <span class="text-danger">*</span></label>
-                                                @isset($product->product_photo)
-                                                    <div class="card">
-                                                        <div class="card-body">
-                                                            <img src="{{ asset($product->product_photo) }}"
-                                                                alt="Why Work With US Image" class="img-thumbnail">
-                                                        </div>
-                                                    </div>
-                                                @endisset
-                                                <!-- bootstrap-imageupload. -->
-
-                                                <div
-                                                    class="imageupload panel panel-default card card-secondary bg-secondary">
-
-                                                    <div class="panel-heading card-heading clearfix p-2">
-
-                                                        <h5 class="panel-title card-title pull-left">Select Image file</h5>
-
-                                                        <div class="btn-group pull-right float-right">
-
-                                                            <button type="button"
-                                                                class="btn btn-default active">File</button>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                    <div class="file-tab panel-body card-body text-center">
-
-                                                        <div class="btn-group">
-                                                            <div class="btn btn-primary btn-file">
-
-                                                                <span>Browse</span>
-
-                                                                <!-- The file is stored here. -->
-
-                                                                <input type="file" name="lr_image_burmese[0]">
-
-                                                            </div>
-
-                                                            <button type="button" class="btn btn-danger">Remove</button>
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-                                            </div> <!-- /. Why Work With Us Image -->
-                                        </div>
-                                        <!-- /. End of Paragraphs -->
                                     </div>
                                     <div class="tab-pane fade pt-3" id="nav-zh" role="tabpanel"
                                         aria-labelledby="nav-profile-tab">
@@ -436,6 +699,73 @@
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
+                                        <!-- Paragraphs -->
+                                        <h4>Description</h4>
+                                        <div class="form-group">
+                                            <label for="lr_title_chinese"><i class="flag-icon flag-icon-cn mr-2"></i>
+                                                Title
+                                                <span class="text-danger">*</span></label>
+                                            <input type="text" name="lr_title_chinese"
+                                                value="{{ old('lr_title_chinese') }}" class="form-control"
+                                                id="lr_title_chinese">
+                                            @error('lr_title_chinese')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lr_description_chinese"><i class="flag-icon flag-icon-cn mr-2"></i>
+                                                Description
+                                                <span class="text-danger">*</span></label>
+                                            <textarea name="lr_description_chinese" class="summernote" required
+                                                id="lr_description_chinese">{{ old('lr_description_chinese') }}</textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Image <span class="text-danger">*</span></label>
+                                            @isset($product->product_photo)
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <img src="{{ asset($product->product_photo) }}"
+                                                            alt="Why Work With US Image" class="img-thumbnail">
+                                                    </div>
+                                                </div>
+                                            @endisset
+                                            <!-- bootstrap-imageupload. -->
+
+                                            <div class="imageupload panel panel-default card card-secondary bg-secondary">
+
+                                                <div class="panel-heading card-heading clearfix p-2">
+
+                                                    <h5 class="panel-title card-title pull-left">Select Image file</h5>
+
+                                                    <div class="btn-group pull-right float-right">
+
+                                                        <button type="button" class="btn btn-default active">File</button>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="file-tab panel-body card-body text-center">
+
+                                                    <div class="btn-group">
+                                                        <div class="btn btn-primary btn-file">
+
+                                                            <span>Browse</span>
+
+                                                            <!-- The file is stored here. -->
+
+                                                            <input type="file" name="lr_image_chinese">
+
+                                                        </div>
+
+                                                        <button type="button" class="btn btn-danger">Remove</button>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div> <!-- /. Why Work With Us Image -->
+                                        <!-- /. End of Paragraphs -->
                                         <!-- Apply Innsurance Block -->
                                         <h4>Apply Insurance Block</h4>
                                         <div class="form-group">
@@ -537,78 +867,6 @@
                                             </div>
                                         </div> <!-- /. Why Work With Us Image -->
                                         <!-- /. End of Why Work With Us Block -->
-                                        <!-- Paragraphs -->
-                                        <div id="lr-zh">
-                                            <h4>Description</h4>
-                                            <div class="form-group">
-                                                <label for="lr_title_chinese"><i class="flag-icon flag-icon-cn mr-2"></i>
-                                                    Title
-                                                    <span class="text-danger">*</span></label>
-                                                <input type="text" name="lr_title_chinese"
-                                                    value="{{ old('lr_title_chinese') }}" class="form-control"
-                                                    id="lr_title_chinese">
-                                                @error('lr_title_chinese')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="lr_description_chinese"><i
-                                                        class="flag-icon flag-icon-cn mr-2"></i>
-                                                    Description
-                                                    <span class="text-danger">*</span></label>
-                                                <textarea name="lr_description_chinese" class="summernote" required
-                                                    id="lr_description_chinese">{{ old('lr_description_chinese') }}</textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Image <span class="text-danger">*</span></label>
-                                                @isset($product->product_photo)
-                                                    <div class="card">
-                                                        <div class="card-body">
-                                                            <img src="{{ asset($product->product_photo) }}"
-                                                                alt="Why Work With US Image" class="img-thumbnail">
-                                                        </div>
-                                                    </div>
-                                                @endisset
-                                                <!-- bootstrap-imageupload. -->
-
-                                                <div
-                                                    class="imageupload panel panel-default card card-secondary bg-secondary">
-
-                                                    <div class="panel-heading card-heading clearfix p-2">
-
-                                                        <h5 class="panel-title card-title pull-left">Select Image file</h5>
-
-                                                        <div class="btn-group pull-right float-right">
-
-                                                            <button type="button"
-                                                                class="btn btn-default active">File</button>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                    <div class="file-tab panel-body card-body text-center">
-
-                                                        <div class="btn-group">
-                                                            <div class="btn btn-primary btn-file">
-
-                                                                <span>Browse</span>
-
-                                                                <!-- The file is stored here. -->
-
-                                                                <input type="file" name="lr_image_chinese">
-
-                                                            </div>
-
-                                                            <button type="button" class="btn btn-danger">Remove</button>
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-                                            </div> <!-- /. Why Work With Us Image -->
-                                        </div>
-                                        <!-- /. End of Paragraphs -->
                                     </div>
                                 </div>
                             </div>
@@ -814,60 +1072,56 @@
     <!-- Dynamic Form -->
     <script id="document-template" type="text/x-handlebars-template">
         <!-- Paragraphs -->
-            <hr>
-            <div class="form-group">
-                <label for="lr_title[0]"><i class="flag-icon flag-icon-us mr-2"></i> Title
-                    <span class="text-danger">*</span></label>
-                <input type="text" name="lr_title[0]" value=""
-                    class="form-control" id="lr_title[0]">
-            </div>
-            <div class="form-group">
-                <label for="lr_description[0]"><i class="flag-icon flag-icon-us mr-2"></i>
-                    Description
-                    <span class="text-danger">*</span></label>
-                <textarea name="lr_description[0]" class="summernote" required
-                    id="lr_description[0]"></textarea>
-            </div>
-            <div class="form-group">
-                <label>Image <span class="text-danger">*</span></label>
-                <!-- bootstrap-imageupload. -->
+        <hr>
+        <div class="form-group">
+            <label for="lr_title"><i class="flag-icon flag-icon-us mr-2"></i> Title
+                <span class="text-danger">*</span></label>
+            <input type="text" name="lr_title" value="" class="form-control" id="lr_title">
+        </div>
+        <div class="form-group">
+            <label for="lr_description"><i class="flag-icon flag-icon-us mr-2"></i>
+                Description
+                <span class="text-danger">*</span></label>
+            <textarea name="lr_description" class="summernote" required id="lr_description"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Image <span class="text-danger">*</span></label>
+            <!-- bootstrap-imageupload. -->
 
-                <div
-                    class="imageupload panel panel-default card card-secondary bg-secondary">
+            <div class="imageupload panel panel-default card card-secondary bg-secondary">
 
-                    <div class="panel-heading card-heading clearfix p-2">
+                <div class="panel-heading card-heading clearfix p-2">
 
-                        <h5 class="panel-title card-title pull-left">Select Image file</h5>
+                    <h5 class="panel-title card-title pull-left">Select Image file</h5>
 
-                        <div class="btn-group pull-right float-right">
+                    <div class="btn-group pull-right float-right">
 
-                            <button type="button"
-                                class="btn btn-default active">File</button>
-
-                        </div>
-
-                    </div>
-
-                    <div class="file-tab panel-body card-body text-center">
-
-                        <div class="btn-group">
-                            <div class="btn btn-primary btn-file">
-
-                                <span>Browse</span>
-
-                                <!-- The file is stored here. -->
-
-                                <input type="file" name="lr_image[0]">
-
-                            </div>
-
-                            <button type="button" class="btn btn-danger">Remove</button>
-                        </div>
+                        <button type="button" class="btn btn-default active">File</button>
 
                     </div>
 
                 </div>
-            </div> <!-- /. Why Work With Us Image -->
+
+                <div class="file-tab panel-body card-body text-center">
+
+                    <div class="btn-group">
+                        <div class="btn btn-primary btn-file">
+
+                            <span>Browse</span>
+
+                            <!-- The file is stored here. -->
+
+                            <input type="file" name="lr_image">
+
+                        </div>
+
+                        <button type="button" class="btn btn-danger">Remove</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div> <!-- /. Why Work With Us Image -->
         <!-- /. End of Paragraphs -->
     </script>
     <!-- Page specific script -->
@@ -993,21 +1247,6 @@
                     $(element).removeClass('is-invalid');
                 }
             });
-
-            /*
-             * Dynamic Form
-             */
-            var i = 0;
-            $("#btn_para").click(function() {
-                ++i;
-                $("#lr").append(
-                    $("#document-template").html()
-                );
-            });
-            $(document).on('click', '.remove-input-field', function() {
-                $(this).parents('tr').remove();
-            });
-            //End of Dynamic Form
         });
     </script>
 @endsection
