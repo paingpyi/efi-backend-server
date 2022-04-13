@@ -59,7 +59,8 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {dd($request->all());
+    {
+        dd($request->all());
         $validator = Validator::make($request->all(), [
             'title' => 'required|unique:products|max:255',
             'slogan' => 'required|max:255',
@@ -379,7 +380,6 @@ class ProductController extends Controller
      */
     public function getlist($para = null)
     {
-
     }
 
     /**
@@ -548,7 +548,7 @@ class ProductController extends Controller
             ->select(
                 'products.id',
                 DB::raw('JSON_EXTRACT(products.title, \'$."' . Str::lower($data['locale']) . '"\') as title'),
-                'products.image',
+                DB::raw('CONCAT("' . config('app.url') . '", products.image) as image'),
                 DB::raw('JSON_EXTRACT(products.apply_insurance, \'$."' . Str::lower($data['locale']) . '"\') as apply_insurance'),
                 DB::raw('JSON_EXTRACT(products.why_work_with_us, \'$."' . Str::lower($data['locale']) . '"\') as why_work_with_us'),
                 DB::raw('JSON_EXTRACT(products.lr, \'$."' . Str::lower($data['locale']) . '"\') as lr'),
