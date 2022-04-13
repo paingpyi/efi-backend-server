@@ -651,3 +651,79 @@
     </div>
 </div> <!-- /. Attachment Image -->
 <!-- /. End of Attachments -->
+<!-- FAQ -->
+<hr>
+<h4>Frequently Asked Questions</h4>
+<div class="form-group">
+    <label for="faq_title_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
+        <span class="text-danger">*</span></label>
+    <input type="text" name="faq_title_burmese" value="{{ old('faq_title_burmese') }}" class="form-control" id="faq_title_burmese">
+    @error('faq_title_burmese')
+        <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
+</div>
+<div class="form-group">
+    <label for="faq_title_1_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
+        <span class="text-danger">*</span></label>
+    <input type="text" name="faq_title_1_burmese" value="{{ old('faq_title_1_burmese') }}" class="form-control"
+        id="faq_title_1_burmese">
+    @error('faq_title_1_burmese')
+        <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
+</div>
+<div class="form-group">
+    <label for="faq_detail_1_burmese"><i class="flag-icon flag-icon-mm mr-2"></i>
+        Detail
+        <span class="text-danger">*</span></label>
+    <textarea name="faq_detail_1_burmese" class="summernote" required
+        id="faq_detail_1_burmese">{{ old('faq_detail_1_burmese') }}</textarea>
+</div>
+<div class="form-group">
+    <label for="faq_title_2_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
+        <span class="text-danger">*</span></label>
+    <input type="text" name="faq_title_2_burmese" value="{{ old('faq_title_2_burmese') }}" class="form-control"
+        id="faq_title_2_burmese">
+    @error('faq_title_2_burmese')
+        <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
+</div>
+<div class="form-group">
+    <label for="faq_detail_2_burmese"><i class="flag-icon flag-icon-mm mr-2"></i>
+        Detail
+        <span class="text-danger">*</span></label>
+    <textarea name="faq_detail_2_burmese" class="summernote" required
+        id="faq_detail_2_burmese">{{ old('faq_detail_2_burmese') }}</textarea>
+</div>
+<div class="form-group">
+    <label for="faq_title_3_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
+        <span class="text-danger">*</span></label>
+    <input type="text" name="faq_title_3_burmese" value="{{ old('faq_title_3_burmese') }}" class="form-control"
+        id="faq_title_3_burmese">
+    @error('faq_title_3_burmese')
+        <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
+</div>
+<div class="form-group">
+    <label for="faq_detail_3_burmese"><i class="flag-icon flag-icon-mm mr-2"></i>
+        Detail
+        <span class="text-danger">*</span></label>
+    <textarea name="faq_detail_3_burmese" class="summernote" required
+        id="faq_detail_3_burmese">{{ old('faq_detail_3_burmese') }}</textarea>
+</div>
+<div class="form-group">
+    <label for="faq_title_4_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
+        <span class="text-danger">*</span></label>
+    <input type="text" name="faq_title_4_burmese" value="{{ old('faq_title_4_burmese') }}" class="form-control"
+        id="faq_title_4_burmese">
+    @error('faq_title_4_burmese')
+        <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
+</div>
+<div class="form-group">
+    <label for="faq_detail_4_burmese"><i class="flag-icon flag-icon-mm mr-2"></i>
+        Detail
+        <span class="text-danger">*</span></label>
+    <textarea name="faq_detail_4_burmese" class="summernote" required
+        id="faq_detail_4_burmese">{{ old('faq_detail_4_burmese') }}</textarea>
+</div>
+<!-- /. End of FAQ -->
