@@ -418,13 +418,28 @@ class ProductController extends Controller
         $products = $product_db->get();
 
         foreach ($products as $row) {
+            $why_work_with_us = [
+                'title' => json_decode($row->why_work_with_us)->title,
+                'description' => json_decode($row->why_work_with_us)->description,
+                'image' => config('app.url') . json_decode($row->why_work_with_us)->image,
+            ];
+
+            $lr = [];
+            foreach (json_decode($row->lr) as $item) {
+                $lr[] = [
+                    'title' => $item->title,
+                    'description' => $item->description,
+                    'image' => config('app.url') . $item->image,
+                ];
+            }
+
             $result[] = [
                 'id' => $row->id,
                 'title' => $row->title,
                 'image' => $row->image,
                 'apply_insurance' => json_decode($row->apply_insurance),
-                'why_work_with_us' => json_decode($row->why_work_with_us),
-                'lr' => json_decode($row->lr),
+                'why_work_with_us' => $why_work_with_us,
+                'lr' => $lr,
                 'faq' => json_decode($row->faq),
                 'attachments' => json_decode($row->attachments),
                 'additional_benifits' => json_decode($row->additional_benifits),

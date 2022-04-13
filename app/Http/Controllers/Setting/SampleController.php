@@ -35,7 +35,7 @@ class SampleController extends Controller
     {
         $collection = collect([1, 2, 3, 4, 5]);
         $product_info = [
-            ['Comprehensive motor insurance', '/storage/uploads/demo/general/motorcycle.svg', 4],
+            ['Comprehensive motor insurance', '/storage/uploads/demo/general/motorcycle.svg', 4, '/storage/uploads/demo/product-details/general/motorcycle.svg'],
             ['Fire insurance', '/storage/uploads/demo/general/home-insurance.svg', 4],
             ['Marine cargo insurance', '/storage/uploads/demo/general/cargo-ship-3.svg', 4],
             ['Oversea marine cargo insurance', '/storage/uploads/demo/general/cargo-ship-1.svg', 4],
