@@ -432,6 +432,37 @@ class ProductController extends Controller
                     'image' => config('app.url') . $item->image,
                 ];
             }
+            $attachments = [];
+            foreach(json_decode($row->attachments) as $item) {
+                $attachments[] = [
+                    'title' => $item->title,
+                    'description' => $item->description,
+                    'icon' => config('app.url') . $item->icon,
+                    'buttonText' => $item->buttonText,
+                ];
+            }
+
+            $additional_benifits_data = [];
+            foreach(json_decode($row->additional_benifits)->data as $item) {
+                $additional_benifits_data[] = [
+                    'icon' => config('app.url') . $item->icon,
+                    'text' => $item->text,
+                ];
+            }
+
+            $additional_benifits = [
+                'title' => json_decode($row->additional_benifits)->title,
+                'data' => $additional_benifits_data,
+            ];
+
+            $diagrams_and_table = [];
+            foreach(json_decode($row->diagrams_and_table) as $item) {
+                $diagrams_and_table[] = [
+                    'title' => $item->title,
+                    'description' => $item->description,
+                    'image' => config('app.url') . $item->image,
+                ];
+            }
 
             $result[] = [
                 'id' => $row->id,
@@ -441,9 +472,9 @@ class ProductController extends Controller
                 'why_work_with_us' => $why_work_with_us,
                 'lr' => $lr,
                 'faq' => json_decode($row->faq),
-                'attachments' => json_decode($row->attachments),
-                'additional_benifits' => json_decode($row->additional_benifits),
-                'diagrams_and_table' => json_decode($row->diagrams_and_table),
+                'attachments' => $attachments,
+                'additional_benifits' => $additional_benifits,
+                'diagrams_and_table' => $diagrams_and_table,
                 'slug_url' => $row->slug_url,
                 'is_active' => $row->is_active,
                 'created_at' => $row->created_at,
