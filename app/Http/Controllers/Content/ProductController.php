@@ -523,20 +523,66 @@ class ProductController extends Controller
             $products = $product_db->first();
 
             if (isset($products)) {
+                $why_work_with_us = [
+                    'title' => json_decode($products->why_work_with_us)->title,
+                    'description' => json_decode($products->why_work_with_us)->description,
+                    'image' => config('app.url') . json_decode($products->why_work_with_us)->image,
+                ];
+
+                $lr = [];
+                foreach (json_decode($products->lr) as $item) {
+                    $lr[] = [
+                        'title' => $item->title,
+                        'description' => $item->description,
+                        'image' => config('app.url') . $item->image,
+                    ];
+                }
+                $attachments = [];
+                foreach(json_decode($products->attachments) as $item) {
+                    $attachments[] = [
+                        'title' => $item->title,
+                        'description' => $item->description,
+                        'icon' => config('app.url') . $item->icon,
+                        'buttonText' => $item->buttonText,
+                    ];
+                }
+
+                $additional_benifits_data = [];
+                foreach(json_decode($products->additional_benifits)->data as $item) {
+                    $additional_benifits_data[] = [
+                        'icon' => config('app.url') . $item->icon,
+                        'text' => $item->text,
+                    ];
+                }
+
+                $additional_benifits = [
+                    'title' => json_decode($products->additional_benifits)->title,
+                    'data' => $additional_benifits_data,
+                ];
+
+                $diagrams_and_table = [];
+                foreach(json_decode($products->diagrams_and_table) as $item) {
+                    $diagrams_and_table[] = [
+                        'title' => $item->title,
+                        'description' => $item->description,
+                        'image' => config('app.url') . $item->image,
+                    ];
+                }
+
                 $response = [
                     'code' => 200,
                     'status' => 'success',
                     'locale' => $this->getLang($data),
                     'id' => $products->id,
                     'title' => $products->title,
-                    'image' => $products->image,
+                    'image' => config('app.url') . $products->image,
                     'apply_insurance' => json_decode($products->apply_insurance),
-                    'why_work_with_us' => json_decode($products->why_work_with_us),
-                    'lr' => json_decode($products->lr),
+                    'why_work_with_us' => $why_work_with_us,
+                    'lr' => $lr,
                     'faq' => json_decode($products->faq),
-                    'attachments' => json_decode($products->attachments),
-                    'additional_benifits' => json_decode($products->additional_benifits),
-                    'diagrams_and_table' => json_decode($products->diagrams_and_table),
+                    'attachments' => $attachments,
+                    'additional_benifits' => $additional_benifits,
+                    'diagrams_and_table' => $diagrams_and_table,
                     'slug_url' => $products->slug_url,
                     'is_active' => $products->is_active,
                     'created_at' => $products->created_at,
@@ -628,7 +674,18 @@ class ProductController extends Controller
          *
          **/
         if (isset($data['title'])) {
-            $product_db->where('JSON_EXTRACT(products.title, \'$."' . Str::lower($data['locale']) . '"\')', '=', $data['title']);
+            $product_db->where(DB::raw('JSON_EXTRACT(products.title, \'$."' . Str::lower($data['locale']) . '"\')'), '=', $data['title']);
+        } //End of retreiving products by title
+
+        /***
+         *
+         * Retrieve products by title
+         *
+         **/
+        if (isset($data['keyword'])) {
+            $product_db
+                ->where(DB::raw('JSON_EXTRACT(products.title, \'$."' . Str::lower($data['locale']) . '"\')'), 'LIKE', "%{$data['keyword']}%")
+                ->orWhere('categories.name', 'LIKE', "%{$data['keyword']}%");
         } //End of retreiving products by title
 
         /***
