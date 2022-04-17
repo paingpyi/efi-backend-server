@@ -60,15 +60,17 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
         $validator = Validator::make($request->all(), [
-            'title' => 'required|unique:products|max:255',
-            'slogan' => 'required|max:255',
-            'description' => 'required',
-            'benefits' => 'required',
-            'table' => 'required',
+            'title' => 'required|max:255',
+            'title_burmese' => 'required|max:255',
+            'title_chinese' => 'required|max:255',
+            'lr_title' => 'required|max:255',
+            'lr_description' => 'required',
+            'lr_title_burmese' => 'required|max:255',
+            'lr_description_burmese' => 'required',
+            'lr_title_chinese' => 'required|max:255',
+            'lr_description_chinese' => 'required',
             'category' => 'required',
-            'benefit' => 'required|mimes:jpg,jpeg,png,gif,svg|max:2048',
             'product' => 'required|mimes:jpg,jpeg,png,gif,svg|max:2048',
         ]);
 
@@ -78,6 +80,7 @@ class ProductController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
+        dd($request->all());
 
         $product = [];
 
