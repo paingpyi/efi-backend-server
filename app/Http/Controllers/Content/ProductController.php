@@ -466,8 +466,8 @@ class ProductController extends Controller
 
             $result[] = [
                 'id' => $row->id,
-                'title' => $row->title,
-                'slogan' => $row->slogan,
+                'title' => Str::replace('"','', $row->title),
+                'slogan' => Str::replace('"','', $row->slogan),
                 'image' => $row->image,
                 'apply_insurance' => json_decode($row->apply_insurance),
                 'why_work_with_us' => $why_work_with_us,

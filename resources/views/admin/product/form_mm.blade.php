@@ -11,6 +11,10 @@
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
 </div>
+<div class="form-group">
+    <label for="slogan_burmese"><i class="flag-icon flag-icon-us mr-2"></i> Slogan</label>
+    <input type="text" name="slogan_burmese" value="{{ old('slogan_burmese') }}" class="form-control" id="slogan_burmese">
+</div>
 <!-- Paragraphs -->
 <h4>Description</h4>
 <div class="form-group">
