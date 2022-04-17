@@ -467,6 +467,7 @@ class ProductController extends Controller
             $result[] = [
                 'id' => $row->id,
                 'title' => $row->title,
+                'slogan' => $row->slogan,
                 'image' => $row->image,
                 'apply_insurance' => json_decode($row->apply_insurance),
                 'why_work_with_us' => $why_work_with_us,
@@ -575,6 +576,7 @@ class ProductController extends Controller
                     'locale' => $this->getLang($data),
                     'id' => $products->id,
                     'title' => $products->title,
+                    'slogan' => $products->slogan,
                     'image' => config('app.url') . $products->image,
                     'apply_insurance' => json_decode($products->apply_insurance),
                     'why_work_with_us' => $why_work_with_us,
@@ -640,6 +642,7 @@ class ProductController extends Controller
             ->select(
                 'products.id',
                 DB::raw('JSON_EXTRACT(products.title, \'$."' . Str::lower($data['locale']) . '"\') as title'),
+                DB::raw('JSON_EXTRACT(products.slogan, \'$."' . Str::lower($data['locale']) . '"\') as slogan'),
                 DB::raw('CONCAT("' . config('app.url') . '", products.image) as image'),
                 DB::raw('JSON_EXTRACT(products.apply_insurance, \'$."' . Str::lower($data['locale']) . '"\') as apply_insurance'),
                 DB::raw('JSON_EXTRACT(products.why_work_with_us, \'$."' . Str::lower($data['locale']) . '"\') as why_work_with_us'),
