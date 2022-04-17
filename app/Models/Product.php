@@ -11,6 +11,7 @@ class Product extends Model
 
     protected $fillable = [
         'title',
+        'slogan',
         'image',
         'apply_insurance',
         'why_work_with_us',

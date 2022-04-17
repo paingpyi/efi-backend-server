@@ -35,29 +35,541 @@ class SampleController extends Controller
     {
         $collection = collect([1, 2, 3, 4, 5]);
         $product_info = [
-            ['Comprehensive motor insurance', '/storage/uploads/demo/general/motorcycle.svg', 4, '/storage/uploads/demo/product-details/general/motorcycle.svg'],
-            ['Fire insurance', '/storage/uploads/demo/general/home-insurance.svg', 4],
-            ['Marine cargo insurance', '/storage/uploads/demo/general/cargo-ship-3.svg', 4],
-            ['Oversea marine cargo insurance', '/storage/uploads/demo/general/cargo-ship-1.svg', 4],
-            ['Marine hull insurance', '/storage/uploads/demo/general/cargo-ship-2.svg', 4],
-            ['Cash in safe insurance', '/storage/uploads/demo/general/insurance.svg', 4],
-            ['Cash in transit insurance', '/storage/uploads/demo/general/insurance.svg', 4],
-            ['Fidelity insurance', '/storage/uploads/demo/general/partnership-handshake.svg', 4],
-            ['Cargo intrinsic insurance', '/storage/uploads/demo/general/package.svg', 4],
-            ['Short term endowment insurance', '/storage/uploads/demo/life/save-money.svg', 3],
-            ['Student Life Insurance', '/storage/uploads/demo/life/graduate.svg', 3],
-            ['Educational Life Insurance', '/storage/uploads/demo/life/teacher.svg', 3],
-            ['Public Terms Life Insurnace', '/storage/uploads/demo/life/family-insurance.svg', 3],
-            ['Personal accident life insurance', '/storage/uploads/demo/life/health-insurance.svg', 3],
-            ['Group Life Insurance', '/storage/uploads/demo/life/family-insurance.svg', 3],
-            ['Single Premium Credit Life', '/storage/uploads/demo/life/umbrella.svg', 3],
-            ['Short term single premium credit life insurance', '/storage/uploads/demo/life/insurance.svg', 3],
-            ['Travel Insurance', '/storage/uploads/demo/life/travel-insurance.svg', 3],
-            ['Farmer Insurance', '/storage/uploads/demo/life/farmer.svg', 3],
-            ['Snake Bite life Insurance', '/storage/uploads/demo/life/snake.svg', 3],
-            ['Health Insurance', '/storage/uploads/demo/life/healthcare.svg', 3],
-            ['Critical Illness Insurance', '/storage/uploads/demo/life/life-insurance.svg', 3],
-            ['Micro health insurance', '/storage/uploads/demo/life/drug.svg', 3],
+            [
+                'Comprehensive motor insurance',
+                '/storage/uploads/demo/general/motorcycle.svg',
+                4,
+                '/storage/uploads/demo/product-details/general/tick.png',
+                '<p>We are a financially sound and strong company backed by Excellent Fortune Development Group, a top multi-sector conglomerate in Myanmar.</p>',
+                '/storage/uploads/demo/product-details/general/plus.png',
+                '<p>We listen to your feedback and will to respond to your concerns in a fair and timely manner.</p>
+                <p>We process claims in a fair and timely manner.</p>
+                <p>Our life advisors and life agents follow a strict code of conduct and best practices.</p>',
+                '/storage/uploads/demo/product-details/general/better-life.png',
+                '<p>We are committed to create a positive social impact through our products and services and to empower the people of Myanmar to live a better life.</p>',
+                '/storage/uploads/demo/product-details/general/face.png',
+                '<p>We believe in being honest and transparent with our customers and recommending solutions based on our customers’ needs.</p>
+                <p>We are making insurance available to all segments of society.</p>',
+                '/storage/uploads/demo/product-details/general/money.png',
+                '<p>We aim to serve our customers with professionalism and integrity, guide by strong moral values.</p>
+                <p>We provide comprehensive explanation on the solutions based on your needs, so that you can understand their features, benefits, and risks, terms and conditions, and your commitment - before you make your purchase decision.</p>'
+            ],
+            [
+                'Fire insurance',
+                '/storage/uploads/demo/general/home-insurance.svg',
+                4,
+                '/storage/uploads/demo/product-details/general/tick.png',
+                '<p>We are a financially sound and strong company backed by Excellent Fortune Development Group, a top multi-sector conglomerate in Myanmar.</p>',
+                '/storage/uploads/demo/product-details/general/plus.png',
+                '<p>We listen to your feedback and will to respond to your concerns in a fair and timely manner.</p>
+                <p>We process claims in a fair and timely manner.</p>
+                <p>Our life advisors and life agents follow a strict code of conduct and best practices.</p>',
+                '/storage/uploads/demo/product-details/general/better-life.png',
+                '<p>We are committed to create a positive social impact through our products and services and to empower the people of Myanmar to live a better life.</p>',
+                '/storage/uploads/demo/product-details/general/face.png',
+                '<p>We believe in being honest and transparent with our customers and recommending solutions based on our customers’ needs.</p>
+                <p>We are making insurance available to all segments of society.</p>',
+                '/storage/uploads/demo/product-details/general/money.png',
+                '<p>We aim to serve our customers with professionalism and integrity, guide by strong moral values.</p>
+                <p>We provide comprehensive explanation on the solutions based on your needs, so that you can understand their features, benefits, and risks, terms and conditions, and your commitment - before you make your purchase decision.</p>'
+            ],
+            [
+                'Marine cargo insurance',
+                '/storage/uploads/demo/general/cargo-ship-3.svg',
+                4,
+                '/storage/uploads/demo/product-details/general/tick.png',
+                '<p>We are a financially sound and strong company backed by Excellent Fortune Development Group, a top multi-sector conglomerate in Myanmar.</p>',
+                '/storage/uploads/demo/product-details/general/plus.png',
+                '<p>We listen to your feedback and will to respond to your concerns in a fair and timely manner.</p>
+                <p>We process claims in a fair and timely manner.</p>
+                <p>Our life advisors and life agents follow a strict code of conduct and best practices.</p>',
+                '/storage/uploads/demo/product-details/general/better-life.png',
+                '<p>We are committed to create a positive social impact through our products and services and to empower the people of Myanmar to live a better life.</p>',
+                '/storage/uploads/demo/product-details/general/face.png',
+                '<p>We believe in being honest and transparent with our customers and recommending solutions based on our customers’ needs.</p>
+                <p>We are making insurance available to all segments of society.</p>',
+                '/storage/uploads/demo/product-details/general/money.png',
+                '<p>We aim to serve our customers with professionalism and integrity, guide by strong moral values.</p>
+                <p>We provide comprehensive explanation on the solutions based on your needs, so that you can understand their features, benefits, and risks, terms and conditions, and your commitment - before you make your purchase decision.</p>'
+            ],
+            [
+                'Oversea marine cargo insurance',
+                '/storage/uploads/demo/general/cargo-ship-1.svg',
+                4,
+                '/storage/uploads/demo/product-details/general/tick.png',
+                '<p>We are a financially sound and strong company backed by Excellent Fortune Development Group, a top multi-sector conglomerate in Myanmar.</p>',
+                '/storage/uploads/demo/product-details/general/plus.png',
+                '<p>We listen to your feedback and will to respond to your concerns in a fair and timely manner.</p>
+                <p>We process claims in a fair and timely manner.</p>
+                <p>Our life advisors and life agents follow a strict code of conduct and best practices.</p>',
+                '/storage/uploads/demo/product-details/general/better-life.png',
+                '<p>We are committed to create a positive social impact through our products and services and to empower the people of Myanmar to live a better life.</p>',
+                '/storage/uploads/demo/product-details/general/face.png',
+                '<p>We believe in being honest and transparent with our customers and recommending solutions based on our customers’ needs.</p>
+                <p>We are making insurance available to all segments of society.</p>',
+                '/storage/uploads/demo/product-details/general/money.png',
+                '<p>We aim to serve our customers with professionalism and integrity, guide by strong moral values.</p>
+                <p>We provide comprehensive explanation on the solutions based on your needs, so that you can understand their features, benefits, and risks, terms and conditions, and your commitment - before you make your purchase decision.</p>'
+            ],
+            [
+                'Marine hull insurance',
+                '/storage/uploads/demo/general/cargo-ship-2.svg',
+                4,
+                '/storage/uploads/demo/product-details/general/tick.png',
+                '<p>We are a financially sound and strong company backed by Excellent Fortune Development Group, a top multi-sector conglomerate in Myanmar.</p>',
+                '/storage/uploads/demo/product-details/general/plus.png',
+                '<p>We listen to your feedback and will to respond to your concerns in a fair and timely manner.</p>
+                <p>We process claims in a fair and timely manner.</p>
+                <p>Our life advisors and life agents follow a strict code of conduct and best practices.</p>',
+                '/storage/uploads/demo/product-details/general/better-life.png',
+                '<p>We are committed to create a positive social impact through our products and services and to empower the people of Myanmar to live a better life.</p>',
+                '/storage/uploads/demo/product-details/general/face.png',
+                '<p>We believe in being honest and transparent with our customers and recommending solutions based on our customers’ needs.</p>
+                <p>We are making insurance available to all segments of society.</p>',
+                '/storage/uploads/demo/product-details/general/money.png',
+                '<p>We aim to serve our customers with professionalism and integrity, guide by strong moral values.</p>
+                <p>We provide comprehensive explanation on the solutions based on your needs, so that you can understand their features, benefits, and risks, terms and conditions, and your commitment - before you make your purchase decision.</p>'
+            ],
+            [
+                'Cash in safe insurance',
+                '/storage/uploads/demo/general/insurance.svg',
+                4,
+                '/storage/uploads/demo/product-details/general/tick.png',
+                '<p>We are a financially sound and strong company backed by Excellent Fortune Development Group, a top multi-sector conglomerate in Myanmar.</p>',
+                '/storage/uploads/demo/product-details/general/plus.png',
+                '<p>We listen to your feedback and will to respond to your concerns in a fair and timely manner.</p>
+                <p>We process claims in a fair and timely manner.</p>
+                <p>Our life advisors and life agents follow a strict code of conduct and best practices.</p>',
+                '/storage/uploads/demo/product-details/general/better-life.png',
+                '<p>We are committed to create a positive social impact through our products and services and to empower the people of Myanmar to live a better life.</p>',
+                '/storage/uploads/demo/product-details/general/face.png',
+                '<p>We believe in being honest and transparent with our customers and recommending solutions based on our customers’ needs.</p>
+                <p>We are making insurance available to all segments of society.</p>',
+                '/storage/uploads/demo/product-details/general/money.png',
+                '<p>We aim to serve our customers with professionalism and integrity, guide by strong moral values.</p>
+                <p>We provide comprehensive explanation on the solutions based on your needs, so that you can understand their features, benefits, and risks, terms and conditions, and your commitment - before you make your purchase decision.</p>'
+            ],
+            [
+                'Cash in transit insurance',
+                '/storage/uploads/demo/general/insurance.svg',
+                4,
+                '/storage/uploads/demo/product-details/general/tick.png',
+                '<p>We are a financially sound and strong company backed by Excellent Fortune Development Group, a top multi-sector conglomerate in Myanmar.</p>',
+                '/storage/uploads/demo/product-details/general/plus.png',
+                '<p>We listen to your feedback and will to respond to your concerns in a fair and timely manner.</p>
+                <p>We process claims in a fair and timely manner.</p>
+                <p>Our life advisors and life agents follow a strict code of conduct and best practices.</p>',
+                '/storage/uploads/demo/product-details/general/better-life.png',
+                '<p>We are committed to create a positive social impact through our products and services and to empower the people of Myanmar to live a better life.</p>',
+                '/storage/uploads/demo/product-details/general/face.png',
+                '<p>We believe in being honest and transparent with our customers and recommending solutions based on our customers’ needs.</p>
+                <p>We are making insurance available to all segments of society.</p>',
+                '/storage/uploads/demo/product-details/general/money.png',
+                '<p>We aim to serve our customers with professionalism and integrity, guide by strong moral values.</p>
+                <p>We provide comprehensive explanation on the solutions based on your needs, so that you can understand their features, benefits, and risks, terms and conditions, and your commitment - before you make your purchase decision.</p>'
+            ],
+            [
+                'Fidelity insurance',
+                '/storage/uploads/demo/general/partnership-handshake.svg',
+                4,
+                '/storage/uploads/demo/product-details/general/tick.png',
+                '<p>We are a financially sound and strong company backed by Excellent Fortune Development Group, a top multi-sector conglomerate in Myanmar.</p>',
+                '/storage/uploads/demo/product-details/general/plus.png',
+                '<p>We listen to your feedback and will to respond to your concerns in a fair and timely manner.</p>
+                <p>We process claims in a fair and timely manner.</p>
+                <p>Our life advisors and life agents follow a strict code of conduct and best practices.</p>',
+                '/storage/uploads/demo/product-details/general/better-life.png',
+                '<p>We are committed to create a positive social impact through our products and services and to empower the people of Myanmar to live a better life.</p>',
+                '/storage/uploads/demo/product-details/general/face.png',
+                '<p>We believe in being honest and transparent with our customers and recommending solutions based on our customers’ needs.</p>
+                <p>We are making insurance available to all segments of society.</p>',
+                '/storage/uploads/demo/product-details/general/money.png',
+                '<p>We aim to serve our customers with professionalism and integrity, guide by strong moral values.</p>
+                <p>We provide comprehensive explanation on the solutions based on your needs, so that you can understand their features, benefits, and risks, terms and conditions, and your commitment - before you make your purchase decision.</p>'
+            ],
+            [
+                'Cargo intrinsic insurance',
+                '/storage/uploads/demo/general/package.svg',
+                4,
+                '/storage/uploads/demo/product-details/general/tick.png',
+                '<p>We are a financially sound and strong company backed by Excellent Fortune Development Group, a top multi-sector conglomerate in Myanmar.</p>',
+                '/storage/uploads/demo/product-details/general/plus.png',
+                '<p>We listen to your feedback and will to respond to your concerns in a fair and timely manner.</p>
+                <p>We process claims in a fair and timely manner.</p>
+                <p>Our life advisors and life agents follow a strict code of conduct and best practices.</p>',
+                '/storage/uploads/demo/product-details/general/better-life.png',
+                '<p>We are committed to create a positive social impact through our products and services and to empower the people of Myanmar to live a better life.</p>',
+                '/storage/uploads/demo/product-details/general/face.png',
+                '<p>We believe in being honest and transparent with our customers and recommending solutions based on our customers’ needs.</p>
+                <p>We are making insurance available to all segments of society.</p>',
+                '/storage/uploads/demo/product-details/general/money.png',
+                '<p>We aim to serve our customers with professionalism and integrity, guide by strong moral values.</p>
+                <p>We provide comprehensive explanation on the solutions based on your needs, so that you can understand their features, benefits, and risks, terms and conditions, and your commitment - before you make your purchase decision.</p>'
+            ],
+            [
+                'Short term endowment insurance',
+                '/storage/uploads/demo/life/save-money.svg',
+                3,
+                '/demo/product-details/life/tick.png',
+                '<ul>
+                <li>Policy terms: 5 years, 7 years, 10 years (As you choose)</li>
+                <li>Premium Terms: 5 years, 7 years, 10 years</li>
+                </ul>',
+                '/demo/product-details/life/plus.png',
+                '<p>We listen to your feedback and will to respond to your concerns in a fair and timely manner.</p>
+                <p>We process claims in a fair and timely manner.</p>
+                <p>Our life advisors and life agents follow a strict code of conduct and best practices.</p>',
+                '/demo/product-details/life/better-life.png',
+                '<ul>
+                <li>Sum Assured starts from 1,000,000 kyats and up to 50,000,000 kyats</li>
+                <li>Flexible payment terms: Monthly, quarterly, semi annually or annually.</li>
+                </ul>',
+                '/demo/product-details/life/face.png',
+                '<p>We believe in being honest and transparent with our customers and recommending solutions based on our customers’ needs.</p>
+                <p>We are making insurance available to all segments of society.</p>',
+                '/demo/product-details/life/money.png',
+                '<ul>
+                <li>Insurable age: 10 to 60 years old.</li>
+                </ul>'
+            ],
+            [
+                'Student Life Insurance',
+                '/storage/uploads/demo/life/graduate.svg',
+                3,
+                '/demo/product-details/life/tick.png',
+                '<ul>
+                <li>Policy terms: 5 years, 7 years, 10 years (As you choose)</li>
+                <li>Premium Terms: 5 years, 7 years, 10 years</li>
+                </ul>',
+                '/demo/product-details/life/plus.png',
+                '<p>We listen to your feedback and will to respond to your concerns in a fair and timely manner.</p>
+                <p>We process claims in a fair and timely manner.</p>
+                <p>Our life advisors and life agents follow a strict code of conduct and best practices.</p>',
+                '/demo/product-details/life/better-life.png',
+                '<ul>
+                <li>Sum Assured starts from 1,000,000 kyats and up to 50,000,000 kyats</li>
+                <li>Flexible payment terms: Monthly, quarterly, semi annually or annually.</li>
+                </ul>',
+                '/demo/product-details/life/face.png',
+                '<p>We believe in being honest and transparent with our customers and recommending solutions based on our customers’ needs.</p>
+                <p>We are making insurance available to all segments of society.</p>',
+                '/demo/product-details/life/money.png',
+                '<ul>
+                <li>Insurable age: 10 to 60 years old.</li>
+                </ul>'
+            ],
+            [
+                'Educational Life Insurance',
+                '/storage/uploads/demo/life/teacher.svg',
+                3,
+                '/demo/product-details/life/tick.png',
+                '<ul>
+                <li>Policy terms: 5 years, 7 years, 10 years (As you choose)</li>
+                <li>Premium Terms: 5 years, 7 years, 10 years</li>
+                </ul>',
+                '/demo/product-details/life/plus.png',
+                '<p>We listen to your feedback and will to respond to your concerns in a fair and timely manner.</p>
+                <p>We process claims in a fair and timely manner.</p>
+                <p>Our life advisors and life agents follow a strict code of conduct and best practices.</p>',
+                '/demo/product-details/life/better-life.png',
+                '<ul>
+                <li>Sum Assured starts from 1,000,000 kyats and up to 50,000,000 kyats</li>
+                <li>Flexible payment terms: Monthly, quarterly, semi annually or annually.</li>
+                </ul>',
+                '/demo/product-details/life/face.png',
+                '<p>We believe in being honest and transparent with our customers and recommending solutions based on our customers’ needs.</p>
+                <p>We are making insurance available to all segments of society.</p>',
+                '/demo/product-details/life/money.png',
+                '<ul>
+                <li>Insurable age: 10 to 60 years old.</li>
+                </ul>'
+            ],
+            [
+                'Public Terms Life Insurnace',
+                '/storage/uploads/demo/life/family-insurance.svg',
+                3,
+                '/demo/product-details/life/tick.png',
+                '<ul>
+                <li>Policy terms: 5 years, 7 years, 10 years (As you choose)</li>
+                <li>Premium Terms: 5 years, 7 years, 10 years</li>
+                </ul>',
+                '/demo/product-details/life/plus.png',
+                '<p>We listen to your feedback and will to respond to your concerns in a fair and timely manner.</p>
+                <p>We process claims in a fair and timely manner.</p>
+                <p>Our life advisors and life agents follow a strict code of conduct and best practices.</p>',
+                '/demo/product-details/life/better-life.png',
+                '<ul>
+                <li>Sum Assured starts from 1,000,000 kyats and up to 50,000,000 kyats</li>
+                <li>Flexible payment terms: Monthly, quarterly, semi annually or annually.</li>
+                </ul>',
+                '/demo/product-details/life/face.png',
+                '<p>We believe in being honest and transparent with our customers and recommending solutions based on our customers’ needs.</p>
+                <p>We are making insurance available to all segments of society.</p>',
+                '/demo/product-details/life/money.png',
+                '<ul>
+                <li>Insurable age: 10 to 60 years old.</li>
+                </ul>'
+            ],
+            [
+                'Personal accident life insurance',
+                '/storage/uploads/demo/life/health-insurance.svg',
+                3,
+                '/demo/product-details/life/tick.png',
+                '<ul>
+                <li>Policy terms: 5 years, 7 years, 10 years (As you choose)</li>
+                <li>Premium Terms: 5 years, 7 years, 10 years</li>
+                </ul>',
+                '/demo/product-details/life/plus.png',
+                '<p>We listen to your feedback and will to respond to your concerns in a fair and timely manner.</p>
+                <p>We process claims in a fair and timely manner.</p>
+                <p>Our life advisors and life agents follow a strict code of conduct and best practices.</p>',
+                '/demo/product-details/life/better-life.png',
+                '<ul>
+                <li>Sum Assured starts from 1,000,000 kyats and up to 50,000,000 kyats</li>
+                <li>Flexible payment terms: Monthly, quarterly, semi annually or annually.</li>
+                </ul>',
+                '/demo/product-details/life/face.png',
+                '<p>We believe in being honest and transparent with our customers and recommending solutions based on our customers’ needs.</p>
+                <p>We are making insurance available to all segments of society.</p>',
+                '/demo/product-details/life/money.png',
+                '<ul>
+                <li>Insurable age: 10 to 60 years old.</li>
+                </ul>'
+            ],
+            [
+                'Group Life Insurance',
+                '/storage/uploads/demo/life/family-insurance.svg',
+                3,
+                '/demo/product-details/life/tick.png',
+                '<ul>
+                <li>Policy terms: 5 years, 7 years, 10 years (As you choose)</li>
+                <li>Premium Terms: 5 years, 7 years, 10 years</li>
+                </ul>',
+                '/demo/product-details/life/plus.png',
+                '<p>We listen to your feedback and will to respond to your concerns in a fair and timely manner.</p>
+                <p>We process claims in a fair and timely manner.</p>
+                <p>Our life advisors and life agents follow a strict code of conduct and best practices.</p>',
+                '/demo/product-details/life/better-life.png',
+                '<ul>
+                <li>Sum Assured starts from 1,000,000 kyats and up to 50,000,000 kyats</li>
+                <li>Flexible payment terms: Monthly, quarterly, semi annually or annually.</li>
+                </ul>',
+                '/demo/product-details/life/face.png',
+                '<p>We believe in being honest and transparent with our customers and recommending solutions based on our customers’ needs.</p>
+                <p>We are making insurance available to all segments of society.</p>',
+                '/demo/product-details/life/money.png',
+                '<ul>
+                <li>Insurable age: 10 to 60 years old.</li>
+                </ul>'
+            ],
+            [
+                'Single Premium Credit Life',
+                '/storage/uploads/demo/life/umbrella.svg',
+                3,
+                '/demo/product-details/life/tick.png',
+                '<ul>
+                <li>Policy terms: 5 years, 7 years, 10 years (As you choose)</li>
+                <li>Premium Terms: 5 years, 7 years, 10 years</li>
+                </ul>',
+                '/demo/product-details/life/plus.png',
+                '<p>We listen to your feedback and will to respond to your concerns in a fair and timely manner.</p>
+                <p>We process claims in a fair and timely manner.</p>
+                <p>Our life advisors and life agents follow a strict code of conduct and best practices.</p>',
+                '/demo/product-details/life/better-life.png',
+                '<ul>
+                <li>Sum Assured starts from 1,000,000 kyats and up to 50,000,000 kyats</li>
+                <li>Flexible payment terms: Monthly, quarterly, semi annually or annually.</li>
+                </ul>',
+                '/demo/product-details/life/face.png',
+                '<p>We believe in being honest and transparent with our customers and recommending solutions based on our customers’ needs.</p>
+                <p>We are making insurance available to all segments of society.</p>',
+                '/demo/product-details/life/money.png',
+                '<ul>
+                <li>Insurable age: 10 to 60 years old.</li>
+                </ul>'
+            ],
+            [
+                'Short term single premium credit life insurance',
+                '/storage/uploads/demo/life/insurance.svg',
+                3,
+                '/demo/product-details/life/tick.png',
+                '<ul>
+                <li>Policy terms: 5 years, 7 years, 10 years (As you choose)</li>
+                <li>Premium Terms: 5 years, 7 years, 10 years</li>
+                </ul>',
+                '/demo/product-details/life/plus.png',
+                '<p>We listen to your feedback and will to respond to your concerns in a fair and timely manner.</p>
+                <p>We process claims in a fair and timely manner.</p>
+                <p>Our life advisors and life agents follow a strict code of conduct and best practices.</p>',
+                '/demo/product-details/life/better-life.png',
+                '<ul>
+                <li>Sum Assured starts from 1,000,000 kyats and up to 50,000,000 kyats</li>
+                <li>Flexible payment terms: Monthly, quarterly, semi annually or annually.</li>
+                </ul>',
+                '/demo/product-details/life/face.png',
+                '<p>We believe in being honest and transparent with our customers and recommending solutions based on our customers’ needs.</p>
+                <p>We are making insurance available to all segments of society.</p>',
+                '/demo/product-details/life/money.png',
+                '<ul>
+                <li>Insurable age: 10 to 60 years old.</li>
+                </ul>'
+            ],
+            [
+                'Travel Insurance',
+                '/storage/uploads/demo/life/travel-insurance.svg',
+                3,
+                '/demo/product-details/life/tick.png',
+                '<ul>
+                <li>Policy terms: 5 years, 7 years, 10 years (As you choose)</li>
+                <li>Premium Terms: 5 years, 7 years, 10 years</li>
+                </ul>',
+                '/demo/product-details/life/plus.png',
+                '<p>We listen to your feedback and will to respond to your concerns in a fair and timely manner.</p>
+                <p>We process claims in a fair and timely manner.</p>
+                <p>Our life advisors and life agents follow a strict code of conduct and best practices.</p>',
+                '/demo/product-details/life/better-life.png',
+                '<ul>
+                <li>Sum Assured starts from 1,000,000 kyats and up to 50,000,000 kyats</li>
+                <li>Flexible payment terms: Monthly, quarterly, semi annually or annually.</li>
+                </ul>',
+                '/demo/product-details/life/face.png',
+                '<p>We believe in being honest and transparent with our customers and recommending solutions based on our customers’ needs.</p>
+                <p>We are making insurance available to all segments of society.</p>',
+                '/demo/product-details/life/money.png',
+                '<ul>
+                <li>Insurable age: 10 to 60 years old.</li>
+                </ul>'
+            ],
+            [
+                'Farmer Insurance',
+                '/storage/uploads/demo/life/farmer.svg',
+                3,
+                '/demo/product-details/life/tick.png',
+                '<ul>
+                <li>Policy terms: 5 years, 7 years, 10 years (As you choose)</li>
+                <li>Premium Terms: 5 years, 7 years, 10 years</li>
+                </ul>',
+                '/demo/product-details/life/plus.png',
+                '<p>We listen to your feedback and will to respond to your concerns in a fair and timely manner.</p>
+                <p>We process claims in a fair and timely manner.</p>
+                <p>Our life advisors and life agents follow a strict code of conduct and best practices.</p>',
+                '/demo/product-details/life/better-life.png',
+                '<ul>
+                <li>Sum Assured starts from 1,000,000 kyats and up to 50,000,000 kyats</li>
+                <li>Flexible payment terms: Monthly, quarterly, semi annually or annually.</li>
+                </ul>',
+                '/demo/product-details/life/face.png',
+                '<p>We believe in being honest and transparent with our customers and recommending solutions based on our customers’ needs.</p>
+                <p>We are making insurance available to all segments of society.</p>',
+                '/demo/product-details/life/money.png',
+                '<ul>
+                <li>Insurable age: 10 to 60 years old.</li>
+                </ul>'
+            ],
+            [
+                'Snake Bite life Insurance',
+                '/storage/uploads/demo/life/snake.svg',
+                3,
+                '/demo/product-details/life/tick.png',
+                '<ul>
+                <li>Policy terms: 5 years, 7 years, 10 years (As you choose)</li>
+                <li>Premium Terms: 5 years, 7 years, 10 years</li>
+                </ul>',
+                '/demo/product-details/life/plus.png',
+                '<p>We listen to your feedback and will to respond to your concerns in a fair and timely manner.</p>
+                <p>We process claims in a fair and timely manner.</p>
+                <p>Our life advisors and life agents follow a strict code of conduct and best practices.</p>',
+                '/demo/product-details/life/better-life.png',
+                '<ul>
+                <li>Sum Assured starts from 1,000,000 kyats and up to 50,000,000 kyats</li>
+                <li>Flexible payment terms: Monthly, quarterly, semi annually or annually.</li>
+                </ul>',
+                '/demo/product-details/life/face.png',
+                '<p>We believe in being honest and transparent with our customers and recommending solutions based on our customers’ needs.</p>
+                <p>We are making insurance available to all segments of society.</p>',
+                '/demo/product-details/life/money.png',
+                '<ul>
+                <li>Insurable age: 10 to 60 years old.</li>
+                </ul>'
+            ],
+            [
+                'Health Insurance',
+                '/storage/uploads/demo/life/healthcare.svg',
+                3,
+                '/demo/product-details/life/tick.png',
+                '<ul>
+                <li>Policy terms: 5 years, 7 years, 10 years (As you choose)</li>
+                <li>Premium Terms: 5 years, 7 years, 10 years</li>
+                </ul>',
+                '/demo/product-details/life/plus.png',
+                '<p>We listen to your feedback and will to respond to your concerns in a fair and timely manner.</p>
+                <p>We process claims in a fair and timely manner.</p>
+                <p>Our life advisors and life agents follow a strict code of conduct and best practices.</p>',
+                '/demo/product-details/life/better-life.png',
+                '<ul>
+                <li>Sum Assured starts from 1,000,000 kyats and up to 50,000,000 kyats</li>
+                <li>Flexible payment terms: Monthly, quarterly, semi annually or annually.</li>
+                </ul>',
+                '/demo/product-details/life/face.png',
+                '<p>We believe in being honest and transparent with our customers and recommending solutions based on our customers’ needs.</p>
+                <p>We are making insurance available to all segments of society.</p>',
+                '/demo/product-details/life/money.png',
+                '<ul>
+                <li>Insurable age: 10 to 60 years old.</li>
+                </ul>'
+            ],
+            [
+                'Critical Illness Insurance',
+                '/storage/uploads/demo/life/life-insurance.svg',
+                3,
+                '/demo/product-details/life/tick.png',
+                '<ul>
+                <li>Policy terms: 5 years, 7 years, 10 years (As you choose)</li>
+                <li>Premium Terms: 5 years, 7 years, 10 years</li>
+                </ul>',
+                '/demo/product-details/life/plus.png',
+                '<p>We listen to your feedback and will to respond to your concerns in a fair and timely manner.</p>
+                <p>We process claims in a fair and timely manner.</p>
+                <p>Our life advisors and life agents follow a strict code of conduct and best practices.</p>',
+                '/demo/product-details/life/better-life.png',
+                '<ul>
+                <li>Sum Assured starts from 1,000,000 kyats and up to 50,000,000 kyats</li>
+                <li>Flexible payment terms: Monthly, quarterly, semi annually or annually.</li>
+                </ul>',
+                '/demo/product-details/life/face.png',
+                '<p>We believe in being honest and transparent with our customers and recommending solutions based on our customers’ needs.</p>
+                <p>We are making insurance available to all segments of society.</p>',
+                '/demo/product-details/life/money.png',
+                '<ul>
+                <li>Insurable age: 10 to 60 years old.</li>
+                </ul>'
+            ],
+            [
+                'Micro health insurance',
+                '/storage/uploads/demo/life/drug.svg',
+                3,
+                '/demo/product-details/life/tick.png',
+                '<ul>
+                <li>Policy terms: 5 years, 7 years, 10 years (As you choose)</li>
+                <li>Premium Terms: 5 years, 7 years, 10 years</li>
+                </ul>',
+                '/demo/product-details/life/plus.png',
+                '<p>We listen to your feedback and will to respond to your concerns in a fair and timely manner.</p>
+                <p>We process claims in a fair and timely manner.</p>
+                <p>Our life advisors and life agents follow a strict code of conduct and best practices.</p>',
+                '/demo/product-details/life/better-life.png',
+                '<ul>
+                <li>Sum Assured starts from 1,000,000 kyats and up to 50,000,000 kyats</li>
+                <li>Flexible payment terms: Monthly, quarterly, semi annually or annually.</li>
+                </ul>',
+                '/demo/product-details/life/face.png',
+                '<p>We believe in being honest and transparent with our customers and recommending solutions based on our customers’ needs.</p>
+                <p>We are making insurance available to all segments of society.</p>',
+                '/demo/product-details/life/money.png',
+                '<ul>
+                <li>Insurable age: 10 to 60 years old.</li>
+                </ul>'
+            ],
         ];
         $products = [];
         $pages = [];
@@ -76,6 +588,11 @@ class SampleController extends Controller
                         'en-us' => $product_info[$i][0],
                         'my-mm' => 'စမ်းသပ် ထုတ်ကုန် ' . ($i + 1),
                         'zh-cn' => '高標催極用 ' . ($i + 1)
+                    ]),
+                    'slogan' => json_encode([
+                        'en-us' => '<p>Lorem ipsum is a pseudo-Latin text used in web design, typography and layout.',
+                        'my-mm' => 'စမ်းသပ် ထုတ်ကုန် အကြောင်း',
+                        'zh-cn' => '高標催極用'
                     ]),
                     'image' => $product_info[$i][1],
                     'apply_insurance' => json_encode([
@@ -215,26 +732,26 @@ class SampleController extends Controller
                     'attachments' => json_encode([
                         'en-us' => [
                             [
-                            'title' => 'Lorem Ipsum Dolor',
-                            'description' => '<p>Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It\'s also called placeholder (or filler) text. It\'s a convenient tool for mock-ups. It helps to outline the visual elements of a document or presentation, eg typography, font, or layout. Lorem ipsum is mostly a part of a Latin text by the classical author and philosopher Cicero. Its words and letters have been changed by addition or removal, so to deliberately render its content nonsensical; it\'s not genuine, correct, or comprehensible Latin anymore. While lorem ipsum\'s still resembles classical Latin, it actually has no meaning whatsoever. As Cicero\'s text doesn\'t contain the letters K, W, or Z, alien to latin, these, and others are often inserted randomly to mimic the typographic appearence of European languages, as are digraphs not to be found in the original.</p><p>In a professional context it often happens that private or corporate clients corder a publication to be made and presented with the actual content still not being ready. Think of a news blog that\'s filled with content hourly on the day of going live. However, reviewers tend to be distracted by comprehensible content, say, a random text copied from a newspaper or the internet. The are likely to focus on the text, disregarding the layout and its elements. Besides, random text risks to be unintendedly humorous or offensive, an unacceptable risk in corporate environments. Lorem ipsum and its many variants have been employed since the early 1960ies, and quite likely since the sixteenth century.</p>',
-                            'icon' => $product_info[$i][1],
-                            'buttonText' => 'Download Proposa'
+                                'title' => 'Lorem Ipsum Dolor',
+                                'description' => '<p>Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It\'s also called placeholder (or filler) text. It\'s a convenient tool for mock-ups. It helps to outline the visual elements of a document or presentation, eg typography, font, or layout. Lorem ipsum is mostly a part of a Latin text by the classical author and philosopher Cicero. Its words and letters have been changed by addition or removal, so to deliberately render its content nonsensical; it\'s not genuine, correct, or comprehensible Latin anymore. While lorem ipsum\'s still resembles classical Latin, it actually has no meaning whatsoever. As Cicero\'s text doesn\'t contain the letters K, W, or Z, alien to latin, these, and others are often inserted randomly to mimic the typographic appearence of European languages, as are digraphs not to be found in the original.</p><p>In a professional context it often happens that private or corporate clients corder a publication to be made and presented with the actual content still not being ready. Think of a news blog that\'s filled with content hourly on the day of going live. However, reviewers tend to be distracted by comprehensible content, say, a random text copied from a newspaper or the internet. The are likely to focus on the text, disregarding the layout and its elements. Besides, random text risks to be unintendedly humorous or offensive, an unacceptable risk in corporate environments. Lorem ipsum and its many variants have been employed since the early 1960ies, and quite likely since the sixteenth century.</p>',
+                                'icon' => $product_info[$i][1],
+                                'buttonText' => 'Download Proposa'
                             ],
                         ],
                         'my-mm' => [
                             [
-                            'title' => 'ဘာသာပြန် အကြောင်းအရာ',
-                            'description' => '<p>သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။</p><p>သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။</p>',
-                            'icon' => $product_info[$i][1],
-                            'buttonText' => 'ဘာသာပြန်ရန်'
+                                'title' => 'ဘာသာပြန် အကြောင်းအရာ',
+                                'description' => '<p>သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။</p><p>သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။</p>',
+                                'icon' => $product_info[$i][1],
+                                'buttonText' => 'ဘာသာပြန်ရန်'
                             ],
                         ],
                         'zh-cn' => [
                             [
-                            'title' => '夏川面結地勝覧署喜金亡無就事天',
-                            'description' => '<p>新社違育人交日主根界際連。幹製高心破事候晴腰無舌一取行意野改。存分軒余調能義以文期浩季佐際連届止導県功。高標催極用結枝動総暮護納意司。島賠甲分画件史訪合見詳問歳気挑高知打月松。虫元記止表購途桂料記少今治。手康権術込著中井今必人終。育様美幕求氏後塾政中抗編記走表。迫相示良提入様立発料問変泉返蒼都平。</p><p>中岩宣尚王激失母分階施級。夏川面結地勝覧署喜金亡無就事天。社意度恵症出助中責豪作車対質。聞片上徳覧質属側体自左員査言残加昨白。作気関変業盤決訴処耳前儲。源平無原子位都点分活首止聞気応府自未党孤。方金話度終面凱邦形全覧後覧的愛扱。革県式分料流地入籍断断情。使聞体徹的役書強察分種務家林困功入問加。指番国成統常期術全場夜本</p>',
-                            'icon' => $product_info[$i][1],
-                            'buttonText' => '高標催極用'
+                                'title' => '夏川面結地勝覧署喜金亡無就事天',
+                                'description' => '<p>新社違育人交日主根界際連。幹製高心破事候晴腰無舌一取行意野改。存分軒余調能義以文期浩季佐際連届止導県功。高標催極用結枝動総暮護納意司。島賠甲分画件史訪合見詳問歳気挑高知打月松。虫元記止表購途桂料記少今治。手康権術込著中井今必人終。育様美幕求氏後塾政中抗編記走表。迫相示良提入様立発料問変泉返蒼都平。</p><p>中岩宣尚王激失母分階施級。夏川面結地勝覧署喜金亡無就事天。社意度恵症出助中責豪作車対質。聞片上徳覧質属側体自左員査言残加昨白。作気関変業盤決訴処耳前儲。源平無原子位都点分活首止聞気応府自未党孤。方金話度終面凱邦形全覧後覧的愛扱。革県式分料流地入籍断断情。使聞体徹的役書強察分種務家林困功入問加。指番国成統常期術全場夜本</p>',
+                                'icon' => $product_info[$i][1],
+                                'buttonText' => '高標催極用'
                             ],
                         ],
                     ]),
@@ -243,16 +760,24 @@ class SampleController extends Controller
                             'title' => 'Enjoy Additional Benefits',
                             'data' => [
                                 [
-                                    'icon' => $product_info[$i][1],
-                                    'text' => '<p>Most of its text is made up from sections 1.10.32–3 of Cicero\'s De finibus bonorum et malorum (On the Boundaries of Goods and Evils; finibus may also be translated as purposes). Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit is the first known version ("Neither is there anyone who loves grief itself since it is grief and thus wants to obtain it"). It was found by Richard McClintock, a philologist, director of publications at Hampden-Sydney College in Virginia; he searched for citings of consectetur in classical Latin literature, a term of remarkably low frequency in that literary corpus.</p>'
+                                    'icon' => $product_info[$i][3],
+                                    'text' => $product_info[$i][4]
                                 ],
                                 [
-                                    'icon' => $product_info[$i][1],
-                                    'text' => '<p>Most of its text is made up from sections 1.10.32–3 of Cicero\'s De finibus bonorum et malorum (On the Boundaries of Goods and Evils; finibus may also be translated as purposes). Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit is the first known version ("Neither is there anyone who loves grief itself since it is grief and thus wants to obtain it"). It was found by Richard McClintock, a philologist, director of publications at Hampden-Sydney College in Virginia; he searched for citings of consectetur in classical Latin literature, a term of remarkably low frequency in that literary corpus.</p>'
+                                    'icon' => $product_info[$i][5],
+                                    'text' => $product_info[$i][6]
                                 ],
                                 [
-                                    'icon' => $product_info[$i][1],
-                                    'text' => '<p>Most of its text is made up from sections 1.10.32–3 of Cicero\'s De finibus bonorum et malorum (On the Boundaries of Goods and Evils; finibus may also be translated as purposes). Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit is the first known version ("Neither is there anyone who loves grief itself since it is grief and thus wants to obtain it"). It was found by Richard McClintock, a philologist, director of publications at Hampden-Sydney College in Virginia; he searched for citings of consectetur in classical Latin literature, a term of remarkably low frequency in that literary corpus.</p>'
+                                    'icon' => $product_info[$i][7],
+                                    'text' => $product_info[$i][8]
+                                ],
+                                [
+                                    'icon' => $product_info[$i][9],
+                                    'text' => $product_info[$i][10]
+                                ],
+                                [
+                                    'icon' => $product_info[$i][11],
+                                    'text' => $product_info[$i][12]
                                 ],
                             ],
                         ],
