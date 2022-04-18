@@ -12,7 +12,7 @@
     @enderror
 </div>
 <div class="form-group">
-    <label for="slogan_chinese"><i class="flag-icon flag-icon-us mr-2"></i> Slogan</label>
+    <label for="slogan_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Slogan</label>
     <input type="text" name="slogan_chinese" value="{{ old('slogan_chinese') }}" class="form-control" id="slogan_chinese">
 </div>
 <!-- Paragraphs -->
