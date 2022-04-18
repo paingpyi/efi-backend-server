@@ -190,66 +190,14 @@
     <script src="{{ asset('adminlite/plugins/summernote/summernote-bs4.min.js') }}"></script>
     <!-- Image Upload -->
     <script src="{{ asset('adminlite/plugins/bootstrap-imageupload/bootstrap-imageupload.js') }}"></script>
+    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('adminlite/dist/js/demo.js') }}"></script>
-    <!-- Dynamic Form -->
-    <script id="document-template" type="text/x-handlebars-template">
-        <!-- Paragraphs -->
-        <hr>
-        <div class="form-group">
-            <label for="lr_title"><i class="flag-icon flag-icon-us mr-2"></i> Title
-                <span class="text-danger">*</span></label>
-            <input type="text" name="lr_title" value="" class="form-control" id="lr_title">
-        </div>
-        <div class="form-group">
-            <label for="lr_description"><i class="flag-icon flag-icon-us mr-2"></i>
-                Description
-                <span class="text-danger">*</span></label>
-            <textarea name="lr_description" class="summernote" required id="lr_description"></textarea>
-        </div>
-        <div class="form-group">
-            <label>Image <span class="text-danger">*</span></label>
-            <!-- bootstrap-imageupload. -->
-
-            <div class="imageupload panel panel-default card card-secondary bg-secondary">
-
-                <div class="panel-heading card-heading clearfix p-2">
-
-                    <h5 class="panel-title card-title pull-left">Select Image file</h5>
-
-                    <div class="btn-group pull-right float-right">
-
-                        <button type="button" class="btn btn-default active">File</button>
-
-                    </div>
-
-                </div>
-
-                <div class="file-tab panel-body card-body text-center">
-
-                    <div class="btn-group">
-                        <div class="btn btn-primary btn-file">
-
-                            <span>Browse</span>
-
-                            <!-- The file is stored here. -->
-
-                            <input type="file" name="lr_image">
-
-                        </div>
-
-                        <button type="button" class="btn btn-danger">Remove</button>
-                    </div>
-
-                </div>
-
-            </div>
-        </div> <!-- /. Why Work With Us Image -->
-        <!-- /. End of Paragraphs -->
-    </script>
     <!-- Page specific script -->
     <script>
         $(function() {
+            $('.lfm').filemanager('image');
+
             //Initialize Select2 Elements
             $('.select2').select2({
                 theme: 'bootstrap4'
