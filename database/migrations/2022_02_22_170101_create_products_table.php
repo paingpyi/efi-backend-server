@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->json('title');
             $table->json('slogan');
-            $table->longText('image');
+            $table->json('image');
             $table->json('apply_insurance');
             $table->json('why_work_with_us');
             $table->json('lr');
