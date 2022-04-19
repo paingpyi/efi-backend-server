@@ -471,9 +471,11 @@ class ProductController extends Controller
                 $diagrams_and_table[] = [
                     'title' => $item->title,
                     'description' => $item->description,
-                    'image' => config('app.url') . $item->image,
-                    'width' => $item->width,
-                    'heigh' => $item->heigh
+                    'image' => [
+                        'src' => config('app.url') . $item->image->src,
+                        'width' => $item->image->width,
+                        'height' => $item->image->height
+                    ]
                 ];
             }
 
@@ -481,6 +483,7 @@ class ProductController extends Controller
                 'id' => $row->id,
                 'title' => Str::replace('"', '', $row->title),
                 'slogan' => Str::replace('"', '', $row->slogan),
+                'image' => config('app.url') . $row->image,
                 'slider' => $slider,
                 'apply_insurance' => json_decode($row->apply_insurance),
                 'why_work_with_us' => $why_work_with_us,
@@ -588,9 +591,11 @@ class ProductController extends Controller
                     $diagrams_and_table[] = [
                         'title' => $item->title,
                         'description' => $item->description,
-                        'image' => config('app.url') . $item->image,
-                        'width' => $item->width,
-                        'heigh' => $item->heigh
+                        'image' => [
+                            'src' => config('app.url') . $item->image->src,
+                            'width' => $item->image->width,
+                            'height' => $item->image->height
+                        ]
                     ];
                 }
 
@@ -601,6 +606,7 @@ class ProductController extends Controller
                     'id' => $products->id,
                     'title' => Str::replace('"', '', $products->title),
                     'slogan' => Str::replace('"', '', $products->slogan),
+                    'image' => config('app.url') . $products->image,
                     'slider' => $slider,
                     'apply_insurance' => json_decode($products->apply_insurance),
                     'why_work_with_us' => $why_work_with_us,
