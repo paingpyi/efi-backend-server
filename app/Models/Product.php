@@ -25,6 +25,6 @@ class Product extends Model
         'is_active',
         'slug_url',
         'quote_machine_name',
-        'calculation_machine_name'
+        'claim_machine_name'
     ];
 }

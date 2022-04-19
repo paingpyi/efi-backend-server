@@ -477,8 +477,8 @@ class ProductController extends Controller
 
             $result[] = [
                 'id' => $row->id,
-                'title' => $row->title,
-                'slogan' => $row->slogan,
+                'title' => Str::replace('"', '', $row->title),
+                'slogan' => Str::replace('"', '', $row->slogan),
                 'slider' => $slider,
                 'apply_insurance' => json_decode($row->apply_insurance),
                 'why_work_with_us' => $why_work_with_us,
@@ -593,8 +593,8 @@ class ProductController extends Controller
                     'status' => 'success',
                     'locale' => $this->getLang($data),
                     'id' => $products->id,
-                    'title' => $products->title,
-                    'slogan' => $products->slogan,
+                    'title' => Str::replace('"', '', $products->title),
+                    'slogan' => Str::replace('"', '', $products->slogan),
                     'slider' => $slider,
                     'apply_insurance' => json_decode($products->apply_insurance),
                     'why_work_with_us' => $why_work_with_us,
