@@ -427,6 +427,14 @@ class ProductController extends Controller
                 'image' => config('app.url') . json_decode($row->why_work_with_us)->image,
             ];
 
+            $slider = [];
+            foreach (json_decode($row->slider) as $item) {
+                $slider[] = [
+                    'title' => $item->title,
+                    'image' => config('app.url') . $item->image,
+                ];
+            }
+
             $lr = [];
             foreach (json_decode($row->lr) as $item) {
                 $lr[] = [
@@ -436,7 +444,7 @@ class ProductController extends Controller
                 ];
             }
             $attachments = [];
-            foreach(json_decode($row->attachments) as $item) {
+            foreach (json_decode($row->attachments) as $item) {
                 $attachments[] = [
                     'title' => $item->title,
                     'description' => $item->description,
@@ -446,7 +454,7 @@ class ProductController extends Controller
             }
 
             $additional_benifits_data = [];
-            foreach(json_decode($row->additional_benifits)->data as $item) {
+            foreach (json_decode($row->additional_benifits)->data as $item) {
                 $additional_benifits_data[] = [
                     'icon' => config('app.url') . $item->icon,
                     'text' => $item->text,
@@ -459,7 +467,7 @@ class ProductController extends Controller
             ];
 
             $diagrams_and_table = [];
-            foreach(json_decode($row->diagrams_and_table) as $item) {
+            foreach (json_decode($row->diagrams_and_table) as $item) {
                 $diagrams_and_table[] = [
                     'title' => $item->title,
                     'description' => $item->description,
@@ -469,9 +477,9 @@ class ProductController extends Controller
 
             $result[] = [
                 'id' => $row->id,
-                'title' => Str::replace('"','', $row->title),
-                'slogan' => Str::replace('"','', $row->slogan),
-                'image' => $row->image,
+                'title' => $row->title,
+                'slogan' => $row->slogan,
+                'slider' => $slider,
                 'apply_insurance' => json_decode($row->apply_insurance),
                 'why_work_with_us' => $why_work_with_us,
                 'lr' => $lr,
@@ -533,6 +541,13 @@ class ProductController extends Controller
                     'image' => config('app.url') . json_decode($products->why_work_with_us)->image,
                 ];
 
+                $slider = [];
+                foreach (json_decode($products->slider) as $item) {
+                    $slider[] = [
+                        'title' => $item->title,
+                        'image' => config('app.url') . $item->image,
+                    ];
+                }
                 $lr = [];
                 foreach (json_decode($products->lr) as $item) {
                     $lr[] = [
@@ -542,7 +557,7 @@ class ProductController extends Controller
                     ];
                 }
                 $attachments = [];
-                foreach(json_decode($products->attachments) as $item) {
+                foreach (json_decode($products->attachments) as $item) {
                     $attachments[] = [
                         'title' => $item->title,
                         'description' => $item->description,
@@ -552,7 +567,7 @@ class ProductController extends Controller
                 }
 
                 $additional_benifits_data = [];
-                foreach(json_decode($products->additional_benifits)->data as $item) {
+                foreach (json_decode($products->additional_benifits)->data as $item) {
                     $additional_benifits_data[] = [
                         'icon' => config('app.url') . $item->icon,
                         'text' => $item->text,
@@ -565,7 +580,7 @@ class ProductController extends Controller
                 ];
 
                 $diagrams_and_table = [];
-                foreach(json_decode($products->diagrams_and_table) as $item) {
+                foreach (json_decode($products->diagrams_and_table) as $item) {
                     $diagrams_and_table[] = [
                         'title' => $item->title,
                         'description' => $item->description,
@@ -580,7 +595,7 @@ class ProductController extends Controller
                     'id' => $products->id,
                     'title' => $products->title,
                     'slogan' => $products->slogan,
-                    'image' => config('app.url') . $products->image,
+                    'slider' => $slider,
                     'apply_insurance' => json_decode($products->apply_insurance),
                     'why_work_with_us' => $why_work_with_us,
                     'lr' => $lr,
@@ -646,7 +661,7 @@ class ProductController extends Controller
                 'products.id',
                 DB::raw('JSON_EXTRACT(products.title, \'$."' . Str::lower($data['locale']) . '"\') as title'),
                 DB::raw('JSON_EXTRACT(products.slogan, \'$."' . Str::lower($data['locale']) . '"\') as slogan'),
-                DB::raw('CONCAT("' . config('app.url') . '", products.image) as image'),
+                DB::raw('JSON_EXTRACT(products.image, \'$."' . Str::lower($data['locale']) . '"\') as slider'),
                 DB::raw('JSON_EXTRACT(products.apply_insurance, \'$."' . Str::lower($data['locale']) . '"\') as apply_insurance'),
                 DB::raw('JSON_EXTRACT(products.why_work_with_us, \'$."' . Str::lower($data['locale']) . '"\') as why_work_with_us'),
                 DB::raw('JSON_EXTRACT(products.lr, \'$."' . Str::lower($data['locale']) . '"\') as lr'),

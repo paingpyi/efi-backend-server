@@ -12,6 +12,8 @@ $checkPermission = App\Models\Team::where('id', '=', Auth::user()->current_team_
     <title>{{ config('app.name') }} |
         {{ ucwords(Illuminate\Support\Str::replace('#', ' ', Route::currentRouteName())) }}</title>
 
+    <link rel="icon" type="image/x-icon" href="{{ asset('/storage/uploads/demo/favicon.ico') }}">
+
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -31,7 +33,7 @@ $checkPermission = App\Models\Team::where('id', '=', Auth::user()->current_team_
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="{{ asset('adminlite/dist/img/AdminLTELogo.png') }}" alt="AdminLTELogo"
+            <img class="animation__shake" src="{{ asset('/storage/uploads/demo/favicon.svg') }}" alt="AdminLTELogo"
                 height="60" width="60">
         </div>
 
@@ -92,7 +94,7 @@ $checkPermission = App\Models\Team::where('id', '=', Auth::user()->current_team_
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="{{ route('admin#dashboard') }}" class="brand-link">
-                <img src="{{ asset('adminlite/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
+                <img src="{{ asset('/storage/uploads/demo/favicon.svg') }}" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">{{ config('app.name') }}</span>
             </a>

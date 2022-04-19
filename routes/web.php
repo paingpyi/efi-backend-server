@@ -178,3 +178,9 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
         Route::post('/import', [SampleController::class, 'store'])->name('sample#data');
     });
 });
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/filemanager', '\UniSharp\LaravelFilemanager\Controllers\LfmController@show')->name('filemanager#show');
+    Route::post('/filemanager/upload', '\UniSharp\LaravelFilemanager\Controllers\UploadController@upload')->name('filemanager#upload');
+    // list all lfm routes here...
+});

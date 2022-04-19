@@ -32,49 +32,15 @@
         id="lr_description">{{ old('lr_description') }}</textarea>
 </div>
 <div class="form-group">
-    <label>Image <span class="text-danger">*</span></label>
-    @isset($product->product_photo)
-        <div class="card">
-            <div class="card-body">
-                <img src="{{ asset($product->product_photo) }}" alt="Why Work With US Image" class="img-thumbnail">
-            </div>
-        </div>
-    @endisset
-    <!-- bootstrap-imageupload. -->
-
-    <div class="imageupload panel panel-default card card-secondary bg-secondary">
-
-        <div class="panel-heading card-heading clearfix p-2">
-
-            <h5 class="panel-title card-title pull-left">Select Image file</h5>
-
-            <div class="btn-group pull-right float-right">
-
-                <button type="button" class="btn btn-default active">File</button>
-
-            </div>
-
-        </div>
-
-        <div class="file-tab panel-body card-body text-center">
-
-            <div class="btn-group">
-                <div class="btn btn-primary btn-file">
-
-                    <span>Browse</span>
-
-                    <!-- The file is stored here. -->
-
-                    <input type="file" name="lr_image">
-
-                </div>
-
-                <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-
-        </div>
-
+    <div class="input-group">
+        <span class="input-group-btn">
+            <a id="lr_image" data-input="lr_image_thumbnail" data-preview="lr_image_holder" class="btn btn-primary lfm">
+                <i class="fa fa-picture-o"></i> Choose
+            </a>
+        </span>
+        <input id="lr_image_thumbnail" class="form-control" type="text" name="lr_image">
     </div>
+    <div id="lr_image_holder" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Paragraphs Image -->
 <!-- /. End of Paragraphs -->
 <!-- Diagram and Table -->
@@ -97,42 +63,15 @@
         id="diagram_table_description1">{{ old('diagram_table_description[0]') }}</textarea>
 </div>
 <div class="form-group">
-    <label>Image <span class="text-danger">*</span></label>
-    <!-- bootstrap-imageupload. -->
-
-    <div class="imageupload panel panel-default card card-secondary bg-secondary">
-
-        <div class="panel-heading card-heading clearfix p-2">
-
-            <h5 class="panel-title card-title pull-left">Select Image file</h5>
-
-            <div class="btn-group pull-right float-right">
-
-                <button type="button" class="btn btn-default active">File</button>
-
-            </div>
-
-        </div>
-
-        <div class="file-tab panel-body card-body text-center">
-
-            <div class="btn-group">
-                <div class="btn btn-primary btn-file">
-
-                    <span>Browse</span>
-
-                    <!-- The file is stored here. -->
-
-                    <input type="file" name="diagram_table_image[]">
-
-                </div>
-
-                <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-
-        </div>
-
+    <div class="input-group">
+        <span class="input-group-btn">
+            <a id="diagram_table_image" data-input="diagram_table_image_thumbnail" data-preview="diagram_table_image_holder" class="btn btn-primary lfm">
+                <i class="fa fa-picture-o"></i> Choose
+            </a>
+        </span>
+        <input id="diagram_table_image_thumbnail" class="form-control" type="text" name="diagram_table_image[]">
     </div>
+    <div id="diagram_table_image_holder" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Diagram and Table Image -->
 <div class="form-group">
     <label for="diagram_table_title[]"><i class="flag-icon flag-icon-us mr-2"></i> Title
@@ -151,42 +90,15 @@
         id="diagram_table_description2">{{ old('diagram_table_description[1]') }}</textarea>
 </div>
 <div class="form-group">
-    <label>Image <span class="text-danger">*</span></label>
-    <!-- bootstrap-imageupload. -->
-
-    <div class="imageupload panel panel-default card card-secondary bg-secondary">
-
-        <div class="panel-heading card-heading clearfix p-2">
-
-            <h5 class="panel-title card-title pull-left">Select Image file</h5>
-
-            <div class="btn-group pull-right float-right">
-
-                <button type="button" class="btn btn-default active">File</button>
-
-            </div>
-
-        </div>
-
-        <div class="file-tab panel-body card-body text-center">
-
-            <div class="btn-group">
-                <div class="btn btn-primary btn-file">
-
-                    <span>Browse</span>
-
-                    <!-- The file is stored here. -->
-
-                    <input type="file" name="diagram_table_image[]">
-
-                </div>
-
-                <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-
-        </div>
-
+    <div class="input-group">
+        <span class="input-group-btn">
+            <a id="diagram_table_image2" data-input="diagram_table_image_thumbnail2" data-preview="diagram_table_image_holder2" class="btn btn-primary lfm">
+                <i class="fa fa-picture-o"></i> Choose
+            </a>
+        </span>
+        <input id="diagram_table_image_thumbnail2" class="form-control" type="text" name="diagram_table_image[]">
     </div>
+    <div id="diagram_table_image_holder2" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Diagram and Table Image -->
 <!-- /. End of Diagram and Table -->
 <!-- Apply Insurance Block -->
@@ -239,49 +151,15 @@
         id="why_work_description">{{ old('why_work_description') }}</textarea>
 </div>
 <div class="form-group">
-    <label>Image <span class="text-danger">*</span></label>
-    @isset($product->product_photo)
-        <div class="card">
-            <div class="card-body">
-                <img src="{{ asset($product->product_photo) }}" alt="Why Work With US Image" class="img-thumbnail">
-            </div>
-        </div>
-    @endisset
-    <!-- bootstrap-imageupload. -->
-
-    <div class="imageupload panel panel-default card card-secondary bg-secondary">
-
-        <div class="panel-heading card-heading clearfix p-2">
-
-            <h5 class="panel-title card-title pull-left">Select Image file</h5>
-
-            <div class="btn-group pull-right float-right">
-
-                <button type="button" class="btn btn-default active">File</button>
-
-            </div>
-
-        </div>
-
-        <div class="file-tab panel-body card-body text-center">
-
-            <div class="btn-group">
-                <div class="btn btn-primary btn-file">
-
-                    <span>Browse</span>
-
-                    <!-- The file is stored here. -->
-
-                    <input type="file" name="why_work_image">
-
-                </div>
-
-                <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-
-        </div>
-
+    <div class="input-group">
+        <span class="input-group-btn">
+            <a id="why_work_image" data-input="why_work_image_thumbnail" data-preview="why_work_image_holder" class="btn btn-primary lfm">
+                <i class="fa fa-picture-o"></i> Choose
+            </a>
+        </span>
+        <input id="why_work_image_thumbnail" class="form-control" type="text" name="why_work_image">
     </div>
+    <div id="why_work_image_holder" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Why Work With Us Image -->
 <!-- /. End of Why Work With Us Block -->
 <!-- Additional Benifits -->
@@ -299,229 +177,102 @@
 <hr>
 <div class="form-group">
     <label>Icon <span class="text-danger">*</span></label>
-    <!-- bootstrap-imageupload. -->
-
-    <div class="imageupload panel panel-default card card-secondary bg-secondary">
-
-        <div class="panel-heading card-heading clearfix p-2">
-
-            <h5 class="panel-title card-title pull-left">Select Icon file</h5>
-
-            <div class="btn-group pull-right float-right">
-
-                <button type="button" class="btn btn-default active">File</button>
-
-            </div>
-
+    <div class="input-group">
+        <span class="input-group-btn">
+            <a id="additional_icon" data-input="additional_icon_thumbnail" data-preview="additional_icon_holder" class="btn btn-primary lfm">
+                <i class="fa fa-picture-o"></i> Choose
+            </a>
+        </span>
+        <input id="additional_icon_thumbnail" class="form-control" type="text" name="additional_icon[]">
+    </div>
+    <div class="row mt-3">
+        <div class="col-3">
+            <div id="additional_icon_holder" class="img-thumbnail mx-auto d-block"></div>
         </div>
-
-        <div class="file-tab panel-body card-body text-center">
-
-            <div class="btn-group">
-                <div class="btn btn-primary btn-file">
-
-                    <span>Browse</span>
-
-                    <!-- The file is stored here. -->
-
-                    <input type="file" name="additional_icon[]">
-
-                </div>
-
-                <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-            <div class="row pt-3">
-                <input type="text" name="additional_iconText[]" value="{{ old('additional_iconText[0]') }}"
-                    class="form-control" id="additional_iconText1" placeholder="Icon Text">
-                @error('additional_iconText[0]')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
+        <div class="col-9">
+            <textarea name="additional_iconText[]" class="summernote" required
+        id="additional_iconText1">{{ old('additional_iconText[0]') }}</textarea>
         </div>
-
     </div>
 </div> <!-- /. Additional Benefit Image -->
 <div class="form-group">
     <label>Icon <span class="text-danger">*</span></label>
-    <!-- bootstrap-imageupload. -->
-
-    <div class="imageupload panel panel-default card card-secondary bg-secondary">
-
-        <div class="panel-heading card-heading clearfix p-2">
-
-            <h5 class="panel-title card-title pull-left">Select Icon file</h5>
-
-            <div class="btn-group pull-right float-right">
-
-                <button type="button" class="btn btn-default active">File</button>
-
-            </div>
-
+    <div class="input-group">
+        <span class="input-group-btn">
+            <a id="additional_icon2" data-input="additional_icon_thumbnail2" data-preview="additional_icon_holder2" class="btn btn-primary lfm">
+                <i class="fa fa-picture-o"></i> Choose
+            </a>
+        </span>
+        <input id="additional_icon_thumbnail2" class="form-control" type="text" name="additional_icon[]">
+    </div>
+    <div class="row mt-3">
+        <div class="col-3">
+            <div id="additional_icon_holder2" class="img-thumbnail mx-auto d-block"></div>
         </div>
-
-        <div class="file-tab panel-body card-body text-center">
-
-            <div class="btn-group">
-                <div class="btn btn-primary btn-file">
-
-                    <span>Browse</span>
-
-                    <!-- The file is stored here. -->
-
-                    <input type="file" name="additional_icon[]">
-
-                </div>
-
-                <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-            <div class="row pt-3">
-                <input type="text" name="additional_iconText[]" value="{{ old('additional_iconText[1]') }}"
-                    class="form-control" id="additional_iconText2" placeholder="Icon Text">
-                @error('additional_iconText[1]')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
+        <div class="col-9">
+            <textarea name="additional_iconText[]" class="summernote" required
+        id="additional_iconText2">{{ old('additional_iconText[1]') }}</textarea>
         </div>
-
     </div>
 </div> <!-- /. Additional Benefit Image -->
 <div class="form-group">
     <label>Icon <span class="text-danger">*</span></label>
-    <!-- bootstrap-imageupload. -->
-
-    <div class="imageupload panel panel-default card card-secondary bg-secondary">
-
-        <div class="panel-heading card-heading clearfix p-2">
-
-            <h5 class="panel-title card-title pull-left">Select Icon file</h5>
-
-            <div class="btn-group pull-right float-right">
-
-                <button type="button" class="btn btn-default active">File</button>
-
-            </div>
-
+    <div class="input-group">
+        <span class="input-group-btn">
+            <a id="additional_icon3" data-input="additional_icon_thumbnail3" data-preview="additional_icon_holder3" class="btn btn-primary lfm">
+                <i class="fa fa-picture-o"></i> Choose
+            </a>
+        </span>
+        <input id="additional_icon_thumbnail3" class="form-control" type="text" name="additional_icon[]">
+    </div>
+    <div class="row mt-3">
+        <div class="col-3">
+            <div id="additional_icon_holder3" class="img-thumbnail mx-auto d-block"></div>
         </div>
-
-        <div class="file-tab panel-body card-body text-center">
-
-            <div class="btn-group">
-                <div class="btn btn-primary btn-file">
-
-                    <span>Browse</span>
-
-                    <!-- The file is stored here. -->
-
-                    <input type="file" name="additional_icon[]">
-
-                </div>
-
-                <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-            <div class="row pt-3">
-                <input type="text" name="additional_iconText[]" value="{{ old('additional_iconText[2]') }}"
-                    class="form-control" id="additional_iconText3" placeholder="Icon Text">
-                @error('additional_iconText[2]')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
+        <div class="col-9">
+            <textarea name="additional_iconText[]" class="summernote" required
+        id="additional_iconText3">{{ old('additional_iconText[2]') }}</textarea>
         </div>
-
     </div>
 </div> <!-- /. Additional Benefit Image -->
 <div class="form-group">
     <label>Icon <span class="text-danger">*</span></label>
-    <!-- bootstrap-imageupload. -->
-
-    <div class="imageupload panel panel-default card card-secondary bg-secondary">
-
-        <div class="panel-heading card-heading clearfix p-2">
-
-            <h5 class="panel-title card-title pull-left">Select Icon file</h5>
-
-            <div class="btn-group pull-right float-right">
-
-                <button type="button" class="btn btn-default active">File</button>
-
-            </div>
-
+    <div class="input-group">
+        <span class="input-group-btn">
+            <a id="additional_icon4" data-input="additional_icon_thumbnail4" data-preview="additional_icon_holder4" class="btn btn-primary lfm">
+                <i class="fa fa-picture-o"></i> Choose
+            </a>
+        </span>
+        <input id="additional_icon_thumbnail4" class="form-control" type="text" name="additional_icon[]">
+    </div>
+    <div class="row mt-3">
+        <div class="col-3">
+            <div id="additional_icon_holder4" class="img-thumbnail mx-auto d-block"></div>
         </div>
-
-        <div class="file-tab panel-body card-body text-center">
-
-            <div class="btn-group">
-                <div class="btn btn-primary btn-file">
-
-                    <span>Browse</span>
-
-                    <!-- The file is stored here. -->
-
-                    <input type="file" name="additional_icon[]">
-
-                </div>
-
-                <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-            <div class="row pt-3">
-                <input type="text" name="additional_iconText[]" value="{{ old('additional_iconText[3]') }}"
-                    class="form-control" id="additional_iconText4" placeholder="Icon Text">
-                @error('additional_iconText[3]')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
+        <div class="col-9">
+            <textarea name="additional_iconText[]" class="summernote" required
+        id="additional_iconText4">{{ old('additional_iconText[3]') }}</textarea>
         </div>
-
     </div>
 </div> <!-- /. Additional Benefit Image -->
 <div class="form-group">
     <label>Icon <span class="text-danger">*</span></label>
-    @isset($product->product_photo)
-        <div class="card">
-            <div class="card-body">
-                <img src="{{ asset($product->product_photo) }}" alt="Why Work With US Image" class="img-thumbnail">
-            </div>
+    <div class="input-group">
+        <span class="input-group-btn">
+            <a id="additional_icon4" data-input="additional_icon_thumbnail4" data-preview="additional_icon_holder4" class="btn btn-primary lfm">
+                <i class="fa fa-picture-o"></i> Choose
+            </a>
+        </span>
+        <input id="additional_icon_thumbnail4" class="form-control" type="text" name="additional_icon[]">
+    </div>
+    <div class="row mt-3">
+        <div class="col-3">
+            <div id="additional_icon_holder4" class="img-thumbnail mx-auto d-block"></div>
         </div>
-    @endisset
-    <!-- bootstrap-imageupload. -->
-
-    <div class="imageupload panel panel-default card card-secondary bg-secondary">
-
-        <div class="panel-heading card-heading clearfix p-2">
-
-            <h5 class="panel-title card-title pull-left">Select Icon file</h5>
-
-            <div class="btn-group pull-right float-right">
-
-                <button type="button" class="btn btn-default active">File</button>
-
-            </div>
-
+        <div class="col-9">
+            <textarea name="additional_iconText[]" class="summernote" required
+        id="additional_iconText4">{{ old('additional_iconText[3]') }}</textarea>
         </div>
-
-        <div class="file-tab panel-body card-body text-center">
-
-            <div class="btn-group">
-                <div class="btn btn-primary btn-file">
-
-                    <span>Browse</span>
-
-                    <!-- The file is stored here. -->
-
-                    <input type="file" name="additional_icon[]">
-
-                </div>
-
-                <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-            <div class="row pt-3">
-                <input type="text" name="additional_iconText[]" value="{{ old('additional_iconText[4]') }}"
-                    class="form-control" id="additional_iconText5" placeholder="Icon Text">
-                @error('additional_iconText[4]')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-        </div>
-
     </div>
 </div> <!-- /. Additional Benefit Image -->
 <!-- Additional Benifits -->
@@ -665,8 +416,7 @@
 <div class="form-group">
     <label for="faq_title_1"><i class="flag-icon flag-icon-us mr-2"></i> Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="faq_title_1" value="{{ old('faq_title_1') }}" class="form-control"
-        id="faq_title_1">
+    <input type="text" name="faq_title_1" value="{{ old('faq_title_1') }}" class="form-control" id="faq_title_1">
     @error('faq_title_1')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
@@ -675,14 +425,12 @@
     <label for="faq_detail_1"><i class="flag-icon flag-icon-us mr-2"></i>
         Detail
         <span class="text-danger">*</span></label>
-    <textarea name="faq_detail_1" class="summernote" required
-        id="faq_detail_1">{{ old('faq_detail_1') }}</textarea>
+    <textarea name="faq_detail_1" class="summernote" required id="faq_detail_1">{{ old('faq_detail_1') }}</textarea>
 </div>
 <div class="form-group">
     <label for="faq_title_2"><i class="flag-icon flag-icon-us mr-2"></i> Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="faq_title_2" value="{{ old('faq_title_2') }}" class="form-control"
-        id="faq_title_2">
+    <input type="text" name="faq_title_2" value="{{ old('faq_title_2') }}" class="form-control" id="faq_title_2">
     @error('faq_title_2')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
@@ -691,14 +439,12 @@
     <label for="faq_detail_2"><i class="flag-icon flag-icon-us mr-2"></i>
         Detail
         <span class="text-danger">*</span></label>
-    <textarea name="faq_detail_2" class="summernote" required
-        id="faq_detail_2">{{ old('faq_detail_2') }}</textarea>
+    <textarea name="faq_detail_2" class="summernote" required id="faq_detail_2">{{ old('faq_detail_2') }}</textarea>
 </div>
 <div class="form-group">
     <label for="faq_title_3"><i class="flag-icon flag-icon-us mr-2"></i> Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="faq_title_3" value="{{ old('faq_title_3') }}" class="form-control"
-        id="faq_title_3">
+    <input type="text" name="faq_title_3" value="{{ old('faq_title_3') }}" class="form-control" id="faq_title_3">
     @error('faq_title_3')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
@@ -707,14 +453,12 @@
     <label for="faq_detail_3"><i class="flag-icon flag-icon-us mr-2"></i>
         Detail
         <span class="text-danger">*</span></label>
-    <textarea name="faq_detail_3" class="summernote" required
-        id="faq_detail_3">{{ old('faq_detail_3') }}</textarea>
+    <textarea name="faq_detail_3" class="summernote" required id="faq_detail_3">{{ old('faq_detail_3') }}</textarea>
 </div>
 <div class="form-group">
     <label for="faq_title_4"><i class="flag-icon flag-icon-us mr-2"></i> Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="faq_title_4" value="{{ old('faq_title_4') }}" class="form-control"
-        id="faq_title_4">
+    <input type="text" name="faq_title_4" value="{{ old('faq_title_4') }}" class="form-control" id="faq_title_4">
     @error('faq_title_4')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
@@ -723,7 +467,6 @@
     <label for="faq_detail_4"><i class="flag-icon flag-icon-us mr-2"></i>
         Detail
         <span class="text-danger">*</span></label>
-    <textarea name="faq_detail_4" class="summernote" required
-        id="faq_detail_4">{{ old('faq_detail_4') }}</textarea>
+    <textarea name="faq_detail_4" class="summernote" required id="faq_detail_4">{{ old('faq_detail_4') }}</textarea>
 </div>
 <!-- /. End of FAQ -->
