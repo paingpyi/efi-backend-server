@@ -472,6 +472,8 @@ class ProductController extends Controller
                     'title' => $item->title,
                     'description' => $item->description,
                     'image' => config('app.url') . $item->image,
+                    'width' => $item->width,
+                    'heigh' => $item->heigh
                 ];
             }
 
@@ -489,6 +491,8 @@ class ProductController extends Controller
                 'diagrams_and_table' => $diagrams_and_table,
                 'slug_url' => $row->slug_url,
                 'is_active' => $row->is_active,
+                'quote_machine_name' => $row->quote_machine_name,
+                'claim_machine_name' => $row->claim_machine_name,
                 'created_at' => $row->created_at,
                 'updated_at' => $row->updated_at,
                 'category_id' => $row->category_id,
@@ -585,6 +589,8 @@ class ProductController extends Controller
                         'title' => $item->title,
                         'description' => $item->description,
                         'image' => config('app.url') . $item->image,
+                        'width' => $item->width,
+                        'heigh' => $item->heigh
                     ];
                 }
 
@@ -605,6 +611,8 @@ class ProductController extends Controller
                     'diagrams_and_table' => $diagrams_and_table,
                     'slug_url' => $products->slug_url,
                     'is_active' => $products->is_active,
+                    'quote_machine_name' => $products->quote_machine_name,
+                    'claim_machine_name' => $products->claim_machine_name,
                     'created_at' => $products->created_at,
                     'updated_at' => $products->updated_at,
                     'category_id' => $products->category_id,
@@ -673,7 +681,7 @@ class ProductController extends Controller
                 'products.is_active',
                 'products.slug_url',
                 'products.quote_machine_name',
-                'products.calculation_machine_name',
+                'products.claim_machine_name',
                 'products.created_at',
                 'products.updated_at',
                 'products.category_id',
