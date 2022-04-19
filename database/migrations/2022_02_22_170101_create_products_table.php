@@ -30,7 +30,7 @@ return new class extends Migration
             $table->boolean('is_active')->default(true);
             $table->string('slug_url');
             $table->string('quote_machine_name');
-            $table->string('calculation_machine_name');
+            $table->string('claim_machine_name');
             $table->timestamps();
         });
     }
