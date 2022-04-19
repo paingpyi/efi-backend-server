@@ -13,6 +13,7 @@ class Product extends Model
         'title',
         'slogan',
         'image',
+        'slider',
         'apply_insurance',
         'why_work_with_us',
         'lr',
@@ -23,5 +24,7 @@ class Product extends Model
         'category_id',
         'is_active',
         'slug_url',
+        'quote_machine_name',
+        'calculation_machine_name'
     ];
 }

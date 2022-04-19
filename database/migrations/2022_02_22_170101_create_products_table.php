@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->json('title');
             $table->json('slogan');
-            $table->json('image');
+            $table->longText('image');
+            $table->json('slider');
             $table->json('apply_insurance');
             $table->json('why_work_with_us');
             $table->json('lr');
@@ -28,6 +29,8 @@ return new class extends Migration
             $table->foreignId('category_id');
             $table->boolean('is_active')->default(true);
             $table->string('slug_url');
+            $table->string('quote_machine_name');
+            $table->string('calculation_machine_name');
             $table->timestamps();
         });
     }

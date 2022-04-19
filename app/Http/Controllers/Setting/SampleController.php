@@ -594,7 +594,8 @@ class SampleController extends Controller
                         'my-mm' => 'စမ်းသပ် ထုတ်ကုန် အကြောင်း',
                         'zh-cn' => '高標催極用'
                     ]),
-                    'image' => json_encode([
+                    'image' => $product_info[$i][1],
+                    'slider' => json_encode([
                         'en-us' => [
                             [
                                 'title' => 'Home Insurance',
