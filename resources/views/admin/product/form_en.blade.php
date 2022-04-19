@@ -65,7 +65,8 @@
 <div class="form-group">
     <div class="input-group">
         <span class="input-group-btn">
-            <a id="diagram_table_image" data-input="diagram_table_image_thumbnail" data-preview="diagram_table_image_holder" class="btn btn-primary lfm">
+            <a id="diagram_table_image" data-input="diagram_table_image_thumbnail"
+                data-preview="diagram_table_image_holder" class="btn btn-primary lfm">
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
@@ -92,7 +93,8 @@
 <div class="form-group">
     <div class="input-group">
         <span class="input-group-btn">
-            <a id="diagram_table_image2" data-input="diagram_table_image_thumbnail2" data-preview="diagram_table_image_holder2" class="btn btn-primary lfm">
+            <a id="diagram_table_image2" data-input="diagram_table_image_thumbnail2"
+                data-preview="diagram_table_image_holder2" class="btn btn-primary lfm">
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
@@ -153,7 +155,8 @@
 <div class="form-group">
     <div class="input-group">
         <span class="input-group-btn">
-            <a id="why_work_image" data-input="why_work_image_thumbnail" data-preview="why_work_image_holder" class="btn btn-primary lfm">
+            <a id="why_work_image" data-input="why_work_image_thumbnail" data-preview="why_work_image_holder"
+                class="btn btn-primary lfm">
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
@@ -179,7 +182,8 @@
     <label>Icon <span class="text-danger">*</span></label>
     <div class="input-group">
         <span class="input-group-btn">
-            <a id="additional_icon" data-input="additional_icon_thumbnail" data-preview="additional_icon_holder" class="btn btn-primary lfm">
+            <a id="additional_icon" data-input="additional_icon_thumbnail" data-preview="additional_icon_holder"
+                class="btn btn-primary lfm">
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
@@ -191,7 +195,7 @@
         </div>
         <div class="col-9">
             <textarea name="additional_iconText[]" class="summernote" required
-        id="additional_iconText1">{{ old('additional_iconText[0]') }}</textarea>
+                id="additional_iconText1">{{ old('additional_iconText[0]') }}</textarea>
         </div>
     </div>
 </div> <!-- /. Additional Benefit Image -->
@@ -199,7 +203,8 @@
     <label>Icon <span class="text-danger">*</span></label>
     <div class="input-group">
         <span class="input-group-btn">
-            <a id="additional_icon2" data-input="additional_icon_thumbnail2" data-preview="additional_icon_holder2" class="btn btn-primary lfm">
+            <a id="additional_icon2" data-input="additional_icon_thumbnail2" data-preview="additional_icon_holder2"
+                class="btn btn-primary lfm">
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
@@ -211,7 +216,7 @@
         </div>
         <div class="col-9">
             <textarea name="additional_iconText[]" class="summernote" required
-        id="additional_iconText2">{{ old('additional_iconText[1]') }}</textarea>
+                id="additional_iconText2">{{ old('additional_iconText[1]') }}</textarea>
         </div>
     </div>
 </div> <!-- /. Additional Benefit Image -->
@@ -219,7 +224,8 @@
     <label>Icon <span class="text-danger">*</span></label>
     <div class="input-group">
         <span class="input-group-btn">
-            <a id="additional_icon3" data-input="additional_icon_thumbnail3" data-preview="additional_icon_holder3" class="btn btn-primary lfm">
+            <a id="additional_icon3" data-input="additional_icon_thumbnail3" data-preview="additional_icon_holder3"
+                class="btn btn-primary lfm">
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
@@ -231,7 +237,7 @@
         </div>
         <div class="col-9">
             <textarea name="additional_iconText[]" class="summernote" required
-        id="additional_iconText3">{{ old('additional_iconText[2]') }}</textarea>
+                id="additional_iconText3">{{ old('additional_iconText[2]') }}</textarea>
         </div>
     </div>
 </div> <!-- /. Additional Benefit Image -->
@@ -239,7 +245,8 @@
     <label>Icon <span class="text-danger">*</span></label>
     <div class="input-group">
         <span class="input-group-btn">
-            <a id="additional_icon4" data-input="additional_icon_thumbnail4" data-preview="additional_icon_holder4" class="btn btn-primary lfm">
+            <a id="additional_icon4" data-input="additional_icon_thumbnail4" data-preview="additional_icon_holder4"
+                class="btn btn-primary lfm">
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
@@ -251,7 +258,7 @@
         </div>
         <div class="col-9">
             <textarea name="additional_iconText[]" class="summernote" required
-        id="additional_iconText4">{{ old('additional_iconText[3]') }}</textarea>
+                id="additional_iconText4">{{ old('additional_iconText[3]') }}</textarea>
         </div>
     </div>
 </div> <!-- /. Additional Benefit Image -->
@@ -259,7 +266,8 @@
     <label>Icon <span class="text-danger">*</span></label>
     <div class="input-group">
         <span class="input-group-btn">
-            <a id="additional_icon4" data-input="additional_icon_thumbnail4" data-preview="additional_icon_holder4" class="btn btn-primary lfm">
+            <a id="additional_icon4" data-input="additional_icon_thumbnail4" data-preview="additional_icon_holder4"
+                class="btn btn-primary lfm">
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
@@ -271,7 +279,7 @@
         </div>
         <div class="col-9">
             <textarea name="additional_iconText[]" class="summernote" required
-        id="additional_iconText4">{{ old('additional_iconText[3]') }}</textarea>
+                id="additional_iconText4">{{ old('additional_iconText[3]') }}</textarea>
         </div>
     </div>
 </div> <!-- /. Additional Benefit Image -->
@@ -296,55 +304,29 @@
         id="attachments_description1">{{ old('attachments_description[0]') }}</textarea>
 </div>
 <div class="form-group">
-    <label>Image <span class="text-danger">*</span></label>
-    <!-- bootstrap-imageupload. -->
-
-    <div class="imageupload panel panel-default card card-secondary bg-secondary">
-
-        <div class="panel-heading card-heading clearfix p-2">
-
-            <h5 class="panel-title card-title pull-left">Select Image file</h5>
-
-            <div class="btn-group pull-right float-right">
-
-                <button type="button" class="btn btn-default active">File</button>
-
-            </div>
-
-        </div>
-
-        <div class="file-tab panel-body card-body text-center">
-
-            <div class="btn-group">
-                <div class="btn btn-primary btn-file">
-
-                    <span>Browse</span>
-
-                    <!-- The file is stored here. -->
-
-                    <input type="file" name="attachments_image[0]">
-
-                </div>
-
-                <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-            <div class="row pt-3">
-                <input type="text" name="attachments_iconText[]" value="{{ old('attachments_iconText[0]') }}"
-                    class="form-control" id="attachments_iconText1" placeholder="Icon Text">
-                @error('attachments_iconText[0]')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-
-        </div>
-
+    <label>icon <span class="text-danger">*</span></label>
+    <div class="input-group">
+        <span class="input-group-btn">
+            <a id="attachments_icon1" data-input="attachments_icon_thumbnail1" data-preview="attachments_icon_holder1"
+                class="btn btn-primary lfm">
+                <i class="fa fa-picture-o"></i> Choose
+            </a>
+        </span>
+        <input id="attachments_icon_thumbnail1" class="form-control" type="text" name="attachments_icon[]">
     </div>
+    <div id="additional_icon_holder4" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Attachment Image -->
+<div class="form-group">
+    <label for="attachments_buttonText1"><i class="flag-icon flag-icon-us mr-2"></i> buttonText
+        <span class="text-danger">*</span></label>
+    <input type="text" name="attachments_buttonText[]" value="{{ old('attachments_buttonText[0]') }}"
+        class="form-control" id="attachments_buttonText1">
+</div>
 <div class="form-group">
     <label for="attachments_title2"><i class="flag-icon flag-icon-us mr-2"></i> Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="attachments_title[1]" value="{{ old('attachments_title[1]') }}" class="form-control"
-        id="attachments_title1">
+    <input type="text" name="attachments_title[0]" value="{{ old('attachments_title[1]') }}" class="form-control"
+        id="attachments_title2">
     @error('attachments_title[1]')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
@@ -357,50 +339,24 @@
         id="attachments_description2">{{ old('attachments_description[1]') }}</textarea>
 </div>
 <div class="form-group">
-    <label>Image <span class="text-danger">*</span></label>
-    <!-- bootstrap-imageupload. -->
-
-    <div class="imageupload panel panel-default card card-secondary bg-secondary">
-
-        <div class="panel-heading card-heading clearfix p-2">
-
-            <h5 class="panel-title card-title pull-left">Select Image file</h5>
-
-            <div class="btn-group pull-right float-right">
-
-                <button type="button" class="btn btn-default active">File</button>
-
-            </div>
-
-        </div>
-
-        <div class="file-tab panel-body card-body text-center">
-
-            <div class="btn-group">
-                <div class="btn btn-primary btn-file">
-
-                    <span>Browse</span>
-
-                    <!-- The file is stored here. -->
-
-                    <input type="file" name="attachments_image[1]">
-
-                </div>
-
-                <button type="button" class="btn btn-danger">Remove</button>
-            </div>
-            <div class="row pt-3">
-                <input type="text" name="attachments_iconText[]" value="{{ old('attachments_iconText[1]') }}"
-                    class="form-control" id="attachments_iconText2" placeholder="Icon Text">
-                @error('attachments_iconText[1]')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
-
-        </div>
-
+    <label>icon <span class="text-danger">*</span></label>
+    <div class="input-group">
+        <span class="input-group-btn">
+            <a id="attachments_icon4" data-input="attachments_icon_thumbnail4" data-preview="attachments_icon_holder4"
+                class="btn btn-primary lfm">
+                <i class="fa fa-picture-o"></i> Choose
+            </a>
+        </span>
+        <input id="attachments_icon_thumbnail4" class="form-control" type="text" name="attachments_icon[]">
     </div>
+    <div id="additional_icon_holder4" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Attachment Image -->
+<div class="form-group">
+    <label for="attachments_buttonText2"><i class="flag-icon flag-icon-us mr-2"></i> buttonText
+        <span class="text-danger">*</span></label>
+    <input type="text" name="attachments_buttonText[]" value="{{ old('attachments_buttonText[1]') }}"
+        class="form-control" id="attachments_buttonText2">
+</div>
 <!-- /. End of Attachments -->
 <!-- FAQ -->
 <hr>

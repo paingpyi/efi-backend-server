@@ -590,7 +590,7 @@ class SampleController extends Controller
                         'zh-cn' => '高標催極用 ' . ($i + 1)
                     ]),
                     'slogan' => json_encode([
-                        'en-us' => '<p>Lorem ipsum is a pseudo-Latin text used in web design, typography and layout.',
+                        'en-us' => 'Lorem ipsum is a pseudo-Latin text used in web design, typography and layout.',
                         'my-mm' => 'စမ်းသပ် ထုတ်ကုန် အကြောင်း',
                         'zh-cn' => '高標催極用'
                     ]),
