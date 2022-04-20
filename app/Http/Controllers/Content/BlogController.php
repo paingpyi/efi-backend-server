@@ -818,6 +818,36 @@ class BlogController extends Controller
         return response()->json($response);
     }
 
+    private function getBlogsAPI($data) {
+        $blog_db = DB::table('blogs')
+            ->join('users', 'blogs.author_id', '=', 'users.id')
+            ->select(
+                'blogs.id',
+                DB::raw('JSON_EXTRACT(blogs.title, \'$."' . Str::lower($data['locale']) . '"\') as title'),
+                DB::raw('JSON_EXTRACT(blogs.slogan, \'$."' . Str::lower($data['locale']) . '"\') as slogan'),
+                'blogs.image as image',
+                DB::raw('JSON_EXTRACT(blogs.slider, \'$."' . Str::lower($data['locale']) . '"\') as slider'),
+                DB::raw('JSON_EXTRACT(blogs.apply_insurance, \'$."' . Str::lower($data['locale']) . '"\') as apply_insurance'),
+                DB::raw('JSON_EXTRACT(blogs.why_work_with_us, \'$."' . Str::lower($data['locale']) . '"\') as why_work_with_us'),
+                DB::raw('JSON_EXTRACT(blogs.lr, \'$."' . Str::lower($data['locale']) . '"\') as lr'),
+                DB::raw('JSON_EXTRACT(blogs.faq, \'$."' . Str::lower($data['locale']) . '"\') as faq'),
+                DB::raw('JSON_EXTRACT(blogs.attachments, \'$."' . Str::lower($data['locale']) . '"\') as attachments'),
+                DB::raw('JSON_EXTRACT(blogs.additional_benifits, \'$."' . Str::lower($data['locale']) . '"\') as additional_benifits'),
+                DB::raw('JSON_EXTRACT(blogs.diagrams_and_table, \'$."' . Str::lower($data['locale']) . '"\') as diagrams_and_table'),
+                'blogs.is_active',
+                'blogs.slug_url',
+                'blogs.quote_machine_name',
+                'blogs.claim_machine_name',
+                'blogs.created_at',
+                'blogs.updated_at',
+                'blogs.category_id',
+                'categories.name as category_name',
+                'categories.description as category_description',
+                'categories.machine as category_machine_name',
+                'categories.is_active as category_is_active'
+            );
+    }
+
     private function getBlogs($paginate, $search_column = null, $search_operator = null, $search_value = null)
     {
         $blog_db = DB::table('blogs')
