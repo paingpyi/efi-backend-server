@@ -17,17 +17,14 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->longText('content');
-            $table->string('title_burmese');
-            $table->longText('content_burmese');
-            $table->string('title_chinese');
-            $table->longText('content_chinese');
-            $table->json('images')->nullable();
+            $table->json('images');
             $table->string('url_slug')->nullable();
             $table->enum('status', ['published', 'draft', 'unpublished']);
             $table->json('category_id');
             $table->foreignId('author_id');
             $table->boolean('featured')->default(false);
-            $table->json('products')->nullable();
+            $table->boolean('promoted')->default(false);
+            $table->json('related_products')->nullable();
             $table->timestamps();
         });
     }
