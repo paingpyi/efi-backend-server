@@ -28,6 +28,7 @@ return new class extends Migration
             $table->json('diagrams_and_table')->nullable();
             $table->foreignId('category_id');
             $table->boolean('is_active')->default(true);
+            $table->boolean('is_home')->default(false);
             $table->string('slug_url');
             $table->string('quote_machine_name');
             $table->string('claim_machine_name');

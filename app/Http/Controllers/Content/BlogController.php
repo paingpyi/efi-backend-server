@@ -656,7 +656,7 @@ class BlogController extends Controller
             ];
         }
 
-        if ($blogs->count() > 0) {
+        if ($total_count > 0) {
             $response = [
                 'code' => 200,
                 'status' => 'success',
@@ -665,12 +665,12 @@ class BlogController extends Controller
                 'data' => $result,
             ];
         } else {
-            $response_code = 204;
-
             $response = [
-                'code' => 204,
+                'code' => 404,
                 'status' => 'no content',
             ];
+
+            $response_code = 404;
         }
 
         return response()->json($response, $response_code);

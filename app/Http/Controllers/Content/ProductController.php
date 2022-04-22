@@ -737,6 +737,15 @@ class ProductController extends Controller
 
         /***
          *
+         * Retrieve products by isActive
+         *
+         **/
+        if (isset($data['isHome'])) {
+            $product_db->where('products.is_home', '=', $data['isHome']);
+        } //End of retreiving products by isActive
+
+        /***
+         *
          * Retrieve products by created date
          *
          **/
