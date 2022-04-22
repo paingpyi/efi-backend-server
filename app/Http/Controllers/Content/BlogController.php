@@ -582,7 +582,7 @@ class BlogController extends Controller
         foreach ($blogs as $row) {
             $categories = [];
 
-            foreach(json_decode($row->category_id) as $value) {
+            foreach (json_decode($row->category_id) as $value) {
                 $temp_cat = Category::where('id', '=', $value)->first();
 
                 if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
@@ -617,16 +617,16 @@ class BlogController extends Controller
 
             $products = [];
 
-            foreach(json_decode($row->related_products) as $value) {
+            foreach (json_decode($row->related_products) as $value) {
                 $temp = DB::table('products')
-                                ->select(
-                                    'products.id',
-                                    DB::raw('JSON_EXTRACT(products.title, \'$."' . Str::lower($data['locale']) . '"\') as title'),
-                                    'products.image as image',
-                                    'products.slug_url',
-                                    'products.is_active'
-                                )
-                                ->where('id', '=', $value)->first();
+                    ->select(
+                        'products.id',
+                        DB::raw('JSON_EXTRACT(products.title, \'$."' . Str::lower($data['locale']) . '"\') as title'),
+                        'products.image as image',
+                        'products.slug_url',
+                        'products.is_active'
+                    )
+                    ->where('id', '=', $value)->first();
 
                 $products[] = [
                     'id' => $temp->id,
@@ -640,7 +640,7 @@ class BlogController extends Controller
             $result[] = [
                 'id' => $row->id,
                 'title' => Str::replace('"', '', $row->title),
-                'content' => json_decode( $row->content),
+                'content' => json_decode($row->content),
                 'images' => json_decode($row->images),
                 'slug_url' => $row->slug_url,
                 'status' => $row->status,
@@ -671,6 +671,125 @@ class BlogController extends Controller
                 'code' => 204,
                 'status' => 'no content',
             ];
+        }
+
+        return response()->json($response, $response_code);
+    }
+
+    /**
+     * API Detail with Post data.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function postDetail(Request $request)
+    {
+        // Variables
+        $response_code = 200;
+        $lang_chinese = 'zh-cn';
+        $lang_burmese = 'my-mm';
+
+        $data = $request->json()->all();//dd($data);
+
+        if ((isset($data['slug_url']) or isset($data['id'])) and isset($data['locale'])) {
+
+            $blog_db = $this->getBlogsAPI($data);
+
+            $blogs = $blog_db->first();
+
+            if (isset($blogs)) {
+                $categories = [];
+
+                foreach (json_decode($blogs->category_id) as $value) {
+                    $temp_cat = Category::where('id', '=', $value)->first();
+
+                    if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
+                        $categories[] = [
+                            'id' => $temp_cat->id,
+                            'name' => $temp_cat->name_chinese,
+                            'description' => $temp_cat->description_chinese,
+                            'parent_id' => $temp_cat->parent_id,
+                            'machine_name' => $temp_cat->machine,
+                            'is_active' => $temp_cat->is_active,
+                        ];
+                    } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_burmese) {
+                        $categories[] = [
+                            'id' => $temp_cat->id,
+                            'name' => $temp_cat->name_burmese,
+                            'description' => $temp_cat->description_burmese,
+                            'parent_id' => $temp_cat->parent_id,
+                            'machine_name' => $temp_cat->machine,
+                            'is_active' => $temp_cat->is_active,
+                        ];
+                    } else {
+                        $categories[] = [
+                            'id' => $temp_cat->id,
+                            'name' => $temp_cat->name,
+                            'description' => $temp_cat->description,
+                            'parent_id' => $temp_cat->parent_id,
+                            'machine_name' => $temp_cat->machine,
+                            'is_active' => $temp_cat->is_active,
+                        ];
+                    }
+                }
+
+                $products = [];
+
+                foreach (json_decode($blogs->related_products) as $value) {
+                    $temp = DB::table('products')
+                        ->select(
+                            'products.id',
+                            DB::raw('JSON_EXTRACT(products.title, \'$."' . Str::lower($data['locale']) . '"\') as title'),
+                            'products.image as image',
+                            'products.slug_url',
+                            'products.is_active'
+                        )
+                        ->where('id', '=', $value)->first();
+
+                    $products[] = [
+                        'id' => $temp->id,
+                        'title' => json_decode($temp->title),
+                        'image' => $temp->image,
+                        'slug_url' => $temp->slug_url,
+                        'is_active' => $temp->is_active
+                    ];
+                }
+
+                $response = [
+                    'code' => 200,
+                    'status' => 'success',
+                    'locale' => $this->getLang($data),
+                    'id' => $blogs->id,
+                    'title' => Str::replace('"', '', $blogs->title),
+                    'content' => json_decode($blogs->content),
+                    'images' => json_decode($blogs->images),
+                    'slug_url' => $blogs->slug_url,
+                    'status' => $blogs->status,
+                    'featured' => $blogs->featured,
+                    'promoted' => $blogs->promoted,
+                    'created_at' => $blogs->created_at,
+                    'updated_at' => $blogs->updated_at,
+                    'category' => $categories,
+                    'related_products' => $products,
+                    'author_id' => $blogs->author_id,
+                    'author_name' => $blogs->author_name,
+                    'author_email' => $blogs->author_email,
+                ];
+            } else {
+                $response = [
+                    'code' => 404,
+                    'status' => 'no content',
+                ];
+
+                $response_code = 404;
+            }
+        } else {
+            $response = [
+                'code' => 400,
+                'status' => 'Input JSON must have "locale" and ("id" or "slug_url").',
+            ];
+
+            $response_code = 400;
         }
 
         return response()->json($response, $response_code);
@@ -768,9 +887,11 @@ class BlogController extends Controller
          *
          **/
         if (isset($data['category.id'])) {
-            $blog_db
-                ->where(DB::raw('JSON_EXTRACT(blogs.category_id, \'$[0]\')'), '=', $data['category.id'])
-                ->orWhere(DB::raw('JSON_EXTRACT(blogs.category_id, \'$[1]\')'), '=', $data['category.id']);
+            foreach($data['category.id'] as $check) {
+                $blog_db
+                ->where(DB::raw('JSON_EXTRACT(blogs.category_id, \'$[0]\')'), '=', $check)
+                ->orWhere(DB::raw('JSON_EXTRACT(blogs.category_id, \'$[1]\')'), '=', $check);
+            }
         } //End of retreiving blogs by category_id
 
         /***

@@ -37,6 +37,8 @@ Route::group(['prefix' => 'blogs', 'namespace' => 'Content'], function () {
     Route::get('/{para?}', [BlogController::class, 'getList']);
 
     Route::post('/', [BlogController::class, 'postList']);
+
+    Route::post('/detail', [BlogController::class, 'postDetail']);
 });
 
 Route::group(['prefix' => 'pages', 'namespace' => 'Content'], function () {
