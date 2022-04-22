@@ -970,14 +970,12 @@ class BlogController extends Controller
          *
          **/
         if (isset($data['related_products'])) {
-            foreach ($data['related_products'] as $check) {
-                $blog_db
-                    ->orWhere(DB::raw('JSON_EXTRACT(blogs.related_products, \'$[0]\')'), '=', $check)
-                    ->orWhere(DB::raw('JSON_EXTRACT(blogs.related_products, \'$[1]\')'), '=', $check)
-                    ->orWhere(DB::raw('JSON_EXTRACT(blogs.related_products, \'$[2]\')'), '=', $check)
-                    ->orWhere(DB::raw('JSON_EXTRACT(blogs.related_products, \'$[3]\')'), '=', $check)
-                    ->orWhere(DB::raw('JSON_EXTRACT(blogs.related_products, \'$[4]\')'), '=', $check);
-            }
+            $blog_db
+                    ->orWhere(DB::raw('JSON_EXTRACT(blogs.related_products, \'$[0]\')'), '=', $data['related_products'])
+                    ->orWhere(DB::raw('JSON_EXTRACT(blogs.related_products, \'$[1]\')'), '=', $data['related_products'])
+                    ->orWhere(DB::raw('JSON_EXTRACT(blogs.related_products, \'$[2]\')'), '=', $data['related_products'])
+                    ->orWhere(DB::raw('JSON_EXTRACT(blogs.related_products, \'$[3]\')'), '=', $data['related_products'])
+                    ->orWhere(DB::raw('JSON_EXTRACT(blogs.related_products, \'$[4]\')'), '=', $data['related_products']);
         } //End of retreiving blogs by related_products
 
         /***
