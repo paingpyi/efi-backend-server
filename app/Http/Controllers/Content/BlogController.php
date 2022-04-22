@@ -631,9 +631,16 @@ class BlogController extends Controller
                 $products[] = [
                     'id' => $temp->id,
                     'title' => json_decode($temp->title),
-                    'image' => $temp->image,
+                    'image' => config('app.url') . $temp->image,
                     'slug_url' => $temp->slug_url,
                     'is_active' => $temp->is_active
+                ];
+            }
+
+            $images = [];
+            foreach (json_decode($row->images) as $value) {
+                $images[] = [
+                    config('app.url') . $value,
                 ];
             }
 
@@ -641,7 +648,7 @@ class BlogController extends Controller
                 'id' => $row->id,
                 'title' => Str::replace('"', '', $row->title),
                 'content' => json_decode($row->content),
-                'images' => json_decode($row->images),
+                'images' => $images,
                 'slug_url' => $row->slug_url,
                 'status' => $row->status,
                 'featured' => $row->featured,
