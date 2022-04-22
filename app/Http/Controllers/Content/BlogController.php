@@ -689,7 +689,7 @@ class BlogController extends Controller
         $lang_chinese = 'zh-cn';
         $lang_burmese = 'my-mm';
 
-        $data = $request->json()->all();//dd($data);
+        $data = $request->json()->all(); //dd($data);
 
         if ((isset($data['slug_url']) or isset($data['id'])) and isset($data['locale'])) {
 
@@ -749,9 +749,16 @@ class BlogController extends Controller
                     $products[] = [
                         'id' => $temp->id,
                         'title' => json_decode($temp->title),
-                        'image' => $temp->image,
+                        'image' => config('app.url') . $temp->image,
                         'slug_url' => $temp->slug_url,
                         'is_active' => $temp->is_active
+                    ];
+                }
+
+                $images = [];
+                foreach (json_decode($blogs->images) as $value) {
+                    $images[] = [
+                        config('app.url') . $value,
                     ];
                 }
 
@@ -762,7 +769,7 @@ class BlogController extends Controller
                     'id' => $blogs->id,
                     'title' => Str::replace('"', '', $blogs->title),
                     'content' => json_decode($blogs->content),
-                    'images' => json_decode($blogs->images),
+                    'images' => $images,
                     'slug_url' => $blogs->slug_url,
                     'status' => $blogs->status,
                     'featured' => $blogs->featured,
@@ -887,10 +894,10 @@ class BlogController extends Controller
          *
          **/
         if (isset($data['category.id'])) {
-            foreach($data['category.id'] as $check) {
+            foreach ($data['category.id'] as $check) {
                 $blog_db
-                ->where(DB::raw('JSON_EXTRACT(blogs.category_id, \'$[0]\')'), '=', $check)
-                ->orWhere(DB::raw('JSON_EXTRACT(blogs.category_id, \'$[1]\')'), '=', $check);
+                    ->orWhere(DB::raw('JSON_EXTRACT(blogs.category_id, \'$[0]\')'), '=', $check)
+                    ->orWhere(DB::raw('JSON_EXTRACT(blogs.category_id, \'$[1]\')'), '=', $check);
             }
         } //End of retreiving blogs by category_id
 
