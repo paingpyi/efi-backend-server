@@ -551,6 +551,8 @@ class BlogController extends Controller
     {
         // Variables
         $response_code = 200;
+        $lang_chinese = 'zh-cn';
+        $lang_burmese = 'my-mm';
 
         $data = $request->json()->all();
 
@@ -581,7 +583,36 @@ class BlogController extends Controller
             $categories = [];
 
             foreach(json_decode($row->category_id) as $value) {
-                $categories[] = Category::where('id', '=', $value)->get();
+                $temp_cat = Category::where('id', '=', $value)->first();
+
+                if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
+                    $categories[] = [
+                        'id' => $temp_cat->id,
+                        'name' => $temp_cat->name_chinese,
+                        'description' => $temp_cat->description_chinese,
+                        'parent_id' => $temp_cat->parent_id,
+                        'machine_name' => $temp_cat->machine,
+                        'is_active' => $temp_cat->is_active,
+                    ];
+                } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_burmese) {
+                    $categories[] = [
+                        'id' => $temp_cat->id,
+                        'name' => $temp_cat->name_burmese,
+                        'description' => $temp_cat->description_burmese,
+                        'parent_id' => $temp_cat->parent_id,
+                        'machine_name' => $temp_cat->machine,
+                        'is_active' => $temp_cat->is_active,
+                    ];
+                } else {
+                    $categories[] = [
+                        'id' => $temp_cat->id,
+                        'name' => $temp_cat->name,
+                        'description' => $temp_cat->description,
+                        'parent_id' => $temp_cat->parent_id,
+                        'machine_name' => $temp_cat->machine,
+                        'is_active' => $temp_cat->is_active,
+                    ];
+                }
             }
 
             $products = [];
@@ -675,7 +706,6 @@ class BlogController extends Controller
                 'blogs.url_slug as slug_url',
                 'blogs.category_id',
                 'blogs.featured',
-                'blogs.featured',
                 'blogs.promoted',
                 'blogs.related_products',
                 'blogs.created_at',
@@ -696,6 +726,24 @@ class BlogController extends Controller
 
         /***
          *
+         * Retrieve blogs by featured
+         *
+         **/
+        if (isset($data['featured'])) {
+            $blog_db->where('blogs.featured', '=', $data['featured']);
+        } //End of retreiving blogs by featured
+
+        /***
+         *
+         * Retrieve blogs by id
+         *
+         **/
+        if (isset($data['promoted'])) {
+            $blog_db->where('blogs.promoted', '=', $data['promoted']);
+        } //End of retreiving blogs by id
+
+        /***
+         *
          * Retrieve blogs by title
          *
          **/
@@ -705,14 +753,25 @@ class BlogController extends Controller
 
         /***
          *
-         * Retrieve blogs by title
+         * Retrieve blogs by keyword
          *
          **/
         if (isset($data['keyword'])) {
             $blog_db
                 ->where(DB::raw('JSON_EXTRACT(blogs.title, \'$."' . Str::lower($data['locale']) . '"\')'), 'LIKE', "%{$data['keyword']}%")
                 ->orWhere('users.name', 'LIKE', "%{$data['keyword']}%");
-        } //End of retreiving blogs by title
+        } //End of retreiving blogs by keyword
+
+        /***
+         *
+         * Retrieve blogs by category_id
+         *
+         **/
+        if (isset($data['category.id'])) {
+            $blog_db
+                ->where(DB::raw('JSON_EXTRACT(blogs.category_id, \'$[0]\')'), '=', $data['category.id'])
+                ->orWhere(DB::raw('JSON_EXTRACT(blogs.category_id, \'$[1]\')'), '=', $data['category.id']);
+        } //End of retreiving blogs by category_id
 
         /***
          *
