@@ -23,6 +23,7 @@ class Product extends Model
         'diagrams_and_table',
         'category_id',
         'is_active',
+        'is_home',
         'slug_url',
         'quote_machine_name',
         'claim_machine_name'
