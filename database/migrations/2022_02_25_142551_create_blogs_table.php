@@ -20,6 +20,7 @@ return new class extends Migration
             $table->json('images');
             $table->string('url_slug')->nullable();
             $table->enum('status', ['published', 'draft', 'unpublished']);
+            $table->foreignId('main_category');
             $table->json('category_id');
             $table->foreignId('author_id');
             $table->boolean('featured')->default(false);

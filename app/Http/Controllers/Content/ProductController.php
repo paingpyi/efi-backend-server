@@ -428,14 +428,6 @@ class ProductController extends Controller
                 'image' => config('app.url') . json_decode($row->why_work_with_us)->image,
             ];
 
-            $slider = [];
-            foreach (json_decode($row->slider) as $item) {
-                $slider[] = [
-                    'title' => $item->title,
-                    'image' => config('app.url') . $item->image,
-                ];
-            }
-
             $lr = [];
             foreach (json_decode($row->lr) as $item) {
                 $lr[] = [
@@ -485,7 +477,7 @@ class ProductController extends Controller
                 'title' => Str::replace('"', '', $row->title),
                 'slogan' => Str::replace('"', '', $row->slogan),
                 'image' => config('app.url') . $row->image,
-                'slider' => $slider,
+                'cover_image' => config('app.url') . $row->cover_image,
                 'apply_insurance' => json_decode($row->apply_insurance),
                 'why_work_with_us' => $why_work_with_us,
                 'lr' => $lr,
@@ -518,11 +510,14 @@ class ProductController extends Controller
             ];
         } else {
             $response = [
-                'code' => 404,
+                'code' => 200,
                 'status' => 'no content',
+                'locale' => $this->getLang($data),
+                'count' => $total_count,
+                'data' => $result,
             ];
 
-            $response_code = 404;
+            $response_code = 200;
         }
 
         return response()->json($response, $response_code);
@@ -552,13 +547,6 @@ class ProductController extends Controller
                     'image' => config('app.url') . json_decode($products->why_work_with_us)->image,
                 ];
 
-                $slider = [];
-                foreach (json_decode($products->slider) as $item) {
-                    $slider[] = [
-                        'title' => $item->title,
-                        'image' => config('app.url') . $item->image,
-                    ];
-                }
                 $lr = [];
                 foreach (json_decode($products->lr) as $item) {
                     $lr[] = [
@@ -611,7 +599,7 @@ class ProductController extends Controller
                     'title' => Str::replace('"', '', $products->title),
                     'slogan' => Str::replace('"', '', $products->slogan),
                     'image' => config('app.url') . $products->image,
-                    'slider' => $slider,
+                    'cover_image' => config('app.url') . $products->cover_image,
                     'apply_insurance' => json_decode($products->apply_insurance),
                     'why_work_with_us' => $why_work_with_us,
                     'lr' => $lr,
@@ -634,11 +622,11 @@ class ProductController extends Controller
                 ];
             } else {
                 $response = [
-                    'code' => 404,
+                    'code' => 200,
                     'status' => 'no content',
                 ];
 
-                $response_code = 404;
+                $response_code = 200;
             }
         } else {
             $response = [
@@ -681,7 +669,7 @@ class ProductController extends Controller
                 DB::raw('JSON_EXTRACT(products.title, \'$."' . Str::lower($data['locale']) . '"\') as title'),
                 DB::raw('JSON_EXTRACT(products.slogan, \'$."' . Str::lower($data['locale']) . '"\') as slogan'),
                 'products.image as image',
-                DB::raw('JSON_EXTRACT(products.slider, \'$."' . Str::lower($data['locale']) . '"\') as slider'),
+                'products.cover_image as cover_image',
                 DB::raw('JSON_EXTRACT(products.apply_insurance, \'$."' . Str::lower($data['locale']) . '"\') as apply_insurance'),
                 DB::raw('JSON_EXTRACT(products.why_work_with_us, \'$."' . Str::lower($data['locale']) . '"\') as why_work_with_us'),
                 DB::raw('JSON_EXTRACT(products.lr, \'$."' . Str::lower($data['locale']) . '"\') as lr'),

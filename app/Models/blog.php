@@ -15,6 +15,7 @@ class blog extends Model
         'images',
         'url_slug',
         'status',
+        'main_category',
         'category_id',
         'author_id',
         'featured',

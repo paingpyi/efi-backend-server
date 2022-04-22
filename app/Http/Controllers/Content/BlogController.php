@@ -644,6 +644,19 @@ class BlogController extends Controller
                 ];
             }
 
+            $main_category_name = '';
+            $main_category_description = '';
+            if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
+                $main_category_name = $row->category_name_chinese;
+                $main_category_description = $row->category_description_chinese;
+            } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_burmese) {
+                $main_category_name = $row->category_name_burmese;
+                $main_category_description = $row->category_description_burmese;
+            } else {
+                $main_category_name = $row->category_name;
+                $main_category_description = $row->category_description;
+            }
+
             $result[] = [
                 'id' => $row->id,
                 'title' => Str::replace('"', '', $row->title),
@@ -655,6 +668,9 @@ class BlogController extends Controller
                 'promoted' => $row->promoted,
                 'created_at' => $row->created_at,
                 'updated_at' => $row->updated_at,
+                'main_category_id' => $row->main_category,
+                'main_category_name' => $main_category_name,
+                'main_category_description' => $main_category_description,
                 'category' => $categories,
                 'related_products' => $products,
                 'author_id' => $row->author_id,
@@ -673,11 +689,14 @@ class BlogController extends Controller
             ];
         } else {
             $response = [
-                'code' => 404,
+                'code' => 200,
                 'status' => 'no content',
+                'locale' => $this->getLang($data),
+                'count' => $total_count,
+                'data' => $result,
             ];
 
-            $response_code = 404;
+            $response_code = 200;
         }
 
         return response()->json($response, $response_code);
@@ -769,6 +788,19 @@ class BlogController extends Controller
                     ];
                 }
 
+                $main_category_name = '';
+                $main_category_description = '';
+                if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
+                    $main_category_name = $blogs->category_name_chinese;
+                    $main_category_description = $blogs->category_description_chinese;
+                } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_burmese) {
+                    $main_category_name = $blogs->category_name_burmese;
+                    $main_category_description = $blogs->category_description_burmese;
+                } else {
+                    $main_category_name = $blogs->category_name;
+                    $main_category_description = $blogs->category_description;
+                }
+
                 $response = [
                     'code' => 200,
                     'status' => 'success',
@@ -783,6 +815,9 @@ class BlogController extends Controller
                     'promoted' => $blogs->promoted,
                     'created_at' => $blogs->created_at,
                     'updated_at' => $blogs->updated_at,
+                    'main_category_id' => $blogs->main_category,
+                    'main_category_name' => $main_category_name,
+                    'main_category_description' => $main_category_description,
                     'category' => $categories,
                     'related_products' => $products,
                     'author_id' => $blogs->author_id,
@@ -830,6 +865,7 @@ class BlogController extends Controller
     {
         $blog_db = DB::table('blogs')
             ->join('users', 'blogs.author_id', '=', 'users.id')
+            ->join('categories', 'blogs.main_category', '=', 'categories.id')
             ->select(
                 'blogs.id',
                 DB::raw('JSON_EXTRACT(blogs.title, \'$."' . Str::lower($data['locale']) . '"\') as title'),
@@ -837,6 +873,15 @@ class BlogController extends Controller
                 'blogs.images as images',
                 'blogs.status',
                 'blogs.url_slug as slug_url',
+                'blogs.main_category',
+                'categories.name as category_name',
+                'categories.description as category_description',
+                'categories.name_burmese as category_name_burmese',
+                'categories.description_burmese as category_description_burmese',
+                'categories.name_chinese as category_name_chinese',
+                'categories.description_chinese as category_description_chinese',
+                'categories.machine as category_machine_name',
+                'categories.is_active as category_is_active',
                 'blogs.category_id',
                 'blogs.featured',
                 'blogs.promoted',

@@ -13,7 +13,7 @@ class Product extends Model
         'title',
         'slogan',
         'image',
-        'slider',
+        'cover_image',
         'apply_insurance',
         'why_work_with_us',
         'lr',
