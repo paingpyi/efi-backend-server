@@ -98,6 +98,32 @@ class CategorySeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
+            [
+                'name' => 'News',
+                'description' => 'News',
+                'name_burmese' => 'သတင်း',
+                'description_burmese' => 'သတင်း',
+                'name_chinese' => '手聞説選趣',
+                'description_chinese' => '試育内来待止将闘生碗伝',
+                'parent_id' => null,
+                'is_active' => true,
+                'machine' => Str::slug('News'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'name' => 'CSR',
+                'description' => 'Corporate Social Responsibility',
+                'name_burmese' => 'ပရဟိတ',
+                'description_burmese' => 'ပရဟိတ',
+                'name_chinese' => '手聞説選趣',
+                'description_chinese' => '試育内来待止将闘生碗伝',
+                'parent_id' => null,
+                'is_active' => true,
+                'machine' => Str::slug('CSR'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
         ]);
     }
 }

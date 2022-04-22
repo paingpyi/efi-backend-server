@@ -671,6 +671,7 @@ class BlogController extends Controller
                 'main_category_id' => $row->main_category,
                 'main_category_name' => $main_category_name,
                 'main_category_description' => $main_category_description,
+                'main_category_machine_name' => $row->category_machine_name,
                 'category' => $categories,
                 'related_products' => $products,
                 'author_id' => $row->author_id,
@@ -818,6 +819,7 @@ class BlogController extends Controller
                     'main_category_id' => $blogs->main_category,
                     'main_category_name' => $main_category_name,
                     'main_category_description' => $main_category_description,
+                    'main_category_machine_name' => $blogs->category_machine_name,
                     'category' => $categories,
                     'related_products' => $products,
                     'author_id' => $blogs->author_id,
@@ -922,6 +924,15 @@ class BlogController extends Controller
 
         /***
          *
+         * Retrieve blogs by main_category_machine_name
+         *
+         **/
+        if (isset($data['main_category_machine_name'])) {
+            $blog_db->where('categories.machine', '=', $data['main_category_machine_name']);
+        } //End of retreiving blogs by main_category_machine_name
+
+        /***
+         *
          * Retrieve blogs by title
          *
          **/
@@ -952,6 +963,22 @@ class BlogController extends Controller
                     ->orWhere(DB::raw('JSON_EXTRACT(blogs.category_id, \'$[1]\')'), '=', $check);
             }
         } //End of retreiving blogs by category_id
+
+        /***
+         *
+         * Retrieve blogs by related_products
+         *
+         **/
+        if (isset($data['related_products'])) {
+            foreach ($data['related_products'] as $check) {
+                $blog_db
+                    ->orWhere(DB::raw('JSON_EXTRACT(blogs.related_products, \'$[0]\')'), '=', $check)
+                    ->orWhere(DB::raw('JSON_EXTRACT(blogs.related_products, \'$[1]\')'), '=', $check)
+                    ->orWhere(DB::raw('JSON_EXTRACT(blogs.related_products, \'$[2]\')'), '=', $check)
+                    ->orWhere(DB::raw('JSON_EXTRACT(blogs.related_products, \'$[3]\')'), '=', $check)
+                    ->orWhere(DB::raw('JSON_EXTRACT(blogs.related_products, \'$[4]\')'), '=', $check);
+            }
+        } //End of retreiving blogs by related_products
 
         /***
          *
