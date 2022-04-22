@@ -9,6 +9,7 @@ use App\Http\Controllers\Content\NewsController;
 use App\Http\Controllers\Content\JobController;
 use App\Http\Controllers\Content\CsrController;
 use App\Http\Controllers\QuoteController;
+use App\Http\Controllers\Setting\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,8 @@ Route::group(['prefix' => 'blogs', 'namespace' => 'Content'], function () {
     Route::post('/', [BlogController::class, 'postList']);
 
     Route::post('/detail', [BlogController::class, 'postDetail']);
+
+    Route::post('/categories', [CategoryController::class, 'postList']);
 });
 
 Route::group(['prefix' => 'pages', 'namespace' => 'Content'], function () {

@@ -394,6 +394,7 @@ class ProductController extends Controller
     public function postList(Request $request)
     {
         // Variables
+        $response_code = 200;
         $data = $request->json()->all();
         $result = [];
 
@@ -517,12 +518,14 @@ class ProductController extends Controller
             ];
         } else {
             $response = [
-                'code' => 204,
+                'code' => 404,
                 'status' => 'no content',
             ];
+
+            $response_code = 404;
         }
 
-        return response()->json($response);
+        return response()->json($response, $response_code);
     }
 
     /**

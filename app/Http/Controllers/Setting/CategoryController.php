@@ -6,6 +6,7 @@ use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Category;
@@ -162,6 +163,94 @@ class CategoryController extends Controller
                 ->with(['success_message' => 'Successfully <strong>' . $message . '!</strong>']);
         } catch (DecryptException $e) {
             abort(404, 'Decrypt Exception occured.');
+        }
+    }
+
+    /**
+     * List API of resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function postList(Request $request)
+    {
+        $response_code = 200;
+        $lang_chinese = 'zh-cn';
+        $lang_burmese = 'my-mm';
+        $data = $request->json()->all();
+
+        $category_db = DB::table('categories')->select('*')->where('parent_id', '=', 2);
+
+        $result = [];
+        $category = $category_db->get();
+        $total_count = $category->count();
+        foreach ($category as $row) {
+            if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
+                $result[] = [
+                    'id' => $row->id,
+                    'name' => $row->name_chinese,
+                    'description' => $row->description_chinese,
+                    'is_active' => $row->is_active,
+                    'machine_name' => $row->machine,
+                    'created_at' => $row->created_at,
+                    'updated_at' => $row->updated_at,
+                ];
+            } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_burmese) {
+                $result[] = [
+                    'id' => $row->id,
+                    'name' => $row->name_burmese,
+                    'description' => $row->description_burmese,
+                    'is_active' => $row->is_active,
+                    'machine_name' => $row->machine,
+                    'created_at' => $row->created_at,
+                    'updated_at' => $row->updated_at,
+                ];
+            } else {
+                $result[] = [
+                    'id' => $row->id,
+                    'name' => $row->name,
+                    'description' => $row->description,
+                    'is_active' => $row->is_active,
+                    'machine_name' => $row->machine,
+                    'created_at' => $row->created_at,
+                    'updated_at' => $row->updated_at,
+                ];
+            }
+        }
+
+        if($total_count>0) {
+            $response = [
+                'code' => 200,
+                'status' => 'success',
+                'locale' => $this->getLang($data),
+                'count' => $total_count,
+                'data' => $result,
+            ];
+        } else {
+            $response_code = 404;
+            $response = [
+                'code' => $response_code,
+                'status' => 'no content',
+            ];
+        }
+
+        return response()->json($response, $response_code);
+    }
+
+    private function getLang($data)
+    {
+        $lang_english = 'en-us';
+        $lang_chinese = 'zh-cn';
+        $lang_burmese = 'my-mm';
+
+        if (isset($data['locale']) and Str::lower($data['locale']) == $lang_english) {
+            return ['lang' => 'en-US', 'name' => 'English'];
+        } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
+            return ['lang' => 'zh-CN', 'name' => 'Chinese'];
+        } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_burmese) {
+            return ['lang' => 'my-MM', 'name' => 'Burmese'];
+        } else {
+            return ['lang' => 'en-US/my-MM/zh-CN', 'name' => 'English/Burmese/Chinese'];
         }
     }
 
