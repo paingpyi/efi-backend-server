@@ -514,7 +514,7 @@ class ProductController extends Controller
                 'status' => 'no content',
                 'locale' => $this->getLang($data),
                 'count' => $total_count,
-                'data' => $result,
+                'data' => [],
             ];
 
             $response_code = 200;
