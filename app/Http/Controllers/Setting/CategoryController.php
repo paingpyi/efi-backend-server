@@ -172,14 +172,20 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function postList(Request $request)
+    public function postList(Request $request, $id = null)
     {
         $response_code = 200;
         $lang_chinese = 'zh-cn';
         $lang_burmese = 'my-mm';
         $data = $request->json()->all();
 
-        $category_db = DB::table('categories')->select('*')->where('parent_id', '=', 2);
+        if($id == 'blogs') {
+            $category_db = DB::table('categories')->select('*')->where('parent_id', '=', 2);
+        } else {
+            $category_db = DB::table('categories')->select('*');
+        }
+
+
 
         $result = [];
         $category = $category_db->get();

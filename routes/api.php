@@ -40,8 +40,6 @@ Route::group(['prefix' => 'blogs', 'namespace' => 'Content'], function () {
     Route::post('/', [BlogController::class, 'postList']);
 
     Route::post('/detail', [BlogController::class, 'postDetail']);
-
-    Route::post('/categories', [CategoryController::class, 'postList']);
 });
 
 Route::group(['prefix' => 'pages', 'namespace' => 'Content'], function () {
@@ -76,4 +74,8 @@ Route::group(['prefix' => 'quotes'], function () {
     Route::group(['prefix' => 'life'], function () {
         Route::post('short-term-endowment', [QuoteController::class, 'calculateShortTermEndowment']);
     });
+});
+
+Route::group(['prefix' => 'categories'], function () {
+    Route::post('{id?}', [CategoryController::class, 'postList']);
 });
