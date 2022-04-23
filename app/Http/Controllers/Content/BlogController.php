@@ -784,9 +784,7 @@ class BlogController extends Controller
 
                 $images = [];
                 foreach (json_decode($blogs->images) as $value) {
-                    $images[] = [
-                        config('app.url') . $value,
-                    ];
+                    $images[] = config('app.url') . $value;
                 }
 
                 $main_category_name = '';
