@@ -73,8 +73,8 @@ class CategorySeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
-                'name' => 'General',
-                'description' => 'General Blogs',
+                'name' => 'General Insurance Products',
+                'description' => 'General Insurance Products of Blogs',
                 'name_burmese' => 'အထွေထွေ',
                 'description_burmese' => 'အထွေထွေ',
                 'name_chinese' => '手聞説選趣',
@@ -86,8 +86,8 @@ class CategorySeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
-                'name' => 'Knowledge',
-                'description' => 'Knowledge Blogs',
+                'name' => 'Life Products',
+                'description' => 'Life Products of Blogs',
                 'name_burmese' => 'ဗဟုသုတ',
                 'description_burmese' => 'ဗဟုသုတ',
                 'name_chinese' => '手聞説選趣',
