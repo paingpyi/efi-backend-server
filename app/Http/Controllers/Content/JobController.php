@@ -452,266 +452,12 @@ class JobController extends Controller
      */
     public function postList(Request $request)
     {
-        $data = $request->json()->all();
-
         // Variables
-        $lang_english = 'en-us';
-        $lang_chinese = 'zh-cn';
-        $lang_burmese = 'my-mm';
-        $localeData = [];
+        $response_code = 200;
+        $data = $request->json()->all();
+        $result = [];
 
-        /*
-         * Locale
-         *
-         * MM for my-MM/Burmese and EN for en-US/English
-         */
-        if (isset($data['locale']) and Str::lower($data['locale']) == $lang_english) {
-            if (isset($data['view']) and Str::lower($data['view']) == 'list') {
-                $job_db = DB::table('jobs')
-                    ->select(
-                        'position',
-                        'department',
-                        'due',
-                        'due_date',
-                        'slug_url',
-                        'is_vacant',
-                    );
-            } else {
-                $job_db = DB::table('jobs')
-                    ->select(
-                        'id',
-                        'position',
-                        'department',
-                        'description',
-                        'due',
-                        'due_date',
-                        'slug_url',
-                        'is_vacant',
-                        'created_at',
-                        'updated_at'
-                    );
-            }
-
-            $localeData = ['lang' => 'en-US', 'name' => 'English'];
-        } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_burmese) {
-            if (isset($data['view']) and Str::lower($data['view']) == 'list') {
-                $job_db = DB::table('jobs')
-                    ->select(
-                        'id',
-                        'position_burmese as position',
-                        'department_burmese as department',
-                        'due_burmese as due',
-                        'due_date',
-                        'slug_url',
-                        'is_vacant',
-                    );
-            } else {
-                $job_db = DB::table('jobs')
-                    ->select(
-                        'id',
-                        'position_burmese as position',
-                        'department_burmese as department',
-                        'description_burmese as description',
-                        'due_burmese as due',
-                        'due_date',
-                        'slug_url',
-                        'is_vacant',
-                        'created_at',
-                        'updated_at'
-                    );
-            }
-
-            $localeData = ['lang' => 'my-MM', 'name' => 'Burmese'];
-        } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
-            if (isset($data['view']) and Str::lower($data['view']) == 'list') {
-                $job_db = DB::table('jobs')
-                    ->select(
-                        'id',
-                        'position_chinese as position',
-                        'department_chinese as department',
-                        'due_chinese as due',
-                        'due_date',
-                        'slug_url',
-                        'is_vacant',
-                    );
-            } else {
-                $job_db = DB::table('jobs')
-                    ->select(
-                        'id',
-                        'position_chinese as position',
-                        'department_chinese as department',
-                        'description_chinese as description',
-                        'due_chinese as due',
-                        'due_date',
-                        'slug_url',
-                        'is_vacant',
-                        'created_at',
-                        'updated_at'
-                    );
-            }
-
-            $localeData = ['lang' => 'zh-CN', 'name' => 'Chinese'];
-        } else {
-            if (isset($data['view']) and Str::lower($data['view']) == 'list') {
-                $job_db = DB::table('jobs')
-                    ->select(
-                        'id',
-                        'position',
-                        'department',
-                        'due',
-                        'position_burmese',
-                        'department_burmese',
-                        'due_burmese',
-                        'position_chinese',
-                        'department_chinese',
-                        'due_chinese',
-                        'due_date',
-                        'slug_url',
-                        'is_vacant',
-                    );
-            } else {
-                $job_db = DB::table('jobs')
-                    ->select(
-                        'id',
-                        'position',
-                        'department',
-                        'description',
-                        'due',
-                        'position_burmese',
-                        'department_burmese',
-                        'description_burmese',
-                        'due_burmese',
-                        'position_chinese',
-                        'department_chinese',
-                        'description_chinese',
-                        'due_chinese',
-                        'due_date',
-                        'slug_url',
-                        'is_vacant',
-                        'created_at',
-                        'updated_at'
-                    );
-            }
-
-            $localeData = ['lang' => 'en-US/my-MM/zh-CN', 'name' => 'English/Burmese/Chinese'];
-        }
-
-        /***
-         *
-         * Retrieve products by id
-         *
-         **/
-        if (isset($data['id'])) {
-            $job_db->where('id', '=', $data['id']);
-        } //End of retreiving products by id
-
-        /***
-         *
-         * Retrieve products by slug
-         *
-         **/
-        if (isset($data['slug'])) {
-            $job_db->where('slug_url', '=', $data['slug']);
-        } //End of retreiving products by slug
-
-        /***
-         *
-         * Retrieve Job Vacancy by position
-         *
-         **/
-        if (isset($data['post'])) {
-            if (isset($data['locale']) and Str::lower($data['locale']) == $lang_english) {
-                $job_db->where('position', '=', $data['post']);
-            } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_burmese) {
-                $job_db->where('position_burmese', '=', $data['post']);
-            } else {
-                $job_db->where('position_chinese', '=', $data['post']);
-            }
-        } //End of retreiving Job Vacancy by position
-
-        /***
-         *
-         * Retrieve Job Vacancy by department
-         *
-         **/
-        if (isset($data['depart'])) {
-            if (isset($data['locale']) and Str::lower($data['locale']) == $lang_english) {
-                $job_db->where('department', '=', $data['depart']);
-            } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_burmese) {
-                $job_db->where('department_burmese', '=', $data['depart']);
-            } else {
-                $job_db->where('department_chinese', '=', $data['depart']);
-            }
-        } //End of retreiving Job Vacancy by department
-
-        /***
-         *
-         * Retrieve Job Vacancy by status
-         *
-         **/
-        if (isset($data['status'])) {
-            $job_db->where('is_vacant', '=', Str::lower($data['status']) == 'open' ? true : false);
-        } //End of retreiving Job Vacancy by status
-
-        /***
-         *
-         * Retrieve Job Vacancy by created
-         *
-         **/
-        if (isset($data['created'])) {
-            $job_db->where('created_at', '=', date('Y-m-d', strtotime($data['created'])));
-        } //End of retreiving Job Vacancy by created
-
-        /***
-         *
-         * Retrieve Job Vacancy ordered by
-         *
-         **/
-        if (isset($data['order'])) {
-            if (isset($data['locale']) and Str::lower($data['locale']) == $lang_english) {
-                if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
-                    if (isset($data['order']['field'])) {
-                        $job_db->orderByDesc(Str::lower($data['order']['field']));
-                    } else {
-                        $job_db->orderByDesc('position');
-                    }
-                } else {
-                    if (isset($data['order']['field'])) {
-                        $job_db->orderBy(Str::lower($data['order']['field']));
-                    } else {
-                        $job_db->orderBy('position');
-                    }
-                }
-            } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
-                if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
-                    if (isset($data['order']['field'])) {
-                        $job_db->orderByDesc(Str::lower($data['order']['field']) . '_chinese');
-                    } else {
-                        $job_db->orderByDesc('position_chinese');
-                    }
-                } else {
-                    if (isset($data['order']['field'])) {
-                        $job_db->orderBy(Str::lower($data['order']['field']) . '_chinese');
-                    } else {
-                        $job_db->orderBy('position_chinese');
-                    }
-                }
-            } else {
-                if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
-                    if (isset($data['order']['field'])) {
-                        $job_db->orderByDesc(Str::lower($data['order']['field']) . '_burmese');
-                    } else {
-                        $job_db->orderByDesc('position_burmese');
-                    }
-                } else {
-                    if (isset($data['order']['field'])) {
-                        $job_db->orderBy(Str::lower($data['order']['field']) . '_burmese');
-                    } else {
-                        $job_db->orderBy('position_burmese');
-                    }
-                }
-            }
-        } //End of retreiving products ordered by
+        $job_db = $this->getJobsAPI($data);
 
         /*
         * Record count
@@ -732,23 +478,186 @@ class JobController extends Controller
             }
         } // End of limit the number of results.
 
-        $products = $job_db->get();
+        $jobs = $job_db->get();
 
-        if ($products->count() > 0) {
-            $response = [
-                'code' => 200,
-                'status' => 'success',
-                'locale' => $localeData,
-                'count' => $total_count,
-                'data' => $products,
-            ];
-        } else {
-            $response = [
-                'code' => 204,
-                'status' => 'no content',
+        $result = [];
+
+        foreach ($jobs as $row) {
+            $result[] = [
+                'id' => $row->id,
+                'position' => json_decode($row->position),
+                'department' => json_decode($row->department),
+                'description' => json_decode($row->description),
+                'due_text' => json_decode($row->due_text),
+                'due_date' => $row->due_date,
+                'slug_url' => $row->slug_url,
+                'is_vacant' => $row->is_vacant,
+                'instant' => $row->instant,
+                'created_at' => $row->created_at,
+                'updated_at' => $row->updated_at
             ];
         }
 
-        return response()->json($response);
+        $response = [
+            'code' => 200,
+            'status' => 'success',
+            'locale' => $this->getLang($data),
+            'count' => $total_count,
+            'data' => $result,
+        ];
+
+        return response()->json($response, $response_code);
+    }
+
+    /**
+     * API Detail of Job Vacancy data.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function postDetail(Request $request)
+    {
+        // Variables
+        $response_code = 200;
+        $data = $request->json()->all();
+        $result = [];
+
+        if ((isset($data['slug_url']) or isset($data['id'])) and isset($data['locale'])) {
+            $job_db = $this->getJobsAPI($data);
+
+            $jobs = $job_db->first();
+
+            $response = [
+                'code' => 200,
+                'status' => 'success',
+                'locale' => $this->getLang($data),
+                'id' => $jobs->id,
+                'position' => json_decode($jobs->position),
+                'department' => json_decode($jobs->department),
+                'description' => json_decode($jobs->description),
+                'due_text' => json_decode($jobs->due_text),
+                'due_date' => $jobs->due_date,
+                'slug_url' => $jobs->slug_url,
+                'is_vacant' => $jobs->is_vacant,
+                'instant' => $jobs->instant,
+                'created_at' => $jobs->created_at,
+                'updated_at' => $jobs->updated_at
+            ];
+        } else {
+            $response = [
+                'code' => 400,
+                'status' => 'Input JSON must have "locale" and ("id" or "slug_url").',
+            ];
+
+            $response_code = 400;
+        }
+
+        return response()->json($response, $response_code);
+    }
+
+    private function getLang($data)
+    {
+        $lang_english = 'en-us';
+        $lang_chinese = 'zh-cn';
+        $lang_burmese = 'my-mm';
+
+        if (isset($data['locale']) and Str::lower($data['locale']) == $lang_english) {
+            return ['lang' => 'en-US', 'name' => 'English'];
+        } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_chinese) {
+            return ['lang' => 'zh-CN', 'name' => 'Chinese'];
+        } else if (isset($data['locale']) and Str::lower($data['locale']) == $lang_burmese) {
+            return ['lang' => 'my-MM', 'name' => 'Burmese'];
+        } else {
+            return ['lang' => 'en-US/my-MM/zh-CN', 'name' => 'English/Burmese/Chinese'];
+        }
+    }
+
+    private function getJobsAPI($data)
+    {
+        $job_db = DB::table('jobs')
+            ->select(
+                'jobs.id',
+                DB::raw('JSON_EXTRACT(jobs.position, \'$."' . Str::lower($data['locale']) . '"\') as position'),
+                DB::raw('JSON_EXTRACT(jobs.department, \'$."' . Str::lower($data['locale']) . '"\') as department'),
+                DB::raw('JSON_EXTRACT(jobs.description, \'$."' . Str::lower($data['locale']) . '"\') as description'),
+                DB::raw('JSON_EXTRACT(jobs.due_text, \'$."' . Str::lower($data['locale']) . '"\') as due_text'),
+                'jobs.due_date',
+                'jobs.slug_url',
+                'jobs.is_vacant',
+                'jobs.instant',
+                'jobs.created_at',
+                'jobs.updated_at'
+            );
+
+        /***
+         *
+         * Retrieve jobs by id
+         *
+         **/
+        if (isset($data['id'])) {
+            $job_db->where('jobs.id', '=', $data['id']);
+        } //End of retreiving jobs by id
+
+        /***
+         *
+         * Retrieve jobs by keyword
+         *
+         **/
+        if (isset($data['keyword'])) {
+            $job_db
+                ->where(DB::raw('JSON_EXTRACT(jobs.position, \'$."' . Str::lower($data['locale']) . '"\')'), 'LIKE', "%{$data['keyword']}%")
+                ->orWhere('jobs.department', 'LIKE', "%{$data['keyword']}%");
+        } //End of retreiving jobs by keyword
+
+        /***
+         *
+         * Retrieve jobs by vacant
+         *
+         **/
+        if (isset($data['vacant'])) {
+            $job_db->where('jobs.is_vacant', '=', $data['vacant']);
+        } //End of retreiving jobs by vacant
+
+        /***
+         *
+         * Retrieve jobs by instant
+         *
+         **/
+        if (isset($data['instant'])) {
+            $job_db->where('jobs.instant', '=', $data['instant']);
+        } //End of retreiving jobs by instant
+
+        /***
+         *
+         * Retrieve jobs by slug url
+         *
+         **/
+        if (isset($data['slug_url'])) {
+            $job_db->where('jobs.slug_url', '=', $data['slug_url']);
+        } //End of retreiving jobs by slug url
+
+        /***
+         *
+         * Retrieve jobs by due date
+         *
+         **/
+        if (isset($data['due'])) {
+            $job_db->whereDate('jobs.due_date', '=', date("Y-m-d", strtotime($data['due'])));
+        } //End of retreiving jobs by due date
+
+        /***
+         *
+         * Retrieve products ordered by
+         *
+         **/
+        if (isset($data['order'])) {
+            if (isset($data['order']['orderby']) and Str::lower($data['order']['orderby']) == 'desc') {
+                $job_db->orderByDesc(Str::lower($data['order']['field']));
+            } else {
+                $job_db->orderBy(Str::lower($data['order']['field']));
+            }
+        } //End of retreiving products ordered by
+
+        return $job_db;
     }
 }

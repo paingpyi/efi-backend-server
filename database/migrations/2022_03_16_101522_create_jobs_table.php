@@ -15,21 +15,14 @@ return new class extends Migration
     {
         Schema::create('jobs', function (Blueprint $table) {
             $table->id();
-            $table->string('position');
-            $table->string('position_burmese');
-            $table->string('position_chinese');
-            $table->string('department');
-            $table->string('department_burmese');
-            $table->string('department_chinese');
-            $table->longText('description');
-            $table->longText('description_burmese');
-            $table->longText('description_chinese');
-            $table->string('due');
-            $table->string('due_burmese');
-            $table->string('due_chinese');
+            $table->json('position');
+            $table->json('department');
+            $table->json('description');
+            $table->json('due_text');
             $table->date('due_date')->nullable();
             $table->string('slug_url');
             $table->boolean('is_vacant')->default(true);
+            $table->boolean('instant')->default(false);
             $table->timestamps();
         });
     }

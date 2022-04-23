@@ -48,16 +48,18 @@ Route::group(['prefix' => 'pages', 'namespace' => 'Content'], function () {
     Route::post('/', [PageController::class, 'postList']);
 });
 
-Route::group(['prefix' => 'news', 'namespace' => 'Content'], function () {
+/*Route::group(['prefix' => 'news', 'namespace' => 'Content'], function () {
     Route::get('/{para?}', [NewsController::class, 'getlist']);
 
     Route::post('/', [NewsController::class, 'postList']);
-});
+});*/
 
 Route::group(['prefix' => 'career', 'namespace' => 'Content'], function () {
-    Route::get('/{para?}', [JobController::class, 'getlist']);
+    //Route::get('/{para?}', [JobController::class, 'getlist']);
 
     Route::post('/', [JobController::class, 'postList']);
+
+    Route::post('/detail', [JobController::class, 'postDetail']);
 });
 
 Route::group(['prefix' => 'csr', 'namespace' => 'Content'], function () {
