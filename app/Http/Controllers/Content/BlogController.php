@@ -688,14 +688,14 @@ class BlogController extends Controller
             ];
         } else {
             $response = [
-                'code' => 404,
+                'code' => 200,
                 'status' => 'no content',
                 'locale' => $this->getLang($data),
                 'count' => $total_count,
                 'data' => [],
             ];
 
-            $response_code = 404;
+            $response_code = 200;
         }
 
         return response()->json($response, $response_code);
@@ -826,6 +826,7 @@ class BlogController extends Controller
                 $response = [
                     'code' => 404,
                     'status' => 'no content',
+                    'data' => []
                 ];
 
                 $response_code = 404;

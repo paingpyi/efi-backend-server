@@ -499,13 +499,23 @@ class JobController extends Controller
             ];
         }
 
-        $response = [
-            'code' => 200,
-            'status' => ($total_count > 0) ? 'success' : 'no content',
-            'locale' => $this->getLang($data),
-            'count' => $total_count,
-            'data' => $result,
-        ];
+        if($total_count > 0) {
+            $response = [
+                'code' => 200,
+                'status' => 'success',
+                'locale' => $this->getLang($data),
+                'count' => $total_count,
+                'data' => $result,
+            ];
+        } else {
+            $response = [
+                'code' => 200,
+                'status' => 'no content',
+                'data' => []
+            ];
+
+            $response_code = 200;
+        }
 
         return response()->json($response, $response_code);
     }
@@ -549,6 +559,7 @@ class JobController extends Controller
                 $response = [
                     'code' => 404,
                     'status' => 'no content',
+                    'data' => []
                 ];
 
                 $response_code = 404;

@@ -624,6 +624,7 @@ class ProductController extends Controller
                 $response = [
                     'code' => 404,
                     'status' => 'no content',
+                    'data' => []
                 ];
 
                 $response_code = 404;
