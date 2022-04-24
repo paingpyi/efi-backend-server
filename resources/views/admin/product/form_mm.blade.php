@@ -123,18 +123,18 @@
 <div class="row">
     <div class="col">
         <div class="form-group">
-            <label for="diagram_table_image_width[]"><i class="flag-icon flag-icon-mm mr-2"></i> Image Width
+            <label for="diagram_table_image_width_burmese[]"><i class="flag-icon flag-icon-mm mr-2"></i> Image Width
                 <span class="text-danger">*</span></label>
-            <input type="text" name="diagram_table_image_width[]" value="{{ old('diagram_table_image_width[]') }}"
-                class="form-control" id="diagram_table_image_width2" placeholder="Image Width (px)">
+            <input type="text" name="diagram_table_image_width_burmese[]" value="{{ old('diagram_table_image_width_burmese[]') }}"
+                class="form-control" id="diagram_table_image_width_burmese2" placeholder="Image Width (px)">
         </div>
     </div> <!-- /. Image width -->
     <div class="col">
         <div class="form-group">
-            <label for="diagram_table_image_height[]"><i class="flag-icon flag-icon-mm mr-2"></i> Image Height
+            <label for="diagram_table_image_height_burmese[]"><i class="flag-icon flag-icon-mm mr-2"></i> Image Height
                 <span class="text-danger">*</span></label>
-            <input type="text" name="diagram_table_image_height[]" value="{{ old('diagram_table_image_height[]') }}"
-                class="form-control" id="diagram_table_image_height2" placeholder="Image Height (px)">
+            <input type="text" name="diagram_table_image_height_burmese[]" value="{{ old('diagram_table_image_height_burmese[]') }}"
+                class="form-control" id="diagram_table_image_height_burmese2" placeholder="Image Height (px)">
         </div>
     </div> <!-- /. Image height -->
 </div> <!-- /. Image width and height -->
@@ -143,28 +143,28 @@
 <hr>
 <h4>Apply Insurance Block</h4>
 <div class="form-group">
-    <label for="apply_insurance_title"><i class="flag-icon flag-icon-mm mr-2"></i>
+    <label for="apply_insurance_title_burmese"><i class="flag-icon flag-icon-mm mr-2"></i>
         Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="apply_insurance_title" value="{{ old('apply_insurance_title') }}" class="form-control"
-        id="apply_insurance_title">
-    @error('apply_insurance_title')
+    <input type="text" name="apply_insurance_title_burmese" value="{{ old('apply_insurance_title_burmese') }}" class="form-control"
+        id="apply_insurance_title_burmese">
+    @error('apply_insurance_title_burmese')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
 </div>
 <div class="form-group">
-    <label for="apply_insurance_description"><i class="flag-icon flag-icon-mm mr-2"></i>
+    <label for="apply_insurance_description_burmese"><i class="flag-icon flag-icon-mm mr-2"></i>
         Description
         <span class="text-danger">*</span></label>
-    <textarea name="apply_insurance_description" class="summernote"
-        id="apply_insurance_description">{{ old('apply_insurance_description') }}</textarea>
+    <textarea name="apply_insurance_description_burmese" class="summernote"
+        id="apply_insurance_description_burmese">{{ old('apply_insurance_description_burmese') }}</textarea>
 </div>
 <div class="form-group">
-    <label for="apply_insurance_buttonText"><i class="flag-icon flag-icon-mm mr-2"></i> Button Text
+    <label for="apply_insurance_buttonText_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Button Text
         <span class="text-danger">*</span></label>
-    <input type="text" name="apply_insurance_buttonText" value="{{ old('apply_insurance_buttonText') }}"
-        class="form-control" id="apply_insurance_buttonText">
-    @error('apply_insurance_buttonText')
+    <input type="text" name="apply_insurance_buttonText_burmese" value="{{ old('apply_insurance_buttonText_burmese') }}"
+        class="form-control" id="apply_insurance_buttonText_burmese">
+    @error('apply_insurance_buttonText_burmese')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
 </div>
@@ -173,43 +173,43 @@
 <hr>
 <h4>Why work with us Block</h4>
 <div class="form-group">
-    <label for="why_work_title"><i class="flag-icon flag-icon-mm mr-2"></i> Title
+    <label for="why_work_title_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="why_work_title" value="{{ old('why_work_title') }}" class="form-control"
-        id="why_work_title">
-    @error('why_work_title')
+    <input type="text" name="why_work_title_burmese" value="{{ old('why_work_title_burmese') }}" class="form-control"
+        id="why_work_title_burmese">
+    @error('why_work_title_burmese')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
 </div>
 <div class="form-group">
-    <label for="why_work_description"><i class="flag-icon flag-icon-mm mr-2"></i>
+    <label for="why_work_description_burmese"><i class="flag-icon flag-icon-mm mr-2"></i>
         Description
         <span class="text-danger">*</span></label>
-    <textarea name="why_work_description" class="summernote"
-        id="why_work_description">{{ old('why_work_description') }}</textarea>
+    <textarea name="why_work_description_burmese" class="summernote"
+        id="why_work_description_burmese">{{ old('why_work_description_burmese') }}</textarea>
 </div>
 <div class="form-group">
     <div class="input-group">
         <span class="input-group-btn">
-            <a id="why_work_image" data-input="why_work_image_thumbnail" data-preview="why_work_image_holder"
+            <a id="why_work_image_burmese" data-input="why_work_image_thumbnail_burmese" data-preview="why_work_image_burmese_holder"
                 class="btn btn-primary lfm">
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
-        <input id="why_work_image_thumbnail" class="form-control" type="text" name="why_work_image">
+        <input id="why_work_image_thumbnail_burmese" class="form-control" type="text" name="why_work_image_burmese">
     </div>
-    <div id="why_work_image_holder" class="img-thumbnail mx-auto d-block mt-3"></div>
+    <div id="why_work_image_burmese_holder" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Why Work With Us Image -->
 <!-- /. End of Why Work With Us Block -->
 <!-- Additional Benifits -->
 <hr>
 <h4>Additional Benifits Block</h4>
 <div class="form-group">
-    <label for="additional_title"><i class="flag-icon flag-icon-mm mr-2"></i> Title
+    <label for="additional_title_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="additional_title" value="{{ old('additional_title') }}" class="form-control"
-        id="additional_title">
-    @error('additional_title')
+    <input type="text" name="additional_title_burmese" value="{{ old('additional_title_burmese') }}" class="form-control"
+        id="additional_title_burmese">
+    @error('additional_title_burmese')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
 </div>
@@ -218,20 +218,20 @@
     <label>Icon <span class="text-danger">*</span></label>
     <div class="input-group">
         <span class="input-group-btn">
-            <a id="additional_icon1" data-input="additional_icon_thumbnail" data-preview="additional_icon_holder"
+            <a id="additional_icon_burmese1" data-input="additional_icon_thumbnail_burmese" data-preview="additional_icon_burmese_holder"
                 class="btn btn-primary lfm">
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
-        <input id="additional_icon_thumbnail1" class="form-control" type="text" name="additional_icon[]">
+        <input id="additional_icon_thumbnail_burmese1" class="form-control" type="text" name="additional_icon_burmese[]">
     </div>
     <div class="row mt-3">
         <div class="col-3">
-            <div id="additional_icon_holder" class="img-thumbnail mx-auto d-block"></div>
+            <div id="additional_icon_burmese_holder" class="img-thumbnail mx-auto d-block"></div>
         </div>
         <div class="col-9">
-            <textarea name="additional_iconText[]" class="summernote"
-                id="additional_iconText1">{{ old('additional_iconText[0]') }}</textarea>
+            <textarea name="additional_iconText_burmese[]" class="summernote"
+                id="additional_iconText_burmese1">{{ old('additional_iconText_burmese[0]') }}</textarea>
         </div>
     </div>
 </div> <!-- /. Additional Benefit Image -->
