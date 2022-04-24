@@ -60,6 +60,8 @@ Route::group(['prefix' => 'career', 'namespace' => 'Content'], function () {
     Route::post('/', [JobController::class, 'postList']);
 
     Route::post('/detail', [JobController::class, 'postDetail']);
+
+    Route::post('/apply', [JobController::class, 'applyJob']);
 });
 
 Route::group(['prefix' => 'csr', 'namespace' => 'Content'], function () {

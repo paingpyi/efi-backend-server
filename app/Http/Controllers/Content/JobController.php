@@ -6,6 +6,7 @@ use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Controllers\Controller;
+use App\Models\ApplyJob;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -553,6 +554,64 @@ class JobController extends Controller
         }
 
         return response()->json($response, $response_code);
+    }
+
+    /**
+     * API Apply Job.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function applyJob(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'job_id' => 'required|numeric',
+            'name' => 'required|max:255',
+            'email' => 'required|email',
+            'message' => 'required',
+            'cv' => 'required|mimes:pdf,doc,docx',
+        ]);
+
+        if ($validator->fails()) {
+            $response = [
+                'code' => 400,
+                'status' => 'Input JSON must have "locale" and ("id" or "slug_url").',
+                'errors' => $validator->errors()
+            ];
+
+            $response_code = 400;
+
+            return response()->json($response, $response_code);
+        }
+
+        if ($request->file()) {
+            $CVfileName = time() . '_' . $request->cv->getClientOriginalName();
+            $CVfilePath = $request->file('cv')->storeAs('uploads/cv', $CVfileName, 'public');
+
+            $ApplyJob = [
+                'job_id' => $request->job_id,
+                'name' => $request->name,
+                'email' => $request->email,
+                'message' => $request->message,
+                'cv' => '/storage/' . $CVfilePath,
+            ];
+
+            ApplyJob::create($ApplyJob);
+
+            $response = [
+                'code' => 200,
+                'status' => 'Successfully saved',
+                'job_id' => $request->job_id,
+                'name' => $request->name,
+                'email' => $request->email,
+                'message' => $request->message,
+                'cv' => config('app.url') . '/storage/' . $CVfilePath,
+            ];
+
+            $response_code = 200;
+
+            return response()->json($response, $response_code);
+        }
     }
 
     private function getLang($data)

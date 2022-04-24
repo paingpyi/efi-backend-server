@@ -510,14 +510,14 @@ class ProductController extends Controller
             ];
         } else {
             $response = [
-                'code' => 200,
+                'code' => 404,
                 'status' => 'no content',
                 'locale' => $this->getLang($data),
                 'count' => $total_count,
                 'data' => [],
             ];
 
-            $response_code = 200;
+            $response_code = 404;
         }
 
         return response()->json($response, $response_code);
@@ -622,11 +622,11 @@ class ProductController extends Controller
                 ];
             } else {
                 $response = [
-                    'code' => 200,
+                    'code' => 404,
                     'status' => 'no content',
                 ];
 
-                $response_code = 200;
+                $response_code = 404;
             }
         } else {
             $response = [
