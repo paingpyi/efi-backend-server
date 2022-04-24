@@ -89,6 +89,17 @@
                                     </div>
                                     <div id="cover_image_holder" class="img-thumbnail mx-auto d-block mt-3"></div>
                                 </div> <!-- /. Product cover image -->
+                                <div class="form-group">
+                                    <label>Product Proposal <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <a id="proposal" data-input="proposal_file" class="btn btn-primary lfm">
+                                                <i class="fa fa-picture-o"></i> Choose
+                                            </a>
+                                        </span>
+                                        <input id="proposal_file" class="form-control" type="text" name="proposal_file">
+                                    </div>
+                                </div> <!-- /. Product Proposal -->
                                 <hr>
                                 <div class="form-group">
                                     <label for="category">Category <span class="text-danger">*</span></label>
@@ -143,7 +154,6 @@
     <!-- Summernote -->
     <script src="{{ asset('adminlite/plugins/summernote/summernote-bs4.min.js') }}"></script>
     <!-- Image Upload -->
-    <script src="{{ asset('adminlite/plugins/bootstrap-imageupload/bootstrap-imageupload.js') }}"></script>
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('adminlite/dist/js/demo.js') }}"></script>
@@ -151,6 +161,7 @@
     <script>
         $(function() {
             $('.lfm').filemanager('image');
+            $('#file').filemanager('file');
 
             //Initialize Select2 Elements
             $('.select2').select2({
@@ -182,8 +193,6 @@
                     ['view', ['fullscreen']],
                 ],
             });
-
-            $('.imageupload').imageupload();
 
             $.validator.addMethod("titleRegex", function(value, element) {
                 return this.optional(element) || /^[a-z0-9\-\s]+$/i.test(value);

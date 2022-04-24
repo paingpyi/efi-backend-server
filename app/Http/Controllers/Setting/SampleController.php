@@ -953,6 +953,7 @@ class SampleController extends Controller
                     'slug_url' => Str::slug($product_info[$i][0], '-'),
                     'quote_machine_name' => 'quotes/general/' . Str::slug($product_info[$i][0], '-'),
                     'claim_machine_name' => 'claim/general/' . Str::slug($product_info[$i][0], '-'),
+                    'proposal_file' => '/storage/uploads/proposals/' . Str::slug($product_info[$i][0], '-') . '.pdf',
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now()
                 ]);
