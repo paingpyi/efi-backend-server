@@ -6,10 +6,10 @@ use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Controllers\Controller;
-use App\Models\ApplyJob;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Models\ApplyJob;
 use App\Models\Job;
 
 class JobController extends Controller
@@ -501,7 +501,7 @@ class JobController extends Controller
 
         $response = [
             'code' => 200,
-            'status' => 'success',
+            'status' => ($total_count > 0) ? 'success' : 'no content',
             'locale' => $this->getLang($data),
             'count' => $total_count,
             'data' => $result,
@@ -528,22 +528,31 @@ class JobController extends Controller
 
             $jobs = $job_db->first();
 
-            $response = [
-                'code' => 200,
-                'status' => 'success',
-                'locale' => $this->getLang($data),
-                'id' => $jobs->id,
-                'position' => json_decode($jobs->position),
-                'department' => json_decode($jobs->department),
-                'description' => json_decode($jobs->description),
-                'due_text' => json_decode($jobs->due_text),
-                'due_date' => $jobs->due_date,
-                'slug_url' => $jobs->slug_url,
-                'is_vacant' => $jobs->is_vacant,
-                'instant' => $jobs->instant,
-                'created_at' => $jobs->created_at,
-                'updated_at' => $jobs->updated_at
-            ];
+            if (isset($jobs)) {
+                $response = [
+                    'code' => 200,
+                    'status' => 'success',
+                    'locale' => $this->getLang($data),
+                    'id' => $jobs->id,
+                    'position' => json_decode($jobs->position),
+                    'department' => json_decode($jobs->department),
+                    'description' => json_decode($jobs->description),
+                    'due_text' => json_decode($jobs->due_text),
+                    'due_date' => $jobs->due_date,
+                    'slug_url' => $jobs->slug_url,
+                    'is_vacant' => $jobs->is_vacant,
+                    'instant' => $jobs->instant,
+                    'created_at' => $jobs->created_at,
+                    'updated_at' => $jobs->updated_at
+                ];
+            } else {
+                $response = [
+                    'code' => 404,
+                    'status' => 'no content',
+                ];
+
+                $response_code = 404;
+            }
         } else {
             $response = [
                 'code' => 400,
