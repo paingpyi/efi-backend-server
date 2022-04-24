@@ -28,7 +28,7 @@
     <label for="lr_description"><i class="flag-icon flag-icon-us mr-2"></i>
         Description
         <span class="text-danger">*</span></label>
-    <textarea name="lr_description" class="summernote" required
+    <textarea name="lr_description" class="summernote"
         id="lr_description">{{ old('lr_description') }}</textarea>
 </div>
 <div class="form-group">
@@ -59,7 +59,7 @@
     <label for="diagram_table_description1"><i class="flag-icon flag-icon-us mr-2"></i>
         Description
         <span class="text-danger">*</span></label>
-    <textarea name="diagram_table_description[]" class="summernote" required
+    <textarea name="diagram_table_description[]" class="summernote"
         id="diagram_table_description1">{{ old('diagram_table_description[0]') }}</textarea>
 </div>
 <div class="form-group">
@@ -74,11 +74,29 @@
     </div>
     <div id="diagram_table_image_holder" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Diagram and Table Image -->
+<div class="row">
+    <div class="col">
+        <div class="form-group">
+            <label for="diagram_table_image_width[]"><i class="flag-icon flag-icon-us mr-2"></i> Image Width
+                <span class="text-danger">*</span></label>
+            <input type="text" name="diagram_table_image_width[]" value="{{ old('diagram_table_image_width[]') }}"
+                class="form-control" id="diagram_table_image_width1" placeholder="Image Width (px)">
+        </div>
+    </div> <!-- /. Image width -->
+    <div class="col">
+        <div class="form-group">
+            <label for="diagram_table_image_height[]"><i class="flag-icon flag-icon-us mr-2"></i> Image Height
+                <span class="text-danger">*</span></label>
+            <input type="text" name="diagram_table_image_height[]" value="{{ old('diagram_table_image_height[]') }}"
+                class="form-control" id="diagram_table_image_height1" placeholder="Image Height (px)">
+        </div>
+    </div> <!-- /. Image height -->
+</div> <!-- /. Image width and height -->
 <div class="form-group">
     <label for="diagram_table_title[]"><i class="flag-icon flag-icon-us mr-2"></i> Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="diagram_table_title[]" value="{{ old('diagram_table_title[1]') }}" class="form-control"
-        id="diagram_table_title2">
+    <input type="text" name="diagram_table_title[]" value="{{ old('diagram_table_title[1]') }}"
+        class="form-control" id="diagram_table_title2">
     @error('diagram_table_title[0]')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
@@ -87,7 +105,7 @@
     <label for="diagram_table_description2"><i class="flag-icon flag-icon-us mr-2"></i>
         Description
         <span class="text-danger">*</span></label>
-    <textarea name="diagram_table_description[]" class="summernote" required
+    <textarea name="diagram_table_description[]" class="summernote"
         id="diagram_table_description2">{{ old('diagram_table_description[1]') }}</textarea>
 </div>
 <div class="form-group">
@@ -102,6 +120,24 @@
     </div>
     <div id="diagram_table_image_holder2" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Diagram and Table Image -->
+<div class="row">
+    <div class="col">
+        <div class="form-group">
+            <label for="diagram_table_image_width[]"><i class="flag-icon flag-icon-us mr-2"></i> Image Width
+                <span class="text-danger">*</span></label>
+            <input type="text" name="diagram_table_image_width[]" value="{{ old('diagram_table_image_width[]') }}"
+                class="form-control" id="diagram_table_image_width2" placeholder="Image Width (px)">
+        </div>
+    </div> <!-- /. Image width -->
+    <div class="col">
+        <div class="form-group">
+            <label for="diagram_table_image_height[]"><i class="flag-icon flag-icon-us mr-2"></i> Image Height
+                <span class="text-danger">*</span></label>
+            <input type="text" name="diagram_table_image_height[]" value="{{ old('diagram_table_image_height[]') }}"
+                class="form-control" id="diagram_table_image_height2" placeholder="Image Height (px)">
+        </div>
+    </div> <!-- /. Image height -->
+</div> <!-- /. Image width and height -->
 <!-- /. End of Diagram and Table -->
 <!-- Apply Insurance Block -->
 <hr>
@@ -120,7 +156,7 @@
     <label for="apply_insurance_description"><i class="flag-icon flag-icon-us mr-2"></i>
         Description
         <span class="text-danger">*</span></label>
-    <textarea name="apply_insurance_description" class="summernote" required
+    <textarea name="apply_insurance_description" class="summernote"
         id="apply_insurance_description">{{ old('apply_insurance_description') }}</textarea>
 </div>
 <div class="form-group">
@@ -135,7 +171,7 @@
 <!-- /. End of Apply Insurance Block -->
 <!-- Why Work With Us Block -->
 <hr>
-<h4>Why work with us</h4>
+<h4>Why work with us Block</h4>
 <div class="form-group">
     <label for="why_work_title"><i class="flag-icon flag-icon-us mr-2"></i> Title
         <span class="text-danger">*</span></label>
@@ -149,7 +185,7 @@
     <label for="why_work_description"><i class="flag-icon flag-icon-us mr-2"></i>
         Description
         <span class="text-danger">*</span></label>
-    <textarea name="why_work_description" class="summernote" required
+    <textarea name="why_work_description" class="summernote"
         id="why_work_description">{{ old('why_work_description') }}</textarea>
 </div>
 <div class="form-group">
@@ -167,7 +203,7 @@
 <!-- /. End of Why Work With Us Block -->
 <!-- Additional Benifits -->
 <hr>
-<h4>Additional Benifits</h4>
+<h4>Additional Benifits Block</h4>
 <div class="form-group">
     <label for="additional_title"><i class="flag-icon flag-icon-us mr-2"></i> Title
         <span class="text-danger">*</span></label>
@@ -182,19 +218,19 @@
     <label>Icon <span class="text-danger">*</span></label>
     <div class="input-group">
         <span class="input-group-btn">
-            <a id="additional_icon" data-input="additional_icon_thumbnail" data-preview="additional_icon_holder"
+            <a id="additional_icon1" data-input="additional_icon_thumbnail" data-preview="additional_icon_holder"
                 class="btn btn-primary lfm">
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
-        <input id="additional_icon_thumbnail" class="form-control" type="text" name="additional_icon[]">
+        <input id="additional_icon_thumbnail1" class="form-control" type="text" name="additional_icon[]">
     </div>
     <div class="row mt-3">
         <div class="col-3">
             <div id="additional_icon_holder" class="img-thumbnail mx-auto d-block"></div>
         </div>
         <div class="col-9">
-            <textarea name="additional_iconText[]" class="summernote" required
+            <textarea name="additional_iconText[]" class="summernote"
                 id="additional_iconText1">{{ old('additional_iconText[0]') }}</textarea>
         </div>
     </div>
@@ -215,7 +251,7 @@
             <div id="additional_icon_holder2" class="img-thumbnail mx-auto d-block"></div>
         </div>
         <div class="col-9">
-            <textarea name="additional_iconText[]" class="summernote" required
+            <textarea name="additional_iconText[]" class="summernote"
                 id="additional_iconText2">{{ old('additional_iconText[1]') }}</textarea>
         </div>
     </div>
@@ -236,7 +272,7 @@
             <div id="additional_icon_holder3" class="img-thumbnail mx-auto d-block"></div>
         </div>
         <div class="col-9">
-            <textarea name="additional_iconText[]" class="summernote" required
+            <textarea name="additional_iconText[]" class="summernote"
                 id="additional_iconText3">{{ old('additional_iconText[2]') }}</textarea>
         </div>
     </div>
@@ -257,7 +293,7 @@
             <div id="additional_icon_holder4" class="img-thumbnail mx-auto d-block"></div>
         </div>
         <div class="col-9">
-            <textarea name="additional_iconText[]" class="summernote" required
+            <textarea name="additional_iconText[]" class="summernote"
                 id="additional_iconText4">{{ old('additional_iconText[3]') }}</textarea>
         </div>
     </div>
@@ -266,20 +302,20 @@
     <label>Icon <span class="text-danger">*</span></label>
     <div class="input-group">
         <span class="input-group-btn">
-            <a id="additional_icon4" data-input="additional_icon_thumbnail4" data-preview="additional_icon_holder4"
+            <a id="additional_icon5" data-input="additional_icon_thumbnail5" data-preview="additional_icon_holder5"
                 class="btn btn-primary lfm">
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
-        <input id="additional_icon_thumbnail4" class="form-control" type="text" name="additional_icon[]">
+        <input id="additional_icon_thumbnail5" class="form-control" type="text" name="additional_icon[]">
     </div>
     <div class="row mt-3">
         <div class="col-3">
-            <div id="additional_icon_holder4" class="img-thumbnail mx-auto d-block"></div>
+            <div id="additional_icon_holder5" class="img-thumbnail mx-auto d-block"></div>
         </div>
         <div class="col-9">
-            <textarea name="additional_iconText[]" class="summernote" required
-                id="additional_iconText4">{{ old('additional_iconText[3]') }}</textarea>
+            <textarea name="additional_iconText[]" class="summernote"
+                id="additional_iconText5">{{ old('additional_iconText[4]') }}</textarea>
         </div>
     </div>
 </div> <!-- /. Additional Benefit Image -->
@@ -290,7 +326,7 @@
 <div class="form-group">
     <label for="attachments_title1"><i class="flag-icon flag-icon-us mr-2"></i> Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="attachments_title[0]" value="{{ old('attachments_title[0]') }}" class="form-control"
+    <input type="text" name="attachments_title[]" value="{{ old('attachments_title[0]') }}" class="form-control"
         id="attachments_title1">
     @error('attachments_title[0]')
         <div class="alert alert-danger">{{ $message }}</div>
@@ -300,7 +336,7 @@
     <label for="attachments_description1"><i class="flag-icon flag-icon-us mr-2"></i>
         Description
         <span class="text-danger">*</span></label>
-    <textarea name="attachments_description[0]" class="summernote" required
+    <textarea name="attachments_description[]" class="summernote"
         id="attachments_description1">{{ old('attachments_description[0]') }}</textarea>
 </div>
 <div class="form-group">
@@ -317,7 +353,7 @@
     <div id="additional_icon_holder4" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Attachment Image -->
 <div class="form-group">
-    <label for="attachments_buttonText1"><i class="flag-icon flag-icon-us mr-2"></i> buttonText
+    <label for="attachments_buttonText1"><i class="flag-icon flag-icon-us mr-2"></i> Button Text
         <span class="text-danger">*</span></label>
     <input type="text" name="attachments_buttonText[]" value="{{ old('attachments_buttonText[0]') }}"
         class="form-control" id="attachments_buttonText1">
@@ -325,7 +361,7 @@
 <div class="form-group">
     <label for="attachments_title2"><i class="flag-icon flag-icon-us mr-2"></i> Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="attachments_title[0]" value="{{ old('attachments_title[1]') }}" class="form-control"
+    <input type="text" name="attachments_title[]" value="{{ old('attachments_title[1]') }}" class="form-control"
         id="attachments_title2">
     @error('attachments_title[1]')
         <div class="alert alert-danger">{{ $message }}</div>
@@ -335,7 +371,7 @@
     <label for="attachments_description2"><i class="flag-icon flag-icon-us mr-2"></i>
         Description
         <span class="text-danger">*</span></label>
-    <textarea name="attachments_description[1]" class="summernote" required
+    <textarea name="attachments_description[]" class="summernote"
         id="attachments_description2">{{ old('attachments_description[1]') }}</textarea>
 </div>
 <div class="form-group">
@@ -352,7 +388,7 @@
     <div id="additional_icon_holder4" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Attachment Image -->
 <div class="form-group">
-    <label for="attachments_buttonText2"><i class="flag-icon flag-icon-us mr-2"></i> buttonText
+    <label for="attachments_buttonText2"><i class="flag-icon flag-icon-us mr-2"></i> Button Text
         <span class="text-danger">*</span></label>
     <input type="text" name="attachments_buttonText[]" value="{{ old('attachments_buttonText[1]') }}"
         class="form-control" id="attachments_buttonText2">
@@ -370,59 +406,59 @@
     @enderror
 </div>
 <div class="form-group">
-    <label for="faq_title_1"><i class="flag-icon flag-icon-us mr-2"></i> Title
+    <label for="faq_question_1"><i class="flag-icon flag-icon-us mr-2"></i> Question
         <span class="text-danger">*</span></label>
-    <input type="text" name="faq_title_1" value="{{ old('faq_title_1') }}" class="form-control" id="faq_title_1">
-    @error('faq_title_1')
+    <input type="text" name="faq_question[]" value="{{ old('faq_question[0]') }}" class="form-control" id="faq_question_1">
+    @error('faq_question[0]')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
 </div>
 <div class="form-group">
-    <label for="faq_detail_1"><i class="flag-icon flag-icon-us mr-2"></i>
-        Detail
+    <label for="faq_answers_1"><i class="flag-icon flag-icon-us mr-2"></i>
+        Answers
         <span class="text-danger">*</span></label>
-    <textarea name="faq_detail_1" class="summernote" required id="faq_detail_1">{{ old('faq_detail_1') }}</textarea>
+    <textarea name="faq_answers[]" class="summernote" id="faq_answers_1">{{ old('faq_answers[0]') }}</textarea>
 </div>
 <div class="form-group">
-    <label for="faq_title_2"><i class="flag-icon flag-icon-us mr-2"></i> Title
+    <label for="faq_question_2"><i class="flag-icon flag-icon-us mr-2"></i> Question
         <span class="text-danger">*</span></label>
-    <input type="text" name="faq_title_2" value="{{ old('faq_title_2') }}" class="form-control" id="faq_title_2">
-    @error('faq_title_2')
+    <input type="text" name="faq_question[]" value="{{ old('faq_question[1]') }}" class="form-control" id="faq_question_2">
+    @error('faq_question[1]')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
 </div>
 <div class="form-group">
-    <label for="faq_detail_2"><i class="flag-icon flag-icon-us mr-2"></i>
-        Detail
+    <label for="faq_answers_2"><i class="flag-icon flag-icon-us mr-2"></i>
+        Answers
         <span class="text-danger">*</span></label>
-    <textarea name="faq_detail_2" class="summernote" required id="faq_detail_2">{{ old('faq_detail_2') }}</textarea>
+    <textarea name="faq_answers[]" class="summernote" id="faq_answers_2">{{ old('faq_answers[1]') }}</textarea>
 </div>
 <div class="form-group">
-    <label for="faq_title_3"><i class="flag-icon flag-icon-us mr-2"></i> Title
+    <label for="faq_question_3"><i class="flag-icon flag-icon-us mr-2"></i> Question
         <span class="text-danger">*</span></label>
-    <input type="text" name="faq_title_3" value="{{ old('faq_title_3') }}" class="form-control" id="faq_title_3">
-    @error('faq_title_3')
+    <input type="text" name="faq_question[]" value="{{ old('faq_question[2]') }}" class="form-control" id="faq_question_3">
+    @error('faq_question[2]')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
 </div>
 <div class="form-group">
-    <label for="faq_detail_3"><i class="flag-icon flag-icon-us mr-2"></i>
-        Detail
+    <label for="faq_answers_3"><i class="flag-icon flag-icon-us mr-2"></i>
+        Answers
         <span class="text-danger">*</span></label>
-    <textarea name="faq_detail_3" class="summernote" required id="faq_detail_3">{{ old('faq_detail_3') }}</textarea>
+    <textarea name="faq_answers[]" class="summernote" id="faq_answers_3">{{ old('faq_answers[2]') }}</textarea>
 </div>
 <div class="form-group">
-    <label for="faq_title_4"><i class="flag-icon flag-icon-us mr-2"></i> Title
+    <label for="faq_question_4"><i class="flag-icon flag-icon-us mr-2"></i> Question
         <span class="text-danger">*</span></label>
-    <input type="text" name="faq_title_4" value="{{ old('faq_title_4') }}" class="form-control" id="faq_title_4">
-    @error('faq_title_4')
+    <input type="text" name="faq_question[]" value="{{ old('faq_question[3]') }}" class="form-control" id="faq_question_4">
+    @error('faq_question[3]')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
 </div>
 <div class="form-group">
-    <label for="faq_detail_4"><i class="flag-icon flag-icon-us mr-2"></i>
-        Detail
+    <label for="faq_answers_4"><i class="flag-icon flag-icon-us mr-2"></i>
+        Answers
         <span class="text-danger">*</span></label>
-    <textarea name="faq_detail_4" class="summernote" required id="faq_detail_4">{{ old('faq_detail_4') }}</textarea>
+    <textarea name="faq_answers[]" class="summernote" id="faq_answers_4">{{ old('faq_answers[3]') }}</textarea>
 </div>
 <!-- /. End of FAQ -->

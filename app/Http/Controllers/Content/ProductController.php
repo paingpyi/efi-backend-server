@@ -23,7 +23,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = $this->getProducts(0, 'products.is_active', '=', true);
+        $products = $this->getProductsAPI(['locale'=>'en-us', 'isActive'=>true])->get();
 
         return view('admin.product.list')->with(['products' => $products]);
     }
@@ -35,7 +35,7 @@ class ProductController extends Controller
      */
     public function deactivated()
     {
-        $products = $this->getProducts(0, 'products.is_active', '=', false);
+        $products = $this->getProductsAPI(['locale'=>'en-us', 'isActive'=>false])->get();
 
         return view('admin.product.list')->with(['products' => $products]);
     }
@@ -59,7 +59,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {dd($request->all());
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:255',
             'title_burmese' => 'required|max:255',

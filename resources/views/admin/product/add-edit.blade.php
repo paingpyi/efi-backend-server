@@ -67,74 +67,28 @@
                             <div class="col-4 bg-secondary p-3">
                                 <div class="form-group">
                                     <label>Product Image <span class="text-danger">*</span></label>
-                                    @isset($product->product_photo)
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <img src="{{ asset($product->product_photo) }}" alt="Product image"
-                                                    class="img-thumbnail">
-                                            </div>
-                                        </div>
-                                    @endisset
-                                    <!-- bootstrap-imageupload. -->
-
-                                    <div class="imageupload panel panel-default card card-secondary bg-secondary">
-
-                                        <div class="panel-heading card-heading clearfix p-2">
-
-                                            <h5 class="panel-title card-title pull-left">Select Image file</h5>
-
-                                            <div class="btn-group pull-right float-right">
-
-                                                <button type="button" class="btn btn-default active">File</button>
-
-                                                <button type="button" class="btn btn-default">URL</button>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div class="file-tab panel-body card-body text-center">
-
-                                            <div class="btn-group">
-                                                <div class="btn btn-primary btn-file">
-
-                                                    <span>Browse</span>
-
-                                                    <!-- The file is stored here. -->
-
-                                                    <input type="file" name="product">
-
-                                                </div>
-
-                                                <button type="button" class="btn btn-danger">Remove</button>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="url-tab panel-body card-body">
-
-                                            <div class="input-group">
-
-                                                <input type="text" class="form-control hasclear" placeholder="Image URL">
-
-                                                <div class="input-group-btn input-group-append">
-
-                                                    <button type="button" class="btn btn-default">Submit</button>
-
-                                                </div>
-
-                                            </div>
-
-                                            <button type="button" class="btn btn-danger">Remove</button>
-
-                                            <!-- The URL is stored here. -->
-
-                                            <input type="hidden" name="product-image-url">
-
-                                        </div>
-
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <a id="image" data-input="image_thumbnail" data-preview="image_holder" class="btn btn-primary lfm">
+                                                <i class="fa fa-picture-o"></i> Choose
+                                            </a>
+                                        </span>
+                                        <input id="image_thumbnail" class="form-control" type="text" name="image">
                                     </div>
+                                    <div id="image_holder" class="img-thumbnail mx-auto d-block mt-3"></div>
                                 </div> <!-- /. Product Image -->
+                                <div class="form-group">
+                                    <label>Cover Image <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <a id="cover_image" data-input="cover_image_thumbnail" data-preview="cover_image_holder" class="btn btn-primary lfm">
+                                                <i class="fa fa-picture-o"></i> Choose
+                                            </a>
+                                        </span>
+                                        <input id="cover_image_thumbnail" class="form-control" type="text" name="cover_image">
+                                    </div>
+                                    <div id="cover_image_holder" class="img-thumbnail mx-auto d-block mt-3"></div>
+                                </div> <!-- /. Product cover image -->
                                 <hr>
                                 <div class="form-group">
                                     <label for="category">Category <span class="text-danger">*</span></label>
@@ -235,7 +189,7 @@
                 return this.optional(element) || /^[a-z0-9\-\s]+$/i.test(value);
             }, "Title must contain only letters, numbers, or dashes.");
 
-            $('#inputForm').validate({
+            /*$('#inputForm').validate({
                 rules: {
                     title: {
                         required: true,
@@ -317,7 +271,7 @@
                 unhighlight: function(element, errorClass, validClass) {
                     $(element).removeClass('is-invalid');
                 }
-            });
+            });*/
         });
     </script>
 @endsection

@@ -49,8 +49,7 @@
                                 @foreach ($products as $product)
                                     <tr>
                                         <td class="text-nowrap"><a
-                                                href="{{ route('edit#product', Illuminate\Support\Facades\Crypt::encryptString($product->id)) }}">{{ $product->title }}<br><span
-                                                    class="badge badge-info">{{ $product->title_burmese }}</span>
+                                                href="{{ route('edit#product', Illuminate\Support\Facades\Crypt::encryptString($product->id)) }}">{{ json_decode($product->title) }}
                                             </a></td>
                                         <td>{{ $product->category_name }}</td>
                                         <td class="text-nowrap">

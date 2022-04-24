@@ -28,35 +28,6 @@ with font-awesome or any other icon font library -->
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        @if (in_array('page#list', json_decode($checkPermission->permissions)))
-                            <li class="nav-item">
-                                <a href="{{ route('page#list') }}" class="nav-link">
-                                    <i class="fas fa-file nav-icon"></i>
-                                    <p>Pages</p>
-                                    <i class="fas fa-angle-left right"></i>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    @if (in_array('page#list', json_decode($checkPermission->permissions)))
-                                        <li class="nav-item">
-                                            <a href="{{ route('page#list') }}" class="nav-link">
-                                                <i class="fas fa-file nav-icon"></i>
-                                                <p>Page List</p>
-                                            </a>
-                                        </li>
-                                    @endif
-
-                                    @if (in_array('new#page', json_decode($checkPermission->permissions)))
-                                        <li class="nav-item">
-                                            <a href="{{ route('new#page') }}" class="nav-link">
-                                                <i class="fas fa-file nav-icon"></i>
-                                                <p>New page</p>
-                                            </a>
-                                        </li>
-                                    @endif
-
-                                </ul>
-                            </li>
-                        @endif
                         @if (in_array('blog#list', json_decode($checkPermission->permissions)))
                             <li class="nav-item">
                                 <a href="{{ route('blog#list') }}" class="nav-link">
@@ -79,6 +50,35 @@ with font-awesome or any other icon font library -->
                                             <a href="{{ route('new#blog') }}" class="nav-link">
                                                 <i class="fas fa-blog nav-icon"></i>
                                                 <p>New Blog</p>
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                </ul>
+                            </li>
+                        @endif
+                        @if (in_array('page#list', json_decode($checkPermission->permissions)))
+                            <li class="nav-item">
+                                <a href="{{ route('page#list') }}" class="nav-link">
+                                    <i class="fas fa-file nav-icon"></i>
+                                    <p>Pages</p>
+                                    <i class="fas fa-angle-left right"></i>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @if (in_array('page#list', json_decode($checkPermission->permissions)))
+                                        <li class="nav-item">
+                                            <a href="{{ route('page#list') }}" class="nav-link">
+                                                <i class="fas fa-file nav-icon"></i>
+                                                <p>Page List</p>
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                    @if (in_array('new#page', json_decode($checkPermission->permissions)))
+                                        <li class="nav-item">
+                                            <a href="{{ route('new#page') }}" class="nav-link">
+                                                <i class="fas fa-file nav-icon"></i>
+                                                <p>New page</p>
                                             </a>
                                         </li>
                                     @endif
@@ -124,35 +124,6 @@ with font-awesome or any other icon font library -->
                                 </ul>
                             </li>
                         @endif
-                        @if (in_array('news#list', json_decode($checkPermission->permissions)))
-                            <li class="nav-item">
-                                <a href="{{ route('news#list') }}" class="nav-link">
-                                    <i class="fas fa-newspaper nav-icon"></i>
-                                    <p>News</p>
-                                    <i class="fas fa-angle-left right"></i>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    @if (in_array('news#list', json_decode($checkPermission->permissions)))
-                                        <li class="nav-item">
-                                            <a href="{{ route('news#list') }}" class="nav-link">
-                                                <i class="fas fa-newspaper nav-icon"></i>
-                                                <p>News List</p>
-                                            </a>
-                                        </li>
-                                    @endif
-
-                                    @if (in_array('new#news', json_decode($checkPermission->permissions)))
-                                        <li class="nav-item">
-                                            <a href="{{ route('new#news') }}" class="nav-link">
-                                                <i class="fa fa-list-alt nav-icon"></i>
-                                                <p>Create News</p>
-                                            </a>
-                                        </li>
-                                    @endif
-
-                                </ul>
-                            </li>
-                        @endif
                         @if (in_array('job#list', json_decode($checkPermission->permissions)))
                             <li class="nav-item">
                                 <a href="{{ route('job#list') }}" class="nav-link">
@@ -175,35 +146,6 @@ with font-awesome or any other icon font library -->
                                             <a href="{{ route('new#job') }}" class="nav-link">
                                                 <i class="fa fa-address-card nav-icon"></i>
                                                 <p>New Job Vacancy</p>
-                                            </a>
-                                        </li>
-                                    @endif
-
-                                </ul>
-                            </li>
-                        @endif
-                        @if (in_array('csr#list', json_decode($checkPermission->permissions)))
-                            <li class="nav-item">
-                                <a href="{{ route('csr#list') }}" class="nav-link">
-                                    <i class="fas fa-handshake nav-icon"></i>
-                                    <p>CSR Activity</p>
-                                    <i class="fas fa-angle-left right"></i>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    @if (in_array('csr#list', json_decode($checkPermission->permissions)))
-                                        <li class="nav-item">
-                                            <a href="{{ route('csr#list') }}" class="nav-link">
-                                                <i class="fas fa-handshake nav-icon"></i>
-                                                <p>CSR Activity List</p>
-                                            </a>
-                                        </li>
-                                    @endif
-
-                                    @if (in_array('new#csr', json_decode($checkPermission->permissions)))
-                                        <li class="nav-item">
-                                            <a href="{{ route('new#csr') }}" class="nav-link">
-                                                <i class="fas fa-handshake nav-icon"></i>
-                                                <p>New CSR Activity Post</p>
                                             </a>
                                         </li>
                                     @endif
