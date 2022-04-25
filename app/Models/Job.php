@@ -13,6 +13,7 @@ class Job extends Model
         'position',
         'department',
         'description',
+        'category',
         'due_text',
         'due_date',
         'slug_url',

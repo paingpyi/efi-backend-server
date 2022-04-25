@@ -18,6 +18,7 @@ return new class extends Migration
             $table->json('position');
             $table->json('department');
             $table->json('description');
+            $table->foreignId('category');
             $table->json('due_text');
             $table->date('due_date')->nullable();
             $table->string('slug_url');

@@ -654,12 +654,14 @@ class JobController extends Controller
     private function getJobsAPI($data)
     {
         $job_db = DB::table('jobs')
+            ->join('categories', 'categories.id', '=', 'jobs.category')
             ->select(
                 'jobs.id',
                 DB::raw('JSON_EXTRACT(jobs.position, \'$."' . Str::lower($data['locale']) . '"\') as position'),
                 DB::raw('JSON_EXTRACT(jobs.department, \'$."' . Str::lower($data['locale']) . '"\') as department'),
                 DB::raw('JSON_EXTRACT(jobs.description, \'$."' . Str::lower($data['locale']) . '"\') as description'),
                 DB::raw('JSON_EXTRACT(jobs.due_text, \'$."' . Str::lower($data['locale']) . '"\') as due_text'),
+                'jobs.category',
                 'jobs.due_date',
                 'jobs.slug_url',
                 'jobs.is_vacant',

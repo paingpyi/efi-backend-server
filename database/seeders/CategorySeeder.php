@@ -124,6 +124,45 @@ class CategorySeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
+            [
+                'name' => 'Career',
+                'description' => 'Vacancy of EFI',
+                'name_burmese' => 'အလုပ်အကိုင်',
+                'description_burmese' => 'အလုပ်အကိုင်',
+                'name_chinese' => '手聞説選趣',
+                'description_chinese' => '試育内来待止将闘生碗伝',
+                'parent_id' => null,
+                'is_active' => true,
+                'machine' => Str::slug('CSR'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'name' => 'General Insurance Products',
+                'description' => 'General Insurance Products of Blogs',
+                'name_burmese' => 'အထွေထွေ',
+                'description_burmese' => 'အထွေထွေ',
+                'name_chinese' => '手聞説選趣',
+                'description_chinese' => '試育内来待止将闘生碗伝',
+                'parent_id' => 9,
+                'is_active' => true,
+                'machine' => Str::slug('General'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'name' => 'Life Products',
+                'description' => 'Life Products of Blogs',
+                'name_burmese' => 'ဗဟုသုတ',
+                'description_burmese' => 'ဗဟုသုတ',
+                'name_chinese' => '手聞説選趣',
+                'description_chinese' => '試育内来待止将闘生碗伝',
+                'parent_id' => 9,
+                'is_active' => true,
+                'machine' => Str::slug('Knowledge'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
         ]);
     }
 }

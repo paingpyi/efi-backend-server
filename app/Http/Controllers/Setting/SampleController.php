@@ -34,6 +34,7 @@ class SampleController extends Controller
     public function store(Request $request)
     {
         $collection = collect([1, 2, 3, 4, 5]);
+        $job_collection = collect([10, 11]);
         $product_info = [
             [
                 'Comprehensive motor insurance',
@@ -954,8 +955,8 @@ class SampleController extends Controller
                     'is_active' => TRUE,
                     'is_home' => ($i < 4) ? TRUE : FALSE,
                     'slug_url' => Str::slug($product_info[$i][0], '-'),
-                    'quote_machine_name' => 'quotes/general/' . Str::slug($product_info[$i][0], '-'),
-                    'claim_machine_name' => 'claim/general/' . Str::slug($product_info[$i][0], '-'),
+                    'quote_machine_name' => ($product_info[$i][3] == 4) ? 'quotes/general/' . Str::slug($product_info[$i][0], '-') : 'quotes/life/' . Str::slug($product_info[$i][0], '-'),
+                    'claim_machine_name' => ($product_info[$i][3] == 4) ? 'claim/general/' . Str::slug($product_info[$i][0], '-') : 'claim/life/' . Str::slug($product_info[$i][0], '-'),
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now()
                 ]);
@@ -1011,6 +1012,7 @@ class SampleController extends Controller
                     'my-mm' => 'သင့်တော်သူရသည့် အထိ ဖွင့်ထားပါသည်',
                     'zh-cn' => '高標催極用 幹製高心'
                 ]),
+                'category' => $job_collection->random(),
                 'due_date' =>  date('Y-m-d', strtotime('2022-04-30')),
                 'slug_url' => Str::slug('Vacant Job ' . ($i + 1), '-'),
                 'is_vacant' => TRUE,
