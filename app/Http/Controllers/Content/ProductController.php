@@ -685,7 +685,6 @@ class ProductController extends Controller
                 'products.slug_url',
                 'products.quote_machine_name',
                 'products.claim_machine_name',
-                'products.proposal_file',
                 'products.created_at',
                 'products.updated_at',
                 'products.category_id',
