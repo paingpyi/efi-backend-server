@@ -181,6 +181,8 @@ class CategoryController extends Controller
 
         if($id == 'blogs') {
             $category_db = DB::table('categories')->select('*')->where('parent_id', '=', 2);
+        } else if($id == 'career') {
+            $category_db = DB::table('categories')->select('*')->where('parent_id', '=', 9);
         } else {
             $category_db = DB::table('categories')->select('*');
         }
