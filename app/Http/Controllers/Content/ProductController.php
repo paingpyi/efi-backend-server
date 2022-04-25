@@ -443,6 +443,7 @@ class ProductController extends Controller
                     'description' => $item->description,
                     'icon' => config('app.url') . $item->icon,
                     'buttonText' => $item->buttonText,
+                    'proposal_file' => config('app.url') . $item->proposal_file,
                 ];
             }
 
@@ -490,7 +491,6 @@ class ProductController extends Controller
                 'is_home' => $row->is_home,
                 'quote_machine_name' => $row->quote_machine_name,
                 'claim_machine_name' => $row->claim_machine_name,
-                'proposal_file' => config('app.url') . $row->proposal_file,
                 'created_at' => $row->created_at,
                 'updated_at' => $row->updated_at,
                 'category_id' => $row->category_id,
@@ -563,6 +563,7 @@ class ProductController extends Controller
                         'description' => $item->description,
                         'icon' => config('app.url') . $item->icon,
                         'buttonText' => $item->buttonText,
+                        'proposal_file' => config('app.url') . $item->proposal_file,
                     ];
                 }
 
@@ -613,7 +614,6 @@ class ProductController extends Controller
                     'is_active' => $products->is_active,
                     'quote_machine_name' => $products->quote_machine_name,
                     'claim_machine_name' => $products->claim_machine_name,
-                    'proposal_file' => config('app.url') . $products->proposal_file,
                     'created_at' => $products->created_at,
                     'updated_at' => $products->updated_at,
                     'category_id' => $products->category_id,
