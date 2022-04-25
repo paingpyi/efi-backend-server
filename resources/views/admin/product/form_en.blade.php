@@ -359,6 +359,17 @@
         class="form-control" id="attachments_buttonText1">
 </div>
 <div class="form-group">
+    <label>Product Proposal <span class="text-danger">*</span></label>
+    <div class="input-group">
+        <span class="input-group-btn">
+            <a id="attachments_proposal1" data-input="attachments_proposal_file1" class="btn btn-primary lfm">
+                <i class="fa fa-picture-o"></i> Choose
+            </a>
+        </span>
+        <input id="attachments_proposal_file1" class="form-control" type="text" name="attachments_proposal_file[]">
+    </div>
+</div> <!-- /. Product Proposal -->
+<div class="form-group">
     <label for="attachments_title2"><i class="flag-icon flag-icon-us mr-2"></i> Title
         <span class="text-danger">*</span></label>
     <input type="text" name="attachments_title[]" value="{{ old('attachments_title[1]') }}" class="form-control"
@@ -393,6 +404,17 @@
     <input type="text" name="attachments_buttonText[]" value="{{ old('attachments_buttonText[1]') }}"
         class="form-control" id="attachments_buttonText2">
 </div>
+<div class="form-group">
+    <label>Product Proposal <span class="text-danger">*</span></label>
+    <div class="input-group">
+        <span class="input-group-btn">
+            <a id="attachments_proposal2" data-input="attachments_proposal_file2" class="btn btn-primary lfm">
+                <i class="fa fa-picture-o"></i> Choose
+            </a>
+        </span>
+        <input id="attachments_proposal_file2" class="form-control" type="text" name="attachments_proposal_file[]">
+    </div>
+</div> <!-- /. Product Proposal -->
 <!-- /. End of Attachments -->
 <!-- FAQ -->
 <hr>

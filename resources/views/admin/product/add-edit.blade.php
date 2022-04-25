@@ -89,17 +89,6 @@
                                     </div>
                                     <div id="cover_image_holder" class="img-thumbnail mx-auto d-block mt-3"></div>
                                 </div> <!-- /. Product cover image -->
-                                <div class="form-group">
-                                    <label>Product Proposal <span class="text-danger">*</span></label>
-                                    <div class="input-group">
-                                        <span class="input-group-btn">
-                                            <a id="proposal" data-input="proposal_file" class="btn btn-primary lfm">
-                                                <i class="fa fa-picture-o"></i> Choose
-                                            </a>
-                                        </span>
-                                        <input id="proposal_file" class="form-control" type="text" name="proposal_file">
-                                    </div>
-                                </div> <!-- /. Product Proposal -->
                                 <hr>
                                 <div class="form-group">
                                     <label for="category">Category <span class="text-danger">*</span></label>

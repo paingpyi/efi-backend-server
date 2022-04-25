@@ -359,6 +359,17 @@
         class="form-control" id="attachments_buttonText_burmese1">
 </div>
 <div class="form-group">
+    <label>Product Proposal <span class="text-danger">*</span></label>
+    <div class="input-group">
+        <span class="input-group-btn">
+            <a id="attachments_proposal_burmese1" data-input="attachments_proposal_file_burmese1" class="btn btn-primary lfm">
+                <i class="fa fa-picture-o"></i> Choose
+            </a>
+        </span>
+        <input id="attachments_proposal_file_burmese1" class="form-control" type="text" name="attachments_proposal_file_burmese[]">
+    </div>
+</div> <!-- /. Product Proposal -->
+<div class="form-group">
     <label for="attachments_title_burmese2"><i class="flag-icon flag-icon-mm mr-2"></i> Title
         <span class="text-danger">*</span></label>
     <input type="text" name="attachments_title_burmese[]" value="{{ old('attachments_title_burmese[1]') }}" class="form-control"
@@ -393,6 +404,17 @@
     <input type="text" name="attachments_buttonText_burmese[]" value="{{ old('attachments_buttonText_burmese[1]') }}"
         class="form-control" id="attachments_buttonText_burmese2">
 </div>
+<div class="form-group">
+    <label>Product Proposal <span class="text-danger">*</span></label>
+    <div class="input-group">
+        <span class="input-group-btn">
+            <a id="attachments_proposal_burmese2" data-input="attachments_proposal_file_burmese2" class="btn btn-primary lfm">
+                <i class="fa fa-picture-o"></i> Choose
+            </a>
+        </span>
+        <input id="attachments_proposal_file_burmese2" class="form-control" type="text" name="attachments_proposal_file_burmese[]">
+    </div>
+</div> <!-- /. Product Proposal -->
 <!-- /. End of Attachments -->
 <!-- FAQ -->
 <hr>
