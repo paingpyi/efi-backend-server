@@ -138,7 +138,7 @@ class CategorySeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
-                'name' => 'General Insurance Products',
+                'name' => 'General',
                 'description' => 'General Insurance Products of Blogs',
                 'name_burmese' => 'အထွေထွေ',
                 'description_burmese' => 'အထွေထွေ',
@@ -146,12 +146,12 @@ class CategorySeeder extends Seeder
                 'description_chinese' => '試育内来待止将闘生碗伝',
                 'parent_id' => 9,
                 'is_active' => true,
-                'machine' => Str::slug('General'),
+                'machine' => Str::slug('Career General'),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
             [
-                'name' => 'Life Products',
+                'name' => 'Life',
                 'description' => 'Life Products of Blogs',
                 'name_burmese' => 'ဗဟုသုတ',
                 'description_burmese' => 'ဗဟုသုတ',
@@ -159,7 +159,7 @@ class CategorySeeder extends Seeder
                 'description_chinese' => '試育内来待止将闘生碗伝',
                 'parent_id' => 9,
                 'is_active' => true,
-                'machine' => Str::slug('Knowledge'),
+                'machine' => Str::slug('career life'),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
