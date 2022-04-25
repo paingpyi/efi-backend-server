@@ -76,7 +76,7 @@ Route::group(['prefix' => 'quotes'], function () {
     });
 
     Route::group(['prefix' => 'life'], function () {
-        Route::post('short-term-endowment', [QuoteController::class, 'calculateShortTermEndowment']);
+        Route::post('short-term-endowment-insurance', [QuoteController::class, 'calculateShortTermEndowment']);
     });
 });
 
