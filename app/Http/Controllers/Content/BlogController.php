@@ -956,7 +956,7 @@ class BlogController extends Controller
         if (isset($data['category.id'])) {
             foreach ($data['category.id'] as $check) {
                 $blog_db
-                    ->orWhere(DB::raw('JSON_EXTRACT(blogs.category_id, \'$[0]\')'), '=', $check)
+                    ->Where(DB::raw('JSON_EXTRACT(blogs.category_id, \'$[0]\')'), '=', $check)
                     ->orWhere(DB::raw('JSON_EXTRACT(blogs.category_id, \'$[1]\')'), '=', $check);
             }
         } //End of retreiving blogs by category_id
