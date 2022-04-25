@@ -981,7 +981,7 @@ class SampleController extends Controller
                 'url_slug' => Str::slug('Test Blogs ' . ($i + 1), '-'),
                 'status' => 'published',
                 'main_category' => 2,
-                'category_id' => json_encode([4, 3]),
+                'category_id' => json_encode([5, 6]),
                 'author_id' => 1,
                 'featured' => false,
                 'promoted' => false,
