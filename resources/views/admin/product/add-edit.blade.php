@@ -113,6 +113,12 @@
                                         {{ (old('is_active', isset($product->is_active) ? $product->is_active : null) == true or $action == 'new')? 'checked': '' }}
                                         data-bootstrap-switch data-on-color="success">
                                 </div>
+                                <div class="form-group">
+                                    <label for="is_active">Home: </label>
+                                    <input type="checkbox" id="is_home" name="is_home"
+                                        {{ (old('is_home', isset($product->is_home) ? $product->is_home : null) == true)? 'checked': '' }}
+                                        data-bootstrap-switch data-on-color="success">
+                                </div>
                             </div>
                         </div>
                     </div>

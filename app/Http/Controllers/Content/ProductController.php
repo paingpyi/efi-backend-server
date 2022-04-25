@@ -23,7 +23,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = $this->getProductsAPI(['locale'=>'en-us', 'isActive'=>true])->get();
+        $products = $this->getProductsAPI(['locale' => 'en-us', 'isActive' => true])->get();
 
         return view('admin.product.list')->with(['products' => $products]);
     }
@@ -35,7 +35,7 @@ class ProductController extends Controller
      */
     public function deactivated()
     {
-        $products = $this->getProductsAPI(['locale'=>'en-us', 'isActive'=>false])->get();
+        $products = $this->getProductsAPI(['locale' => 'en-us', 'isActive' => false])->get();
 
         return view('admin.product.list')->with(['products' => $products]);
     }
@@ -59,7 +59,8 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {dd($request->all());
+    {
+        dd($request->all());
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:255',
             'title_burmese' => 'required|max:255',
@@ -70,8 +71,9 @@ class ProductController extends Controller
             'lr_description_burmese' => 'required',
             'lr_title_chinese' => 'required|max:255',
             'lr_description_chinese' => 'required',
-            'category' => 'required',
-            'product' => 'required|mimes:jpg,jpeg,png,gif,svg|max:2048',
+            'image' => 'required',
+            'cover_image' => 'required',
+            'category' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -81,54 +83,341 @@ class ProductController extends Controller
                 ->withInput();
         }
         dd($request->all());
+        $product = [
+            'title' => json_encode([
+                'en-us' => $request->title,
+                'my-mm' => $request->title_burmese,
+                'zh-cn' => $request->title_chinese
+            ]),
+            'slogan' => json_encode([
+                'en-us' => $request->slogan,
+                'my-mm' => $request->slogan_burmese,
+                'zh-cn' => $request->slogan_chinese
+            ]),
+            'image' => $request->image,
+            'cover_image' => $request->cover_image,
+            'apply_insurance' => json_encode([
+                'en-us' => [
+                    'title' => $request->apply_insurance_title,
+                    'description' => $request->apply_insurance_description,
+                    'buttonText' => $request->apply_insurance_buttonText
+                ],
+                'my-mm' => [
+                    'title' => $request->apply_insurance_title_burmese,
+                    'description' => $request->apply_insurance_description_burmese,
+                    'buttonText' => $request->apply_insurance_buttonText_burmese
+                ],
+                'zh-cn' => [
+                    'title' => $request->apply_insurance_title_chinese,
+                    'description' => $request->apply_insurance_description_chinese,
+                    'buttonText' => $request->apply_insurance_buttonText_chinese
+                ],
+            ]),
+            'why_work_with_us' => json_encode([
+                'en-us' => [
+                    'title' => $request->why_work_title,
+                    'description' => $request->why_work_description,
+                    'image' => $request->why_work_image,
+                ],
+                'my-mm' => [
+                    'title' => $request->why_work_title_burmese,
+                    'description' => $request->why_work_description_burmese,
+                    'image' => $request->why_work_image_burmese,
+                ],
+                'zh-cn' => [
+                    'title' => $request->why_work_title_chinese,
+                    'description' => $request->why_work_description_chinese,
+                    'image' => $request->why_work_image_chinese,
+                ],
+            ]),
+            'lr' => json_encode([
+                'en-us' => [
+                    [
+                        'title' => $request->lr_title,
+                        'description' => $request->lr_description,
+                        'image' => $request->lr_image
+                    ],
+                ],
+                'my-mm' => [
+                    [
+                        'title' => $request->lr_title_burmese,
+                        'description' => $request->lr_description_burmese,
+                        'image' => $request->lr_image_burmese
+                    ],
+                ],
+                'zh-cn' => [
+                    [
+                        'title' => $request->lr_title_chinese,
+                        'description' => $request->lr_description_chinese,
+                        'image' => $request->lr_image_chinese
+                    ],
+                ],
+            ]),
+            'faq' => json_encode([
+                'en-us' => [
+                    'title' => $request->faq_title,
+                    'data' => [
+                        [
+                            'question' => $request->faq_question[0],
+                            'answers' => $request->faq_answers[0]
+                        ],
+                        [
+                            'question' => $request->faq_question[1],
+                            'answers' => $request->faq_answers[1]
+                        ],
+                        [
+                            'question' => $request->faq_question[2],
+                            'answers' => $request->faq_answers[2]
+                        ],
+                        [
+                            'question' => $request->faq_question[3],
+                            'answers' => $request->faq_answers[3]
+                        ],
+                    ],
+                ],
+                'my-mm' => [
+                    'title' => $request->faq_title_burmese,
+                    'data' => [
+                        [
+                            'question' => $request->faq_question_burmese[0],
+                            'answers' => $request->faq_answers_burmese[0]
+                        ],
+                        [
+                            'question' => $request->faq_question_burmese[1],
+                            'answers' => $request->faq_answers_burmese[1]
+                        ],
+                        [
+                            'question' => $request->faq_question_burmese[2],
+                            'answers' => $request->faq_answers_burmese[2]
+                        ],
+                        [
+                            'question' => $request->faq_question_burmese[3],
+                            'answers' => $request->faq_answers_burmese[3]
+                        ],
+                    ],
+                ],
+                'zh-cn' => [
+                    'title' => $request->faq_title_chinese,
+                    'data' => [
+                        [
+                            'question' => $request->faq_question_chinese[0],
+                            'answers' => $request->faq_answers_chinese[0]
+                        ],
+                        [
+                            'question' => $request->faq_question_chinese[1],
+                            'answers' => $request->faq_answers_chinese[1]
+                        ],
+                        [
+                            'question' => $request->faq_question_chinese[2],
+                            'answers' => $request->faq_answers_chinese[2]
+                        ],
+                        [
+                            'question' => $request->faq_question_chinese[3],
+                            'answers' => $request->faq_answers_chinese[3]
+                        ],
+                    ],
+                ],
+            ]),
+            'attachments' => json_encode([
+                'en-us' => [
+                    [
+                        'title' => $request->attachments_title[0],
+                        'description' => $request->attachments_description[0],
+                        'icon' => $request->attachments_icon[0],
+                        'buttonText' => $request->attachments_buttonText[0],
+                        'proposal_file' => $request->attachments_proposal_file[0],
+                    ],
+                    [
+                        'title' => $request->attachments_title[1],
+                        'description' => $request->attachments_description[1],
+                        'icon' => $request->attachments_icon[1],
+                        'buttonText' => $request->attachments_buttonText[1],
+                        'proposal_file' => $request->attachments_proposal_file[1],
+                    ],
+                ],
+                'my-mm' => [
+                    [
+                        'title' => $request->attachments_title_burmese[0],
+                        'description' => $request->attachments_description_burmese[0],
+                        'icon' => $request->attachments_icon_burmese[0],
+                        'buttonText' => $request->attachments_buttonText_burmese[0],
+                        'proposal_file' => $request->attachments_proposal_file_burmese[0],
+                    ],
+                    [
+                        'title' => $request->attachments_title_burmese[1],
+                        'description' => $request->attachments_description_burmese[1],
+                        'icon' => $request->attachments_icon_burmese[1],
+                        'buttonText' => $request->attachments_buttonText_burmese[1],
+                        'proposal_file' => $request->attachments_proposal_file_burmese[1],
+                    ],
+                ],
+                'zh-cn' => [
+                    [
+                        'title' => $request->attachments_title_chinese[0],
+                        'description' => $request->attachments_description_chinese[0],
+                        'icon' => $request->attachments_icon_chinese[0],
+                        'buttonText' => $request->attachments_buttonText_chinese[0],
+                        'proposal_file' => $request->attachments_proposal_file_chinese[0],
+                    ],
+                    [
+                        'title' => $request->attachments_title_chinese[1],
+                        'description' => $request->attachments_description_chinese[1],
+                        'icon' => $request->attachments_icon_chinese[1],
+                        'buttonText' => $request->attachments_buttonText_chinese[1],
+                        'proposal_file' => $request->attachments_proposal_file_chinese[1],
+                    ],
+                ],
+            ]),
+            'additional_benifits' => json_encode([
+                'en-us' => [
+                    'title' => $request->additional_title,
+                    'data' => [
+                        [
+                            'icon' => $request->additional_icon[0],
+                            'text' => $request->additional_iconText[0],
+                        ],
+                        [
+                            'icon' => $request->additional_icon[1],
+                            'text' => $request->additional_iconText[1],
+                        ],
+                        [
+                            'icon' => $request->additional_icon[2],
+                            'text' => $request->additional_iconText[2],
+                        ],
+                        [
+                            'icon' => $request->additional_icon[3],
+                            'text' => $request->additional_iconText[3],
+                        ],
+                        [
+                            'icon' => $request->additional_icon[4],
+                            'text' => $request->additional_iconText[4],
+                        ],
+                    ],
+                ],
+                'my-mm' => [
+                    'title' => $request->additional_title_burmese,
+                    'data' => [
+                        [
+                            'icon' => $request->additional_icon_burmese[0],
+                            'text' => $request->additional_iconText_burmese[0],
+                        ],
+                        [
+                            'icon' => $request->additional_icon_burmese[1],
+                            'text' => $request->additional_iconText_burmese[1],
+                        ],
+                        [
+                            'icon' => $request->additional_icon_burmese[2],
+                            'text' => $request->additional_iconText_burmese[2],
+                        ],
+                        [
+                            'icon' => $request->additional_icon_burmese[3],
+                            'text' => $request->additional_iconText_burmese[3],
+                        ],
+                        [
+                            'icon' => $request->additional_icon_burmese[4],
+                            'text' => $request->additional_iconText_burmese[4],
+                        ],
+                    ],
+                ],
+                'zh-cn' => [
+                    'title' => $request->additional_title_chinese,
+                    'data' => [
+                        [
+                            'icon' => $request->additional_icon_chinese[0],
+                            'text' => $request->additional_iconText_chinese[0],
+                        ],
+                        [
+                            'icon' => $request->additional_icon_chinese[1],
+                            'text' => $request->additional_iconText_chinese[1],
+                        ],
+                        [
+                            'icon' => $request->additional_icon_chinese[2],
+                            'text' => $request->additional_iconText_chinese[2],
+                        ],
+                        [
+                            'icon' => $request->additional_icon_chinese[3],
+                            'text' => $request->additional_iconText_chinese[3],
+                        ],
+                        [
+                            'icon' => $request->additional_icon_chinese[4],
+                            'text' => $request->additional_iconText_chinese[4],
+                        ],
+                    ],
+                ],
+            ]),
+            'diagrams_and_table' => json_encode([
+                'en-us' => [
+                    [
+                        'title' => $request->diagram_table_title[0],
+                        'description' => $request->diagram_table_description[0],
+                        'image' => [
+                            'src' => $request->diagram_table_image[0],
+                            'width' => $request->diagram_table_image_width[0],
+                            'height' => $request->diagram_table_image_height[0]
+                        ],
+                    ],
+                    [
+                        'title' => $request->diagram_table_title[1],
+                        'description' => $request->diagram_table_description[1],
+                        'image' => [
+                            'src' => $request->diagram_table_image[1],
+                            'width' => $request->diagram_table_image_width[1],
+                            'height' => $request->diagram_table_image_height[1]
+                        ],
+                    ],
+                ],
+                'my-mm' => [
+                    [
+                        'title' => $request->diagram_table_title_burmese[0],
+                        'description' => $request->diagram_table_description_burmese[0],
+                        'image' => [
+                            'src' => $request->diagram_table_image_burmese[0],
+                            'width' => $request->diagram_table_image_width_burmese[0],
+                            'height' => $request->diagram_table_image_height_burmese[0]
+                        ],
+                    ],
+                    [
+                        'title' => $request->diagram_table_title_burmese[1],
+                        'description' => $request->diagram_table_description_burmese[1],
+                        'image' => [
+                            'src' => $request->diagram_table_image_burmese[1],
+                            'width' => $request->diagram_table_image_width_burmese[1],
+                            'height' => $request->diagram_table_image_height_burmese[1]
+                        ],
+                    ],
+                ],
+                'zh-cn' => [
+                    [
+                        'title' => $request->diagram_table_title_chinese[0],
+                        'description' => $request->diagram_table_description_chinese[0],
+                        'image' => [
+                            'src' => $request->diagram_table_image_chinese[0],
+                            'width' => $request->diagram_table_image_width_chinese[0],
+                            'height' => $request->diagram_table_image_height_chinese[0]
+                        ],
+                    ],
+                    [
+                        'title' => $request->diagram_table_title_chinese[1],
+                        'description' => $request->diagram_table_description_chinese[1],
+                        'image' => [
+                            'src' => $request->diagram_table_image_chinese[1],
+                            'width' => $request->diagram_table_image_width_chinese[1],
+                            'height' => $request->diagram_table_image_height_chinese[1]
+                        ],
+                    ],
+                ],
+            ]),
+            'category_id' => $request->category,
+            'is_active' => ($request->is_active == 'on') ? TRUE : FALSE,
+            'is_home' => ($request->is_home == 'on') ? TRUE : FALSE,
+            'slug_url' => Str::slug($request->title, '-'),
+            'quote_machine_name' => 'quotes/general/' . Str::slug($request->title, '-'),
+            'claim_machine_name' => 'claim/general/' . Str::slug($request->title, '-'),
+        ];
 
-        $product = [];
+        Product::create($product);
 
-        if ($request->file()) {
-            $benefitfileName = time() . '_' . $request->benefit->getClientOriginalName();
-            $benefitfilePath = $request->file('benefit')->storeAs('uploads', $benefitfileName, 'public');
-
-            $productfileName = time() . '_' . $request->product->getClientOriginalName();
-            $productfilePath = $request->file('product')->storeAs('uploads', $productfileName, 'public');
-
-            $product = [
-                'title' => $request->title,
-                'slogan' => $request->slogan,
-                'description' => $request->description,
-                'benefits_block' => $request->benefits,
-                'benefits_image' => '/storage/' . $benefitfilePath,
-                'table_block' => $request->table,
-                'why_block' => $request->why,
-                'downloadable_block' => $request->downloadable,
-                'applythis_block' => $request->applythis,
-                'title_burmese' => $request->title_burmese,
-                'slogan_burmese' => $request->slogan_burmese,
-                'description_burmese' => $request->description_burmese,
-                'benefits_block_burmese' => $request->benefits_burmese,
-                'table_block_burmese' => $request->table_burmese,
-                'why_block_burmese' => $request->why_burmese,
-                'downloadable_block_burmese' => $request->downloadable_burmese,
-                'applythis_block_burmese' => $request->applythis_burmese,
-                'title_chinese' => $request->title_chinese,
-                'slogan_chinese' => $request->slogan_chinese,
-                'description_chinese' => $request->description_chinese,
-                'benefits_block_chinese' => $request->benefits_chinese,
-                'table_block_chinese' => $request->table_chinese,
-                'why_block_chinese' => $request->why_chinese,
-                'downloadable_block_chinese' => $request->downloadable_chinese,
-                'applythis_block_chinese' => $request->applythis_chinese,
-                'category_id' => $request->category,
-                'product_photo' => '/storage/' . $productfilePath,
-                'is_active' => ($request->is_active == 'on') ? true : false,
-                'slug_url' => Str::slug($request->title, '-'),
-            ];
-
-            Product::create($product);
-
-            return redirect()->route('product#list')->with(['success_message' => 'Successfully <strong>saved!</strong>']);
-        } else {
-            return redirect()->route('new#product');
-        }
+        return redirect()->route('product#list')->with(['success_message' => 'Successfully <strong>saved!</strong>']);
     }
 
     /**
