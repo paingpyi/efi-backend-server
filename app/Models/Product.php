@@ -27,6 +27,5 @@ class Product extends Model
         'slug_url',
         'quote_machine_name',
         'claim_machine_name',
-        'proposal_file'
     ];
 }

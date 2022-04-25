@@ -803,7 +803,8 @@ class SampleController extends Controller
                                 'title' => 'Lorem Ipsum Dolor',
                                 'description' => '<p>Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content. It\'s also called placeholder (or filler) text. It\'s a convenient tool for mock-ups. It helps to outline the visual elements of a document or presentation, eg typography, font, or layout. Lorem ipsum is mostly a part of a Latin text by the classical author and philosopher Cicero. Its words and letters have been changed by addition or removal, so to deliberately render its content nonsensical; it\'s not genuine, correct, or comprehensible Latin anymore. While lorem ipsum\'s still resembles classical Latin, it actually has no meaning whatsoever. As Cicero\'s text doesn\'t contain the letters K, W, or Z, alien to latin, these, and others are often inserted randomly to mimic the typographic appearence of European languages, as are digraphs not to be found in the original.</p><p>In a professional context it often happens that private or corporate clients corder a publication to be made and presented with the actual content still not being ready. Think of a news blog that\'s filled with content hourly on the day of going live. However, reviewers tend to be distracted by comprehensible content, say, a random text copied from a newspaper or the internet. The are likely to focus on the text, disregarding the layout and its elements. Besides, random text risks to be unintendedly humorous or offensive, an unacceptable risk in corporate environments. Lorem ipsum and its many variants have been employed since the early 1960ies, and quite likely since the sixteenth century.</p>',
                                 'icon' => '/storage/uploads/demo/image-icon.png',
-                                'buttonText' => 'Download Proposa'
+                                'buttonText' => 'Download Proposa',
+                                'proposal_file' => '/storage/uploads/proposals/' . Str::slug($product_info[$i][0], '-') . '.pdf',
                             ],
                         ],
                         'my-mm' => [
@@ -811,7 +812,8 @@ class SampleController extends Controller
                                 'title' => 'ဘာသာပြန် အကြောင်းအရာ',
                                 'description' => '<p>သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။</p><p>သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။ သီဟိုဠ်မှ ဉာဏ်ကြီးရှင်သည် အာယုဝဍ္ဎနဆေးညွှန်းစာကို ဇလွန်ဈေးဘေး ဗာဒံပင်ထက် အဓိဋ္ဌာန်လျက် ဂဃနဏဖတ်ခဲ့သည်။</p>',
                                 'icon' => '/storage/uploads/demo/image-icon.png',
-                                'buttonText' => 'ဘာသာပြန်ရန်'
+                                'buttonText' => 'ဘာသာပြန်ရန်',
+                                'proposal_file' => '/storage/uploads/proposals/' . Str::slug($product_info[$i][0], '-') . '.pdf',
                             ],
                         ],
                         'zh-cn' => [
@@ -819,7 +821,8 @@ class SampleController extends Controller
                                 'title' => '夏川面結地勝覧署喜金亡無就事天',
                                 'description' => '<p>新社違育人交日主根界際連。幹製高心破事候晴腰無舌一取行意野改。存分軒余調能義以文期浩季佐際連届止導県功。高標催極用結枝動総暮護納意司。島賠甲分画件史訪合見詳問歳気挑高知打月松。虫元記止表購途桂料記少今治。手康権術込著中井今必人終。育様美幕求氏後塾政中抗編記走表。迫相示良提入様立発料問変泉返蒼都平。</p><p>中岩宣尚王激失母分階施級。夏川面結地勝覧署喜金亡無就事天。社意度恵症出助中責豪作車対質。聞片上徳覧質属側体自左員査言残加昨白。作気関変業盤決訴処耳前儲。源平無原子位都点分活首止聞気応府自未党孤。方金話度終面凱邦形全覧後覧的愛扱。革県式分料流地入籍断断情。使聞体徹的役書強察分種務家林困功入問加。指番国成統常期術全場夜本</p>',
                                 'icon' => '/storage/uploads/demo/image-icon.png',
-                                'buttonText' => '高標催極用'
+                                'buttonText' => '高標催極用',
+                                'proposal_file' => '/storage/uploads/proposals/' . Str::slug($product_info[$i][0], '-') . '.pdf',
                             ],
                         ],
                     ]),
@@ -953,7 +956,6 @@ class SampleController extends Controller
                     'slug_url' => Str::slug($product_info[$i][0], '-'),
                     'quote_machine_name' => 'quotes/general/' . Str::slug($product_info[$i][0], '-'),
                     'claim_machine_name' => 'claim/general/' . Str::slug($product_info[$i][0], '-'),
-                    'proposal_file' => '/storage/uploads/proposals/' . Str::slug($product_info[$i][0], '-') . '.pdf',
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now()
                 ]);

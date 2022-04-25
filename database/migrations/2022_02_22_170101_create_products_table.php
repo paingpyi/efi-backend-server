@@ -32,7 +32,6 @@ return new class extends Migration
             $table->string('slug_url');
             $table->string('quote_machine_name');
             $table->string('claim_machine_name');
-            $table->longText('proposal_file');
             $table->timestamps();
         });
     }
