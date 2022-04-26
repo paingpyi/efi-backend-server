@@ -82,7 +82,7 @@ class ProductController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-        dd($request->all());
+
         $product = [
             'title' => json_encode([
                 'en-us' => $request->title,
