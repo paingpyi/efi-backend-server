@@ -25,7 +25,7 @@
         <div class="col">
             <div class="card">
                 <form id="inputForm"
-                    action="{{ $action == 'new'? route('store#data#product'): route('update#data#product', isset($product->id) ? $product->id : null) }}"
+                    action="{{ $action == 'new'? route('store#data#product'): route('update#data#product', isset($product_en->id) ? $product_en->id : null) }}"
                     method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card-header">
@@ -73,7 +73,7 @@
                                                 <i class="fa fa-picture-o"></i> Choose
                                             </a>
                                         </span>
-                                        <input id="image_thumbnail" class="form-control" type="text" name="image">
+                                        <input id="image_thumbnail" class="form-control" type="text" name="image" value="{{old('image', isset($product_en->image) ? $product_en->image : '')}}">
                                     </div>
                                     <div id="image_holder" class="img-thumbnail mx-auto d-block mt-3"></div>
                                 </div> <!-- /. Product Image -->
@@ -85,7 +85,7 @@
                                                 <i class="fa fa-picture-o"></i> Choose
                                             </a>
                                         </span>
-                                        <input id="cover_image_thumbnail" class="form-control" type="text" name="cover_image">
+                                        <input id="cover_image_thumbnail" class="form-control" type="text" name="cover_image" value="{{old('cover_image', isset($product_en->cover_image) ? $product_en->cover_image : '')}}">
                                     </div>
                                     <div id="cover_image_holder" class="img-thumbnail mx-auto d-block mt-3"></div>
                                 </div> <!-- /. Product cover image -->
@@ -100,7 +100,7 @@
                                                 <option value="{{ $cat->id }}">{{ $cat->name }}</option>
                                             @else
                                                 <option value="{{ $cat->id }}"
-                                                    {{ $product->category_id == $cat->id ? ' selected' : '' }}>
+                                                    {{ $product_en->category_id == $cat->id ? ' selected' : '' }}>
                                                     {{ $cat->name }}</option>
                                             @endif
                                         @endforeach
@@ -110,13 +110,13 @@
                                 <div class="form-group">
                                     <label for="is_active">Active: </label>
                                     <input type="checkbox" id="is_active" name="is_active"
-                                        {{ (old('is_active', isset($product->is_active) ? $product->is_active : null) == true or $action == 'new')? 'checked': '' }}
+                                        {{ (old('is_active', isset($product_en->is_active) ? $product_en->is_active : null) == true or $action == 'new')? 'checked': '' }}
                                         data-bootstrap-switch data-on-color="success">
                                 </div>
                                 <div class="form-group">
                                     <label for="is_active">Home: </label>
                                     <input type="checkbox" id="is_home" name="is_home"
-                                        {{ (old('is_home', isset($product->is_home) ? $product->is_home : null) == true)? 'checked': '' }}
+                                        {{ old('is_home', (isset($product_en->is_home) and $product_en->is_home==true) ? 'checked': '') }}
                                         data-bootstrap-switch data-on-color="success">
                                 </div>
                             </div>
@@ -171,11 +171,6 @@
             $('.summernote').summernote({
                 height: 350,
                 placeholder: 'Write content here...',
-            });
-
-            $('.table-block').summernote({
-                height: 150,
-                placeholder: 'Write table here...',
                 toolbar: [
                     ['undo', ['undo']],
                     ['redo', ['redo']],
@@ -184,7 +179,7 @@
                     ['color', ['color']],
                     ['para', ['ul', 'ol', 'paragraph']],
                     ['table', ['table']],
-                    ['insert', ['link', 'picture', 'video']],
+                    ['insert', ['link']],
                     ['view', ['fullscreen']],
                 ],
             });

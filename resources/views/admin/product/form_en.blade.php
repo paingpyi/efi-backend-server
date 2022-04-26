@@ -1,8 +1,8 @@
 <div class="form-group">
     <label for="title"><i class="flag-icon flag-icon-us mr-2"></i> Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="title" value="{{ old('title') }}" class="form-control" id="title"
-        aria-describedby="titleHelp">
+    <input type="text" name="title" value="{{ old('title', isset($product_en->title) ? $product_en->title : '') }}"
+        class="form-control" id="title" aria-describedby="titleHelp">
     <small id="titleHelp" class="form-text text-muted">Please enter
         title.</small>
     @error('title')
@@ -11,15 +11,28 @@
 </div>
 <div class="form-group">
     <label for="slogan"><i class="flag-icon flag-icon-us mr-2"></i> Slogan</label>
-    <input type="text" name="slogan" value="{{ old('slogan') }}" class="form-control" id="slogan">
+    <input type="text" name="slogan"
+        value="{{ old('slogan', isset($product_en->slogan) ? $product_en->slogan : '') }}" class="form-control"
+        id="slogan">
 </div>
 <!-- Paragraphs -->
 <hr>
 <h4>Description</h4>
+@php
+$lr = [];
+foreach (json_decode($product_en->lr) as $item) {
+    $lr[] = [
+        'title' => $item->title,
+        'description' => $item->description,
+        'image' => config('app.url') . $item->image,
+    ];
+}
+@endphp
 <div class="form-group">
     <label for="lr_title"><i class="flag-icon flag-icon-us mr-2"></i> Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="lr_title" value="{{ old('lr_title') }}" class="form-control" id="lr_title">
+    <input type="text" name="lr_title" value="{{ old('lr_title', isset($lr[0]['title']) ? $lr[0]['title'] : '') }}"
+        class="form-control" id="lr_title">
     @error('lr_title')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
@@ -29,7 +42,7 @@
         Description
         <span class="text-danger">*</span></label>
     <textarea name="lr_description" class="summernote"
-        id="lr_description">{{ old('lr_description') }}</textarea>
+        id="lr_description">{{ old('lr_description', isset($lr[0]['description']) ? $lr[0]['description'] : '') }}</textarea>
 </div>
 <div class="form-group">
     <div class="input-group">
@@ -38,7 +51,7 @@
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
-        <input id="lr_image_thumbnail" class="form-control" type="text" name="lr_image">
+        <input id="lr_image_thumbnail" class="form-control" type="text" name="lr_image" value="{{old('lr_image', isset($lr[0]['image']) ? $lr[0]['image'] : '')}}">
     </div>
     <div id="lr_image_holder" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Paragraphs Image -->
@@ -430,7 +443,8 @@
 <div class="form-group">
     <label for="faq_question_1"><i class="flag-icon flag-icon-us mr-2"></i> Question
         <span class="text-danger">*</span></label>
-    <input type="text" name="faq_question[]" value="{{ old('faq_question[0]') }}" class="form-control" id="faq_question_1">
+    <input type="text" name="faq_question[]" value="{{ old('faq_question[0]') }}" class="form-control"
+        id="faq_question_1">
     @error('faq_question[0]')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
@@ -444,7 +458,8 @@
 <div class="form-group">
     <label for="faq_question_2"><i class="flag-icon flag-icon-us mr-2"></i> Question
         <span class="text-danger">*</span></label>
-    <input type="text" name="faq_question[]" value="{{ old('faq_question[1]') }}" class="form-control" id="faq_question_2">
+    <input type="text" name="faq_question[]" value="{{ old('faq_question[1]') }}" class="form-control"
+        id="faq_question_2">
     @error('faq_question[1]')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
@@ -458,7 +473,8 @@
 <div class="form-group">
     <label for="faq_question_3"><i class="flag-icon flag-icon-us mr-2"></i> Question
         <span class="text-danger">*</span></label>
-    <input type="text" name="faq_question[]" value="{{ old('faq_question[2]') }}" class="form-control" id="faq_question_3">
+    <input type="text" name="faq_question[]" value="{{ old('faq_question[2]') }}" class="form-control"
+        id="faq_question_3">
     @error('faq_question[2]')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
@@ -472,7 +488,8 @@
 <div class="form-group">
     <label for="faq_question_4"><i class="flag-icon flag-icon-us mr-2"></i> Question
         <span class="text-danger">*</span></label>
-    <input type="text" name="faq_question[]" value="{{ old('faq_question[3]') }}" class="form-control" id="faq_question_4">
+    <input type="text" name="faq_question[]" value="{{ old('faq_question[3]') }}" class="form-control"
+        id="faq_question_4">
     @error('faq_question[3]')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror

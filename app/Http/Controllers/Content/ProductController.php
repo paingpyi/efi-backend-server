@@ -93,8 +93,8 @@ class ProductController extends Controller
                 'my-mm' => $request->slogan_burmese,
                 'zh-cn' => $request->slogan_chinese
             ]),
-            'image' => $request->image,
-            'cover_image' => $request->cover_image,
+            'image' => Str::replace(config('app.url'), '', $request->image),
+            'cover_image' => Str::replace(config('app.url'), '', $request->cover_image),
             'apply_insurance' => json_encode([
                 'en-us' => [
                     'title' => $request->apply_insurance_title,
@@ -116,17 +116,17 @@ class ProductController extends Controller
                 'en-us' => [
                     'title' => $request->why_work_title,
                     'description' => $request->why_work_description,
-                    'image' => $request->why_work_image,
+                    'image' => Str::replace(config('app.url'), '', $request->why_work_image),
                 ],
                 'my-mm' => [
                     'title' => $request->why_work_title_burmese,
                     'description' => $request->why_work_description_burmese,
-                    'image' => $request->why_work_image_burmese,
+                    'image' => Str::replace(config('app.url'), '', $request->why_work_image_burmese),
                 ],
                 'zh-cn' => [
                     'title' => $request->why_work_title_chinese,
                     'description' => $request->why_work_description_chinese,
-                    'image' => $request->why_work_image_chinese,
+                    'image' => Str::replace(config('app.url'), '', $request->why_work_image_chinese),
                 ],
             ]),
             'lr' => json_encode([
@@ -134,21 +134,21 @@ class ProductController extends Controller
                     [
                         'title' => $request->lr_title,
                         'description' => $request->lr_description,
-                        'image' => $request->lr_image
+                        'image' => Str::replace(config('app.url'), '', $request->lr_image)
                     ],
                 ],
                 'my-mm' => [
                     [
                         'title' => $request->lr_title_burmese,
                         'description' => $request->lr_description_burmese,
-                        'image' => $request->lr_image_burmese
+                        'image' => Str::replace(config('app.url'), '', $request->lr_image_burmese)
                     ],
                 ],
                 'zh-cn' => [
                     [
                         'title' => $request->lr_title_chinese,
                         'description' => $request->lr_description_chinese,
-                        'image' => $request->lr_image_chinese
+                        'image' => Str::replace(config('app.url'), '', $request->lr_image_chinese)
                     ],
                 ],
             ]),
@@ -222,14 +222,14 @@ class ProductController extends Controller
                     [
                         'title' => $request->attachments_title[0],
                         'description' => $request->attachments_description[0],
-                        'icon' => $request->attachments_icon[0],
+                        'icon' => Str::replace(config('app.url'), '', $request->attachments_icon[0]),
                         'buttonText' => $request->attachments_buttonText[0],
                         'proposal_file' => $request->attachments_proposal_file[0],
                     ],
                     [
                         'title' => $request->attachments_title[1],
                         'description' => $request->attachments_description[1],
-                        'icon' => $request->attachments_icon[1],
+                        'icon' => Str::replace(config('app.url'), '', $request->attachments_icon[1]),
                         'buttonText' => $request->attachments_buttonText[1],
                         'proposal_file' => $request->attachments_proposal_file[1],
                     ],
@@ -238,14 +238,14 @@ class ProductController extends Controller
                     [
                         'title' => $request->attachments_title_burmese[0],
                         'description' => $request->attachments_description_burmese[0],
-                        'icon' => $request->attachments_icon_burmese[0],
+                        'icon' => Str::replace(config('app.url'), '', $request->attachments_icon_burmese[0]),
                         'buttonText' => $request->attachments_buttonText_burmese[0],
                         'proposal_file' => $request->attachments_proposal_file_burmese[0],
                     ],
                     [
                         'title' => $request->attachments_title_burmese[1],
                         'description' => $request->attachments_description_burmese[1],
-                        'icon' => $request->attachments_icon_burmese[1],
+                        'icon' => Str::replace(config('app.url'), '', $request->attachments_icon_burmese[1]),
                         'buttonText' => $request->attachments_buttonText_burmese[1],
                         'proposal_file' => $request->attachments_proposal_file_burmese[1],
                     ],
@@ -254,14 +254,14 @@ class ProductController extends Controller
                     [
                         'title' => $request->attachments_title_chinese[0],
                         'description' => $request->attachments_description_chinese[0],
-                        'icon' => $request->attachments_icon_chinese[0],
+                        'icon' => Str::replace(config('app.url'), '', $request->attachments_icon_chinese[0]),
                         'buttonText' => $request->attachments_buttonText_chinese[0],
                         'proposal_file' => $request->attachments_proposal_file_chinese[0],
                     ],
                     [
                         'title' => $request->attachments_title_chinese[1],
                         'description' => $request->attachments_description_chinese[1],
-                        'icon' => $request->attachments_icon_chinese[1],
+                        'icon' => Str::replace(config('app.url'), '', $request->attachments_icon_chinese[1]),
                         'buttonText' => $request->attachments_buttonText_chinese[1],
                         'proposal_file' => $request->attachments_proposal_file_chinese[1],
                     ],
@@ -272,23 +272,23 @@ class ProductController extends Controller
                     'title' => $request->additional_title,
                     'data' => [
                         [
-                            'icon' => $request->additional_icon[0],
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon[0]),
                             'text' => $request->additional_iconText[0],
                         ],
                         [
-                            'icon' => $request->additional_icon[1],
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon[1]),
                             'text' => $request->additional_iconText[1],
                         ],
                         [
-                            'icon' => $request->additional_icon[2],
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon[2]),
                             'text' => $request->additional_iconText[2],
                         ],
                         [
-                            'icon' => $request->additional_icon[3],
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon[3]),
                             'text' => $request->additional_iconText[3],
                         ],
                         [
-                            'icon' => $request->additional_icon[4],
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon[4]),
                             'text' => $request->additional_iconText[4],
                         ],
                     ],
@@ -297,23 +297,23 @@ class ProductController extends Controller
                     'title' => $request->additional_title_burmese,
                     'data' => [
                         [
-                            'icon' => $request->additional_icon_burmese[0],
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_burmese[0]),
                             'text' => $request->additional_iconText_burmese[0],
                         ],
                         [
-                            'icon' => $request->additional_icon_burmese[1],
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_burmese[1]),
                             'text' => $request->additional_iconText_burmese[1],
                         ],
                         [
-                            'icon' => $request->additional_icon_burmese[2],
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_burmese[2]),
                             'text' => $request->additional_iconText_burmese[2],
                         ],
                         [
-                            'icon' => $request->additional_icon_burmese[3],
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_burmese[3]),
                             'text' => $request->additional_iconText_burmese[3],
                         ],
                         [
-                            'icon' => $request->additional_icon_burmese[4],
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_burmese[4]),
                             'text' => $request->additional_iconText_burmese[4],
                         ],
                     ],
@@ -322,23 +322,23 @@ class ProductController extends Controller
                     'title' => $request->additional_title_chinese,
                     'data' => [
                         [
-                            'icon' => $request->additional_icon_chinese[0],
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_chinese[0]),
                             'text' => $request->additional_iconText_chinese[0],
                         ],
                         [
-                            'icon' => $request->additional_icon_chinese[1],
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_chinese[1]),
                             'text' => $request->additional_iconText_chinese[1],
                         ],
                         [
-                            'icon' => $request->additional_icon_chinese[2],
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_chinese[2]),
                             'text' => $request->additional_iconText_chinese[2],
                         ],
                         [
-                            'icon' => $request->additional_icon_chinese[3],
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_chinese[3]),
                             'text' => $request->additional_iconText_chinese[3],
                         ],
                         [
-                            'icon' => $request->additional_icon_chinese[4],
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_chinese[4]),
                             'text' => $request->additional_iconText_chinese[4],
                         ],
                     ],
@@ -350,7 +350,7 @@ class ProductController extends Controller
                         'title' => $request->diagram_table_title[0],
                         'description' => $request->diagram_table_description[0],
                         'image' => [
-                            'src' => $request->diagram_table_image[0],
+                            'src' => Str::replace(config('app.url'), '', $request->diagram_table_image[0]),
                             'width' => $request->diagram_table_image_width[0],
                             'height' => $request->diagram_table_image_height[0]
                         ],
@@ -359,7 +359,7 @@ class ProductController extends Controller
                         'title' => $request->diagram_table_title[1],
                         'description' => $request->diagram_table_description[1],
                         'image' => [
-                            'src' => $request->diagram_table_image[1],
+                            'src' => Str::replace(config('app.url'), '', $request->diagram_table_image[1]),
                             'width' => $request->diagram_table_image_width[1],
                             'height' => $request->diagram_table_image_height[1]
                         ],
@@ -370,7 +370,7 @@ class ProductController extends Controller
                         'title' => $request->diagram_table_title_burmese[0],
                         'description' => $request->diagram_table_description_burmese[0],
                         'image' => [
-                            'src' => $request->diagram_table_image_burmese[0],
+                            'src' => Str::replace(config('app.url'), '', $request->diagram_table_image_burmese[0]),
                             'width' => $request->diagram_table_image_width_burmese[0],
                             'height' => $request->diagram_table_image_height_burmese[0]
                         ],
@@ -379,7 +379,7 @@ class ProductController extends Controller
                         'title' => $request->diagram_table_title_burmese[1],
                         'description' => $request->diagram_table_description_burmese[1],
                         'image' => [
-                            'src' => $request->diagram_table_image_burmese[1],
+                            'src' => Str::replace(config('app.url'), '', $request->diagram_table_image_burmese[1]),
                             'width' => $request->diagram_table_image_width_burmese[1],
                             'height' => $request->diagram_table_image_height_burmese[1]
                         ],
@@ -390,7 +390,7 @@ class ProductController extends Controller
                         'title' => $request->diagram_table_title_chinese[0],
                         'description' => $request->diagram_table_description_chinese[0],
                         'image' => [
-                            'src' => $request->diagram_table_image_chinese[0],
+                            'src' => Str::replace(config('app.url'), '', $request->diagram_table_image_chinese[0]),
                             'width' => $request->diagram_table_image_width_chinese[0],
                             'height' => $request->diagram_table_image_height_chinese[0]
                         ],
@@ -399,7 +399,7 @@ class ProductController extends Controller
                         'title' => $request->diagram_table_title_chinese[1],
                         'description' => $request->diagram_table_description_chinese[1],
                         'image' => [
-                            'src' => $request->diagram_table_image_chinese[1],
+                            'src' => Str::replace(config('app.url'), '', $request->diagram_table_image_chinese[1]),
                             'width' => $request->diagram_table_image_width_chinese[1],
                             'height' => $request->diagram_table_image_height_chinese[1]
                         ],
@@ -427,10 +427,12 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::where('id', '=', Crypt::decryptString($id))->first();
+        $product_EN = $this->getProductsAPI(['locale' => 'en-us', 'id' => Crypt::decryptString($id)])->first();
+        $product_MM = $this->getProductsAPI(['locale' => 'my-mm', 'id' => Crypt::decryptString($id)])->first();
+        $product_ZH = $this->getProductsAPI(['locale' => 'zh-cn', 'id' => Crypt::decryptString($id)])->first();
         $product_category = Category::where('is_active', '=', true)->where('parent_id', '=', 1)->get();
 
-        return view('admin.product.add-edit')->with(['action' => 'update', 'product_category' => $product_category, 'product' => $product]);
+        return view('admin.product.add-edit')->with(['action' => 'update', 'product_category' => $product_category, 'product_en' => $product_EN, 'product_mm' => $product_MM, 'product_zh' => $product_ZH]);
     }
 
     /**
