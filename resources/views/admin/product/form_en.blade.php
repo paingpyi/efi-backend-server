@@ -350,7 +350,7 @@
         </span>
         <input id="attachments_icon_thumbnail1" class="form-control" type="text" name="attachments_icon[]">
     </div>
-    <div id="additional_icon_holder4" class="img-thumbnail mx-auto d-block mt-3"></div>
+    <div id="attachments_icon_holder1" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Attachment Image -->
 <div class="form-group">
     <label for="attachments_buttonText1"><i class="flag-icon flag-icon-us mr-2"></i> Button Text
@@ -362,7 +362,7 @@
     <label>Product Proposal <span class="text-danger">*</span></label>
     <div class="input-group">
         <span class="input-group-btn">
-            <a id="attachments_proposal1" data-input="attachments_proposal_file1" class="btn btn-primary lfm">
+            <a id="attachments_proposal1" data-input="attachments_proposal_file1" class="btn btn-primary lfmfile">
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
@@ -396,7 +396,7 @@
         </span>
         <input id="attachments_icon_thumbnail4" class="form-control" type="text" name="attachments_icon[]">
     </div>
-    <div id="additional_icon_holder4" class="img-thumbnail mx-auto d-block mt-3"></div>
+    <div id="attachments_icon_holder4" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Attachment Image -->
 <div class="form-group">
     <label for="attachments_buttonText2"><i class="flag-icon flag-icon-us mr-2"></i> Button Text
@@ -408,7 +408,7 @@
     <label>Product Proposal <span class="text-danger">*</span></label>
     <div class="input-group">
         <span class="input-group-btn">
-            <a id="attachments_proposal2" data-input="attachments_proposal_file2" class="btn btn-primary lfm">
+            <a id="attachments_proposal2" data-input="attachments_proposal_file2" class="btn btn-primary lfmfile">
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>

@@ -156,7 +156,7 @@
     <script>
         $(function() {
             $('.lfm').filemanager('image');
-            $('#file').filemanager('file');
+            $('.lfmfile').filemanager('file');
 
             //Initialize Select2 Elements
             $('.select2').select2({

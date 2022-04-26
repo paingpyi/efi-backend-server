@@ -350,7 +350,7 @@
         </span>
         <input id="attachments_icon_thumbnail_burmese1" class="form-control" type="text" name="attachments_icon_burmese[]">
     </div>
-    <div id="additional_icon_burmese_holder4" class="img-thumbnail mx-auto d-block mt-3"></div>
+    <div id="attachments_icon_burmese_holder1" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Attachment Image -->
 <div class="form-group">
     <label for="attachments_buttonText_burmese1"><i class="flag-icon flag-icon-mm mr-2"></i> Button Text
@@ -362,7 +362,7 @@
     <label>Product Proposal <span class="text-danger">*</span></label>
     <div class="input-group">
         <span class="input-group-btn">
-            <a id="attachments_proposal_burmese1" data-input="attachments_proposal_file_burmese1" class="btn btn-primary lfm">
+            <a id="attachments_proposal_burmese1" data-input="attachments_proposal_file_burmese1" class="btn btn-primary lfmfile">
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
@@ -396,7 +396,7 @@
         </span>
         <input id="attachments_icon_thumbnail_burmese4" class="form-control" type="text" name="attachments_icon_burmese[]">
     </div>
-    <div id="additional_icon_burmese_holder4" class="img-thumbnail mx-auto d-block mt-3"></div>
+    <div id="attachments_icon_burmese_holder4" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Attachment Image -->
 <div class="form-group">
     <label for="attachments_buttonText_burmese2"><i class="flag-icon flag-icon-mm mr-2"></i> Button Text
@@ -408,7 +408,7 @@
     <label>Product Proposal <span class="text-danger">*</span></label>
     <div class="input-group">
         <span class="input-group-btn">
-            <a id="attachments_proposal_burmese2" data-input="attachments_proposal_file_burmese2" class="btn btn-primary lfm">
+            <a id="attachments_proposal_burmese2" data-input="attachments_proposal_file_burmese2" class="btn btn-primary lfmfile">
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
