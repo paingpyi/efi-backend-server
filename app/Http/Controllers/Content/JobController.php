@@ -724,6 +724,15 @@ class JobController extends Controller
 
         /***
          *
+         * Retrieve jobs by category_machine_name
+         *
+         **/
+        if (isset($data['category_machine_name'])) {
+            $job_db->where('categories.machine', '=', $data['category_machine_name']);
+        } //End of retreiving jobs by category_machine_name
+
+        /***
+         *
          * Retrieve jobs by slug url
          *
          **/
