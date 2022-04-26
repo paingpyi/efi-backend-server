@@ -489,6 +489,11 @@ class JobController extends Controller
                 'position' => json_decode($row->position),
                 'department' => json_decode($row->department),
                 'description' => json_decode($row->description),
+                'category_id' => $row->category_id,
+                'category_name' => $row->category_name,
+                'category_description' => $row->category_description,
+                'category_machine_name' => $row->category_machine_name,
+                'category_is_active' => $row->category_is_active,
                 'due_text' => json_decode($row->due_text),
                 'due_date' => $row->due_date,
                 'slug_url' => $row->slug_url,
@@ -499,7 +504,7 @@ class JobController extends Controller
             ];
         }
 
-        if($total_count > 0) {
+        if ($total_count > 0) {
             $response = [
                 'code' => 200,
                 'status' => 'success',
@@ -547,6 +552,11 @@ class JobController extends Controller
                     'position' => json_decode($jobs->position),
                     'department' => json_decode($jobs->department),
                     'description' => json_decode($jobs->description),
+                    'category_id' => $jobs->category_id,
+                    'category_name' => $jobs->category_name,
+                    'category_description' => $jobs->category_description,
+                    'category_machine_name' => $jobs->category_machine_name,
+                    'category_is_active' => $jobs->category_is_active,
                     'due_text' => json_decode($jobs->due_text),
                     'due_date' => $jobs->due_date,
                     'slug_url' => $jobs->slug_url,
@@ -661,7 +671,11 @@ class JobController extends Controller
                 DB::raw('JSON_EXTRACT(jobs.department, \'$."' . Str::lower($data['locale']) . '"\') as department'),
                 DB::raw('JSON_EXTRACT(jobs.description, \'$."' . Str::lower($data['locale']) . '"\') as description'),
                 DB::raw('JSON_EXTRACT(jobs.due_text, \'$."' . Str::lower($data['locale']) . '"\') as due_text'),
-                'jobs.category',
+                'jobs.category as category_id',
+                'categories.name as category_name',
+                'categories.description as category_description',
+                'categories.machine as category_machine_name',
+                'categories.is_active as category_is_active',
                 'jobs.due_date',
                 'jobs.slug_url',
                 'jobs.is_vacant',
