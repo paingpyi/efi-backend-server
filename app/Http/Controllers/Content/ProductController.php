@@ -60,7 +60,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:255',
             'title_burmese' => 'required|max:255',
