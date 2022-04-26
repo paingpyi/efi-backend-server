@@ -218,7 +218,7 @@
     <label>Icon <span class="text-danger">*</span></label>
     <div class="input-group">
         <span class="input-group-btn">
-            <a id="additional_icon_burmese1" data-input="additional_icon_thumbnail_burmese" data-preview="additional_icon_burmese_holder"
+            <a id="additional_icon_burmese1" data-input="additional_icon_thumbnail_burmese1" data-preview="additional_icon_burmese_holder"
                 class="btn btn-primary lfm">
                 <i class="fa fa-picture-o"></i> Choose
             </a>
