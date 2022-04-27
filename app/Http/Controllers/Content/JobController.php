@@ -473,9 +473,9 @@ class JobController extends Controller
          */
         if (isset($data['limit'])) {
             if (isset($data['page'])) {
-                $job_db->skip($data['page'])->take($data['limit']);
+                $job_db->offset($data['page'])->limit($data['limit']);
             } else {
-                $job_db->skip(0)->take($data['limit']);
+                $job_db->offset(0)->limit($data['limit']);
             }
         } // End of limit the number of results.
 

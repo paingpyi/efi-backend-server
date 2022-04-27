@@ -263,8 +263,9 @@ foreach (json_decode($product_en->additional_benifits)->data as $item) {
 <div class="form-group">
     <label for="additional_title"><i class="flag-icon flag-icon-us mr-2"></i> Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="additional_title" value="{{ old('additional_title',isset(json_decode($product_en->additional_benifits)->title) ? json_decode($product_en->additional_benifits)->title : '') }}" class="form-control"
-        id="additional_title">
+    <input type="text" name="additional_title"
+        value="{{ old('additional_title',isset(json_decode($product_en->additional_benifits)->title)? json_decode($product_en->additional_benifits)->title: '') }}"
+        class="form-control" id="additional_title">
     @error('additional_title')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
@@ -279,7 +280,9 @@ foreach (json_decode($product_en->additional_benifits)->data as $item) {
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
-        <input id="additional_icon_thumbnail1" class="form-control" type="text" value="{{ old('additional_title',isset($additional_benifits_data[0]['icon']) ? $additional_benifits_data[0]['icon'] : '') }}" name="additional_icon[]">
+        <input id="additional_icon_thumbnail1" class="form-control" type="text"
+            value="{{ old('additional_title',isset($additional_benifits_data[0]['icon']) ? $additional_benifits_data[0]['icon'] : '') }}"
+            name="additional_icon[]">
     </div>
     <div class="row mt-3">
         <div class="col-3">
@@ -300,7 +303,9 @@ foreach (json_decode($product_en->additional_benifits)->data as $item) {
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
-        <input id="additional_icon_thumbnail2" class="form-control" type="text" value="{{ old('additional_title',isset($additional_benifits_data[1]['icon']) ? $additional_benifits_data[1]['icon'] : '') }}" name="additional_icon[]">
+        <input id="additional_icon_thumbnail2" class="form-control" type="text"
+            value="{{ old('additional_title',isset($additional_benifits_data[1]['icon']) ? $additional_benifits_data[1]['icon'] : '') }}"
+            name="additional_icon[]">
     </div>
     <div class="row mt-3">
         <div class="col-3">
@@ -321,7 +326,9 @@ foreach (json_decode($product_en->additional_benifits)->data as $item) {
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
-        <input id="additional_icon_thumbnail3" class="form-control" value="{{ old('additional_title',isset($additional_benifits_data[2]['icon']) ? $additional_benifits_data[2]['icon'] : '') }}" type="text" name="additional_icon[]">
+        <input id="additional_icon_thumbnail3" class="form-control"
+            value="{{ old('additional_title',isset($additional_benifits_data[2]['icon']) ? $additional_benifits_data[2]['icon'] : '') }}"
+            type="text" name="additional_icon[]">
     </div>
     <div class="row mt-3">
         <div class="col-3">
@@ -342,7 +349,9 @@ foreach (json_decode($product_en->additional_benifits)->data as $item) {
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
-        <input id="additional_icon_thumbnail4" class="form-control" value="{{ old('additional_icon[3]',isset($additional_benifits_data[3]['icon']) ? $additional_benifits_data[3]['icon'] : '') }}" type="text" name="additional_icon[]">
+        <input id="additional_icon_thumbnail4" class="form-control"
+            value="{{ old('additional_icon[3]',isset($additional_benifits_data[3]['icon']) ? $additional_benifits_data[3]['icon'] : '') }}"
+            type="text" name="additional_icon[]">
     </div>
     <div class="row mt-3">
         <div class="col-3">
@@ -363,7 +372,9 @@ foreach (json_decode($product_en->additional_benifits)->data as $item) {
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
-        <input id="additional_icon_thumbnail5" class="form-control" type="text" value="{{ old('additional_icon[3]',isset($additional_benifits_data[4]['icon']) ? $additional_benifits_data[4]['icon'] : '') }}" name="additional_icon[]">
+        <input id="additional_icon_thumbnail5" class="form-control" type="text"
+            value="{{ old('additional_icon[3]',isset($additional_benifits_data[4]['icon']) ? $additional_benifits_data[4]['icon'] : '') }}"
+            name="additional_icon[]">
     </div>
     <div class="row mt-3">
         <div class="col-3">
@@ -379,10 +390,23 @@ foreach (json_decode($product_en->additional_benifits)->data as $item) {
 <!-- Attachments -->
 <hr>
 <h4>Attachments</h4>
+@php
+$attachments = [];
+
+foreach (json_decode($product_en->attachments) as $item) {
+    $attachments[] = [
+        'title' => $item->title,
+        'description' => $item->description,
+        'icon' => config('app.url') . $item->icon,
+        'buttonText' => $item->buttonText,
+        'proposal_file' => config('app.url') . $item->proposal_file,
+    ];
+}
+@endphp
 <div class="form-group">
     <label for="attachments_title1"><i class="flag-icon flag-icon-us mr-2"></i> Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="attachments_title[]" value="{{ old('attachments_title[0]') }}" class="form-control"
+    <input type="text" name="attachments_title[]" value="{{ old('attachments_title[0]',isset($attachments[0]['title']) ? $attachments[0]['title'] : '') }}" class="form-control"
         id="attachments_title1">
     @error('attachments_title[0]')
         <div class="alert alert-danger">{{ $message }}</div>
@@ -393,7 +417,7 @@ foreach (json_decode($product_en->additional_benifits)->data as $item) {
         Description
         <span class="text-danger">*</span></label>
     <textarea name="attachments_description[]" class="summernote"
-        id="attachments_description1">{{ old('attachments_description[0]') }}</textarea>
+        id="attachments_description1">{{ old('attachments_description[0]',isset($attachments[0]['description']) ? $attachments[0]['description'] : '') }}</textarea>
 </div>
 <div class="form-group">
     <label>icon <span class="text-danger">*</span></label>
@@ -404,7 +428,7 @@ foreach (json_decode($product_en->additional_benifits)->data as $item) {
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
-        <input id="attachments_icon_thumbnail1" class="form-control" type="text" name="attachments_icon[]">
+        <input id="attachments_icon_thumbnail1" class="form-control" type="text" value="{{ old('attachments_icon[0]',isset($attachments[0]['icon']) ? $attachments[0]['icon'] : '') }}" name="attachments_icon[]">
     </div>
     <div id="attachments_icon_holder1" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Attachment Image -->

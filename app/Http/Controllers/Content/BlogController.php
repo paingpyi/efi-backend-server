@@ -571,9 +571,9 @@ class BlogController extends Controller
          */
         if (isset($data['limit'])) {
             if (isset($data['page'])) {
-                $blog_db->skip($data['page'])->take($data['limit']);
+                $blog_db->offset($data['page'])->limit($data['limit']);
             } else {
-                $blog_db->skip(0)->take($data['limit']);
+                $blog_db->offset(0)->limit($data['limit']);
             }
         } // End of limit the number of results.
 

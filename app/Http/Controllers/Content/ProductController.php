@@ -703,9 +703,9 @@ class ProductController extends Controller
          */
         if (isset($data['limit'])) {
             if (isset($data['page'])) {
-                $product_db->skip($data['page'])->take($data['limit']);
+                $product_db->offset($data['page'])->limit($data['limit']);
             } else {
-                $product_db->skip(0)->take($data['limit']);
+                $product_db->offset(0)->limit($data['limit']);
             }
         } // End of limit the number of results.
 
@@ -726,6 +726,7 @@ class ProductController extends Controller
                     'image' => config('app.url') . $item->image,
                 ];
             }
+
             $attachments = [];
             foreach (json_decode($row->attachments) as $item) {
                 $attachments[] = [
