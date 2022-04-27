@@ -188,8 +188,9 @@ if (isset($product_en)) {
     <label for="apply_insurance_title"><i class="flag-icon flag-icon-us mr-2"></i>
         Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="apply_insurance_title" value="{{ old('apply_insurance_title') }}" class="form-control"
-        id="apply_insurance_title">
+    <input type="text" name="apply_insurance_title"
+        value="{{ old('apply_insurance_title',isset(json_decode($product_en->apply_insurance)->title) ? json_decode($product_en->apply_insurance)->title : '') }}"
+        class="form-control" id="apply_insurance_title">
     @error('apply_insurance_title')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
@@ -199,12 +200,13 @@ if (isset($product_en)) {
         Description
         <span class="text-danger">*</span></label>
     <textarea name="apply_insurance_description" class="summernote"
-        id="apply_insurance_description">{{ old('apply_insurance_description') }}</textarea>
+        id="apply_insurance_description">{{ old('apply_insurance_description',isset(json_decode($product_en->apply_insurance)->description)? json_decode($product_en->apply_insurance)->description: '') }}</textarea>
 </div>
 <div class="form-group">
     <label for="apply_insurance_buttonText"><i class="flag-icon flag-icon-us mr-2"></i> Button Text
         <span class="text-danger">*</span></label>
-    <input type="text" name="apply_insurance_buttonText" value="{{ old('apply_insurance_buttonText') }}"
+    <input type="text" name="apply_insurance_buttonText"
+        value="{{ old('apply_insurance_buttonText',isset(json_decode($product_en->apply_insurance)->buttonText)? json_decode($product_en->apply_insurance)->buttonText: '') }}"
         class="form-control" id="apply_insurance_buttonText">
     @error('apply_insurance_buttonText')
         <div class="alert alert-danger">{{ $message }}</div>
@@ -217,8 +219,9 @@ if (isset($product_en)) {
 <div class="form-group">
     <label for="why_work_title"><i class="flag-icon flag-icon-us mr-2"></i> Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="why_work_title" value="{{ old('why_work_title') }}" class="form-control"
-        id="why_work_title">
+    <input type="text" name="why_work_title"
+        value="{{ old('why_work_title',isset(json_decode($product_en->why_work_with_us)->title) ? json_decode($product_en->why_work_with_us)->title : '') }}"
+        class="form-control" id="why_work_title">
     @error('why_work_title')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
@@ -228,7 +231,7 @@ if (isset($product_en)) {
         Description
         <span class="text-danger">*</span></label>
     <textarea name="why_work_description" class="summernote"
-        id="why_work_description">{{ old('why_work_description') }}</textarea>
+        id="why_work_description">{{ old('why_work_description',isset(json_decode($product_en->why_work_with_us)->description)? json_decode($product_en->why_work_with_us)->description: '') }}</textarea>
 </div>
 <div class="form-group">
     <div class="input-group">
@@ -238,7 +241,9 @@ if (isset($product_en)) {
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
-        <input id="why_work_image_thumbnail" class="form-control" type="text" name="why_work_image">
+        <input id="why_work_image_thumbnail" class="form-control" type="text"
+            value="{{ old('why_work_image_thumbnail',isset(json_decode($product_en->why_work_with_us)->image) ? json_decode($product_en->why_work_with_us)->image : '') }}"
+            name="why_work_image">
     </div>
     <div id="why_work_image_holder" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Why Work With Us Image -->
@@ -246,10 +251,19 @@ if (isset($product_en)) {
 <!-- Additional Benifits -->
 <hr>
 <h4>Additional Benifits Block</h4>
+@php
+$additional_benifits_data = [];
+foreach (json_decode($product_en->additional_benifits)->data as $item) {
+    $additional_benifits_data[] = [
+        'icon' => config('app.url') . $item->icon,
+        'text' => $item->text,
+    ];
+}
+@endphp
 <div class="form-group">
     <label for="additional_title"><i class="flag-icon flag-icon-us mr-2"></i> Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="additional_title" value="{{ old('additional_title') }}" class="form-control"
+    <input type="text" name="additional_title" value="{{ old('additional_title',isset(json_decode($product_en->additional_benifits)->title) ? json_decode($product_en->additional_benifits)->title : '') }}" class="form-control"
         id="additional_title">
     @error('additional_title')
         <div class="alert alert-danger">{{ $message }}</div>
@@ -265,7 +279,7 @@ if (isset($product_en)) {
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
-        <input id="additional_icon_thumbnail1" class="form-control" type="text" name="additional_icon[]">
+        <input id="additional_icon_thumbnail1" class="form-control" type="text" value="{{ old('additional_title',isset($additional_benifits_data[0]['icon']) ? $additional_benifits_data[0]['icon'] : '') }}" name="additional_icon[]">
     </div>
     <div class="row mt-3">
         <div class="col-3">
@@ -273,7 +287,7 @@ if (isset($product_en)) {
         </div>
         <div class="col-9">
             <textarea name="additional_iconText[]" class="summernote"
-                id="additional_iconText1">{{ old('additional_iconText[0]') }}</textarea>
+                id="additional_iconText1">{{ old('additional_iconText[0]',isset($additional_benifits_data[0]['text']) ? $additional_benifits_data[0]['text'] : '') }}</textarea>
         </div>
     </div>
 </div> <!-- /. Additional Benefit Image -->
@@ -286,7 +300,7 @@ if (isset($product_en)) {
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
-        <input id="additional_icon_thumbnail2" class="form-control" type="text" name="additional_icon[]">
+        <input id="additional_icon_thumbnail2" class="form-control" type="text" value="{{ old('additional_title',isset($additional_benifits_data[1]['icon']) ? $additional_benifits_data[1]['icon'] : '') }}" name="additional_icon[]">
     </div>
     <div class="row mt-3">
         <div class="col-3">
@@ -294,7 +308,7 @@ if (isset($product_en)) {
         </div>
         <div class="col-9">
             <textarea name="additional_iconText[]" class="summernote"
-                id="additional_iconText2">{{ old('additional_iconText[1]') }}</textarea>
+                id="additional_iconText2">{{ old('additional_iconText[1]',isset($additional_benifits_data[1]['text']) ? $additional_benifits_data[1]['text'] : '') }}</textarea>
         </div>
     </div>
 </div> <!-- /. Additional Benefit Image -->
@@ -307,7 +321,7 @@ if (isset($product_en)) {
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
-        <input id="additional_icon_thumbnail3" class="form-control" type="text" name="additional_icon[]">
+        <input id="additional_icon_thumbnail3" class="form-control" value="{{ old('additional_title',isset($additional_benifits_data[2]['icon']) ? $additional_benifits_data[2]['icon'] : '') }}" type="text" name="additional_icon[]">
     </div>
     <div class="row mt-3">
         <div class="col-3">
@@ -315,7 +329,7 @@ if (isset($product_en)) {
         </div>
         <div class="col-9">
             <textarea name="additional_iconText[]" class="summernote"
-                id="additional_iconText3">{{ old('additional_iconText[2]') }}</textarea>
+                id="additional_iconText3">{{ old('additional_iconText[2]',isset($additional_benifits_data[2]['text']) ? $additional_benifits_data[2]['text'] : '') }}</textarea>
         </div>
     </div>
 </div> <!-- /. Additional Benefit Image -->
@@ -328,7 +342,7 @@ if (isset($product_en)) {
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
-        <input id="additional_icon_thumbnail4" class="form-control" type="text" name="additional_icon[]">
+        <input id="additional_icon_thumbnail4" class="form-control" value="{{ old('additional_icon[3]',isset($additional_benifits_data[3]['icon']) ? $additional_benifits_data[3]['icon'] : '') }}" type="text" name="additional_icon[]">
     </div>
     <div class="row mt-3">
         <div class="col-3">
@@ -336,7 +350,7 @@ if (isset($product_en)) {
         </div>
         <div class="col-9">
             <textarea name="additional_iconText[]" class="summernote"
-                id="additional_iconText4">{{ old('additional_iconText[3]') }}</textarea>
+                id="additional_iconText4">{{ old('additional_iconText[3]',isset($additional_benifits_data[3]['text']) ? $additional_benifits_data[3]['text'] : '') }}</textarea>
         </div>
     </div>
 </div> <!-- /. Additional Benefit Image -->
@@ -349,7 +363,7 @@ if (isset($product_en)) {
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
-        <input id="additional_icon_thumbnail5" class="form-control" type="text" name="additional_icon[]">
+        <input id="additional_icon_thumbnail5" class="form-control" type="text" value="{{ old('additional_icon[3]',isset($additional_benifits_data[4]['icon']) ? $additional_benifits_data[4]['icon'] : '') }}" name="additional_icon[]">
     </div>
     <div class="row mt-3">
         <div class="col-3">
@@ -357,7 +371,7 @@ if (isset($product_en)) {
         </div>
         <div class="col-9">
             <textarea name="additional_iconText[]" class="summernote"
-                id="additional_iconText5">{{ old('additional_iconText[4]') }}</textarea>
+                id="additional_iconText5">{{ old('additional_iconText[4]',isset($additional_benifits_data[4]['text']) ? $additional_benifits_data[4]['text'] : '') }}</textarea>
         </div>
     </div>
 </div> <!-- /. Additional Benefit Image -->
