@@ -703,13 +703,13 @@ class ProductController extends Controller
          */
         if (isset($data['limit'])) {
             if (isset($data['page'])) {
-                $product_db->offset($data['page'])->limit($data['limit']);
+                $products = $product_db->paginate($data['limit'], $data['page']);
             } else {
-                $product_db->offset(0)->limit($data['limit']);
+                $products = $product_db->paginate($data['limit']);
             }
+        } else {
+            $products = $product_db->get();
         } // End of limit the number of results.
-
-        $products = $product_db->get();
 
         foreach ($products as $row) {
             $why_work_with_us = [

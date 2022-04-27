@@ -571,13 +571,13 @@ class BlogController extends Controller
          */
         if (isset($data['limit'])) {
             if (isset($data['page'])) {
-                $blog_db->offset($data['page'])->limit($data['limit']);
+                $blog_db->paginate($data['limit'], $data['page']);
             } else {
-                $blog_db->offset(0)->limit($data['limit']);
+                $blogs = $blog_db->paginate($data['limit']);
             }
+        } else {
+            $blogs = $blog_db->get();
         } // End of limit the number of results.
-
-        $blogs = $blog_db->get();
 
         foreach ($blogs as $row) {
             $categories = [];

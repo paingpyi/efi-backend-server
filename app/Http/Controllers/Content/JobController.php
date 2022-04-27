@@ -473,13 +473,13 @@ class JobController extends Controller
          */
         if (isset($data['limit'])) {
             if (isset($data['page'])) {
-                $job_db->offset($data['page'])->limit($data['limit']);
+                $jobs = $job_db->paginate($data['limit'], $data['page']);
             } else {
-                $job_db->offset(0)->limit($data['limit']);
+                $jobs = $job_db->paginate($data['limit']);
             }
+        } else {
+            $jobs = $job_db->get();
         } // End of limit the number of results.
-
-        $jobs = $job_db->get();
 
         $result = [];
 
