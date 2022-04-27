@@ -19,13 +19,16 @@
 <hr>
 <h4>Description</h4>
 @php
-$lr = [];
-foreach (json_decode($product_en->lr) as $item) {
-    $lr[] = [
-        'title' => $item->title,
-        'description' => $item->description,
-        'image' => config('app.url') . $item->image,
-    ];
+if (isset($product_en)) {
+    $lr = [];
+
+    foreach (json_decode($product_en->lr) as $item) {
+        $lr[] = [
+            'title' => $item->title,
+            'description' => $item->description,
+            'image' => config('app.url') . $item->image,
+        ];
+    }
 }
 @endphp
 <div class="form-group">
@@ -51,7 +54,8 @@ foreach (json_decode($product_en->lr) as $item) {
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
-        <input id="lr_image_thumbnail" class="form-control" type="text" name="lr_image" value="{{old('lr_image', isset($lr[0]['image']) ? $lr[0]['image'] : '')}}">
+        <input id="lr_image_thumbnail" class="form-control" type="text" name="lr_image"
+            value="{{ old('lr_image', isset($lr[0]['image']) ? $lr[0]['image'] : '') }}">
     </div>
     <div id="lr_image_holder" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Paragraphs Image -->
@@ -59,11 +63,29 @@ foreach (json_decode($product_en->lr) as $item) {
 <!-- Diagram and Table -->
 <hr>
 <h4>Diagram and Table</h4>
+@php
+if (isset($product_en)) {
+    $diagrams_and_table = [];
+
+    foreach (json_decode($product_en->diagrams_and_table) as $item) {
+        $diagrams_and_table[] = [
+            'title' => $item->title,
+            'description' => $item->description,
+            'image' => [
+                'src' => config('app.url') . $item->image->src,
+                'width' => $item->image->width,
+                'height' => $item->image->height,
+            ],
+        ];
+    }
+}
+@endphp
 <div class="form-group">
     <label for="diagram_table_title[]"><i class="flag-icon flag-icon-us mr-2"></i> Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="diagram_table_title[]" value="{{ old('diagram_table_title[0]') }}" class="form-control"
-        id="diagram_table_title1">
+    <input type="text" name="diagram_table_title[]"
+        value="{{ old('diagram_table_title[0]', isset($diagrams_and_table[0]['title']) ? $diagrams_and_table[0]['title'] : '') }}"
+        class="form-control" id="diagram_table_title1">
     @error('diagram_table_title[0]')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
@@ -73,7 +95,7 @@ foreach (json_decode($product_en->lr) as $item) {
         Description
         <span class="text-danger">*</span></label>
     <textarea name="diagram_table_description[]" class="summernote"
-        id="diagram_table_description1">{{ old('diagram_table_description[0]') }}</textarea>
+        id="diagram_table_description1">{{ old('diagram_table_description[0]',isset($diagrams_and_table[0]['description']) ? $diagrams_and_table[0]['description'] : '') }}</textarea>
 </div>
 <div class="form-group">
     <div class="input-group">
@@ -83,7 +105,8 @@ foreach (json_decode($product_en->lr) as $item) {
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
-        <input id="diagram_table_image_thumbnail" class="form-control" type="text" name="diagram_table_image[]">
+        <input id="diagram_table_image_thumbnail" class="form-control" type="text" name="diagram_table_image[]"
+            value="{{ old('diagram_table_image[0]',isset($diagrams_and_table[0]['image']['src']) ? $diagrams_and_table[0]['image']['src'] : '') }}">
     </div>
     <div id="diagram_table_image_holder" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Diagram and Table Image -->
@@ -92,7 +115,8 @@ foreach (json_decode($product_en->lr) as $item) {
         <div class="form-group">
             <label for="diagram_table_image_width[]"><i class="flag-icon flag-icon-us mr-2"></i> Image Width
                 <span class="text-danger">*</span></label>
-            <input type="text" name="diagram_table_image_width[]" value="{{ old('diagram_table_image_width[]') }}"
+            <input type="text" name="diagram_table_image_width[]"
+                value="{{ old('diagram_table_image_width[0]',isset($diagrams_and_table[0]['image']['width']) ? $diagrams_and_table[0]['image']['width'] : '') }}"
                 class="form-control" id="diagram_table_image_width1" placeholder="Image Width (px)">
         </div>
     </div> <!-- /. Image width -->
@@ -100,7 +124,8 @@ foreach (json_decode($product_en->lr) as $item) {
         <div class="form-group">
             <label for="diagram_table_image_height[]"><i class="flag-icon flag-icon-us mr-2"></i> Image Height
                 <span class="text-danger">*</span></label>
-            <input type="text" name="diagram_table_image_height[]" value="{{ old('diagram_table_image_height[]') }}"
+            <input type="text" name="diagram_table_image_height[]"
+                value="{{ old('diagram_table_image_height[0]',isset($diagrams_and_table[0]['image']['height']) ? $diagrams_and_table[0]['image']['height'] : '') }}"
                 class="form-control" id="diagram_table_image_height1" placeholder="Image Height (px)">
         </div>
     </div> <!-- /. Image height -->
@@ -108,7 +133,8 @@ foreach (json_decode($product_en->lr) as $item) {
 <div class="form-group">
     <label for="diagram_table_title[]"><i class="flag-icon flag-icon-us mr-2"></i> Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="diagram_table_title[]" value="{{ old('diagram_table_title[1]') }}"
+    <input type="text" name="diagram_table_title[]"
+        value="{{ old('diagram_table_title[1]', isset($diagrams_and_table[1]['title']) ? $diagrams_and_table[1]['title'] : '') }}"
         class="form-control" id="diagram_table_title2">
     @error('diagram_table_title[0]')
         <div class="alert alert-danger">{{ $message }}</div>
@@ -119,7 +145,7 @@ foreach (json_decode($product_en->lr) as $item) {
         Description
         <span class="text-danger">*</span></label>
     <textarea name="diagram_table_description[]" class="summernote"
-        id="diagram_table_description2">{{ old('diagram_table_description[1]') }}</textarea>
+        id="diagram_table_description2">{{ old('diagram_table_description[1]',isset($diagrams_and_table[1]['description']) ? $diagrams_and_table[1]['description'] : '') }}</textarea>
 </div>
 <div class="form-group">
     <div class="input-group">
@@ -129,7 +155,8 @@ foreach (json_decode($product_en->lr) as $item) {
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
-        <input id="diagram_table_image_thumbnail2" class="form-control" type="text" name="diagram_table_image[]">
+        <input id="diagram_table_image_thumbnail2" class="form-control" type="text" name="diagram_table_image[]"
+            value="{{ old('diagram_table_image[1]',isset($diagrams_and_table[1]['image']['src']) ? $diagrams_and_table[1]['image']['src'] : '') }}">
     </div>
     <div id="diagram_table_image_holder2" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Diagram and Table Image -->
@@ -138,7 +165,8 @@ foreach (json_decode($product_en->lr) as $item) {
         <div class="form-group">
             <label for="diagram_table_image_width[]"><i class="flag-icon flag-icon-us mr-2"></i> Image Width
                 <span class="text-danger">*</span></label>
-            <input type="text" name="diagram_table_image_width[]" value="{{ old('diagram_table_image_width[]') }}"
+            <input type="text" name="diagram_table_image_width[]"
+                value="{{ old('diagram_table_image_width[1]',isset($diagrams_and_table[1]['image']['width']) ? $diagrams_and_table[1]['image']['width'] : '') }}"
                 class="form-control" id="diagram_table_image_width2" placeholder="Image Width (px)">
         </div>
     </div> <!-- /. Image width -->
@@ -146,7 +174,8 @@ foreach (json_decode($product_en->lr) as $item) {
         <div class="form-group">
             <label for="diagram_table_image_height[]"><i class="flag-icon flag-icon-us mr-2"></i> Image Height
                 <span class="text-danger">*</span></label>
-            <input type="text" name="diagram_table_image_height[]" value="{{ old('diagram_table_image_height[]') }}"
+            <input type="text" name="diagram_table_image_height[]"
+                value="{{ old('diagram_table_image_height[1]',isset($diagrams_and_table[1]['image']['height']) ? $diagrams_and_table[1]['image']['height'] : '') }}"
                 class="form-control" id="diagram_table_image_height2" placeholder="Image Height (px)">
         </div>
     </div> <!-- /. Image height -->
