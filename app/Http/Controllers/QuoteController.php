@@ -276,6 +276,27 @@ class QuoteController extends Controller
     {
         $data = $request->json()->all();
 
+        $response_code = 200;
+        $flag = false;
+        $result = [
+            'policy_term' => 0,
+            'premium_term' => 0,
+            'value' => 0
+        ];
+
+        if (!isset($data['insured_amount'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => 'insured_amount' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response, $response_code);
+        }
+
         if (!isset($data['insured_age'])) {
             $response_code = 400;
 
@@ -323,7 +344,85 @@ class QuoteController extends Controller
 
                     return response()->json($response, $response_code);
                 }
+            } // End of condition
+
+            if ($flag) {
+                foreach (json_decode($formula->formulas) as $formula) {
+                    if ($formula == '+') {
+                        if ($result['value'] == 0) {
+                            $result['value'] = $data[$formula->field] + $formula->value;
+                        } else {
+                            $result['value'] = $result['value'] + $formula->value;
+                        }
+                    } else if ($formula->operator == '-') {
+                        if ($result['value'] == 0) {
+                            $result['value'] = $data[$formula->field] - $formula->value;
+                        } else {
+                            $result['value'] = $result['value'] - $formula->value;
+                        }
+                    } else if ($formula->operator == '*') {
+                        if ($result['value'] == 0) {
+                            $result['value'] = $data[$formula->field] * $formula->value;
+                        } else {
+                            $result['value'] = $result['value'] * $formula->value;
+                        }
+                    } else if ($formula->operator == '/') {
+                        if ($result['value'] == 0) {
+                            $result['value'] = $data[$formula->field] / $formula->value;
+                        } else {
+                            $result['value'] = $result['value'] / $formula->value;
+                        }
+                    } else if ($formula->operator == '=') {
+                        $result[$formula->field] = $formula->value;
+                    } else {
+                        $response_code = 400;
+
+                        $response = [
+                            'code' => $response_code,
+                            'status' => $this->error400status_eng,
+                            'errors' => $this->error_arithmetic_eng,
+                            'olds' => $formula->field . ': Formula - ' . $formula->value,
+                        ];
+
+                        return response()->json($response, $response_code);
+                    }
+                } // End of formula
             }
         }
+
+        if ($result <= 0) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => $this->not_eligible_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response, $response_code);
+        }
+
+        $output = [];
+
+        for ($i = 1; $i <= $result['premium_term']; $i++) {
+            $output[] = [
+                $i => $result['value'],
+            ];
+        }
+
+        $response = [
+            'code' => $response_code,
+            'status' => $this->success_eng,
+            'insured_age' => $data['insured_age'],
+            'insured_amount' => $data['insured_amount'],
+            'premium_type' => $data['premium_type'],
+            'policy_term' => $result['policy_term'],
+            'premium_term' => $result['premium_term'],
+            'result' => $output,
+            'total' => $result['value'] * $result['premium_term'],
+        ];
+
+        return response()->json($response, $response_code);
     }
 }
