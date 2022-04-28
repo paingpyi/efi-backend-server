@@ -516,6 +516,7 @@ class JobController extends Controller
             $response = [
                 'code' => 200,
                 'status' => 'no content',
+                'count' => $total_count,
                 'data' => []
             ];
 
@@ -569,6 +570,7 @@ class JobController extends Controller
                 $response = [
                     'code' => 404,
                     'status' => 'no content',
+                    'count' => 0,
                     'data' => []
                 ];
 
