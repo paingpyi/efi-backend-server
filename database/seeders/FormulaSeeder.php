@@ -495,7 +495,7 @@ class FormulaSeeder extends Seeder
              *
              */
             [
-                'method' => 'calculateShortTermEndowment',
+                'method' => 'calculateStudentLife',
                 'conditions' => json_encode([
                     ['field' => 'insured_age', 'operator' => '==', 'value' => 1],
                     ['field' => 'premium_type', 'operator' => '==', 'value' => 'annual'],
@@ -510,7 +510,7 @@ class FormulaSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
-                'method' => 'calculateShortTermEndowment',
+                'method' => 'calculateStudentLife',
                 'conditions' => json_encode([
                     ['field' => 'insured_age', 'operator' => '==', 'value' => 1],
                     ['field' => 'premium_type', 'operator' => '==', 'value' => 'semi-annual'],
@@ -525,7 +525,7 @@ class FormulaSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
-                'method' => 'calculateShortTermEndowment',
+                'method' => 'calculateStudentLife',
                 'conditions' => json_encode([
                     ['field' => 'insured_age', 'operator' => '==', 'value' => 1],
                     ['field' => 'premium_type', 'operator' => '==', 'value' => 'quarterly'],
@@ -540,7 +540,7 @@ class FormulaSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
-                'method' => 'calculateShortTermEndowment',
+                'method' => 'calculateStudentLife',
                 'conditions' => json_encode([
                     ['field' => 'insured_age', 'operator' => '==', 'value' => 2],
                     ['field' => 'premium_type', 'operator' => '==', 'value' => 'annual'],
@@ -555,7 +555,7 @@ class FormulaSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
-                'method' => 'calculateShortTermEndowment',
+                'method' => 'calculateStudentLife',
                 'conditions' => json_encode([
                     ['field' => 'insured_age', 'operator' => '==', 'value' => 2],
                     ['field' => 'premium_type', 'operator' => '==', 'value' => 'semi-annual'],
@@ -570,7 +570,7 @@ class FormulaSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             [
-                'method' => 'calculateShortTermEndowment',
+                'method' => 'calculateStudentLife',
                 'conditions' => json_encode([
                     ['field' => 'insured_age', 'operator' => '==', 'value' => 2],
                     ['field' => 'premium_type', 'operator' => '==', 'value' => 'quarterly'],

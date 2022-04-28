@@ -58,187 +58,211 @@ class QuoteController extends Controller
     public function calculateShortTermEndowment(Request $request)
     {
         $data = $request->json()->all();
+        $response_code = 200;
 
         if (!isset($data['insured_amount'])) {
+            $response_code = 400;
+
             $response = [
-                'code' => 400,
+                'code' => $response_code,
                 'status' => $this->error400status_eng,
                 'errors' => 'insured_amount' . $this->required_error_eng,
                 'olds' => $request->all(),
             ];
 
-            return response()->json($response);
+            return response()->json($response, $response_code);
         }
 
         if (!isset($data['insured_age'])) {
+            $response_code = 400;
+
             $response = [
-                'code' => 400,
+                'code' => $response_code,
                 'status' => $this->error400status_eng,
                 'errors' => 'insured_age' . $this->required_error_eng,
                 'olds' => $request->all(),
             ];
 
-            return response()->json($response);
+            return response()->json($response, $response_code);
         }
 
         if (!isset($data['term'])) {
+            $response_code = 400;
+
             $response = [
-                'code' => 400,
+                'code' => $response_code,
                 'status' => $this->error400status_eng,
                 'errors' => 'term' . $this->required_error_eng,
                 'olds' => $request->all(),
             ];
 
-            return response()->json($response);
+            return response()->json($response, $response_code);
         }
 
         if (!is_numeric($data['insured_amount'])) {
+            $response_code = 400;
+
             $response = [
-                'code' => 400,
+                'code' => $response_code,
                 'status' => $this->error400status_eng,
                 'errors' => 'insured_amount' . $this->numeric_error_eng,
                 'olds' => $request->all(),
             ];
 
-            return response()->json($response);
+            return response()->json($response, $response_code);
         }
 
         if (!is_numeric($data['insured_age'])) {
+            $response_code = 400;
+
             $response = [
-                'code' => 400,
+                'code' => $response_code,
                 'status' => $this->error400status_eng,
                 'errors' => 'insured_age' . $this->numeric_error_eng,
                 'olds' => $request->all(),
             ];
 
-            return response()->json($response);
+            return response()->json($response, $response_code);
         }
 
         if (!is_numeric($data['term'])) {
+            $response_code = 400;
+
             $response = [
-                'code' => 400,
+                'code' => $response_code,
                 'status' => $this->error400status_eng,
                 'errors' => 'term' . $this->numeric_error_eng,
                 'olds' => $request->all(),
             ];
 
-            return response()->json($response);
+            return response()->json($response, $response_code);
         }
 
         $flag = false;
         $result = 0;
 
-        foreach(Formula::where('method', '=', 'calculateShortTermEndowment')->get() as $formula) {
-            foreach(json_decode($formula->conditions) as $condition) {
-                if($condition->operator == '<') {
-                    if($data[$condition->field] < $condition->value) {
+        foreach (Formula::where('method', '=', 'calculateShortTermEndowment')->get() as $formula) {
+            foreach (json_decode($formula->conditions) as $condition) {
+                if ($condition->operator == '<') {
+                    if ($data[$condition->field] < $condition->value) {
                         $flag = true;
                     } else {
-                        $flag = false;break;
+                        $flag = false;
+                        break;
                     }
-                } else if($condition->operator == '>') {
-                    if($data[$condition->field] > $condition->value) {
+                } else if ($condition->operator == '>') {
+                    if ($data[$condition->field] > $condition->value) {
                         $flag = true;
                     } else {
-                        $flag = false;break;
+                        $flag = false;
+                        break;
                     }
-                } else if($condition->operator == '<=') {
-                    if($data[$condition->field] <= $condition->value) {
+                } else if ($condition->operator == '<=') {
+                    if ($data[$condition->field] <= $condition->value) {
                         $flag = true;
                     } else {
-                        $flag = false;break;
+                        $flag = false;
+                        break;
                     }
-                } else if($condition->operator == '>=') {
-                    if($data[$condition->field] >= $condition->value) {
+                } else if ($condition->operator == '>=') {
+                    if ($data[$condition->field] >= $condition->value) {
                         $flag = true;
                     } else {
-                        $flag = false;break;
+                        $flag = false;
+                        break;
                     }
-                } else if($condition->operator == '==') {
-                    if($data[$condition->field] == $condition->value) {
+                } else if ($condition->operator == '==') {
+                    if ($data[$condition->field] == $condition->value) {
                         $flag = true;
                     } else {
-                        $flag = false;break;
+                        $flag = false;
+                        break;
                     }
                 } else {
+                    $response_code = 400;
+
                     $response = [
-                        'code' => 400,
+                        'code' => $response_code,
                         'status' => $this->error400status_eng,
                         'errors' => $this->error_operators_eng,
-                        'olds' => $condition->field.' '.$condition->operator.' ' .$condition->value,
+                        'olds' => $condition->field . ' ' . $condition->operator . ' ' . $condition->value,
                     ];
 
-                    return response()->json($response);
+                    return response()->json($response, $response_code);
                 }
             } // End of conditions
 
-            if($flag) {
-                foreach(json_decode($formula->formulas) as $formula) {
-                    if($formula == '+') {
-                        if($result == 0) {
+            if ($flag) {
+                foreach (json_decode($formula->formulas) as $formula) {
+                    if ($formula == '+') {
+                        if ($result == 0) {
                             $result = $data[$formula->field] + $formula->value;
                         } else {
                             $result = $result + $formula->value;
                         }
-                    } else if($formula->operator == '-') {
-                        if($result == 0) {
+                    } else if ($formula->operator == '-') {
+                        if ($result == 0) {
                             $result = $data[$formula->field] - $formula->value;
                         } else {
                             $result = $result - $formula->value;
                         }
-                    } else if($formula->operator == '*') {
-                        if($result == 0) {
+                    } else if ($formula->operator == '*') {
+                        if ($result == 0) {
                             $result = $data[$formula->field] * $formula->value;
                         } else {
                             $result = $result * $formula->value;
                         }
-                    } else if($formula->operator == '/') {
-                        if($result == 0) {
+                    } else if ($formula->operator == '/') {
+                        if ($result == 0) {
                             $result = $data[$formula->field] / $formula->value;
                         } else {
                             $result = $result / $formula->value;
                         }
                     } else {
+                        $response_code = 400;
+
                         $response = [
-                            'code' => 400,
+                            'code' => $response_code,
                             'status' => $this->error400status_eng,
                             'errors' => $this->error_arithmetic_eng,
-                            'olds' => $formula->field.': Formula - '.$formula->value,
+                            'olds' => $formula->field . ': Formula - ' . $formula->value,
                         ];
 
-                        return response()->json($response);
+                        return response()->json($response, $response_code);
                     }
                 } // End of formula
             }
         } // End of Formula Table
 
-        if($result <= 0) {
+        if ($result <= 0) {
+            $response_code = 400;
+
             $response = [
-                'code' => 400,
+                'code' => $response_code,
                 'status' => $this->error400status_eng,
                 'errors' => $this->not_eligible_error_eng,
                 'olds' => $request->all(),
             ];
 
-            return response()->json($response);
+            return response()->json($response, $response_code);
         }
 
         $output = [];
 
-        for($i = 1; $i <= $request->term; $i++) {
+        for ($i = 1; $i <= $request->term; $i++) {
             $output[] = [
                 $i => $result,
             ];
         }
 
         $response = [
-            'code' => 200,
+            'code' => $response_code,
             'status' => $this->success_eng,
             'result' => $output,
             'total' => $result * $request->term,
         ];
 
-        return response()->json($response);
+        return response()->json($response, $response_code);
     }
 
     /**
@@ -253,14 +277,53 @@ class QuoteController extends Controller
         $data = $request->json()->all();
 
         if (!isset($data['insured_age'])) {
+            $response_code = 400;
+
             $response = [
-                'code' => 400,
+                'code' => $response_code,
                 'status' => $this->error400status_eng,
                 'errors' => 'insured_age' . $this->required_error_eng,
                 'olds' => $request->all(),
             ];
 
-            return response()->json($response);
+            return response()->json($response, $response_code);
+        }
+
+        if (!isset($data['premium_type'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => 'premium_type' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response, $response_code);
+        }
+
+        foreach (Formula::where('method', '=', 'calculateStudentLife')->get() as $formula) {
+            foreach (json_decode($formula->conditions) as $condition) {
+                if ($condition->operator == '==') {
+                    if ($data[$condition->field] == $condition->value) {
+                        $flag = true;
+                    } else {
+                        $flag = false;
+                        break;
+                    }
+                } else {
+                    $response_code = 400;
+
+                    $response = [
+                        'code' => $response_code,
+                        'status' => $this->error400status_eng,
+                        'errors' => $this->error_operators_eng,
+                        'olds' => $condition->field . ' ' . $condition->operator . ' ' . $condition->value,
+                    ];
+
+                    return response()->json($response, $response_code);
+                }
+            }
         }
     }
 }
