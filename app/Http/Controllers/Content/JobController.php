@@ -699,9 +699,11 @@ class JobController extends Controller
          *
          **/
         if (isset($data['keyword'])) {
+            $keyword = Str::lower($data['keyword']);
+
             $job_db
-                ->Where(DB::raw('JSON_EXTRACT(jobs.position, \'$."' . Str::lower($data['locale']) . '"\')'), 'LIKE', "%{$data['keyword']}%")
-                ->orWhere(DB::raw('JSON_EXTRACT(jobs.department, \'$."' . Str::lower($data['locale']) . '"\')'), 'LIKE', "%{$data['keyword']}%");
+                ->Where(DB::raw('LOWER(JSON_EXTRACT(jobs.position, \'$."' . Str::lower($data['locale']) . '"\'))'), 'LIKE', "%{$keyword}%")
+                ->orWhere(DB::raw('LOWER(JSON_EXTRACT(jobs.department, \'$."' . Str::lower($data['locale']) . '"\'))'), 'LIKE', "%{$keyword}%");
         } //End of retreiving jobs by keyword
 
         /***

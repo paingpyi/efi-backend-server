@@ -435,7 +435,7 @@ foreach (json_decode($product_en->attachments) as $item) {
 <div class="form-group">
     <label for="attachments_buttonText1"><i class="flag-icon flag-icon-us mr-2"></i> Button Text
         <span class="text-danger">*</span></label>
-    <input type="text" name="attachments_buttonText[]" value="{{ old('attachments_buttonText[0]') }}"
+    <input type="text" name="attachments_buttonText[]" value="{{ old('attachments_buttonText[0]',isset($attachments[0]['buttonText']) ? $attachments[0]['buttonText'] : '') }}"
         class="form-control" id="attachments_buttonText1">
 </div>
 <div class="form-group">
@@ -446,7 +446,7 @@ foreach (json_decode($product_en->attachments) as $item) {
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
-        <input id="attachments_proposal_file1" class="form-control" type="text" name="attachments_proposal_file[]">
+        <input id="attachments_proposal_file1" class="form-control" type="text" value="{{ old('attachments_proposal_file[0]',isset($attachments[0]['proposal_file']) ? $attachments[0]['proposal_file'] : '') }}" name="attachments_proposal_file[]">
     </div>
 </div> <!-- /. Product Proposal -->
 <div class="form-group">

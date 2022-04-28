@@ -1009,9 +1009,11 @@ class ProductController extends Controller
          *
          **/
         if (isset($data['keyword'])) {
+            $keyword = Str::lower($data['keyword']);
+
             $product_db
-                ->where(DB::raw('JSON_EXTRACT(products.title, \'$."' . Str::lower($data['locale']) . '"\')'), 'LIKE', "%{$data['keyword']}%")
-                ->orWhere('categories.name', 'LIKE', "%{$data['keyword']}%");
+                ->Where(DB::raw('LOWER(JSON_EXTRACT(products.title, \'$."' . Str::lower($data['locale']) . '"\'))'), 'LIKE', "%{$keyword}%")
+                ->orWhere(DB::raw('LOWER(categories.name)'), 'LIKE', "%{$keyword}%");
         } //End of retreiving products by title
 
         /***
