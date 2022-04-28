@@ -27,6 +27,30 @@ class QuoteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function getPremiumType(Request $request)
+    {
+        $response_code = 200;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->success_eng,
+                'data' => [
+                    'annual',
+                    'semi-annual',
+                    'quarterly'
+                ]
+            ];
+
+            return response()->json($response, $response_code);
+    }
+
+    /**
+     * Calculate Comprehensive Motor Insurance API via JSON.
+     * Life Insurance
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function calculateMotor(Request $request)
     {
         $validator = Validator::make($request->all(), [
