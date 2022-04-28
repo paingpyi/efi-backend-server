@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Formula;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class QuoteController extends Controller
 {
@@ -30,16 +31,76 @@ class QuoteController extends Controller
     public function getPremiumType(Request $request)
     {
         $response_code = 200;
+        $data = $request->json()->all();
 
+        if (!isset($data['locale'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => 'insured_amount' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+        } else if(Str::lower($data['locale'])=='en-us') {
             $response = [
                 'code' => $response_code,
                 'status' => $this->success_eng,
                 'data' => [
-                    'annual',
-                    'semi-annual',
-                    'quarterly'
+                    [
+                        'name' => 'Annual',
+                        'value' => 'annual',
+                    ],
+                    [
+                        'name' => 'Semi-annual',
+                        'value' => 'semi-annual',
+                    ],
+                    [
+                        'name' => 'Quarterly',
+                        'value' => 'quarterly',
+                    ],
                 ]
             ];
+        } else if(Str::lower($data['locale'])=='zh-cn') {
+            $response = [
+                'code' => $response_code,
+                'status' => $this->success_eng,
+                'data' => [
+                    [
+                        'name' => 'Annual',
+                        'value' => 'annual',
+                    ],
+                    [
+                        'name' => 'Semi-annual',
+                        'value' => 'semi-annual',
+                    ],
+                    [
+                        'name' => 'Quarterly',
+                        'value' => 'quarterly',
+                    ],
+                ]
+            ];
+        } else if(Str::lower($data['locale'])=='my-mm') {
+            $response = [
+                'code' => $response_code,
+                'status' => $this->success_eng,
+                'data' => [
+                    [
+                        'name' => 'Annual',
+                        'value' => 'annual',
+                    ],
+                    [
+                        'name' => 'Semi-annual',
+                        'value' => 'semi-annual',
+                    ],
+                    [
+                        'name' => 'Quarterly',
+                        'value' => 'quarterly',
+                    ],
+                ]
+            ];
+        }
+
 
             return response()->json($response, $response_code);
     }
