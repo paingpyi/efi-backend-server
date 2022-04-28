@@ -585,6 +585,216 @@ class FormulaSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             // End of Student Life
+
+            /****
+             *
+             * Travel Insurance
+             *
+             */
+            [
+                'method' => 'calculateTravelInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'travel_type', 'operator' => '==', 'value' => 'local'],
+                    ['field' => 'duration', 'operator' => '==', 'value' => '1 day'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_rate', 'operator' => '=', 'value' => 100],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateTravelInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'travel_type', 'operator' => '==', 'value' => 'local'],
+                    ['field' => 'duration', 'operator' => '==', 'value' => '3 days'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_rate', 'operator' => '=', 'value' => 150],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateTravelInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'travel_type', 'operator' => '==', 'value' => 'local'],
+                    ['field' => 'duration', 'operator' => '==', 'value' => '1 week'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_rate', 'operator' => '=', 'value' => 200],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateTravelInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'travel_type', 'operator' => '==', 'value' => 'local'],
+                    ['field' => 'duration', 'operator' => '==', 'value' => '2 weeks'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_rate', 'operator' => '=', 'value' => 250],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateTravelInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'travel_type', 'operator' => '==', 'value' => 'local'],
+                    ['field' => 'duration', 'operator' => '==', 'value' => '1 month'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_rate', 'operator' => '=', 'value' => 300],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateTravelInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'travel_type', 'operator' => '==', 'value' => 'local'],
+                    ['field' => 'duration', 'operator' => '==', 'value' => '1.5 months'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_rate', 'operator' => '=', 'value' => 350],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateTravelInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'travel_type', 'operator' => '==', 'value' => 'local'],
+                    ['field' => 'duration', 'operator' => '==', 'value' => '2 months'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_rate', 'operator' => '=', 'value' => 400],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateTravelInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'travel_type', 'operator' => '==', 'value' => 'local'],
+                    ['field' => 'duration', 'operator' => '==', 'value' => '2.5 months'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_rate', 'operator' => '=', 'value' => 450],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateTravelInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'travel_type', 'operator' => '==', 'value' => 'local'],
+                    ['field' => 'duration', 'operator' => '==', 'value' => '3 months'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_rate', 'operator' => '=', 'value' => 500],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateTravelInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'travel_type', 'operator' => '==', 'value' => 'foreign'],
+                    ['field' => 'duration', 'operator' => '==', 'value' => '1 week'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_rate', 'operator' => '=', 'value' => 200],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateTravelInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'travel_type', 'operator' => '==', 'value' => 'foreign'],
+                    ['field' => 'duration', 'operator' => '==', 'value' => '2 weeks'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_rate', 'operator' => '=', 'value' => 250],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateTravelInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'travel_type', 'operator' => '==', 'value' => 'foreign'],
+                    ['field' => 'duration', 'operator' => '==', 'value' => '1 month'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_rate', 'operator' => '=', 'value' => 300],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateTravelInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'travel_type', 'operator' => '==', 'value' => 'foreign'],
+                    ['field' => 'duration', 'operator' => '==', 'value' => '1.5 months'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_rate', 'operator' => '=', 'value' => 350],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateTravelInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'travel_type', 'operator' => '==', 'value' => 'foreign'],
+                    ['field' => 'duration', 'operator' => '==', 'value' => '2 months'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_rate', 'operator' => '=', 'value' => 400],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateTravelInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'travel_type', 'operator' => '==', 'value' => 'foreign'],
+                    ['field' => 'duration', 'operator' => '==', 'value' => '2.5 months'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_rate', 'operator' => '=', 'value' => 450],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateTravelInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'travel_type', 'operator' => '==', 'value' => 'foreign'],
+                    ['field' => 'duration', 'operator' => '==', 'value' => '3 months'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_rate', 'operator' => '=', 'value' => 500],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateTravelInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'travel_type', 'operator' => '==', 'value' => 'below 100 miles'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_rate', 'operator' => '=', 'value' => 100],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            // End of Travel Insurance
         ]);
     }
 }

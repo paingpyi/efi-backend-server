@@ -75,6 +75,14 @@ Route::group(['prefix' => 'quotes'], function () {
         Route::post('types', [QuoteController::class, 'getPremiumType']);
     });
 
+    Route::group(['prefix' => 'travel'], function () {
+        Route::post('types', [QuoteController::class, 'getTravelType']);
+    });
+
+    Route::group(['prefix' => 'travel'], function () {
+        Route::post('durations', [QuoteController::class, 'getTravelDuration']);
+    });
+
     Route::group(['prefix' => 'general'], function () {
         Route::post('comprehensive-motor-insurance', [QuoteController::class, 'calculateMotor']);
     });

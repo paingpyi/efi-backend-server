@@ -22,8 +22,7 @@ class QuoteController extends Controller
     // End of English
 
     /**
-     * Calculate Comprehensive Motor Insurance API via JSON.
-     * Life Insurance
+     * GET PREMIUM TYPE API via JSON.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -39,7 +38,7 @@ class QuoteController extends Controller
             $response = [
                 'code' => $response_code,
                 'status' => $this->error400status_eng,
-                'errors' => 'insured_amount' . $this->required_error_eng,
+                'errors' => 'Locale' . $this->required_error_eng,
                 'olds' => $request->all(),
             ];
         } else if(Str::lower($data['locale'])=='en-us') {
@@ -96,6 +95,244 @@ class QuoteController extends Controller
                     [
                         'name' => 'Quarterly',
                         'value' => 'quarterly',
+                    ],
+                ]
+            ];
+        }
+
+
+            return response()->json($response, $response_code);
+    }
+
+    /**
+     * GET TRAVEL TYPE API via JSON.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getTravelType(Request $request)
+    {
+        $response_code = 200;
+        $data = $request->json()->all();
+
+        if (!isset($data['locale'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => 'Locale' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+        } else if(Str::lower($data['locale'])=='en-us') {
+            $response = [
+                'code' => $response_code,
+                'status' => $this->success_eng,
+                'data' => [
+                    [
+                        'name' => 'Local',
+                        'value' => 'local',
+                    ],
+                    [
+                        'name' => 'Foreign',
+                        'value' => 'foreign',
+                    ],
+                    [
+                        'name' => 'Below 100 miles',
+                        'value' => 'below 100 miles',
+                    ],
+                ]
+            ];
+        } else if(Str::lower($data['locale'])=='zh-cn') {
+            $response = [
+                'code' => $response_code,
+                'status' => $this->success_eng,
+                'data' => [
+                    [
+                        'name' => 'Local',
+                        'value' => 'local',
+                    ],
+                    [
+                        'name' => 'Foreign',
+                        'value' => 'foreign',
+                    ],
+                    [
+                        'name' => 'Below 100 miles',
+                        'value' => 'below 100 miles',
+                    ],
+                ]
+            ];
+        } else if(Str::lower($data['locale'])=='my-mm') {
+            $response = [
+                'code' => $response_code,
+                'status' => $this->success_eng,
+                'data' => [
+                    [
+                        'name' => 'ပြည်တွင်း ခရီးသွား အာမခံ',
+                        'value' => 'local',
+                    ],
+                    [
+                        'name' => 'ပြည်ပ ခရီးသွား အာမခံ',
+                        'value' => 'foreign',
+                    ],
+                    [
+                        'name' => 'မိုင် ၁၀၀ အောက် ခရီးသွား အာမခံ',
+                        'value' => 'below 100 miles',
+                    ],
+                ]
+            ];
+        }
+
+
+            return response()->json($response, $response_code);
+    }
+
+    /**
+     * GET TRAVEL DURATION API via JSON.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getTravelDuration(Request $request)
+    {
+        $response_code = 200;
+        $data = $request->json()->all();
+
+        if (!isset($data['locale'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => 'Locale' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+        } else if(Str::lower($data['locale'])=='en-us') {
+            $response = [
+                'code' => $response_code,
+                'status' => $this->success_eng,
+                'data' => [
+                    [
+                        'name' => '1 day',
+                        'value' => '1 day',
+                    ],
+                    [
+                        'name' => '3 days',
+                        'value' => '3 days',
+                    ],
+                    [
+                        'name' => '1 week',
+                        'value' => '1 week',
+                    ],
+                    [
+                        'name' => '2 weeks',
+                        'value' => '2 weeks',
+                    ],
+                    [
+                        'name' => '1 month',
+                        'value' => '1 month',
+                    ],
+                    [
+                        'name' => '1.5 months',
+                        'value' => '1.5 months',
+                    ],
+                    [
+                        'name' => '2 months',
+                        'value' => '2 months',
+                    ],
+                    [
+                        'name' => '2.5 months',
+                        'value' => '2.5 months',
+                    ],
+                    [
+                        'name' => '3 months',
+                        'value' => '3 months',
+                    ],
+                ]
+            ];
+        } else if(Str::lower($data['locale'])=='zh-cn') {
+            $response = [
+                'code' => $response_code,
+                'status' => $this->success_eng,
+                'data' => [
+                    [
+                        'name' => '1 day',
+                        'value' => '1 day',
+                    ],
+                    [
+                        'name' => '3 days',
+                        'value' => '3 days',
+                    ],
+                    [
+                        'name' => '1 week',
+                        'value' => '1 week',
+                    ],
+                    [
+                        'name' => '2 weeks',
+                        'value' => '2 weeks',
+                    ],
+                    [
+                        'name' => '1 month',
+                        'value' => '1 month',
+                    ],
+                    [
+                        'name' => '1.5 months',
+                        'value' => '1.5 months',
+                    ],
+                    [
+                        'name' => '2 months',
+                        'value' => '2 months',
+                    ],
+                    [
+                        'name' => '2.5 months',
+                        'value' => '2.5 months',
+                    ],
+                    [
+                        'name' => '3 months',
+                        'value' => '3 months',
+                    ],
+                ]
+            ];
+        } else if(Str::lower($data['locale'])=='my-mm') {
+            $response = [
+                'code' => $response_code,
+                'status' => $this->success_eng,
+                'data' => [
+                    [
+                        'name' => '၁ ရက်',
+                        'value' => '1 day',
+                    ],
+                    [
+                        'name' => '၃ ရက်',
+                        'value' => '3 days',
+                    ],
+                    [
+                        'name' => '၁ ပတ်',
+                        'value' => '1 week',
+                    ],
+                    [
+                        'name' => 'နှစ်ပတ်',
+                        'value' => '2 weeks',
+                    ],
+                    [
+                        'name' => '၁ လ',
+                        'value' => '1 month',
+                    ],
+                    [
+                        'name' => '၁လခွဲ',
+                        'value' => '1.5 months',
+                    ],
+                    [
+                        'name' => 'နှစ်လ',
+                        'value' => '2 months',
+                    ],
+                    [
+                        'name' => 'နှစ်လခွဲ',
+                        'value' => '2.5 months',
+                    ],
+                    [
+                        'name' => '၃လ',
+                        'value' => '3 months',
                     ],
                 ]
             ];
