@@ -41,7 +41,7 @@ class QuoteController extends Controller
                 'errors' => 'Locale' . $this->required_error_eng,
                 'olds' => $request->all(),
             ];
-        } else if(Str::lower($data['locale'])=='en-us') {
+        } else if (Str::lower($data['locale']) == 'en-us') {
             $response = [
                 'code' => $response_code,
                 'status' => $this->success_eng,
@@ -60,7 +60,7 @@ class QuoteController extends Controller
                     ],
                 ]
             ];
-        } else if(Str::lower($data['locale'])=='zh-cn') {
+        } else if (Str::lower($data['locale']) == 'zh-cn') {
             $response = [
                 'code' => $response_code,
                 'status' => $this->success_eng,
@@ -79,7 +79,7 @@ class QuoteController extends Controller
                     ],
                 ]
             ];
-        } else if(Str::lower($data['locale'])=='my-mm') {
+        } else if (Str::lower($data['locale']) == 'my-mm') {
             $response = [
                 'code' => $response_code,
                 'status' => $this->success_eng,
@@ -101,7 +101,7 @@ class QuoteController extends Controller
         }
 
 
-            return response()->json($response, $response_code);
+        return response()->json($response, $response_code);
     }
 
     /**
@@ -124,7 +124,7 @@ class QuoteController extends Controller
                 'errors' => 'Locale' . $this->required_error_eng,
                 'olds' => $request->all(),
             ];
-        } else if(Str::lower($data['locale'])=='en-us') {
+        } else if (Str::lower($data['locale']) == 'en-us') {
             $response = [
                 'code' => $response_code,
                 'status' => $this->success_eng,
@@ -143,7 +143,7 @@ class QuoteController extends Controller
                     ],
                 ]
             ];
-        } else if(Str::lower($data['locale'])=='zh-cn') {
+        } else if (Str::lower($data['locale']) == 'zh-cn') {
             $response = [
                 'code' => $response_code,
                 'status' => $this->success_eng,
@@ -162,7 +162,7 @@ class QuoteController extends Controller
                     ],
                 ]
             ];
-        } else if(Str::lower($data['locale'])=='my-mm') {
+        } else if (Str::lower($data['locale']) == 'my-mm') {
             $response = [
                 'code' => $response_code,
                 'status' => $this->success_eng,
@@ -184,7 +184,7 @@ class QuoteController extends Controller
         }
 
 
-            return response()->json($response, $response_code);
+        return response()->json($response, $response_code);
     }
 
     /**
@@ -207,7 +207,7 @@ class QuoteController extends Controller
                 'errors' => 'Locale' . $this->required_error_eng,
                 'olds' => $request->all(),
             ];
-        } else if(Str::lower($data['locale'])=='en-us') {
+        } else if (Str::lower($data['locale']) == 'en-us') {
             $response = [
                 'code' => $response_code,
                 'status' => $this->success_eng,
@@ -250,7 +250,7 @@ class QuoteController extends Controller
                     ],
                 ]
             ];
-        } else if(Str::lower($data['locale'])=='zh-cn') {
+        } else if (Str::lower($data['locale']) == 'zh-cn') {
             $response = [
                 'code' => $response_code,
                 'status' => $this->success_eng,
@@ -293,7 +293,7 @@ class QuoteController extends Controller
                     ],
                 ]
             ];
-        } else if(Str::lower($data['locale'])=='my-mm') {
+        } else if (Str::lower($data['locale']) == 'my-mm') {
             $response = [
                 'code' => $response_code,
                 'status' => $this->success_eng,
@@ -339,7 +339,7 @@ class QuoteController extends Controller
         }
 
 
-            return response()->json($response, $response_code);
+        return response()->json($response, $response_code);
     }
 
     /**
@@ -351,23 +351,7 @@ class QuoteController extends Controller
      */
     public function calculateMotor(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'insured_amount' => 'required|numeric|min:1',
-            'type_of_vehicle' => 'required',
-            'engine_displacement' => 'required|min:100',
-            'windscreen' => 'required|numeric|min:1',
-        ]);
-
-        if ($validator->fails()) {
-            $response = [
-                'code' => 400,
-                'status' => $this->error400status_eng,
-                'error' => $validator->errors(),
-                'old' => $request->all(),
-            ];
-
-            return response()->json($response);
-        }
+        // Code Here...
     }
 
     /**
@@ -462,6 +446,7 @@ class QuoteController extends Controller
 
         $flag = false;
         $result = 0;
+        $info = [];
 
         foreach (Formula::where('method', '=', 'calculateShortTermEndowment')->get() as $formula) {
             foreach (json_decode($formula->conditions) as $condition) {
@@ -577,9 +562,88 @@ class QuoteController extends Controller
             ];
         }
 
+        /**
+         * Apply this calculation
+         */
+        if (isset($data['apply'])) {
+            if (!isset($data['apply']['product_id'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, product_id' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            if (!isset($data['apply']['name'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, name' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            if (!isset($data['apply']['phone'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, phone' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            if (!isset($data['apply']['email'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, email' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            $info = [
+                'locale' => $data['locale'],
+                'insured_amount' => $data['insured_amount'],
+                'insured_age' => $data['insured_age'],
+                'term' => $data['term'],
+                'product_id' => $data['apply']['product_id'],
+                'customer' => [
+                    'name' => $data['apply']['name'],
+                    'email' => $data['apply']['email'],
+                    'phone' => $data['apply']['phone'],
+                ]
+            ];
+        } else {
+            $info = [
+                'locale' => $data['locale'],
+                'insured_amount' => $data['insured_amount'],
+                'insured_age' => $data['insured_age'],
+                'term' => $data['term'],
+            ];
+        }
+        // End of Apply
+
         $response = [
             'code' => $response_code,
             'status' => $this->success_eng,
+            'info' => $info,
             'result' => $output,
             'total' => $result * $request->term,
         ];
@@ -605,6 +669,7 @@ class QuoteController extends Controller
             'premium_term' => 0,
             'value' => 0
         ];
+        $info = [];
 
         if (!isset($data['insured_amount'])) {
             $response_code = 400;
@@ -733,18 +798,108 @@ class QuoteController extends Controller
             ];
         }
 
+        /**
+         * Apply this calculation
+         */
+        if (isset($data['apply'])) {
+            if (!isset($data['apply']['product_id'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, product_id' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            if (!isset($data['apply']['name'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, name' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            if (!isset($data['apply']['phone'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, phone' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            if (!isset($data['apply']['email'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, email' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            $info = [
+                'locale' => $data['locale'],
+                'insured_age' => $data['insured_age'],
+                'insured_amount' => $data['insured_amount'],
+                'premium_type' => $data['premium_type'],
+                'policy_term' => $result['policy_term'],
+                'premium_term' => $result['premium_term'],
+                'product_id' => $data['apply']['product_id'],
+                'customer' => [
+                    'name' => $data['apply']['name'],
+                    'email' => $data['apply']['email'],
+                    'phone' => $data['apply']['phone'],
+                ]
+            ];
+        } else {
+            $info = [
+                'locale' => $data['locale'],
+                'insured_age' => $data['insured_age'],
+                'insured_amount' => $data['insured_amount'],
+                'premium_type' => $data['premium_type'],
+                'policy_term' => $result['policy_term'],
+                'premium_term' => $result['premium_term'],
+            ];
+        }
+        // End of Apply
+
         $response = [
             'code' => $response_code,
             'status' => $this->success_eng,
-            'insured_age' => $data['insured_age'],
-            'insured_amount' => $data['insured_amount'],
-            'premium_type' => $data['premium_type'],
-            'policy_term' => $result['policy_term'],
-            'premium_term' => $result['premium_term'],
+            'info' => $info,
             'result' => $output,
             'total' => $result['value'] * $result['premium_term'],
         ];
 
         return response()->json($response, $response_code);
+    }
+
+    /**
+     * Calculate Travel Insurance API via JSON.
+     * Life Insurance
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function calculateTravelInsurance(Request $request)
+    {
+        // Code Here...
     }
 }
