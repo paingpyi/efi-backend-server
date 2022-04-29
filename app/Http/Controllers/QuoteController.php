@@ -364,7 +364,7 @@ class QuoteController extends Controller
     public function calculateShortTermEndowment(Request $request)
     {
         $data = $request->json()->all();
-        $response_code = 200;dd($data);
+        $response_code = 200;
 
         if (!isset($data['insured_amount'])) {
             $response_code = 400;
@@ -631,11 +631,13 @@ class QuoteController extends Controller
                 ]
             ];
 
-            ApplyProduct::create([
-                'info' => $info,
-                'result' => $output,
+            $apply = [
+                'info' => json_encode($info),
+                'result' => json_encode($output),
                 'total' => $result * $request->term,
-            ]);
+            ];
+
+            ApplyProduct::create($apply);
         } else {
             $info = [
                 'locale' => $data['locale'],
@@ -875,11 +877,13 @@ class QuoteController extends Controller
                 ]
             ];
 
-            ApplyProduct::create([
-                'info' => $info,
-                'result' => $output,
+            $apply = [
+                'info' => json_encode($info),
+                'result' => json_encode($output),
                 'total' => $result['value'] * $result['premium_term'],
-            ]);
+            ];
+
+            ApplyProduct::create($apply);
         } else {
             $info = [
                 'locale' => $data['locale'],
