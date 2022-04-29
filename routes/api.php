@@ -91,6 +91,8 @@ Route::group(['prefix' => 'quotes'], function () {
         Route::post('student-life-insurance', [QuoteController::class, 'calculateStudentLife']);
 
         Route::post('travel-insurance', [QuoteController::class, 'calculateTravelInsurance']);
+
+        Route::post('snake-bite-life-insurance', [QuoteController::class, 'calculateSnakeInsurance']);
     });
 });
 

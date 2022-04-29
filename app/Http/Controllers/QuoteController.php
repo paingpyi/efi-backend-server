@@ -947,14 +947,17 @@ class QuoteController extends Controller
             ];
 
             return response()->json($response, $response_code);
-        }$log = [];
+        }
+        $log = [];
 
         foreach (Formula::where('method', '=', 'calculateTravelInsurance')->get() as $formula) {
             foreach (json_decode($formula->conditions) as $condition) {
                 if ($condition->operator == '==') {
-                    if ($data[$condition->field] == $condition->value) {$log[] = [$data[$condition->field], $condition, 'TRUE'];
+                    if ($data[$condition->field] == $condition->value) {
+                        $log[] = [$data[$condition->field], $condition, 'TRUE'];
                         $flag = true;
-                    } else {$log[] = [$data[$condition->field], $condition, 'FALSE'];
+                    } else {
+                        $log[] = [$data[$condition->field], $condition, 'FALSE'];
                         $flag = false;
                         break;
                     }
@@ -1072,6 +1075,149 @@ class QuoteController extends Controller
                 'locale' => $data['locale'],
                 'travel_type' => $data['travel_type'],
                 'duration' => $data['duration'],
+            ];
+        }
+        // End of Apply
+
+        $response = [
+            'code' => $response_code,
+            'status' => $this->success_eng,
+            'info' => $info,
+            'total' => $result,
+        ];
+
+        return response()->json($response, $response_code);
+    }
+
+    /**
+     * Calculate Snake Bite Insurance API via JSON.
+     * Life Insurance
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function calculateSnakeInsurance(Request $request)
+    {
+        $data = $request->json()->all();
+
+        $response_code = 200;
+        $result = 0;
+        $info = [];
+
+        if (!isset($data['insured_amount'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => 'insured_amount' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response, $response_code);
+        }
+
+        foreach (Formula::where('method', '=', 'calculateSnakeInsurance')->get() as $formula) {
+            foreach (json_decode($formula->formulas) as $formula) {
+                if ($formula->operator == '*') {
+                    if ($result == 0) {
+                        $result = $data[$formula->field] * $formula->value;
+                    } else {
+                        $result = $result * $formula->value;
+                    }
+                } else {
+                    $response_code = 400;
+
+                    $response = [
+                        'code' => $response_code,
+                        'status' => $this->error400status_eng,
+                        'errors' => $this->error_arithmetic_eng,
+                        'olds' => $formula->field . ': Formula - ' . $formula->value,
+                    ];
+
+                    return response()->json($response, $response_code);
+                }
+            } // End of formula
+        } // End of methods
+
+        /**
+         * Apply this calculation
+         */
+        if (isset($data['apply'])) {
+            if (!isset($data['apply']['product_id'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, product_id' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            if (!isset($data['apply']['name'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, name' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            if (!isset($data['apply']['phone'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, phone' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            if (!isset($data['apply']['email'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, email' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            $info = [
+                'locale' => $data['locale'],
+                'insured_amount' => $data['insured_amount'],
+                'product_id' => $data['apply']['product_id'],
+                'customer' => [
+                    'name' => $data['apply']['name'],
+                    'email' => $data['apply']['email'],
+                    'phone' => $data['apply']['phone'],
+                ]
+            ];
+
+            $apply = [
+                'info' => json_encode($info),
+                'result' => $result,
+                'total' => $result,
+            ];
+
+            ApplyProduct::create($apply);
+        } else {
+            $info = [
+                'locale' => $data['locale'],
+                'insured_amount' => $data['insured_amount'],
             ];
         }
         // End of Apply

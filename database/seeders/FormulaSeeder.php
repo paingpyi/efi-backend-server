@@ -795,6 +795,24 @@ class FormulaSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             // End of Travel Insurance
+
+            /****
+             *
+             * Snake Bite Insurance
+             *
+             */
+            [
+                'method' => 'calculateSnakeInsurance',
+                'conditions' => json_encode([
+                    [],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.001],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            // End of Snake Bite Insurance
         ]);
     }
 }
