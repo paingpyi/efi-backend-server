@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ApplyProduct;
 use App\Models\Formula;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -364,7 +364,7 @@ class QuoteController extends Controller
     public function calculateShortTermEndowment(Request $request)
     {
         $data = $request->json()->all();
-        $response_code = 200;
+        $response_code = 200;dd($data);
 
         if (!isset($data['insured_amount'])) {
             $response_code = 400;
@@ -630,6 +630,12 @@ class QuoteController extends Controller
                     'phone' => $data['apply']['phone'],
                 ]
             ];
+
+            ApplyProduct::create([
+                'info' => $info,
+                'result' => $output,
+                'total' => $result * $request->term,
+            ]);
         } else {
             $info = [
                 'locale' => $data['locale'],
@@ -868,6 +874,12 @@ class QuoteController extends Controller
                     'phone' => $data['apply']['phone'],
                 ]
             ];
+
+            ApplyProduct::create([
+                'info' => $info,
+                'result' => $output,
+                'total' => $result['value'] * $result['premium_term'],
+            ]);
         } else {
             $info = [
                 'locale' => $data['locale'],

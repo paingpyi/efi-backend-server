@@ -76,11 +76,9 @@ Route::group(['prefix' => 'quotes'], function () {
     });
 
     Route::group(['prefix' => 'travel'], function () {
-        Route::post('types', [QuoteController::class, 'getTravelType']);
-    });
-
-    Route::group(['prefix' => 'travel'], function () {
         Route::post('durations', [QuoteController::class, 'getTravelDuration']);
+
+        Route::post('types', [QuoteController::class, 'getTravelType']);
     });
 
     Route::group(['prefix' => 'general'], function () {
@@ -89,9 +87,7 @@ Route::group(['prefix' => 'quotes'], function () {
 
     Route::group(['prefix' => 'life'], function () {
         Route::post('short-term-endowment-insurance', [QuoteController::class, 'calculateShortTermEndowment']);
-    });
 
-    Route::group(['prefix' => 'life'], function () {
         Route::post('student-life-insurance', [QuoteController::class, 'calculateStudentLife']);
     });
 });
