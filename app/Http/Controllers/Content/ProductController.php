@@ -1037,19 +1037,6 @@ class ProductController extends Controller
             return response()->json($response, $response_code);
         }
 
-        if (!isset($data['nrc_passport'])) {
-            $response_code = 400;
-
-            $response = [
-                'code' => $response_code,
-                'status' => $this->error400status_eng,
-                'errors' => 'nrc_passport' . $this->required_error_eng,
-                'olds' => $request->all(),
-            ];
-
-            return response()->json($response, $response_code);
-        }
-
         $get = [
             'locale' => $data['locale'],
             'claim_machine_name' => 'claim/' . $folder . '/' . $claim_machine_name
@@ -1058,23 +1045,42 @@ class ProductController extends Controller
         $product = $this->getProductsAPI($get)->first();
 
         if (isset($product)) {
-            $response = [
-                'code' => 200,
-                'status' => 'success',
-                'insurance_no' => $data['insurance_no'],
-                'product' => [
-                    'id' => $product->id,
-                    'title' => $product->title,
-                    'slug_url' => $product->slug_url,
-                    'category_name' => $product->category_name,
-                ],
-                'customer' => [
-                    'name' => $data['name'],
-                    'email' => $data['email'],
-                    'phone' => $data['phone'],
-                    'nrc_passport' => $data['nrc_passport'],
-                ]
-            ];
+            if (!isset($data['message'])) {
+                $response = [
+                    'code' => 200,
+                    'status' => 'success',
+                    'insurance_no' => $data['insurance_no'],
+                    'product' => [
+                        'id' => $product->id,
+                        'title' => $product->title,
+                        'slug_url' => $product->slug_url,
+                        'category_name' => $product->category_name,
+                    ],
+                    'customer' => [
+                        'name' => $data['name'],
+                        'email' => $data['email'],
+                        'phone' => $data['phone'],
+                    ]
+                ];
+            } else {
+                $response = [
+                    'code' => 200,
+                    'status' => 'success',
+                    'insurance_no' => $data['insurance_no'],
+                    'message' => $data['message'],
+                    'product' => [
+                        'id' => $product->id,
+                        'title' => $product->title,
+                        'slug_url' => $product->slug_url,
+                        'category_name' => $product->category_name,
+                    ],
+                    'customer' => [
+                        'name' => $data['name'],
+                        'email' => $data['email'],
+                        'phone' => $data['phone'],
+                    ]
+                ];
+            }
         } else {
             $response = [
                 'code' => 404,

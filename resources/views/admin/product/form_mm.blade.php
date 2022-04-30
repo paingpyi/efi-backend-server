@@ -1,7 +1,7 @@
 <div class="form-group">
     <label for="title"><i class="flag-icon flag-icon-mm mr-2"></i> Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="title_burmese" value="{{ old('title_burmese') }}" class="form-control" id="title_burmese"
+    <input type="text" name="title_burmese" value="{{ old('title_burmese', isset($product_en->title) ? $product_en->title : '') }}" class="form-control" id="title_burmese"
         aria-describedby="title_burmeseHelp">
     <small id="title_burmeseHelp" class="form-text text-muted">Please enter
         title.</small>
@@ -11,15 +11,28 @@
 </div>
 <div class="form-group">
     <label for="slogan_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Slogan</label>
-    <input type="text" name="slogan_burmese" value="{{ old('slogan_burmese') }}" class="form-control" id="slogan_burmese">
+    <input type="text" name="slogan_burmese" value="{{ old('slogan_burmese', isset($product_en->slogan) ? $product_en->slogan : '') }}" class="form-control" id="slogan_burmese">
 </div>
 <!-- Paragraphs -->
 <hr>
 <h4>Description</h4>
+@php
+if (isset($product_en)) {
+    $lr = [];
+
+    foreach (json_decode($product_en->lr) as $item) {
+        $lr[] = [
+            'title' => $item->title,
+            'description' => $item->description,
+            'image' => config('app.url') . $item->image,
+        ];
+    }
+}
+@endphp
 <div class="form-group">
     <label for="lr_title_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="lr_title_burmese" value="{{ old('lr_title_burmese') }}" class="form-control" id="lr_title_burmese">
+    <input type="text" name="lr_title_burmese" value="{{ old('lr_title_burmese', isset($lr[0]['title']) ? $lr[0]['title'] : '') }}" class="form-control" id="lr_title_burmese">
     @error('lr_title_burmese')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
@@ -29,7 +42,7 @@
         Description
         <span class="text-danger">*</span></label>
     <textarea name="lr_description_burmese" class="summernote"
-        id="lr_description_burmese">{{ old('lr_description_burmese') }}</textarea>
+        id="lr_description_burmese">{{ old('lr_description_burmese', isset($lr[0]['description']) ? $lr[0]['description'] : '') }}</textarea>
 </div>
 <div class="form-group">
     <div class="input-group">
@@ -38,7 +51,7 @@
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
-        <input id="lr_image_thumbnail_burmese" class="form-control" type="text" name="lr_image_burmese">
+        <input id="lr_image_thumbnail_burmese" class="form-control" type="text" name="lr_image_burmese" value="{{ old('lr_image_burmese', isset($lr[0]['image']) ? $lr[0]['image'] : '') }}">
     </div>
     <div id="lr_image_burmese_holder" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Paragraphs Image -->
@@ -46,10 +59,27 @@
 <!-- Diagram and Table -->
 <hr>
 <h4>Diagram and Table</h4>
+@php
+if (isset($product_en)) {
+    $diagrams_and_table = [];
+
+    foreach (json_decode($product_en->diagrams_and_table) as $item) {
+        $diagrams_and_table[] = [
+            'title' => $item->title,
+            'description' => $item->description,
+            'image' => [
+                'src' => config('app.url') . $item->image->src,
+                'width' => $item->image->width,
+                'height' => $item->image->height,
+            ],
+        ];
+    }
+}
+@endphp
 <div class="form-group">
     <label for="diagram_table_title_burmese[]"><i class="flag-icon flag-icon-mm mr-2"></i> Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="diagram_table_title_burmese[]" value="{{ old('diagram_table_title_burmese[0]') }}" class="form-control"
+    <input type="text" name="diagram_table_title_burmese[]" value="{{ old('diagram_table_title_burmese[0]', isset($diagrams_and_table[0]['title']) ? $diagrams_and_table[0]['title'] : '') }}" class="form-control"
         id="diagram_table_title_burmese1">
     @error('diagram_table_title_burmese[0]')
         <div class="alert alert-danger">{{ $message }}</div>
@@ -60,7 +90,7 @@
         Description
         <span class="text-danger">*</span></label>
     <textarea name="diagram_table_description_burmese[]" class="summernote"
-        id="diagram_table_description_burmese1">{{ old('diagram_table_description_burmese[0]') }}</textarea>
+        id="diagram_table_description_burmese1">{{ old('diagram_table_description_burmese[0]',isset($diagrams_and_table[0]['description']) ? $diagrams_and_table[0]['description'] : '') }}</textarea>
 </div>
 <div class="form-group">
     <div class="input-group">
