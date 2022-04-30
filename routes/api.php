@@ -32,6 +32,8 @@ Route::group(['prefix' => 'products', 'namespace' => 'Content'], function () {
     Route::post('/', [ProductController::class, 'postList']);
 
     Route::post('/detail', [ProductController::class, 'postDetail']);
+
+    Route::post('/claim/{folder}/{claim_machine_name}', [ProductController::class, 'claim']);
 });
 
 Route::group(['prefix' => 'blogs', 'namespace' => 'Content'], function () {

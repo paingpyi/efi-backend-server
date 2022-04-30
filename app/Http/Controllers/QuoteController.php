@@ -618,6 +618,19 @@ class QuoteController extends Controller
                 return response()->json($response, $response_code);
             }
 
+            if (!isset($data['apply']['nrc_passport'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'nrc_passport' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
             $info = [
                 'locale' => $data['locale'],
                 'insured_amount' => $data['insured_amount'],
@@ -628,6 +641,7 @@ class QuoteController extends Controller
                     'name' => $data['apply']['name'],
                     'email' => $data['apply']['email'],
                     'phone' => $data['apply']['phone'],
+                    'nrc_passport' => $data['apply']['nrc_passport'],
                 ]
             ];
 
@@ -862,6 +876,19 @@ class QuoteController extends Controller
                 return response()->json($response, $response_code);
             }
 
+            if (!isset($data['apply']['nrc_passport'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'nrc_passport' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
             $info = [
                 'locale' => $data['locale'],
                 'insured_age' => $data['insured_age'],
@@ -874,6 +901,7 @@ class QuoteController extends Controller
                     'name' => $data['apply']['name'],
                     'email' => $data['apply']['email'],
                     'phone' => $data['apply']['phone'],
+                    'nrc_passport' => $data['apply']['nrc_passport'],
                 ]
             ];
 
@@ -1051,6 +1079,19 @@ class QuoteController extends Controller
                 return response()->json($response, $response_code);
             }
 
+            if (!isset($data['apply']['nrc_passport'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'nrc_passport' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
             $info = [
                 'locale' => $data['locale'],
                 'travel_type' => $data['travel_type'],
@@ -1060,6 +1101,7 @@ class QuoteController extends Controller
                     'name' => $data['apply']['name'],
                     'email' => $data['apply']['email'],
                     'phone' => $data['apply']['phone'],
+                    'nrc_passport' => $data['apply']['nrc_passport'],
                 ]
             ];
 
@@ -1196,6 +1238,19 @@ class QuoteController extends Controller
                 return response()->json($response, $response_code);
             }
 
+            if (!isset($data['apply']['nrc_passport'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'nrc_passport' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
             $info = [
                 'locale' => $data['locale'],
                 'insured_amount' => $data['insured_amount'],
@@ -1204,6 +1259,7 @@ class QuoteController extends Controller
                     'name' => $data['apply']['name'],
                     'email' => $data['apply']['email'],
                     'phone' => $data['apply']['phone'],
+                    'nrc_passport' => $data['apply']['nrc_passport'],
                 ]
             ];
 

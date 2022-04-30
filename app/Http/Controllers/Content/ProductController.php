@@ -934,6 +934,158 @@ class ProductController extends Controller
         return response()->json($response, $response_code);
     }
 
+    /**
+     * Claim Form with Post data.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function claim(Request $request, $folder, $claim_machine_name)
+    {
+        $data = $request->json()->all();
+
+        $response_code = 200;
+
+        if (!isset($folder)) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => 'folder' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response, $response_code);
+        }
+
+        if (!isset($claim_machine_name)) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => 'claim_machine_name' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response, $response_code);
+        }
+
+        if (!isset($data['locale'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => 'locale' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response, $response_code);
+        }
+
+        if (!isset($data['insurance_no'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => 'insurance_no' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response, $response_code);
+        }
+
+        if (!isset($data['name'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => 'name' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response, $response_code);
+        }
+
+        if (!isset($data['email'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => 'email' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response, $response_code);
+        }
+
+        if (!isset($data['phone'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => 'phone' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response, $response_code);
+        }
+
+        if (!isset($data['nrc_passport'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => 'nrc_passport' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response, $response_code);
+        }
+
+        $get = [
+            'locale' => $data['locale'],
+            'claim_machine_name' => 'claim/' . $folder . '/' . $claim_machine_name
+        ];
+
+        $product = $this->getProductsAPI($get)->first();
+
+        if (isset($product)) {
+            $response = [
+                'code' => 200,
+                'status' => 'success',
+                'insurance_no' => $data['insurance_no'],
+                'product' => [
+                    'id' => $product->id,
+                    'title' => $product->title,
+                    'slug_url' => $product->slug_url,
+                    'category_name' => $product->category_name,
+                ],
+                'customer' => [
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'phone' => $data['phone'],
+                    'nrc_passport' => $data['nrc_passport'],
+                ]
+            ];
+        } else {
+            $response = [
+                'code' => 404,
+                'status' => 'claim_machine_name has been mismatched.',
+                'product' => []
+            ];
+        }
+
+        return response()->json($response, $response_code);
+    }
+
     private function getLang($data)
     {
         $lang_english = 'en-us';
@@ -1065,6 +1217,15 @@ class ProductController extends Controller
          **/
         if (isset($data['category_machine_name'])) {
             $product_db->where('categories.machine', '=', $data['category_machine_name']);
+        } // End of products by category's machine name
+
+        /***
+         *
+         * Retrieve products by claim machine name
+         *
+         **/
+        if (isset($data['claim_machine_name'])) {
+            $product_db->where('products.claim_machine_name', '=', $data['claim_machine_name']);
         } // End of products by category's machine name
 
         /***

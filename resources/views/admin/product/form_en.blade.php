@@ -452,7 +452,7 @@ foreach (json_decode($product_en->attachments) as $item) {
 <div class="form-group">
     <label for="attachments_title2"><i class="flag-icon flag-icon-us mr-2"></i> Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="attachments_title[]" value="{{ old('attachments_title[1]') }}" class="form-control"
+    <input type="text" name="attachments_title[]" value="{{ old('attachments_title[1]',isset($attachments[1]['title']) ? $attachments[1]['title'] : '') }}" class="form-control"
         id="attachments_title2">
     @error('attachments_title[1]')
         <div class="alert alert-danger">{{ $message }}</div>
@@ -463,7 +463,7 @@ foreach (json_decode($product_en->attachments) as $item) {
         Description
         <span class="text-danger">*</span></label>
     <textarea name="attachments_description[]" class="summernote"
-        id="attachments_description2">{{ old('attachments_description[1]') }}</textarea>
+        id="attachments_description2">{{ old('attachments_description[1]',isset($attachments[1]['description']) ? $attachments[1]['description'] : '') }}</textarea>
 </div>
 <div class="form-group">
     <label>icon <span class="text-danger">*</span></label>
@@ -474,14 +474,14 @@ foreach (json_decode($product_en->attachments) as $item) {
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
-        <input id="attachments_icon_thumbnail4" class="form-control" type="text" name="attachments_icon[]">
+        <input id="attachments_icon_thumbnail4" class="form-control" type="text" value="{{old('attachments_icon[1]',isset($attachments[1]['icon']) ? $attachments[1]['icon'] : '')}}" name="attachments_icon[]">
     </div>
     <div id="attachments_icon_holder4" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Attachment Image -->
 <div class="form-group">
     <label for="attachments_buttonText2"><i class="flag-icon flag-icon-us mr-2"></i> Button Text
         <span class="text-danger">*</span></label>
-    <input type="text" name="attachments_buttonText[]" value="{{ old('attachments_buttonText[1]') }}"
+    <input type="text" name="attachments_buttonText[]" value="{{ old('attachments_buttonText[1]',isset($attachments[1]['buttonText']) ? $attachments[1]['buttonText'] : '') }}"
         class="form-control" id="attachments_buttonText2">
 </div>
 <div class="form-group">
@@ -492,17 +492,20 @@ foreach (json_decode($product_en->attachments) as $item) {
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
-        <input id="attachments_proposal_file2" class="form-control" type="text" name="attachments_proposal_file[]">
+        <input id="attachments_proposal_file2" class="form-control" type="text" name="attachments_proposal_file[]" value="{{ old('attachments_proposal_file[1]',isset($attachments[1]['proposal_file']) ? $attachments[1]['proposal_file'] : '') }}">
     </div>
 </div> <!-- /. Product Proposal -->
 <!-- /. End of Attachments -->
 <!-- FAQ -->
 <hr>
 <h4>Frequently Asked Questions</h4>
+@php
+    $faq = json_decode($product_en->faq)->data;
+@endphp
 <div class="form-group">
     <label for="faq_title"><i class="flag-icon flag-icon-us mr-2"></i> Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="faq_title" value="{{ old('faq_title') }}" class="form-control" id="faq_title">
+    <input type="text" name="faq_title" value="{{ old('faq_title',isset(json_decode($product_en->faq)->title)? json_decode($product_en->faq)->title: '') }}" class="form-control" id="faq_title">
     @error('faq_title')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
@@ -510,7 +513,7 @@ foreach (json_decode($product_en->attachments) as $item) {
 <div class="form-group">
     <label for="faq_question_1"><i class="flag-icon flag-icon-us mr-2"></i> Question
         <span class="text-danger">*</span></label>
-    <input type="text" name="faq_question[]" value="{{ old('faq_question[0]') }}" class="form-control"
+    <input type="text" name="faq_question[]" value="{{ old('faq_question[0]',isset($faq[0]->question) ? $faq[0]->question : '') }}" class="form-control"
         id="faq_question_1">
     @error('faq_question[0]')
         <div class="alert alert-danger">{{ $message }}</div>
@@ -520,12 +523,12 @@ foreach (json_decode($product_en->attachments) as $item) {
     <label for="faq_answers_1"><i class="flag-icon flag-icon-us mr-2"></i>
         Answers
         <span class="text-danger">*</span></label>
-    <textarea name="faq_answers[]" class="summernote" id="faq_answers_1">{{ old('faq_answers[0]') }}</textarea>
+    <textarea name="faq_answers[]" class="summernote" id="faq_answers_1">{{ old('faq_answers[0]',isset($faq[0]->answers) ? $faq[0]->answers : '') }}</textarea>
 </div>
 <div class="form-group">
     <label for="faq_question_2"><i class="flag-icon flag-icon-us mr-2"></i> Question
         <span class="text-danger">*</span></label>
-    <input type="text" name="faq_question[]" value="{{ old('faq_question[1]') }}" class="form-control"
+    <input type="text" name="faq_question[]" value="{{ old('faq_question[1]',isset($faq[1]->question) ? $faq[1]->question : '') }}" class="form-control"
         id="faq_question_2">
     @error('faq_question[1]')
         <div class="alert alert-danger">{{ $message }}</div>
@@ -535,12 +538,12 @@ foreach (json_decode($product_en->attachments) as $item) {
     <label for="faq_answers_2"><i class="flag-icon flag-icon-us mr-2"></i>
         Answers
         <span class="text-danger">*</span></label>
-    <textarea name="faq_answers[]" class="summernote" id="faq_answers_2">{{ old('faq_answers[1]') }}</textarea>
+    <textarea name="faq_answers[]" class="summernote" id="faq_answers_2">{{ old('faq_answers[1]',isset($faq[1]->answers) ? $faq[1]->answers : '') }}</textarea>
 </div>
 <div class="form-group">
     <label for="faq_question_3"><i class="flag-icon flag-icon-us mr-2"></i> Question
         <span class="text-danger">*</span></label>
-    <input type="text" name="faq_question[]" value="{{ old('faq_question[2]') }}" class="form-control"
+    <input type="text" name="faq_question[]" value="{{ old('faq_question[2]',isset($faq[2]->question) ? $faq[2]->question : '') }}" class="form-control"
         id="faq_question_3">
     @error('faq_question[2]')
         <div class="alert alert-danger">{{ $message }}</div>
@@ -550,12 +553,12 @@ foreach (json_decode($product_en->attachments) as $item) {
     <label for="faq_answers_3"><i class="flag-icon flag-icon-us mr-2"></i>
         Answers
         <span class="text-danger">*</span></label>
-    <textarea name="faq_answers[]" class="summernote" id="faq_answers_3">{{ old('faq_answers[2]') }}</textarea>
+    <textarea name="faq_answers[]" class="summernote" id="faq_answers_3">{{ old('faq_answers[2]',isset($faq[2]->answers) ? $faq[2]->answers : '') }}</textarea>
 </div>
 <div class="form-group">
     <label for="faq_question_4"><i class="flag-icon flag-icon-us mr-2"></i> Question
         <span class="text-danger">*</span></label>
-    <input type="text" name="faq_question[]" value="{{ old('faq_question[3]') }}" class="form-control"
+    <input type="text" name="faq_question[]" value="{{ old('faq_question[3]',isset($faq[3]->question) ? $faq[3]->question : '') }}" class="form-control"
         id="faq_question_4">
     @error('faq_question[3]')
         <div class="alert alert-danger">{{ $message }}</div>
@@ -565,6 +568,6 @@ foreach (json_decode($product_en->attachments) as $item) {
     <label for="faq_answers_4"><i class="flag-icon flag-icon-us mr-2"></i>
         Answers
         <span class="text-danger">*</span></label>
-    <textarea name="faq_answers[]" class="summernote" id="faq_answers_4">{{ old('faq_answers[3]') }}</textarea>
+    <textarea name="faq_answers[]" class="summernote" id="faq_answers_4">{{ old('faq_answers[3]',isset($faq[3]->answers) ? $faq[3]->answers : '') }}</textarea>
 </div>
 <!-- /. End of FAQ -->
