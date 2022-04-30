@@ -488,6 +488,17 @@ class QuoteController extends Controller
         $data = $request->json()->all();
         $response_code = 200;
 
+        if (!isset($data['locale'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => 'Locale' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+        }
+
         if (!isset($data['insured_amount'])) {
             $response_code = 400;
 
@@ -791,6 +802,17 @@ class QuoteController extends Controller
         ];
         $info = [];
 
+        if (!isset($data['locale'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => 'Locale' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+        }
+
         if (!isset($data['insured_amount'])) {
             $response_code = 400;
 
@@ -1025,6 +1047,17 @@ class QuoteController extends Controller
         $result = 0;
         $info = [];
 
+        if (!isset($data['locale'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => 'Locale' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+        }
+
         if (!isset($data['travel_type'])) {
             $response_code = 400;
 
@@ -1196,6 +1229,17 @@ class QuoteController extends Controller
         $response_code = 200;
         $result = 0;
         $info = [];
+
+        if (!isset($data['locale'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => 'Locale' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+        }
 
         if (!isset($data['insured_amount'])) {
             $response_code = 400;
