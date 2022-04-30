@@ -73,6 +73,8 @@ Route::group(['prefix' => 'csr', 'namespace' => 'Content'], function () {
 });
 
 Route::group(['prefix' => 'quotes'], function () {
+    Route::post('direct-apply', [QuoteController::class, 'directApplication']);
+
     Route::group(['prefix' => 'premium'], function () {
         Route::post('types', [QuoteController::class, 'getPremiumType']);
     });

@@ -14,10 +14,12 @@ class QuoteController extends Controller
      * English
      */
     private $error400status_eng = 'Bad Request';
+    private $error404status_eng = 'Product Not Found';
     private $error_operators_eng = 'Condition operator is not valid. The operator must be "<, >, <=, >=, ==".';
     private $error_arithmetic_eng = 'Arithmetic operator is not valid. The operator must be "+, -, *, /".';
     private $required_error_eng = ' field is required to fill.';
     private $numeric_error_eng = ' field must be numeric.';
+    private $not_found_error_eng = 'Product is not found.';
     private $not_eligible_error_eng = 'You are not eligible to buy this premium.';
     private $success_eng = 'success';
     // End of English
@@ -339,6 +341,125 @@ class QuoteController extends Controller
             ];
         }
 
+
+        return response()->json($response, $response_code);
+    }
+
+    /**
+     * Calculate Comprehensive Motor Insurance API via JSON.
+     * Life Insurance
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function directApplication(Request $request)
+    {
+        $data = $request->json()->all();
+        $response_code = 200;
+
+        if (!isset($data['locale'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => 'locale' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response, $response_code);
+        }
+
+        if (!isset($data['name'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => 'For appling this product, name' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response, $response_code);
+        }
+
+        if (!isset($data['phone'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => 'For appling this product, phone' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response, $response_code);
+        }
+
+        if (!isset($data['email'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => 'For appling this product, email' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response, $response_code);
+        }
+
+        if (!isset($data['quote_machine_name'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => 'quote_machine_name' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response, $response_code);
+        }
+
+        $product = Product::where('quote_machine_name', '=', $data['quote_machine_name'])->first();
+
+        if(isset($product)) {
+            $info = [
+                'locale' => $data['locale'],
+                'product_id' => $product->id,
+                'customer' => [
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'phone' => $data['phone'],
+                ]
+            ];
+
+            $apply = [
+                'info' => json_encode($info),
+                'result' => json_encode([]),
+                'total' => 0,
+            ];
+
+            ApplyProduct::create($apply);
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->success_eng,
+                'info' => $info,
+                'result' => [],
+                'total' => 0,
+            ];
+        } else {
+            $response_code = 404;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error404status_eng,
+                'errors' => $this->not_found_error_eng,
+                'olds' => $request->all(),
+            ];
+        }
 
         return response()->json($response, $response_code);
     }
@@ -989,6 +1110,8 @@ class QuoteController extends Controller
             }
         } // End of method
 
+        $product = Product::where('slug_url', '=', 'travel-insurance')->first();
+
         /**
          * Apply this calculation
          */
@@ -1049,7 +1172,7 @@ class QuoteController extends Controller
                 'locale' => $data['locale'],
                 'travel_type' => $data['travel_type'],
                 'duration' => $data['duration'],
-                'product_id' => $data['apply']['product_id'],
+                'product_id' => $product->id,
                 'customer' => [
                     'name' => $data['apply']['name'],
                     'email' => $data['apply']['email'],
@@ -1069,6 +1192,7 @@ class QuoteController extends Controller
                 'locale' => $data['locale'],
                 'travel_type' => $data['travel_type'],
                 'duration' => $data['duration'],
+                'product_id' => $product->id,
             ];
         }
         // End of Apply
@@ -1134,6 +1258,8 @@ class QuoteController extends Controller
             } // End of formula
         } // End of methods
 
+        $product = Product::where('slug_url', '=', 'snake-bite-life-insurance')->first();
+
         /**
          * Apply this calculation
          */
@@ -1193,7 +1319,7 @@ class QuoteController extends Controller
             $info = [
                 'locale' => $data['locale'],
                 'insured_amount' => $data['insured_amount'],
-                'product_id' => $data['apply']['product_id'],
+                'product_id' => $product->id,
                 'customer' => [
                     'name' => $data['apply']['name'],
                     'email' => $data['apply']['email'],
@@ -1212,6 +1338,7 @@ class QuoteController extends Controller
             $info = [
                 'locale' => $data['locale'],
                 'insured_amount' => $data['insured_amount'],
+                'product_id' => $product->id,
             ];
         }
         // End of Apply

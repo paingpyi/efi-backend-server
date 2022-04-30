@@ -100,7 +100,7 @@ if (isset($product_en)) {
                 <i class="fa fa-picture-o"></i> Choose
             </a>
         </span>
-        <input id="diagram_table_image_thumbnail_burmese" class="form-control" type="text" name="diagram_table_image_burmese[]">
+        <input id="diagram_table_image_thumbnail_burmese" class="form-control" type="text" name="diagram_table_image_burmese[]" value="{{ old('diagram_table_image[0]',isset($diagrams_and_table[0]['image']['src']) ? $diagrams_and_table[0]['image']['src'] : '') }}">
     </div>
     <div id="diagram_table_image_burmese_holder" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Diagram and Table Image -->
