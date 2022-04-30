@@ -924,19 +924,6 @@ class QuoteController extends Controller
          * Apply this calculation
          */
         if (isset($data['apply'])) {
-            if (!isset($data['apply']['product_id'])) {
-                $response_code = 400;
-
-                $response = [
-                    'code' => $response_code,
-                    'status' => $this->error400status_eng,
-                    'errors' => 'For appling this product, product_id' . $this->required_error_eng,
-                    'olds' => $request->all(),
-                ];
-
-                return response()->json($response, $response_code);
-            }
-
             if (!isset($data['apply']['name'])) {
                 $response_code = 400;
 
@@ -1116,18 +1103,6 @@ class QuoteController extends Controller
          * Apply this calculation
          */
         if (isset($data['apply'])) {
-            if (!isset($data['apply']['product_id'])) {
-                $response_code = 400;
-
-                $response = [
-                    'code' => $response_code,
-                    'status' => $this->error400status_eng,
-                    'errors' => 'For appling this product, product_id' . $this->required_error_eng,
-                    'olds' => $request->all(),
-                ];
-
-                return response()->json($response, $response_code);
-            }
 
             if (!isset($data['apply']['name'])) {
                 $response_code = 400;
@@ -1264,19 +1239,6 @@ class QuoteController extends Controller
          * Apply this calculation
          */
         if (isset($data['apply'])) {
-            if (!isset($data['apply']['product_id'])) {
-                $response_code = 400;
-
-                $response = [
-                    'code' => $response_code,
-                    'status' => $this->error400status_eng,
-                    'errors' => 'For appling this product, product_id' . $this->required_error_eng,
-                    'olds' => $request->all(),
-                ];
-
-                return response()->json($response, $response_code);
-            }
-
             if (!isset($data['apply']['name'])) {
                 $response_code = 400;
 
