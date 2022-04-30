@@ -1157,7 +1157,7 @@ class QuoteController extends Controller
 
             $apply = [
                 'info' => json_encode($info),
-                'result' => $result,
+                'result' => json_encode($result),
                 'total' => $result,
             ];
 
@@ -1291,7 +1291,7 @@ class QuoteController extends Controller
 
             $apply = [
                 'info' => json_encode($info),
-                'result' => $result,
+                'result' => json_encode($result),
                 'total' => $result,
             ];
 
