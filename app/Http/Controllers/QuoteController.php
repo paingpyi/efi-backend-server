@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ApplyProduct;
 use App\Models\Formula;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -562,23 +563,12 @@ class QuoteController extends Controller
             ];
         }
 
+        $product = Product::where('slug_url', '=', 'short-term-endowment-insurance')->first();
+
         /**
          * Apply this calculation
          */
         if (isset($data['apply'])) {
-            if (!isset($data['apply']['product_id'])) {
-                $response_code = 400;
-
-                $response = [
-                    'code' => $response_code,
-                    'status' => $this->error400status_eng,
-                    'errors' => 'For appling this product, product_id' . $this->required_error_eng,
-                    'olds' => $request->all(),
-                ];
-
-                return response()->json($response, $response_code);
-            }
-
             if (!isset($data['apply']['name'])) {
                 $response_code = 400;
 
@@ -623,7 +613,7 @@ class QuoteController extends Controller
                 'insured_amount' => $data['insured_amount'],
                 'insured_age' => $data['insured_age'],
                 'term' => $data['term'],
-                'product_id' => $data['apply']['product_id'],
+                'product_id' => $product->id,
                 'customer' => [
                     'name' => $data['apply']['name'],
                     'email' => $data['apply']['email'],
@@ -644,6 +634,7 @@ class QuoteController extends Controller
                 'insured_amount' => $data['insured_amount'],
                 'insured_age' => $data['insured_age'],
                 'term' => $data['term'],
+                'product_id' => $product->id,
             ];
         }
         // End of Apply
@@ -806,6 +797,8 @@ class QuoteController extends Controller
             ];
         }
 
+        $product = Product::where('slug_url', '=', 'student-life-insurance')->first();
+
         /**
          * Apply this calculation
          */
@@ -869,7 +862,7 @@ class QuoteController extends Controller
                 'premium_type' => $data['premium_type'],
                 'policy_term' => $result['policy_term'],
                 'premium_term' => $result['premium_term'],
-                'product_id' => $data['apply']['product_id'],
+                'product_id' => $product->id,
                 'customer' => [
                     'name' => $data['apply']['name'],
                     'email' => $data['apply']['email'],
@@ -892,6 +885,7 @@ class QuoteController extends Controller
                 'premium_type' => $data['premium_type'],
                 'policy_term' => $result['policy_term'],
                 'premium_term' => $result['premium_term'],
+                'product_id' => $product->id,
             ];
         }
         // End of Apply
