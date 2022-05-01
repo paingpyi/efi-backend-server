@@ -49,8 +49,7 @@
                                 @foreach ($blogs as $blog)
                                     <tr>
                                         <td class="text-nowrap"><a
-                                                href="{{ route('edit#blog', Illuminate\Support\Facades\Crypt::encryptString($blog->id)) }}">{{ $blog->title }}<br><span
-                                                    class="badge badge-info">{{ $blog->title_burmese }}</span>
+                                                href="{{ route('edit#blog', Illuminate\Support\Facades\Crypt::encryptString($blog->id)) }}">{{ json_decode($blog->title) }}
                                             </a></td>
                                         <td>{{ $blog->category_name }}</td>
                                         <td class="text-nowrap">

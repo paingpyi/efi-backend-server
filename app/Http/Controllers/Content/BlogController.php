@@ -23,7 +23,12 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = $this->getBlogs(0, 'blogs.status', '=', 'published');
+        $data = [
+            'locale'=>'en-us',
+            'status'=>'published'
+        ];
+
+        $blogs = $this->getBlogsAPI($data)->get();
 
         return view('admin.blog.list')->with(['blogs' => $blogs]);
     }
@@ -35,7 +40,12 @@ class BlogController extends Controller
      */
     public function unpublished()
     {
-        $blogs = $this->getBlogs(0, 'blogs.status', '=', 'unpublished');
+        $data = [
+            'locale'=>'en-us',
+            'status'=>'unpublished'
+        ];
+
+        $blogs = $this->getBlogsAPI($data)->get();
 
         return view('admin.blog.list')->with(['blogs' => $blogs]);
     }
@@ -47,7 +57,12 @@ class BlogController extends Controller
      */
     public function drafted()
     {
-        $blogs = $this->getBlogs(0, 'blogs.status', '=', 'draft');
+        $data = [
+            'locale'=>'en-us',
+            'status'=>'draft'
+        ];
+
+        $blogs = $this->getBlogsAPI($data)->get();
 
         return view('admin.blog.list')->with(['blogs' => $blogs]);
     }
