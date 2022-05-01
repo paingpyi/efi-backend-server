@@ -2,7 +2,7 @@
     <label for="title"><i class="flag-icon flag-icon-mm mr-2"></i> Title
         <span class="text-danger">*</span></label>
     <input type="text" name="title_burmese"
-        value="{{ old('title_burmese', isset($product_en->title) ? $product_en->title : '') }}" class="form-control"
+        value="{{ old('title_burmese', isset($product_mm->title) ? json_decode($product_mm->title) : '') }}" class="form-control"
         id="title_burmese" aria-describedby="title_burmeseHelp">
     <small id="title_burmeseHelp" class="form-text text-muted">Please enter
         title.</small>
@@ -13,17 +13,17 @@
 <div class="form-group">
     <label for="slogan_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Slogan</label>
     <input type="text" name="slogan_burmese"
-        value="{{ old('slogan_burmese', isset($product_en->slogan) ? $product_en->slogan : '') }}"
+        value="{{ old('slogan_burmese', isset($product_mm->slogan) ? json_decode($product_mm->slogan) : '') }}"
         class="form-control" id="slogan_burmese">
 </div>
 <!-- Paragraphs -->
 <hr>
 <h4>Description</h4>
 @php
-if (isset($product_en)) {
-    $lr = [];
+$lr = [];
 
-    foreach (json_decode($product_en->lr) as $item) {
+if (isset($product_mm)) {
+    foreach (json_decode($product_mm->lr) as $item) {
         $lr[] = [
             'title' => $item->title,
             'description' => $item->description,
@@ -67,10 +67,10 @@ if (isset($product_en)) {
 <hr>
 <h4>Diagram and Table</h4>
 @php
-if (isset($product_en)) {
+if (isset($product_mm)) {
     $diagrams_and_table = [];
 
-    foreach (json_decode($product_en->diagrams_and_table) as $item) {
+    foreach (json_decode($product_mm->diagrams_and_table) as $item) {
         $diagrams_and_table[] = [
             'title' => $item->title,
             'description' => $item->description,
@@ -194,7 +194,7 @@ if (isset($product_en)) {
         Title
         <span class="text-danger">*</span></label>
     <input type="text" name="apply_insurance_title_burmese"
-        value="{{ old('apply_insurance_title_burmese',isset($product_en) and(isset(json_decode($product_en->apply_insurance)->title)? json_decode($product_en->apply_insurance)->title: '')) }}"
+        value="{{ old('apply_insurance_title_burmese',isset($product_mm) ? json_decode($product_mm->apply_insurance)->title: '') }}"
         class="form-control" id="apply_insurance_title_burmese">
     @error('apply_insurance_title_burmese')
         <div class="alert alert-danger">{{ $message }}</div>
@@ -205,13 +205,13 @@ if (isset($product_en)) {
         Description
         <span class="text-danger">*</span></label>
     <textarea name="apply_insurance_description_burmese" class="summernote"
-        id="apply_insurance_description_burmese">{{ old('apply_insurance_description_burmese',isset($product_en) and(isset(json_decode($product_en->apply_insurance)->description)? json_decode($product_en->apply_insurance)->description: '')) }}</textarea>
+        id="apply_insurance_description_burmese">{{ old('apply_insurance_description_burmese',isset($product_mm) ? json_decode($product_mm->apply_insurance)->description: '') }}</textarea>
 </div>
 <div class="form-group">
     <label for="apply_insurance_buttonText_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Button Text
         <span class="text-danger">*</span></label>
     <input type="text" name="apply_insurance_buttonText_burmese"
-        value="{{ old('apply_insurance_buttonText_burmese',isset($product_en) and(isset(json_decode($product_en->apply_insurance)->buttonText)? json_decode($product_en->apply_insurance)->buttonText: '')) }}"
+        value="{{ old('apply_insurance_buttonText_burmese',isset($product_mm) ? json_decode($product_mm->apply_insurance)->buttonText: '') }}"
         class="form-control" id="apply_insurance_buttonText_burmese">
     @error('apply_insurance_buttonText_burmese')
         <div class="alert alert-danger">{{ $message }}</div>
@@ -225,7 +225,7 @@ if (isset($product_en)) {
     <label for="why_work_title_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
         <span class="text-danger">*</span></label>
     <input type="text" name="why_work_title_burmese"
-        value="{{ old('why_work_title_burmese',isset($product_en) and(isset(json_decode($product_en->why_work_with_us)->title)? json_decode($product_en->why_work_with_us)->title: '')) }}"
+        value="{{ old('why_work_title_burmese',isset($product_mm) ? json_decode($product_mm->why_work_with_us)->title: '') }}"
         class="form-control" id="why_work_title_burmese">
     @error('why_work_title_burmese')
         <div class="alert alert-danger">{{ $message }}</div>
@@ -236,7 +236,7 @@ if (isset($product_en)) {
         Description
         <span class="text-danger">*</span></label>
     <textarea name="why_work_description_burmese" class="summernote"
-        id="why_work_description_burmese">{{ old('why_work_description_burmese',isset($product_en) and(isset(json_decode($product_en->why_work_with_us)->description)? json_decode($product_en->why_work_with_us)->description: '')) }}</textarea>
+        id="why_work_description_burmese">{{ old('why_work_description_burmese',isset($product_mm) ? json_decode($product_mm->why_work_with_us)->description: '') }}</textarea>
 </div>
 <div class="form-group">
     <div class="input-group">
@@ -247,7 +247,7 @@ if (isset($product_en)) {
             </a>
         </span>
         <input id="why_work_image_thumbnail_burmese" class="form-control" type="text" name="why_work_image_burmese"
-            value="{{ old('why_work_image_burmese',isset($product_en) and(isset(json_decode($product_en->why_work_with_us)->image)? json_decode($product_en->why_work_with_us)->image: '')) }}">
+            value="{{ old('why_work_image_burmese',isset($product_mm) ? config('app.url') . json_decode($product_mm->why_work_with_us)->image: '') }}">
     </div>
     <div id="why_work_image_burmese_holder" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Why Work With Us Image -->
@@ -258,8 +258,8 @@ if (isset($product_en)) {
 @php
 $additional_benifits_data = [];
 
-if (isset($product_en)) {
-    foreach (json_decode($product_en->additional_benifits)->data as $item) {
+if (isset($product_mm)) {
+    foreach (json_decode($product_mm->additional_benifits)->data as $item) {
         $additional_benifits_data[] = [
             'icon' => config('app.url') . $item->icon,
             'text' => $item->text,
@@ -271,7 +271,7 @@ if (isset($product_en)) {
     <label for="additional_title_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
         <span class="text-danger">*</span></label>
     <input type="text" name="additional_title_burmese"
-        value="{{ old('additional_title_burmese',isset($product_en) and isset(json_decode($product_en->additional_benifits)->title)? json_decode($product_en->additional_benifits)->title: '') }}"
+        value="{{ old('additional_title_burmese',isset($product_mm) ? json_decode($product_mm->additional_benifits)->title: '') }}"
         class="form-control" id="additional_title_burmese">
     @error('additional_title_burmese')
         <div class="alert alert-danger">{{ $message }}</div>
@@ -400,8 +400,8 @@ if (isset($product_en)) {
 @php
 $attachments = [];
 
-if (isset($product_en)) {
-    foreach (json_decode($product_en->attachments) as $item) {
+if (isset($product_mm)) {
+    foreach (json_decode($product_mm->attachments) as $item) {
         $attachments[] = [
             'title' => $item->title,
             'description' => $item->description,
@@ -523,8 +523,8 @@ if (isset($product_en)) {
 <hr>
 <h4>Frequently Asked Questions</h4>
 @php
-if(isset($product_en)) {
-$faq = json_decode($product_en->faq)->data;
+if(isset($product_mm)) {
+$faq = json_decode($product_mm->faq)->data;
 } else {
     $faq = [];
 }
@@ -533,7 +533,7 @@ $faq = json_decode($product_en->faq)->data;
     <label for="faq_title_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
         <span class="text-danger">*</span></label>
     <input type="text" name="faq_title_burmese"
-        value="{{ old('faq_title_burmese',isset($product_en) and isset(json_decode($product_en->faq)->title) ? json_decode($product_en->faq)->title : '') }}"
+        value="{{ old('faq_title_burmese',isset($product_mm) ? json_decode($product_mm->faq)->title : '') }}"
         class="form-control" id="faq_title_burmese">
     @error('faq_title_burmese')
         <div class="alert alert-danger">{{ $message }}</div>
