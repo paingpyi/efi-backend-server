@@ -16,6 +16,23 @@
         value="{{ old('slogan_burmese', isset($product_mm->slogan) ? json_decode($product_mm->slogan) : '') }}"
         class="form-control" id="slogan_burmese">
 </div>
+<!-- Food for Thought -->
+<hr>
+<h4>Food for thought</h4>
+<div class="form-group">
+    <label for="food_for_thought_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Title</label>
+    <input type="text" name="food_for_thought_burmese"
+        value="{{ old('food_for_thought_burmese', isset($product_mm) ? json_decode($product_mm->food_for_thought)->title : '') }}"
+        class="form-control" id="food_for_thought_burmese">
+</div>
+<div class="form-group">
+    <label for="food_for_thought_description_burmese"><i class="flag-icon flag-icon-mm mr-2"></i>
+        Description
+        <span class="text-danger">*</span></label>
+    <textarea name="food_for_thought_description_burmese" class="summernote"
+        id="food_for_thought_description_burmese">{{ old('food_for_thought_description_burmese', isset($product_mm) ? json_decode($product_mm->food_for_thought)->description : '') }}</textarea>
+</div>
+<!-- /. End of Food for Thought -->
 <!-- Paragraphs -->
 <hr>
 <h4>Description</h4>
