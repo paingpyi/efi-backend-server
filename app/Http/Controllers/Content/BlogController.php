@@ -87,7 +87,7 @@ class BlogController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {dd($request->all());
+    {
         $validator = Validator::make($request->all(), [
             'title' => 'required|max:255',
             'content' => 'required',
@@ -97,9 +97,9 @@ class BlogController extends Controller
             'content_chinese' => 'required',
             'slug_url' => 'required|unique:blogs,url_slug',
             'main_category' => 'required',
-            'categories'=> 'required',
+            'categories' => 'required',
             'status' => 'required',
-            'cover_image'=>'required'
+            'cover_image' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -126,14 +126,14 @@ class BlogController extends Controller
             'main_category' => $request->main_category,
             'category_id' => json_encode($request->categories),
             'author_id' => Auth::user()->id,
-            'featured' => false,
-            'promoted' => false,
+            'featured' => isset($request->featured) ? true : false,
+            'promoted' => isset($request->promoted) ? true : false,
             'related_products' => json_encode($request->products),
         ];
 
-            blog::create($blog);
+        blog::create($blog);
 
-            return redirect()->route('blog#list')->with(['success_message' => 'Successfully <strong>saved!</strong>']);
+        return redirect()->route('blog#list')->with(['success_message' => 'Successfully <strong>saved!</strong>']);
     }
 
     /**
@@ -155,11 +155,13 @@ class BlogController extends Controller
      */
     public function edit($id)
     {
-        $blog = blog::where('id', '=', Crypt::decryptString($id))->first();
-        $blog_category = Category::where('is_active', '=', true)->where('parent_id', '=', 2)->get();
-        $blog_products = Product::where('is_active', '=', true)->get();
+        $blog_EN = $this->getBlogsAPI(['locale' => 'en-us', 'id' => Crypt::decryptString($id)])->first();
+        $blog_MM = $this->getBlogsAPI(['locale' => 'my-mm', 'id' => Crypt::decryptString($id)])->first();
+        $blog_ZH = $this->getBlogsAPI(['locale' => 'zh-cn', 'id' => Crypt::decryptString($id)])->first();
+        $blog_category = Category::where('is_active', '=', true)->where('parent_id', '=', null)->get();
+        $blog_products = $this->getProducts();
 
-        return view('admin.blog.add-edit')->with(['action' => 'update', 'blog_category' => $blog_category, 'blog_products' => $blog_products, 'blog' => $blog]);
+        return view('admin.blog.add-edit')->with(['action' => 'update', 'blog_category' => $blog_category, 'blog_products' => $blog_products, 'blog_en' => $blog_EN, 'blog_mm' => $blog_MM, 'blog_zh' => $blog_ZH]);
     }
 
     /**

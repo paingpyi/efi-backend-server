@@ -58,7 +58,7 @@
                                             <label for="title"><i class="flag-icon flag-icon-us mr-2"></i> Title <span
                                                     class="text-danger">*</span></label>
                                             <input type="text" name="title"
-                                                value="{{ old('title', isset($blog->title) ? $blog->title : null) }}"
+                                                value="{{ old('title', isset($blog_en->title) ? json_decode($blog_en->title) : null) }}"
                                                 class="form-control title2slug" id="title" aria-describedby="titleHelp">
                                             <small id="titleHelp" class="form-text text-muted">Please enter title.</small>
                                             @error('title')
@@ -69,7 +69,7 @@
                                             <label for="content"><i class="flag-icon flag-icon-us mr-2"></i> Content Body
                                                 <span class="text-danger">*</span></label>
                                             <textarea name="content" class="summernote" required
-                                                id="content">{{ old('content', isset($blog->content) ? $blog->content : '') }}</textarea>
+                                                id="content">{{ old('content', isset($blog_en->content) ? json_decode($blog_en->content) : '') }}</textarea>
                                         </div>
                                     </div> {{-- /. End of English Inputs --}}
                                     <div class="tab-pane fade pt-3" id="nav-mm" role="tabpanel"
@@ -78,7 +78,7 @@
                                             <label for="title_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
                                                 <span class="text-danger">*</span></label>
                                             <input type="text" name="title_burmese"
-                                                value="{{ old('title_burmese', isset($blog->title_burmese) ? $blog->title_burmese : null) }}"
+                                                value="{{ old('title_burmese', isset($blog_mm->title) ? json_decode($blog_mm->title) : null) }}"
                                                 class="form-control" id="title_burmese"
                                                 aria-describedby="title_burmeseHelp">
                                             <small id="title_burmeseHelp" class="form-text text-muted">Please enter
@@ -93,7 +93,7 @@
                                                 Content Body
                                                 <span class="text-danger">*</span></label>
                                             <textarea name="content_burmese" class="summernote" required
-                                                id="content_burmese">{{ old('content_burmese', isset($blog->content_burmese) ? $blog->content_burmese : '') }}</textarea>
+                                                id="content_burmese">{{ old('content_burmese', isset($blog_mm->content) ? json_decode($blog_mm->content) : '') }}</textarea>
                                         </div>
                                     </div> {{-- /. End of Burmese Inputs --}}
                                     <div class="tab-pane fade pt-3" id="nav-zh" role="tabpanel"
@@ -102,7 +102,7 @@
                                             <label for="title_chinese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
                                                 <span class="text-danger">*</span></label>
                                             <input type="text" name="title_chinese"
-                                                value="{{ old('title_chinese', isset($blog->title_chinese) ? $blog->title_chinese : null) }}"
+                                                value="{{ old('title_chinese', isset($blog_zh->title) ? json_decode($blog_zh->title) : null) }}"
                                                 class="form-control" id="title_chinese"
                                                 aria-describedby="title_chineseHelp">
                                             <small id="title_chineseHelp" class="form-text text-muted">Please enter
@@ -117,7 +117,7 @@
                                                 Content Body
                                                 <span class="text-danger">*</span></label>
                                             <textarea name="content_chinese" class="summernote" required
-                                                id="content_chinese">{{ old('content_chinese', isset($blog->content_chinese) ? $blog->content_chinese : '') }}</textarea>
+                                                id="content_chinese">{{ old('content_chinese', isset($blog_zh->content) ? json_decode($blog_zh->content) : '') }}</textarea>
                                         </div>
                                     </div> {{-- /. End of Chinese Inputs --}}
                                 </div>
@@ -127,7 +127,7 @@
                                     <label for="slug_url">Slug URL
                                         <span class="text-danger">*</span></label>
                                     <input type="text" name="slug_url"
-                                        value="{{ old('slug_url', isset($blog->url_slug) ? $blog->url_slug : null) }}"
+                                        value="{{ old('slug_url', isset($blog_en->slug_url) ? $blog_en->slug_url : null) }}"
                                         class="form-control" id="slug_url" aria-describedby="slug_urlHelp">
                                     <small id="slug_urlHelp" class="form-text text-white">Do not use the special charaters
                                         but you can you dash (-).</small>
@@ -145,15 +145,24 @@
                                                 <option value="{{ $cat->id }}">{{ $cat->name }}</option>
                                             @else
                                                 <option value="{{ $cat->id }}"
-                                                    {{ $blog->category_id == $cat->id ? ' selected' : '' }}>
+                                                    {{ $blog_en->main_category == $cat->id ? ' selected' : '' }}>
                                                     {{ $cat->name }}</option>
                                             @endif
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    @php
+                                        $categories = json_decode($blog_en->category_id);
+                                    @endphp
                                     <label for="categories">Categories <span class="text-danger">*</span></label>
                                     <select id="categories" name="categories[]" class="duallistbox" multiple="multiple">
+                                        @for ($i = 0; $i < count($categories); $i++)
+                                        @php
+                                            $cat = App\Models\Category::where('id', '=', $categories[$i])->first();
+                                        @endphp
+                                            <option value="{{$cat->id}}" selected>{{ $cat->name }}</option>
+                                        @endfor
                                     </select>
                                 </div>
                                 <hr>
@@ -163,7 +172,7 @@
                                         aria-describedby="modulesHelp">
                                         @foreach ($blog_products as $product)
                                             <option value="{{ $product->slug_url }}"
-                                                {{ isset($blog->products)? (in_array($product->slug_url, json_decode($blog->products))? ' selected': ''): '' }}>
+                                                {{ isset($blog_en->related_products)? (in_array($product->slug_url, json_decode($blog_en->related_products))? ' selected': ''): '' }}>
                                                 {{ json_decode($product->title) }}</option>
                                         @endforeach
                                     </select>
@@ -172,16 +181,26 @@
                                 </div>
                                 <hr>
                                 <div class="form-group">
-                                    <label for="featured">Featured: </label>
-                                    <input type="checkbox" id="featured" name="featured"
-                                        {{ (old('featured', isset($blog->featured) ? $blog->featured : null) == true or $action == 'new')? 'checked': '' }}
-                                        data-bootstrap-switch data-on-color="success">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="featured">Featured: </label>
+                                        </div>
+                                        <div class="col">
+                                            <input type="checkbox" id="featured" name="featured"
+                                                {{ old('featured', isset($blog_en->featured) ? $blog_en->featured : null) == true ? 'checked' : '' }}
+                                                data-bootstrap-switch data-on-color="success">
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="promoted">Promoted: </label>
-                                    <input type="checkbox" id="promoted" name="promoted"
-                                        {{ (old('promoted', isset($blog->promoted) ? $blog->promoted : null) == true or $action == 'new')? 'checked': '' }}
-                                        data-bootstrap-switch data-on-color="success">
+                                    <div class="row">
+                                        <div class="col"><label for="promoted">Promoted: </label></div>
+                                        <div class="col">
+                                            <input type="checkbox" id="promoted" name="promoted"
+                                                {{ old('promoted', isset($blog_en->promoted) ? $blog_en->promoted : null) == true ? 'checked' : '' }}
+                                                data-bootstrap-switch data-on-color="success">
+                                        </div>
+                                    </div>
                                 </div>
                                 <hr>
                                 <div class="form-group">
@@ -189,18 +208,25 @@
                                     <select name="status" id="status" class="form-control select2" style="width: 100%;">
                                         <option value="">Please choose the status.</option>
                                         <option value="published"
-                                            {{ isset($blog->status) ? ($blog->status == 'published' ? ' selected' : '') : '' }}>
+                                            {{ isset($blog_en->status) ? ($blog_en->status == 'published' ? ' selected' : '') : '' }}>
                                             published</option>
                                         <option value="draft"
-                                            {{ isset($blog->status) ? ($blog->status == 'draft' ? ' selected' : '') : '' }}>
+                                            {{ isset($blog_en->status) ? ($blog_en->status == 'draft' ? ' selected' : '') : '' }}>
                                             draft</option>
                                         <option value="unpublished"
-                                            {{ isset($blog->status) ? ($blog->status == 'unpublished' ? ' selected' : '') : '' }}>
+                                            {{ isset($blog_en->status) ? ($blog_en->status == 'unpublished' ? ' selected' : '') : '' }}>
                                             unpublished</option>
                                     </select>
                                 </div>
                                 <hr>
                                 <div class="form-group">
+                                    @php
+                                    if(isset($blog_en)) {
+                                        $cover_images = json_decode($blog_en->images);
+                                    } else {
+                                        $cover_images = [];
+                                    }
+                                    @endphp
                                     <label>Cover Images <span class="text-danger">*</span></label>
                                     <div class="input-group pb-3">
                                         <span class="input-group-btn">
@@ -211,7 +237,7 @@
                                         </span>
                                         <input id="cover_image1_thumbnail" class="form-control" type="text"
                                             name="cover_image[]"
-                                            value="{{ old('cover_image[0]', isset($product_en) ? $product_en->cover_image[0] : '') }}">
+                                            value="{{ old('cover_image[0]', $cover_images[0]) }}">
                                     </div>
                                     <div class="input-group pb-3">
                                         <span class="input-group-btn">
@@ -222,7 +248,7 @@
                                         </span>
                                         <input id="cover_image2_thumbnail" class="form-control" type="text"
                                             name="cover_image[]"
-                                            value="{{ old('cover_image[1]', isset($product_en) ? $product_en->cover_image[1] : '') }}">
+                                            value="{{ old('cover_image[1]', $cover_images[1]) }}">
                                     </div>
                                     <div class="input-group pb-3">
                                         <span class="input-group-btn">
@@ -233,7 +259,7 @@
                                         </span>
                                         <input id="cover_image3_thumbnail" class="form-control" type="text"
                                             name="cover_image[]"
-                                            value="{{ old('cover_image[2]', isset($product_en) ? $product_en->cover_image[2] : '') }}">
+                                            value="{{ old('cover_image[2]', $cover_images[2]) }}">
                                     </div>
                                     <div class="input-group pb-3">
                                         <span class="input-group-btn">
@@ -244,7 +270,7 @@
                                         </span>
                                         <input id="cover_image4_thumbnail" class="form-control" type="text"
                                             name="cover_image[]"
-                                            value="{{ old('cover_image[3]', isset($product_en) ? $product_en->cover_image[3] : '') }}">
+                                            value="{{ old('cover_image[3]', $cover_images[3]) }}">
                                     </div>
                                 </div><!-- /. Blog Image -->
                             </div>
