@@ -24,8 +24,8 @@ class BlogController extends Controller
     public function index()
     {
         $data = [
-            'locale'=>'en-us',
-            'status'=>'published'
+            'locale' => 'en-us',
+            'status' => 'published'
         ];
 
         $blogs = $this->getBlogsAPI($data)->get();
@@ -41,8 +41,8 @@ class BlogController extends Controller
     public function unpublished()
     {
         $data = [
-            'locale'=>'en-us',
-            'status'=>'unpublished'
+            'locale' => 'en-us',
+            'status' => 'unpublished'
         ];
 
         $blogs = $this->getBlogsAPI($data)->get();
@@ -58,8 +58,8 @@ class BlogController extends Controller
     public function drafted()
     {
         $data = [
-            'locale'=>'en-us',
-            'status'=>'draft'
+            'locale' => 'en-us',
+            'status' => 'draft'
         ];
 
         $blogs = $this->getBlogsAPI($data)->get();
@@ -75,17 +75,7 @@ class BlogController extends Controller
     public function create()
     {
         $blog_category = Category::where('is_active', '=', true)->where('parent_id', '=', null)->get();
-        $blog_products = DB::table('products')
-        ->join('categories', 'categories.id', '=', 'products.category_id')
-        ->select(
-            'products.id',
-            DB::raw('JSON_EXTRACT(products.title, \'$."en-us"\') as title'),
-            'products.is_active',
-            'products.is_home',
-            'products.slug_url',
-            'products.quote_machine_name',
-            'products.claim_machine_name',
-        )->where('products.is_active', '=', true)->get();
+        $blog_products = $this->getProducts();
 
         return view('admin.blog.add-edit')->with(['action' => 'new', 'blog_category' => $blog_category, 'blog_products' => $blog_products]);
     }
@@ -97,17 +87,19 @@ class BlogController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {dd($request->all());
         $validator = Validator::make($request->all(), [
-            'title' => 'required|unique:blogs|max:255',
+            'title' => 'required|max:255',
             'content' => 'required',
-            'title_burmese' => 'required|unique:blogs|max:255',
+            'title_burmese' => 'required|max:255',
             'content_burmese' => 'required',
-            'title_chinese' => 'required|unique:blogs|max:255',
+            'title_chinese' => 'required|max:255',
             'content_chinese' => 'required',
             'slug_url' => 'required|unique:blogs,url_slug',
-            'category' => 'required',
-            'blog' => 'required|mimes:jpg,jpeg,png,gif|max:2048',
+            'main_category' => 'required',
+            'categories'=> 'required',
+            'status' => 'required',
+            'cover_image'=>'required'
         ]);
 
         if ($validator->fails()) {
@@ -117,34 +109,31 @@ class BlogController extends Controller
                 ->withInput();
         }
 
-        $blog = [];
-
-        if ($request->file()) {
-            $blogfileName = time() . '_' . $request->blog->getClientOriginalName();
-            $blogfilePath = $request->file('blog')->storeAs('uploads', $blogfileName, 'public');
-
-            $blog = [
-                'title' => $request->title,
-                'content' => $request->content,
-                'title_burmese' => $request->title_burmese,
-                'content_burmese' => $request->content_burmese,
-                'title_chinese' => $request->title_chinese,
-                'content_chinese' => $request->content_chinese,
-                'url_slug' => $request->slug_url,
-                'category_id' => $request->category,
-                'products' => isset($request->products) ? json_encode($request->products) : null,
-                'featured' => ($request->featured == 'on') ? true : false,
-                'image' => '/storage/' . $blogfilePath,
-                'status' => $request->status,
-                'author_id' => Auth::id(),
-            ];
+        $blog = [
+            'title' => json_encode([
+                'en-us' => $request->title,
+                'my-mm' => $request->title_burmese,
+                'zh-cn' => $request->title_chinese
+            ]),
+            'content' => json_encode([
+                'en-us' => $request->content,
+                'my-mm' => $request->content_burmese,
+                'zh-cn' => $request->content_chinese
+            ]),
+            'images' => json_encode($request->cover_image),
+            'url_slug' => $request->slug_url,
+            'status' => $request->status,
+            'main_category' => $request->main_category,
+            'category_id' => json_encode($request->categories),
+            'author_id' => Auth::user()->id,
+            'featured' => false,
+            'promoted' => false,
+            'related_products' => json_encode($request->products),
+        ];
 
             blog::create($blog);
 
             return redirect()->route('blog#list')->with(['success_message' => 'Successfully <strong>saved!</strong>']);
-        } else {
-            return back();
-        }
     }
 
     /**
@@ -399,9 +388,9 @@ class BlogController extends Controller
             }
 
             $images = [];
-                foreach (json_decode($row->images) as $value) {
-                    $images[] = config('app.url') . $value;
-                }
+            foreach (json_decode($row->images) as $value) {
+                $images[] = config('app.url') . $value;
+            }
 
             $main_category_name = '';
             $main_category_description = '';
@@ -731,11 +720,11 @@ class BlogController extends Controller
          **/
         if (isset($data['related_products'])) {
             $blog_db
-                    ->orWhere(DB::raw('JSON_EXTRACT(blogs.related_products, \'$[0]\')'), '=', $data['related_products'])
-                    ->orWhere(DB::raw('JSON_EXTRACT(blogs.related_products, \'$[1]\')'), '=', $data['related_products'])
-                    ->orWhere(DB::raw('JSON_EXTRACT(blogs.related_products, \'$[2]\')'), '=', $data['related_products'])
-                    ->orWhere(DB::raw('JSON_EXTRACT(blogs.related_products, \'$[3]\')'), '=', $data['related_products'])
-                    ->orWhere(DB::raw('JSON_EXTRACT(blogs.related_products, \'$[4]\')'), '=', $data['related_products']);
+                ->orWhere(DB::raw('JSON_EXTRACT(blogs.related_products, \'$[0]\')'), '=', $data['related_products'])
+                ->orWhere(DB::raw('JSON_EXTRACT(blogs.related_products, \'$[1]\')'), '=', $data['related_products'])
+                ->orWhere(DB::raw('JSON_EXTRACT(blogs.related_products, \'$[2]\')'), '=', $data['related_products'])
+                ->orWhere(DB::raw('JSON_EXTRACT(blogs.related_products, \'$[3]\')'), '=', $data['related_products'])
+                ->orWhere(DB::raw('JSON_EXTRACT(blogs.related_products, \'$[4]\')'), '=', $data['related_products']);
         } //End of retreiving blogs by related_products
 
         /***
@@ -781,50 +770,18 @@ class BlogController extends Controller
         return $blog_db;
     }
 
-    private function getBlogs($paginate, $search_column = null, $search_operator = null, $search_value = null)
+    private function getProducts()
     {
-        $blog_db = DB::table('blogs')
-            ->join('categories', 'categories.id', '=', 'blogs.category_id')
-            ->join('users', 'users.id', '=', 'blogs.author_id')
+        return DB::table('products')
+            ->join('categories', 'categories.id', '=', 'products.category_id')
             ->select(
-                'blogs.id as id',
-                'blogs.title as title',
-                'blogs.content as content',
-                'blogs.images as images',
-                'blogs.url_slug',
-                'blogs.status',
-                'blogs.category_id',
-                'blogs.featured as featured',
-                'blogs.title_burmese as title_burmese',
-                'blogs.content_burmese as content_burmese',
-                'blogs.category_id',
-                'blogs.status as status',
-                'blogs.created_at as created_at',
-                'blogs.updated_at as updated_at',
-                'categories.name as category_name',
-                'categories.description as category_description',
-                'categories.is_active as category_is_active',
-                'blogs.author_id as author_id',
-                'users.name as author_name',
-                'users.email as author_email',
-                'users.profile_photo_path as author_photo',
-                'users.name as author_name',
-                'users.email as author_email',
-                'users.profile_photo_path as author_photo'
-            );
-
-        if (is_null($search_column) and is_null($search_operator) and is_null($search_value)) {
-            if ($paginate > 0) {
-                return $blog_db->paginate($paginate);
-            } else {
-                return $blog_db->get();
-            }
-        } else {
-            if ($paginate > 0) {
-                return $blog_db->where($search_column, $search_operator, $search_value)->paginate($paginate);
-            } else {
-                return $blog_db->where($search_column, $search_operator, $search_value)->get();
-            }
-        }
+                'products.id',
+                DB::raw('JSON_EXTRACT(products.title, \'$."en-us"\') as title'),
+                'products.is_active',
+                'products.is_home',
+                'products.slug_url',
+                'products.quote_machine_name',
+                'products.claim_machine_name',
+            )->where('products.is_active', '=', true)->get();
     }
 }

@@ -137,7 +137,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="main_category">Main Category <span class="text-danger">*</span></label>
-                                    <select name="main_category" id="main_category" class="form-control select2" style="width: 100%;">
+                                    <select id="main_category" name="main_category" id="main_category"
+                                        class="form-control select2" style="width: 100%;">
                                         <option value="">Please choose the main category.</option>
                                         @foreach ($blog_category as $cat)
                                             @if ($action == 'new')
@@ -152,9 +153,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="categories">Categories <span class="text-danger">*</span></label>
-                                    <select name="categories[]" class="duallistbox" multiple="multiple"
-                                        aria-describedby="modulesHelp">
-
+                                    <select id="categories" name="categories[]" class="duallistbox" multiple="multiple">
                                     </select>
                                 </div>
                                 <hr>
@@ -178,6 +177,12 @@
                                         {{ (old('featured', isset($blog->featured) ? $blog->featured : null) == true or $action == 'new')? 'checked': '' }}
                                         data-bootstrap-switch data-on-color="success">
                                 </div>
+                                <div class="form-group">
+                                    <label for="promoted">Promoted: </label>
+                                    <input type="checkbox" id="promoted" name="promoted"
+                                        {{ (old('promoted', isset($blog->promoted) ? $blog->promoted : null) == true or $action == 'new')? 'checked': '' }}
+                                        data-bootstrap-switch data-on-color="success">
+                                </div>
                                 <hr>
                                 <div class="form-group">
                                     <label for="status">Status <span class="text-danger">*</span></label>
@@ -199,35 +204,47 @@
                                     <label>Cover Images <span class="text-danger">*</span></label>
                                     <div class="input-group pb-3">
                                         <span class="input-group-btn">
-                                            <a id="cover_image1" data-input="cover_image1_thumbnail" class="btn btn-primary lfm">
+                                            <a id="cover_image1" data-input="cover_image1_thumbnail"
+                                                class="btn btn-primary lfm">
                                                 <i class="fa fa-picture-o"></i> Choose
                                             </a>
                                         </span>
-                                        <input id="cover_image1_thumbnail" class="form-control" type="text" name="cover_image[]" value="{{old('cover_image[0]', isset($product_en) ? $product_en->cover_image[0] : '')}}">
+                                        <input id="cover_image1_thumbnail" class="form-control" type="text"
+                                            name="cover_image[]"
+                                            value="{{ old('cover_image[0]', isset($product_en) ? $product_en->cover_image[0] : '') }}">
                                     </div>
                                     <div class="input-group pb-3">
                                         <span class="input-group-btn">
-                                            <a id="cover_image2" data-input="cover_image2_thumbnail" class="btn btn-primary lfm">
+                                            <a id="cover_image2" data-input="cover_image2_thumbnail"
+                                                class="btn btn-primary lfm">
                                                 <i class="fa fa-picture-o"></i> Choose
                                             </a>
                                         </span>
-                                        <input id="cover_image2_thumbnail" class="form-control" type="text" name="cover_image[]" value="{{old('cover_image[1]', isset($product_en) ? $product_en->cover_image[1] : '')}}">
+                                        <input id="cover_image2_thumbnail" class="form-control" type="text"
+                                            name="cover_image[]"
+                                            value="{{ old('cover_image[1]', isset($product_en) ? $product_en->cover_image[1] : '') }}">
                                     </div>
                                     <div class="input-group pb-3">
                                         <span class="input-group-btn">
-                                            <a id="cover_image3" data-input="cover_image3_thumbnail" class="btn btn-primary lfm">
+                                            <a id="cover_image3" data-input="cover_image3_thumbnail"
+                                                class="btn btn-primary lfm">
                                                 <i class="fa fa-picture-o"></i> Choose
                                             </a>
                                         </span>
-                                        <input id="cover_image3_thumbnail" class="form-control" type="text" name="cover_image[]" value="{{old('cover_image[2]', isset($product_en) ? $product_en->cover_image[2] : '')}}">
+                                        <input id="cover_image3_thumbnail" class="form-control" type="text"
+                                            name="cover_image[]"
+                                            value="{{ old('cover_image[2]', isset($product_en) ? $product_en->cover_image[2] : '') }}">
                                     </div>
                                     <div class="input-group pb-3">
                                         <span class="input-group-btn">
-                                            <a id="cover_image4" data-input="cover_image4_thumbnail" class="btn btn-primary lfm">
+                                            <a id="cover_image4" data-input="cover_image4_thumbnail"
+                                                class="btn btn-primary lfm">
                                                 <i class="fa fa-picture-o"></i> Choose
                                             </a>
                                         </span>
-                                        <input id="cover_image4_thumbnail" class="form-control" type="text" name="cover_image[]" value="{{old('cover_image[3]', isset($product_en) ? $product_en->cover_image[3] : '')}}">
+                                        <input id="cover_image4_thumbnail" class="form-control" type="text"
+                                            name="cover_image[]"
+                                            value="{{ old('cover_image[3]', isset($product_en) ? $product_en->cover_image[3] : '') }}">
                                     </div>
                                 </div><!-- /. Blog Image -->
                             </div>
@@ -287,6 +304,44 @@
 
             //Bootstrap Duallistbox
             $('.duallistbox').bootstrapDualListbox();
+
+            $("#main_category").on('change', function(event) {
+                event.preventDefault();
+
+                if ($('#main_category').val() == 2) {
+                    $.ajax({
+                        url: "/api/categories/blogs",
+                        type: "POST",
+                        data: {
+                            locale: 'en-US',
+                            parent: $('#main_category').val()
+                        },
+                        success: function(response) {
+                            console.log(response);
+                            if (response) {
+                                $('#categories').empty();
+
+                                for (i = 0; i < response.data.length; i++) {
+                                    $('#categories').append(
+                                        $('<option></option>')
+                                        .text(response.data[i].name)
+                                        .val(response.data[i].id)
+                                    );
+                                }
+                                $('#categories').bootstrapDualListbox('refresh');
+                            }
+                        },
+                        error: function(error) {
+                            console.log(error);
+                            $('#categories').empty();
+                            $('#categories').bootstrapDualListbox('refresh');
+                        }
+                    });
+                } else {
+                    $('#categories').empty();
+                    $('#categories').bootstrapDualListbox('refresh');
+                }
+            });
 
             $(".title2slug").keyup(function() {
                 var Text = $(this).val();

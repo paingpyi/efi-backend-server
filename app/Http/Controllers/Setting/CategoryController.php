@@ -179,15 +179,13 @@ class CategoryController extends Controller
         $lang_burmese = 'my-mm';
         $data = $request->json()->all();
 
-        if($id == 'blogs') {
+        if ($id == 'blogs') {
             $category_db = DB::table('categories')->select('*')->where('parent_id', '=', 2);
-        } else if($id == 'career') {
+        } else if ($id == 'career') {
             $category_db = DB::table('categories')->select('*')->where('parent_id', '=', 9);
         } else {
             $category_db = DB::table('categories')->select('*');
         }
-
-
 
         $result = [];
         $category = $category_db->get();
@@ -226,7 +224,7 @@ class CategoryController extends Controller
             }
         }
 
-        if($total_count>0) {
+        if ($total_count > 0) {
             $response = [
                 'code' => 200,
                 'status' => 'success',
