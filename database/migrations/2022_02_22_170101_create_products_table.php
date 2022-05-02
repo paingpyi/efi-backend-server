@@ -19,6 +19,7 @@ return new class extends Migration
             $table->json('slogan');
             $table->longText('image');
             $table->longText('cover_image');
+            $table->json('food_for_thought');
             $table->json('apply_insurance');
             $table->json('why_work_with_us');
             $table->json('lr');

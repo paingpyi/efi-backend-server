@@ -14,6 +14,7 @@ class Product extends Model
         'slogan',
         'image',
         'cover_image',
+        'food_for_thought',
         'apply_insurance',
         'why_work_with_us',
         'lr',

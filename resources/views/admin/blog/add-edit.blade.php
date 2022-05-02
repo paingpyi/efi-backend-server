@@ -136,9 +136,9 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="category">Category <span class="text-danger">*</span></label>
-                                    <select name="category" id="category" class="form-control select2" style="width: 100%;">
-                                        <option value="">Please choose the category.</option>
+                                    <label for="main_category">Main Category <span class="text-danger">*</span></label>
+                                    <select name="main_category" id="main_category" class="form-control select2" style="width: 100%;">
+                                        <option value="">Please choose the main category.</option>
                                         @foreach ($blog_category as $cat)
                                             @if ($action == 'new')
                                                 <option value="{{ $cat->id }}">{{ $cat->name }}</option>
@@ -150,6 +150,13 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <label for="categories">Categories <span class="text-danger">*</span></label>
+                                    <select name="categories[]" class="duallistbox" multiple="multiple"
+                                        aria-describedby="modulesHelp">
+
+                                    </select>
+                                </div>
                                 <hr>
                                 <div class="form-group">
                                     <label>Related Product</label>
@@ -158,7 +165,7 @@
                                         @foreach ($blog_products as $product)
                                             <option value="{{ $product->slug_url }}"
                                                 {{ isset($blog->products)? (in_array($product->slug_url, json_decode($blog->products))? ' selected': ''): '' }}>
-                                                {{ $product->title }}</option>
+                                                {{ json_decode($product->title) }}</option>
                                         @endforeach
                                     </select>
                                     <small id="modulesHelp" class="form-text text-muted">Please select the related
@@ -189,75 +196,38 @@
                                 </div>
                                 <hr>
                                 <div class="form-group">
-                                    <label>Blog Image <span class="text-danger">*</span></label>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            @isset($blog->images)
-                                                @foreach (json_decode($blog->images) as $image)
-                                                    <img src="{{ $image }}" alt="blog image" class="img-thumbnail"
-                                                        style="max-height: 86px;">
-                                                @endforeach
-                                            @endisset
-                                        </div>
+                                    <label>Cover Images <span class="text-danger">*</span></label>
+                                    <div class="input-group pb-3">
+                                        <span class="input-group-btn">
+                                            <a id="cover_image1" data-input="cover_image1_thumbnail" class="btn btn-primary lfm">
+                                                <i class="fa fa-picture-o"></i> Choose
+                                            </a>
+                                        </span>
+                                        <input id="cover_image1_thumbnail" class="form-control" type="text" name="cover_image[]" value="{{old('cover_image[0]', isset($product_en) ? $product_en->cover_image[0] : '')}}">
                                     </div>
-                                    <!-- bootstrap-imageupload. -->
-
-                                    <div class="imageupload panel panel-default card card-secondary bg-secondary">
-
-                                        <div class="panel-heading card-heading clearfix p-2">
-
-                                            <h5 class="panel-title card-title pull-left">Select Image file</h5>
-
-                                            <div class="btn-group pull-right float-right">
-
-                                                <button type="button" class="btn btn-default active">File</button>
-
-                                                <button type="button" class="btn btn-default">URL</button>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div class="file-tab panel-body card-body text-center">
-
-                                            <div class="btn-group">
-                                                <div class="btn btn-primary btn-file">
-
-                                                    <span>Browse</span>
-
-                                                    <!-- The file is stored here. -->
-
-                                                    <input type="file" name="blog">
-
-                                                </div>
-
-                                                <button type="button" class="btn btn-danger">Remove</button>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="url-tab panel-body card-body">
-
-                                            <div class="input-group">
-
-                                                <input type="text" class="form-control hasclear" placeholder="Image URL">
-
-                                                <div class="input-group-btn input-group-append">
-
-                                                    <button type="button" class="btn btn-default">Submit</button>
-
-                                                </div>
-
-                                            </div>
-
-                                            <button type="button" class="btn btn-danger">Remove</button>
-
-                                            <!-- The URL is stored here. -->
-
-                                            <input type="hidden" name="blog-image-url">
-
-                                        </div>
-
+                                    <div class="input-group pb-3">
+                                        <span class="input-group-btn">
+                                            <a id="cover_image2" data-input="cover_image2_thumbnail" class="btn btn-primary lfm">
+                                                <i class="fa fa-picture-o"></i> Choose
+                                            </a>
+                                        </span>
+                                        <input id="cover_image2_thumbnail" class="form-control" type="text" name="cover_image[]" value="{{old('cover_image[1]', isset($product_en) ? $product_en->cover_image[1] : '')}}">
+                                    </div>
+                                    <div class="input-group pb-3">
+                                        <span class="input-group-btn">
+                                            <a id="cover_image3" data-input="cover_image3_thumbnail" class="btn btn-primary lfm">
+                                                <i class="fa fa-picture-o"></i> Choose
+                                            </a>
+                                        </span>
+                                        <input id="cover_image3_thumbnail" class="form-control" type="text" name="cover_image[]" value="{{old('cover_image[2]', isset($product_en) ? $product_en->cover_image[2] : '')}}">
+                                    </div>
+                                    <div class="input-group pb-3">
+                                        <span class="input-group-btn">
+                                            <a id="cover_image4" data-input="cover_image4_thumbnail" class="btn btn-primary lfm">
+                                                <i class="fa fa-picture-o"></i> Choose
+                                            </a>
+                                        </span>
+                                        <input id="cover_image4_thumbnail" class="form-control" type="text" name="cover_image[]" value="{{old('cover_image[3]', isset($product_en) ? $product_en->cover_image[3] : '')}}">
                                     </div>
                                 </div><!-- /. Blog Image -->
                             </div>
@@ -290,7 +260,7 @@
     <!-- Summernote -->
     <script src="{{ asset('adminlite/plugins/summernote/summernote-bs4.min.js') }}"></script>
     <!-- Image Upload -->
-    <script src="{{ asset('adminlite/plugins/bootstrap-imageupload/bootstrap-imageupload.js') }}"></script>
+    <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
     <!-- Bootstrap4 Duallistbox -->
     <script src="{{ asset('adminlite/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
@@ -309,11 +279,11 @@
 
             // Summernote
             $('.summernote').summernote({
-                height: 800,
+                height: 900,
                 placeholder: 'Write content here...',
             });
 
-            $('.imageupload').imageupload();
+            $('.lfm').filemanager('image');
 
             //Bootstrap Duallistbox
             $('.duallistbox').bootstrapDualListbox();
