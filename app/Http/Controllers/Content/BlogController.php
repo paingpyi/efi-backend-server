@@ -367,7 +367,8 @@ class BlogController extends Controller
 
             if (isset($row->related_products)) {
                 foreach (json_decode($row->related_products) as $value) {
-                    $temp = DB::table('products')
+                    $products[] = $value;
+                    /*$temp = DB::table('products')
                         ->select(
                             'products.id',
                             DB::raw('JSON_EXTRACT(products.title, \'$."' . Str::lower($data['locale']) . '"\') as title'),
@@ -387,11 +388,11 @@ class BlogController extends Controller
                         ];
                     } else {
                         $products = [];
-                    }
+                    }*/
                 }
             } else {
                 $products = [];
-            }
+            }dd($products);
 
             $images = [];
             foreach (json_decode($row->images) as $value) {
