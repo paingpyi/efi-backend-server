@@ -377,13 +377,17 @@ class BlogController extends Controller
                         )
                         ->where('products.slug_url', '=', $value)->first();
 
-                    $products[] = [
-                        'id' => $temp->id,
-                        'title' => json_decode($temp->title),
-                        'image' => config('app.url') . $temp->image,
-                        'slug_url' => $temp->slug_url,
-                        'is_active' => $temp->is_active
-                    ];
+                    if (isset($temp)) {
+                        $products[] = [
+                            'id' => $temp->id,
+                            'title' => json_decode($temp->title),
+                            'image' => config('app.url') . $temp->image,
+                            'slug_url' => $temp->slug_url,
+                            'is_active' => $temp->is_active
+                        ];
+                    } else {
+                        $products = [];
+                    }
                 }
             } else {
                 $products = [];
