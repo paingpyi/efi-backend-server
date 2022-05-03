@@ -27,7 +27,7 @@
         <div class="col">
             <div class="card">
                 <form id="inputForm"
-                    action="{{ $action == 'new' ? route('store#data#blog') : route('update#data#blog', isset($blog->id) ? $blog->id : 0) }}"
+                    action="{{ $action == 'new' ? route('store#data#blog') : route('update#data#blog', isset($blog_en->id) ? $blog_en->id : 0) }}"
                     method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card-header">
@@ -237,7 +237,7 @@
                                         </span>
                                         <input id="cover_image1_thumbnail" class="form-control" type="text"
                                             name="cover_image[]"
-                                            value="{{ old('cover_image[0]', $cover_images[0]) }}">
+                                            value="{{ old('cover_image[0]', ($cover_images[0]!='') ? config('app.url') . $cover_images[0]:'') }}">
                                     </div>
                                     <div class="input-group pb-3">
                                         <span class="input-group-btn">
@@ -248,7 +248,7 @@
                                         </span>
                                         <input id="cover_image2_thumbnail" class="form-control" type="text"
                                             name="cover_image[]"
-                                            value="{{ old('cover_image[1]', $cover_images[1]) }}">
+                                            value="{{ old('cover_image[1]', ($cover_images[1]!='') ? config('app.url') . $cover_images[1]:'') }}">
                                     </div>
                                     <div class="input-group pb-3">
                                         <span class="input-group-btn">
@@ -259,7 +259,7 @@
                                         </span>
                                         <input id="cover_image3_thumbnail" class="form-control" type="text"
                                             name="cover_image[]"
-                                            value="{{ old('cover_image[2]', $cover_images[2]) }}">
+                                            value="{{ old('cover_image[2]', ($cover_images[2]!='') ? config('app.url') . $cover_images[2]:'') }}">
                                     </div>
                                     <div class="input-group pb-3">
                                         <span class="input-group-btn">
@@ -270,7 +270,7 @@
                                         </span>
                                         <input id="cover_image4_thumbnail" class="form-control" type="text"
                                             name="cover_image[]"
-                                            value="{{ old('cover_image[3]', $cover_images[3]) }}">
+                                            value="{{ old('cover_image[3]', ($cover_images[3]!='') ? config('app.url') . $cover_images[3]:'') }}">
                                     </div>
                                 </div><!-- /. Blog Image -->
                             </div>

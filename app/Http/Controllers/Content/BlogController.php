@@ -109,6 +109,11 @@ class BlogController extends Controller
                 ->withInput();
         }
 
+        $cover_images = [];
+        foreach ($request->cover_image as $image) {
+            $cover_images[] = Str::replace(config('app.url'), '', $image);
+        }
+
         $blog = [
             'title' => json_encode([
                 'en-us' => $request->title,
@@ -120,7 +125,7 @@ class BlogController extends Controller
                 'my-mm' => $request->content_burmese,
                 'zh-cn' => $request->content_chinese
             ]),
-            'images' => json_encode($request->cover_image),
+            'images' => json_encode($cover_images),
             'url_slug' => $request->slug_url,
             'status' => $request->status,
             'main_category' => $request->main_category,
@@ -181,8 +186,10 @@ class BlogController extends Controller
             'title_chinese' => 'required|max:255',
             'content_chinese' => 'required',
             'slug_url' => 'required',
-            'category' => 'required',
-            'blog' => 'nullable|mimes:jpg,jpeg,png,gif|max:2048',
+            'main_category' => 'required',
+            'categories' => 'required',
+            'status' => 'required',
+            'cover_image' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -192,43 +199,32 @@ class BlogController extends Controller
                 ->withInput();
         }
 
-        $blog = [];
-
-        if ($request->file()) {
-            $blogfileName = time() . '_' . $request->blog->getClientOriginalName();
-            $blogfilePath = $request->file('blog')->storeAs('uploads', $blogfileName, 'public');
-
-            $blog = [
-                'title' => $request->title,
-                'content' => $request->content,
-                'title_burmese' => $request->title_burmese,
-                'content_burmese' => $request->content_burmese,
-                'title_chinese' => $request->title_chinese,
-                'content_chinese' => $request->content_chinese,
-                'url_slug' => $request->slug_url,
-                'category_id' => $request->category,
-                'products' => isset($request->products) ? json_encode($request->products) : null,
-                'featured' => ($request->featured == 'on') ? true : false,
-                'image' => '/storage/' . $blogfilePath,
-                'status' => $request->status,
-                'author_id' => Auth::id(),
-            ];
-        } else {
-            $blog = [
-                'title' => $request->title,
-                'content' => $request->content,
-                'title_burmese' => $request->title_burmese,
-                'content_burmese' => $request->content_burmese,
-                'title_chinese' => $request->title_chinese,
-                'content_chinese' => $request->content_chinese,
-                'url_slug' => $request->slug_url,
-                'category_id' => $request->category,
-                'products' => isset($request->products) ? json_encode($request->products) : null,
-                'featured' => ($request->featured == 'on') ? true : false,
-                'status' => $request->status,
-                'author_id' => Auth::id(),
-            ];
+        $cover_images = [];
+        foreach ($request->cover_image as $image) {
+            $cover_images[] = Str::replace(config('app.url'), '', $image);
         }
+
+        $blog = [
+            'title' => json_encode([
+                'en-us' => $request->title,
+                'my-mm' => $request->title_burmese,
+                'zh-cn' => $request->title_chinese
+            ]),
+            'content' => json_encode([
+                'en-us' => $request->content,
+                'my-mm' => $request->content_burmese,
+                'zh-cn' => $request->content_chinese
+            ]),
+            'images' => json_encode($cover_images),
+            'url_slug' => $request->slug_url,
+            'status' => $request->status,
+            'main_category' => $request->main_category,
+            'category_id' => json_encode($request->categories),
+            'author_id' => Auth::user()->id,
+            'featured' => isset($request->featured) ? true : false,
+            'promoted' => isset($request->promoted) ? true : false,
+            'related_products' => json_encode($request->products),
+        ];
 
         blog::where('id', '=', $id)->update($blog);
 
