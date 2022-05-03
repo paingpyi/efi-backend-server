@@ -391,7 +391,7 @@ class BlogController extends Controller
                 }
             } else {
                 $products = [];
-            }dd($products);
+            }
 
             $images = [];
             foreach (json_decode($row->images) as $value) {
