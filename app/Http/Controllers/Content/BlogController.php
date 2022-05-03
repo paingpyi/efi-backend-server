@@ -365,24 +365,28 @@ class BlogController extends Controller
 
             $products = [];
 
-            foreach (json_decode($row->related_products) as $value) {
-                $temp = DB::table('products')
-                    ->select(
-                        'products.id',
-                        DB::raw('JSON_EXTRACT(products.title, \'$."' . Str::lower($data['locale']) . '"\') as title'),
-                        'products.image as image',
-                        'products.slug_url',
-                        'products.is_active'
-                    )
-                    ->where('id', '=', $value)->first();
+            if (isset($row->related_products)) {
+                foreach (json_decode($row->related_products) as $value) {
+                    $temp = DB::table('products')
+                        ->select(
+                            'products.id',
+                            DB::raw('JSON_EXTRACT(products.title, \'$."' . Str::lower($data['locale']) . '"\') as title'),
+                            'products.image as image',
+                            'products.slug_url',
+                            'products.is_active'
+                        )
+                        ->where('id', '=', $value)->first();
 
-                $products[] = [
-                    'id' => $temp->id,
-                    'title' => json_decode($temp->title),
-                    'image' => config('app.url') . $temp->image,
-                    'slug_url' => $temp->slug_url,
-                    'is_active' => $temp->is_active
-                ];
+                    $products[] = [
+                        'id' => $temp->id,
+                        'title' => json_decode($temp->title),
+                        'image' => config('app.url') . $temp->image,
+                        'slug_url' => $temp->slug_url,
+                        'is_active' => $temp->is_active
+                    ];
+                }
+            } else {
+                $products = [];
             }
 
             $images = [];
