@@ -153,16 +153,20 @@
                                 </div>
                                 <div class="form-group">
                                     @php
-                                        $categories = json_decode($blog_en->category_id);
+                                        if (isset($blog_en)) {
+                                            $categories = json_decode($blog_en->category_id);
+                                        }
                                     @endphp
                                     <label for="categories">Categories <span class="text-danger">*</span></label>
                                     <select id="categories" name="categories[]" class="duallistbox" multiple="multiple">
-                                        @for ($i = 0; $i < count($categories); $i++)
-                                        @php
-                                            $cat = App\Models\Category::where('id', '=', $categories[$i])->first();
-                                        @endphp
-                                            <option value="{{$cat->id}}" selected>{{ $cat->name }}</option>
-                                        @endfor
+                                        @isset($categories)
+                                            @for ($i = 0; $i < count($categories); $i++)
+                                                @php
+                                                    $cat = App\Models\Category::where('id', '=', $categories[$i])->first();
+                                                @endphp
+                                                <option value="{{ $cat->id }}" selected>{{ $cat->name }}</option>
+                                            @endfor
+                                        @endisset
                                     </select>
                                 </div>
                                 <hr>
@@ -172,7 +176,7 @@
                                         aria-describedby="modulesHelp">
                                         @foreach ($blog_products as $product)
                                             <option value="{{ $product->slug_url }}"
-                                                {{ isset($blog_en->related_products)? (in_array($product->slug_url, json_decode($blog_en->related_products))? ' selected': ''): '' }}>
+                                                {{ isset($blog_en->related_products) ? (in_array($product->slug_url, json_decode($blog_en->related_products)) ? ' selected' : '') : '' }}>
                                                 {{ json_decode($product->title) }}</option>
                                         @endforeach
                                     </select>
@@ -221,11 +225,11 @@
                                 <hr>
                                 <div class="form-group">
                                     @php
-                                    if(isset($blog_en)) {
-                                        $cover_images = json_decode($blog_en->images);
-                                    } else {
-                                        $cover_images = [];
-                                    }
+                                        if (isset($blog_en)) {
+                                            $cover_images = json_decode($blog_en->images);
+                                        } else {
+                                            $cover_images = [];
+                                        }
                                     @endphp
                                     <label>Cover Images <span class="text-danger">*</span></label>
                                     <div class="input-group pb-3">
@@ -237,7 +241,7 @@
                                         </span>
                                         <input id="cover_image1_thumbnail" class="form-control" type="text"
                                             name="cover_image[]"
-                                            value="{{ old('cover_image[0]', ($cover_images[0]!='') ? config('app.url') . $cover_images[0]:'') }}">
+                                            value="{{ old('cover_image[0]', isset($cover_images[0]) ? ($cover_images[0] != '' ? config('app.url') . $cover_images[0] : '') : '') }}">
                                     </div>
                                     <div class="input-group pb-3">
                                         <span class="input-group-btn">
@@ -248,7 +252,7 @@
                                         </span>
                                         <input id="cover_image2_thumbnail" class="form-control" type="text"
                                             name="cover_image[]"
-                                            value="{{ old('cover_image[1]', ($cover_images[1]!='') ? config('app.url') . $cover_images[1]:'') }}">
+                                            value="{{ old('cover_image[1]', isset($cover_images[1]) ? ($cover_images[1] != '' ? config('app.url') . $cover_images[1] : '') : '') }}">
                                     </div>
                                     <div class="input-group pb-3">
                                         <span class="input-group-btn">
@@ -259,7 +263,7 @@
                                         </span>
                                         <input id="cover_image3_thumbnail" class="form-control" type="text"
                                             name="cover_image[]"
-                                            value="{{ old('cover_image[2]', ($cover_images[2]!='') ? config('app.url') . $cover_images[2]:'') }}">
+                                            value="{{ old('cover_image[2]', isset($cover_images[2]) ? ($cover_images[2] != '' ? config('app.url') . $cover_images[2] : '') : '') }}">
                                     </div>
                                     <div class="input-group pb-3">
                                         <span class="input-group-btn">
@@ -270,7 +274,7 @@
                                         </span>
                                         <input id="cover_image4_thumbnail" class="form-control" type="text"
                                             name="cover_image[]"
-                                            value="{{ old('cover_image[3]', ($cover_images[3]!='') ? config('app.url') . $cover_images[3]:'') }}">
+                                            value="{{ old('cover_image[3]', isset($cover_images[0]) ? ($cover_images[3] != '' ? config('app.url') . $cover_images[3] : '') : '') }}">
                                     </div>
                                 </div><!-- /. Blog Image -->
                             </div>
@@ -385,7 +389,6 @@
                 rules: {
                     title: {
                         required: true,
-                        titleRegex: true,
                     },
                     content: {
                         required: true,
