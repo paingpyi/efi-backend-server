@@ -367,7 +367,6 @@ class BlogController extends Controller
 
             if (isset($row->related_products)) {
                 foreach (json_decode($row->related_products) as $value) {
-                    //$products[] = $value;
                     $temp = DB::table('products')
                         ->select(
                             'products.id',
