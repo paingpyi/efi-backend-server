@@ -375,7 +375,7 @@ class BlogController extends Controller
                             'products.slug_url',
                             'products.is_active'
                         )
-                        ->where('id', '=', $value)->first();
+                        ->where('products.slug_url', '=', $value)->first();
 
                     $products[] = [
                         'id' => $temp->id,
