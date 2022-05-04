@@ -33,7 +33,7 @@ class BlockController extends Controller
                 $result[] = [
                     'id' => $row->id,
                     'title' => Str::replace('"', '', $row->title),
-                    'image' => $row->image,
+                    'image' => config('app.url') . $row->image,
                     'kind' => $row->kind
                 ];
             }
