@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Setting;
 
 use App\Http\Controllers\Controller;
 use App\Models\blog;
-use App\Models\CSR;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Product;
 use App\Models\Page;
-use App\Models\News;
 use App\Models\Job;
+use App\Models\SliderBlock;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class SampleController extends Controller
 {
@@ -1036,22 +1036,61 @@ class SampleController extends Controller
             ];
         }
 
-        $message = '<li>Sample data of Products has been successfully imported.</li>';
+        /*
+         * Slider Sample Data Inputs
+         */
+        SliderBlock::insert([
+            'title' => json_encode([
+                'en-us' => 'Live Life Truly',
+                'my-mm' => 'ဘာသာပြန်ရန်',
+                'zh-cn' => '高標催極用'
+            ]),
+            'image' => '/storage/uploads/one.jpg',
+            'kind' => 'one',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+
+        SliderBlock::insert([
+            'title' => json_encode([
+                'en-us' => 'Protect Your Future',
+                'my-mm' => 'ဘာသာပြန်ရန်',
+                'zh-cn' => '高標催極用'
+            ]),
+            'image' => '/storage/uploads/two.jpg',
+            'kind' => 'two',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+
+        SliderBlock::insert([
+            'title' => json_encode([
+                'en-us' => 'Come Journey With Us',
+                'my-mm' => 'ဘာသာပြန်ရန်',
+                'zh-cn' => '高標催極用'
+            ]),
+            'image' => '/storage/uploads/three.jpg',
+            'kind' => 'three',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+
+        $message = 'Sample data of Products has been successfully imported. ';
 
         Page::insert($pages);
-        $message .= '<li>Sample data of Pages has been successfully imported.</li>';
+        $message .= 'Sample data of Pages has been successfully imported. ';
 
-        /*News::insert($news);
-        $message .= '<li>Sample data of News has been successfully imported.</li>';*/
+        $message .= 'Sample data of Slider has been successfully imported. ';
 
         blog::insert($blogs);
-        $message .= '<li>Sample data of Blogs has been successfully imported.</li>';
+        $message .= 'Sample data of Blogs has been successfully imported. ';
 
         Job::insert($jobs);
-        $message .= '<li>Sample data of Job Vacancies has been successfully imported.</li>';
+        $message .= 'Sample data of Job Vacancies has been successfully imported. ';
 
         /*CSR::insert($csrs);
-        $message .= '<li>Sample data of CSRs has been successfully imported.</li>';*/
+        $message .= 'Sample data of CSRs has been successfully imported. ';*/
+        Log::info($message);
 
         return redirect()->route('admin#dashboard')->with(['success_message' => '<ul>' . $message . '</ul>']);
     }
