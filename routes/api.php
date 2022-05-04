@@ -9,6 +9,7 @@ use App\Http\Controllers\Content\NewsController;
 use App\Http\Controllers\Content\JobController;
 use App\Http\Controllers\Content\CsrController;
 use App\Http\Controllers\QuoteController;
+use App\Http\Controllers\Setting\BlockController;
 use App\Http\Controllers\Setting\CategoryController;
 
 /*
@@ -50,11 +51,9 @@ Route::group(['prefix' => 'pages', 'namespace' => 'Content'], function () {
     Route::post('/', [PageController::class, 'postList']);
 });
 
-/*Route::group(['prefix' => 'news', 'namespace' => 'Content'], function () {
-    Route::get('/{para?}', [NewsController::class, 'getlist']);
-
-    Route::post('/', [NewsController::class, 'postList']);
-});*/
+Route::group(['prefix' => 'blocks', 'namespace' => 'setting'], function () {
+    Route::post('/slider', [BlockController::class, 'sliderAPI']);
+});
 
 Route::group(['prefix' => 'career', 'namespace' => 'Content'], function () {
     //Route::get('/{para?}', [JobController::class, 'getlist']);
