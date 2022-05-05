@@ -41,7 +41,7 @@ class QuoteController extends Controller
             $response = [
                 'code' => $response_code,
                 'status' => $this->error400status_eng,
-                'errors' => 'Locale' . $this->required_error_eng,
+                'errors' => __('validation.required', ['attribute' => 'Locale']),
                 'olds' => $request->all(),
             ];
         } else if (Str::lower($data['locale']) == 'en-us') {
@@ -124,7 +124,7 @@ class QuoteController extends Controller
             $response = [
                 'code' => $response_code,
                 'status' => $this->error400status_eng,
-                'errors' => 'Locale' . $this->required_error_eng,
+                'errors' => __('validation.required', ['attribute' => 'Locale']),
                 'olds' => $request->all(),
             ];
         } else if (Str::lower($data['locale']) == 'en-us') {
@@ -207,7 +207,7 @@ class QuoteController extends Controller
             $response = [
                 'code' => $response_code,
                 'status' => $this->error400status_eng,
-                'errors' => 'Locale' . $this->required_error_eng,
+                'errors' => __('validation.required', ['attribute' => 'Locale']),
                 'olds' => $request->all(),
             ];
         } else if (Str::lower($data['locale']) == 'en-us') {
@@ -363,7 +363,7 @@ class QuoteController extends Controller
             $response = [
                 'code' => $response_code,
                 'status' => $this->error400status_eng,
-                'errors' => 'locale' . $this->required_error_eng,
+                'errors' => __('validation.required', ['attribute' => 'Locale']),
                 'olds' => $request->all(),
             ];
 
@@ -376,7 +376,7 @@ class QuoteController extends Controller
             $response = [
                 'code' => $response_code,
                 'status' => $this->error400status_eng,
-                'errors' => 'For appling this product, name' . $this->required_error_eng,
+                'errors' => __('validation.required', ['attribute' => 'Name']),
                 'olds' => $request->all(),
             ];
 
@@ -389,7 +389,7 @@ class QuoteController extends Controller
             $response = [
                 'code' => $response_code,
                 'status' => $this->error400status_eng,
-                'errors' => 'For appling this product, phone' . $this->required_error_eng,
+                'errors' => __('validation.required', ['attribute' => 'Phone']),
                 'olds' => $request->all(),
             ];
 
@@ -402,7 +402,7 @@ class QuoteController extends Controller
             $response = [
                 'code' => $response_code,
                 'status' => $this->error400status_eng,
-                'errors' => 'For appling this product, email' . $this->required_error_eng,
+                'errors' => __('validation.required', ['attribute' => 'Email']),
                 'olds' => $request->all(),
             ];
 
@@ -415,7 +415,7 @@ class QuoteController extends Controller
             $response = [
                 'code' => $response_code,
                 'status' => $this->error400status_eng,
-                'errors' => 'quote_machine_name' . $this->required_error_eng,
+                'errors' => __('validation.required', ['attribute' => 'Quote machine name']),
                 'olds' => $request->all(),
             ];
 

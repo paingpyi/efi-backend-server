@@ -97,9 +97,8 @@ class BlogController extends Controller
             'content_chinese' => 'required',
             'slug_url' => 'required|unique:blogs,url_slug',
             'main_category' => 'required',
-            'categories' => 'required',
             'status' => 'required',
-            'cover_image' => 'required'
+            'cover_image.0' => 'required'
         ]);
 
         if ($validator->fails()) {

@@ -19,6 +19,19 @@ class BlockController extends Controller
     {
         $data = $request->json()->all();
 
+        if (!isset($data['locale'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => 'Locale' . $this->required_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response, 400);
+        }
+
         $slider = DB::table('slider_blocks')
             ->select(
                 'id',
@@ -68,6 +81,7 @@ class BlockController extends Controller
         $data = $request->json()->all();
 
         $response_code = 200;
+        $status_message = '';
 
         if (!isset($folder)) {
             $response_code = 400;
@@ -75,7 +89,7 @@ class BlockController extends Controller
             $response = [
                 'code' => $response_code,
                 'status' => $this->error400status_eng,
-                'errors' => 'folder' . $this->required_error_eng,
+                'errors' => __('validation.required', ['attribute' => 'Folder']),
                 'olds' => $request->all(),
             ];
         }

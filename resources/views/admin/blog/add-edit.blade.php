@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="{{ asset('adminlite/plugins/flag-icon-css/css/flag-icon.min.css') }}">
     <!-- Bootstrap4 Duallistbox -->
     <link rel="stylesheet" href="{{ asset('adminlite/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{ asset('adminlite/plugins/toastr/toastr.min.css') }}">
 @endsection
 {{-- /. Head Stylesheets --}}
 
@@ -59,16 +61,24 @@
                                                     class="text-danger">*</span></label>
                                             <input type="text" name="title"
                                                 value="{{ old('title', isset($blog_en->title) ? json_decode($blog_en->title) : null) }}"
-                                                class="form-control title2slug" id="title" aria-describedby="titleHelp">
+                                                class="form-control title2slug" id="title" aria-describedby="titleHelp"
+                                                required>
                                             <small id="titleHelp" class="form-text text-muted">Please enter title.</small>
                                             @error('title')
-                                                <div class="alert alert-danger">{{ $message }}</div>
+                                                <span class="error invalid-feedback bg-danger p-1">{{ $message }}</span>
                                             @enderror
                                         </div>
                                         <div class="form-group">
                                             <label for="content"><i class="flag-icon flag-icon-us mr-2"></i> Content Body
-                                                <span class="text-danger">*</span></label>
-                                            <textarea name="content" class="summernote" required
+                                                @php
+                                                    if ($errors->has('content')) {
+                                                        echo '<span class="error text-danger p-1">* ' . $errors->first('content') . '</span>';
+                                                    } else {
+                                                        echo '<span class="text-danger">*</span>';
+                                                    }
+                                                @endphp
+                                            </label>
+                                            <textarea name="content" class="summernote @error('content') is-invalid @enderror" required
                                                 id="content">{{ old('content', isset($blog_en->content) ? json_decode($blog_en->content) : '') }}</textarea>
                                         </div>
                                     </div> {{-- /. End of English Inputs --}}
@@ -91,7 +101,14 @@
                                         <div class="form-group">
                                             <label for="content_burmese"><i class="flag-icon flag-icon-mm mr-2"></i>
                                                 Content Body
-                                                <span class="text-danger">*</span></label>
+                                                @php
+                                                    if ($errors->has('content_burmese')) {
+                                                        echo '<span class="error text-danger p-1">* ' . $errors->first('content_burmese') . '</span>';
+                                                    } else {
+                                                        echo '<span class="text-danger">*</span>';
+                                                    }
+                                                @endphp
+                                            </label>
                                             <textarea name="content_burmese" class="summernote" required
                                                 id="content_burmese">{{ old('content_burmese', isset($blog_mm->content) ? json_decode($blog_mm->content) : '') }}</textarea>
                                         </div>
@@ -115,7 +132,14 @@
                                         <div class="form-group">
                                             <label for="content_chinese"><i class="flag-icon flag-icon-mm mr-2"></i>
                                                 Content Body
-                                                <span class="text-danger">*</span></label>
+                                                @php
+                                                    if ($errors->has('content_chinese')) {
+                                                        echo '<span class="error text-danger p-1">* ' . $errors->first('content_chinese') . '</span>';
+                                                    } else {
+                                                        echo '<span class="text-danger">*</span>';
+                                                    }
+                                                @endphp
+                                            </label>
                                             <textarea name="content_chinese" class="summernote" required
                                                 id="content_chinese">{{ old('content_chinese', isset($blog_zh->content) ? json_decode($blog_zh->content) : '') }}</textarea>
                                         </div>
@@ -157,7 +181,15 @@
                                             $categories = json_decode($blog_en->category_id);
                                         }
                                     @endphp
-                                    <label for="categories">Categories <span class="text-danger">*</span></label>
+                                    <label for="categories">
+                                        Categories
+                                    </label>
+                                    <div class="row">
+                                        <div class="col"><span class="badge badge-warning"><i
+                                                    class="fas fa-info-circle"></i> Unselected list</span></div>
+                                        <div class="col"><span class="badge badge-warning"><i
+                                                    class="fas fa-info-circle"></i> Selected list</span></div>
+                                    </div>
                                     <select id="categories" name="categories[]" class="duallistbox" multiple="multiple">
                                         @isset($categories)
                                             @for ($i = 0; $i < count($categories); $i++)
@@ -172,8 +204,13 @@
                                 <hr>
                                 <div class="form-group">
                                     <label>Related Product</label>
-                                    <select name="products[]" class="duallistbox" multiple="multiple"
-                                        aria-describedby="modulesHelp">
+                                    <div class="row">
+                                        <div class="col"><span class="badge badge-warning"><i
+                                                    class="fas fa-info-circle"></i> Unselected list</span></div>
+                                        <div class="col"><span class="badge badge-warning"><i
+                                                    class="fas fa-info-circle"></i> Selected list</span></div>
+                                    </div>
+                                    <select name="products[]" class="duallistbox" multiple="multiple">
                                         @foreach ($blog_products as $product)
                                             @if (isset($blog_en) and is_array(json_decode($blog_en->related_products)))
                                                 <option value="{{ $product->slug_url }}"
@@ -185,8 +222,6 @@
                                             @endif
                                         @endforeach
                                     </select>
-                                    <small id="modulesHelp" class="form-text text-muted">Please select the related
-                                        products.</small>
                                 </div>
                                 <hr>
                                 <div class="form-group">
@@ -236,7 +271,16 @@
                                             $cover_images = [];
                                         }
                                     @endphp
-                                    <label>Cover Images <span class="text-danger">*</span></label>
+                                    <label>
+                                        Cover Images
+                                        @php
+                                            if ($errors->has('cover_image.0')) {
+                                                echo '<span class="error bg-danger p-1 text-sm">* ' . Str::replace('.0', '', $errors->first('cover_image.0')) . '</span>';
+                                            } else {
+                                                echo '<span class="text-danger">*</span>';
+                                            }
+                                        @endphp
+                                    </label>
                                     <div class="input-group pb-3">
                                         <span class="input-group-btn">
                                             <a id="cover_image1" data-input="cover_image1_thumbnail"
@@ -315,6 +359,8 @@
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
     <!-- Bootstrap4 Duallistbox -->
     <script src="{{ asset('adminlite/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
+    <!-- Toastr -->
+    <script src="{{ asset('adminlite/plugins/toastr/toastr.min.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('adminlite/dist/js/demo.js') }}"></script>
     <!-- Page specific script -->
@@ -331,8 +377,19 @@
 
             // Summernote
             $('.summernote').summernote({
-                height: 900,
+                height: 950,
                 placeholder: 'Write content here...',
+                toolbar: [
+                    ['undo', ['undo']],
+                    ['redo', ['redo']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['fontname', ['fontname']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link']],
+                    ['view', ['fullscreen']],
+                ],
             });
 
             $('.lfm').filemanager('image');
@@ -395,61 +452,43 @@
                     title: {
                         required: true,
                     },
-                    content: {
-                        required: true,
-                    },
-                    category: {
-                        required: true,
-                    },
                     title_burmese: {
-                        required: true,
-                    },
-                    content_burmese: {
                         required: true,
                     },
                     title_chinese: {
                         required: true,
                     },
-                    content_chinese: {
+                    slug_url: {
+                        required: true,
+                        titleRegex: true
+                    },
+                    main_category: {
                         required: true,
                     },
-                    benefit: {
+                    status: {
                         required: true,
                     },
-                    @if ($action == 'new')
-                        blog: {
-                        required: true,
-                        },
-                    @endif
                 },
                 messages: {
                     title: {
-                        required: "You need to fill Blog title.",
-                        titleRegex: "Title must contain only letters, numbers, or dashes.",
-                    },
-                    content: {
-                        required: "You need to fill content.",
-                    },
-                    category: {
-                        required: "You need to choose the category of Blog.",
+                        required: "{{ __('validation.required', ['attribute' => 'title']) }}",
                     },
                     title_burmese: {
-                        required: "You need to fill Blog title.",
-                    },
-                    content_burmese: {
-                        required: "You need to fill description.",
+                        required: "{{ __('validation.required', ['attribute' => 'title burmese']) }}",
                     },
                     title_chinese: {
-                        required: "You need to fill Blog title.",
+                        required: "{{ __('validation.required', ['attribute' => 'title chinese']) }}",
                     },
-                    content_chinese: {
-                        required: "You need to fill description.",
+                    slug_url: {
+                        required: "{{ __('validation.required', ['attribute' => 'slug url']) }}",
+                        titleRegex: "Title must contain only letters, numbers, or dashes.",
                     },
-                    @if ($action == 'new')
-                        blog: {
-                        required: "You need to upload image.",
-                        },
-                    @endif
+                    main_category: {
+                        required: "{{ __('validation.required', ['attribute' => 'main category']) }}",
+                    },
+                    status: {
+                        required: "{{ __('validation.required', ['attribute' => 'status']) }}",
+                    },
                 },
                 errorElement: 'span',
                 errorPlacement: function(error, element) {
