@@ -175,14 +175,14 @@
                                     <select name="products[]" class="duallistbox" multiple="multiple"
                                         aria-describedby="modulesHelp">
                                         @foreach ($blog_products as $product)
-                                        @if (is_array(json_decode($blog_en->related_products)))
-                                        <option value="{{ $product->slug_url }}"
-                                            {{ isset($blog_en->related_products) ? (in_array($product->slug_url, json_decode($blog_en->related_products)) ? ' selected' : '') : '' }}>
-                                            {{ json_decode($product->title) }}</option>
-                                        @else
-                                        <option value="{{ $product->slug_url }}">
-                                            {{ json_decode($product->title) }}</option>
-                                        @endif
+                                            @if (isset($blog_en) and is_array(json_decode($blog_en->related_products)))
+                                                <option value="{{ $product->slug_url }}"
+                                                    {{ isset($blog_en->related_products) ? (in_array($product->slug_url, json_decode($blog_en->related_products)) ? ' selected' : '') : '' }}>
+                                                    {{ json_decode($product->title) }}</option>
+                                            @else
+                                                <option value="{{ $product->slug_url }}">
+                                                    {{ json_decode($product->title) }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                     <small id="modulesHelp" class="form-text text-muted">Please select the related
