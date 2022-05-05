@@ -64,6 +64,12 @@ class ProductController extends Controller
             'title' => 'required|max:255',
             'title_burmese' => 'required|max:255',
             'title_chinese' => 'required|max:255',
+            'food_for_thought' => 'required',
+            'food_for_thought_burmese' => 'required',
+            'food_for_thought_chinese' => 'required',
+            'food_for_thought_description' => 'required',
+            'food_for_thought_description_burmese' => 'required',
+            'food_for_thought_description_chinese' => 'required',
             'lr_title' => 'required|max:255',
             'lr_description' => 'required',
             'lr_title_burmese' => 'required|max:255',
@@ -95,6 +101,20 @@ class ProductController extends Controller
             ]),
             'image' => Str::replace(config('app.url'), '', $request->image),
             'cover_image' => Str::replace(config('app.url'), '', $request->cover_image),
+            'food_for_thought' => json_encode([
+                'en-us' => [
+                    'title' => $request->food_for_thought,
+                    'description' => $request->food_for_thought_description,
+                ],
+                'my-mm' => [
+                    'title' => $request->food_for_thought_burmese,
+                    'description' => $request->food_for_thought_description_burmese,
+                ],
+                'zh-cn' => [
+                    'title' => $request->food_for_thought_chinese,
+                    'description' => $request->food_for_thought_description_chinese,
+                ],
+            ]),
             'apply_insurance' => json_encode([
                 'en-us' => [
                     'title' => $request->apply_insurance_title,
@@ -448,6 +468,12 @@ class ProductController extends Controller
             'title' => 'required|max:255',
             'title_burmese' => 'required|max:255',
             'title_chinese' => 'required|max:255',
+            'food_for_thought' => 'required',
+            'food_for_thought_burmese' => 'required',
+            'food_for_thought_chinese' => 'required',
+            'food_for_thought_description' => 'required',
+            'food_for_thought_description_burmese' => 'required',
+            'food_for_thought_description_chinese' => 'required',
             'lr_title' => 'required|max:255',
             'lr_description' => 'required',
             'lr_title_burmese' => 'required|max:255',
@@ -479,6 +505,20 @@ class ProductController extends Controller
             ]),
             'image' => Str::replace(config('app.url'), '', $request->image),
             'cover_image' => Str::replace(config('app.url'), '', $request->cover_image),
+            'food_for_thought' => json_encode([
+                'en-us' => [
+                    'title' => $request->food_for_thought,
+                    'description' => $request->food_for_thought_description,
+                ],
+                'my-mm' => [
+                    'title' => $request->food_for_thought_burmese,
+                    'description' => $request->food_for_thought_description_burmese,
+                ],
+                'zh-cn' => [
+                    'title' => $request->food_for_thought_chinese,
+                    'description' => $request->food_for_thought_description_chinese,
+                ],
+            ]),
             'apply_insurance' => json_encode([
                 'en-us' => [
                     'title' => $request->apply_insurance_title,
