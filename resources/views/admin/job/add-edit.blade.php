@@ -122,7 +122,7 @@
                                             <label for="position_chinese"><i class="flag-icon flag-icon-cn mr-2"></i>
                                                 Position <span class="text-danger">*</span></label>
                                             <input type="text" name="position_chinese"
-                                                value="{{ old('position_chinese', isset($job_en->position_chinese) ? $job_en->position_chinese : null) }}"
+                                                value="{{ old('position_chinese', isset($job_zh->position) ? json_decode($job_zh->position) : null) }}"
                                                 class="form-control" id="position_chinese"
                                                 aria-describedby="position_chineseHelp">
                                             <small id="position_chineseHelp" class="form-text text-muted">Please enter
@@ -136,14 +136,14 @@
                                                 Department</label>
                                             <input type="text" name="department_chinese" id="department_chinese"
                                                 class="form-control"
-                                                value="{{ old('department_chinese', isset($job_en->department_chinese) ? $job_en->department_chinese : null) }}">
+                                                value="{{ old('department_chinese', isset($job_zh->department) ? json_decode($job_zh->department) : null) }}">
                                         </div>
                                         <div class="form-group">
                                             <label for="jd_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Job
                                                 Description
                                                 <span class="text-danger">*</span></label>
                                             <textarea name="jd_chinese" class="summernote" required
-                                                id="jd_chinese">{{ old('jd_chinese', isset($job_en->description_chinese) ? $job_en->description_chinese : '') }}</textarea>
+                                                id="jd_chinese">{{ old('jd_chinese', isset($job_zh->description) ? json_decode($job_zh->description) : '') }}</textarea>
                                         </div>
                                     </div> {{-- /. End of Chinese Inputs --}}
                                 </div>

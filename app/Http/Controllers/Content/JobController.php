@@ -140,7 +140,7 @@ class JobController extends Controller
         $job_mm = $this->getJobsAPI(['id' => Crypt::decryptString($id), 'locale' => 'my-mm'])->first();
         $job_zh = $this->getJobsAPI(['id' => Crypt::decryptString($id), 'locale' => 'zh-cn'])->first();
 
-        return view('admin.job.add-edit')->with(['action' => 'update', 'category' => $category, 'job_en' => $job_en]);
+        return view('admin.job.add-edit')->with(['action' => 'update', 'category' => $category, 'job_en' => $job_en, 'job_mm' => $job_mm, 'job_zh' => $job_zh]);
     }
 
     /**
