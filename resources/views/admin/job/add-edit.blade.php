@@ -30,7 +30,7 @@
         <div class="col">
             <div class="card">
                 <form id="inputForm"
-                    action="{{ $action == 'new' ? route('store#data#job') : route('update#data#job', isset($job->id) ? $job->id : 0) }}"
+                    action="{{ $action == 'new' ? route('store#data#job') : route('update#data#job', isset($job_en->id) ? $job_en->id : 0) }}"
                     method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card-header">
@@ -61,7 +61,7 @@
                                             <label for="position"><i class="flag-icon flag-icon-us mr-2"></i> Position <span
                                                     class="text-danger">*</span></label>
                                             <input type="text" name="position"
-                                                value="{{ old('position', isset($job->position) ? $job->position : null) }}"
+                                                value="{{ old('position', isset($job_en->position) ? json_decode($job_en->position) : null) }}"
                                                 class="form-control position2slug" id="position"
                                                 aria-describedby="positionHelp">
                                             <small id="positionHelp" class="form-text text-muted">Please enter vacant
@@ -74,13 +74,13 @@
                                             <label for="department"><i class="flag-icon flag-icon-us mr-2"></i>
                                                 Department</label>
                                             <input type="text" name="department" id="department" class="form-control"
-                                                value="{{ old('department', isset($job->department) ? $job->department : null) }}">
+                                                value="{{ old('department', isset($job_en->department) ? json_decode($job_en->department) : null) }}">
                                         </div>
                                         <div class="form-group">
                                             <label for="jd"><i class="flag-icon flag-icon-us mr-2"></i> Job Description
                                                 <span class="text-danger">*</span></label>
                                             <textarea name="jd" class="summernote" required
-                                                id="jd">{{ old('jd', isset($job->description) ? $job->description : '') }}</textarea>
+                                                id="jd">{{ old('jd', isset($job_en->description) ? json_decode($job_en->description) : '') }}</textarea>
                                         </div>
                                     </div> {{-- /. End of English Inputs --}}
                                     <div class="tab-pane fade pt-3" id="nav-mm" role="tabpanel"
@@ -90,7 +90,7 @@
                                                 Position
                                                 <span class="text-danger">*</span></label>
                                             <input type="text" name="position_burmese"
-                                                value="{{ old('position_burmese', isset($job->position_burmese) ? $job->position_burmese : null) }}"
+                                                value="{{ old('position_burmese', isset($job_mm->position) ? json_decode($job_mm->position) : null) }}"
                                                 class="form-control" id="position_burmese"
                                                 aria-describedby="position_burmeseHelp">
                                             <small id="position_burmeseHelp" class="form-text text-muted">Please enter the
@@ -106,14 +106,14 @@
                                                 Department</label>
                                             <input type="text" name="department_burmese" id="department_burmese"
                                                 class="form-control"
-                                                value="{{ old('department_burmese', isset($job->department_burmese) ? $job->department_burmese : null) }}">
+                                                value="{{ old('department_burmese', isset($job_mm->department) ? json_decode($job_mm->department) : null) }}">
                                         </div>
                                         <div class="form-group">
                                             <label for="jd_burmese"><i class="flag-icon flag-icon-mm mr-2"></i>
                                                 Job Description
                                                 <span class="text-danger">*</span></label>
                                             <textarea name="jd_burmese" class="summernote" required
-                                                id="jd_burmese">{{ old('jd_burmese', isset($job->description_burmese) ? $job->description_burmese : '') }}</textarea>
+                                                id="jd_burmese">{{ old('jd_burmese', isset($job_mm->description) ? json_decode($job_mm->description) : '') }}</textarea>
                                         </div>
                                     </div> {{-- /. End of Burmese Inputs --}}
                                     <div class="tab-pane fade show pt-3" id="nav-zh" role="tabpanel"
@@ -122,7 +122,7 @@
                                             <label for="position_chinese"><i class="flag-icon flag-icon-cn mr-2"></i>
                                                 Position <span class="text-danger">*</span></label>
                                             <input type="text" name="position_chinese"
-                                                value="{{ old('position_chinese', isset($job->position_chinese) ? $job->position_chinese : null) }}"
+                                                value="{{ old('position_chinese', isset($job_en->position_chinese) ? $job_en->position_chinese : null) }}"
                                                 class="form-control" id="position_chinese"
                                                 aria-describedby="position_chineseHelp">
                                             <small id="position_chineseHelp" class="form-text text-muted">Please enter
@@ -136,14 +136,14 @@
                                                 Department</label>
                                             <input type="text" name="department_chinese" id="department_chinese"
                                                 class="form-control"
-                                                value="{{ old('department_chinese', isset($job->department_chinese) ? $job->department_chinese : null) }}">
+                                                value="{{ old('department_chinese', isset($job_en->department_chinese) ? $job_en->department_chinese : null) }}">
                                         </div>
                                         <div class="form-group">
                                             <label for="jd_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Job
                                                 Description
                                                 <span class="text-danger">*</span></label>
                                             <textarea name="jd_chinese" class="summernote" required
-                                                id="jd_chinese">{{ old('jd_chinese', isset($job->description_chinese) ? $job->description_chinese : '') }}</textarea>
+                                                id="jd_chinese">{{ old('jd_chinese', isset($job_en->description_chinese) ? $job_en->description_chinese : '') }}</textarea>
                                         </div>
                                     </div> {{-- /. End of Chinese Inputs --}}
                                 </div>
@@ -153,7 +153,7 @@
                                     <label for="slug_url">Slug URL
                                         <span class="text-danger">*</span></label>
                                     <input type="text" name="slug_url"
-                                        value="{{ old('slug_url', isset($job->slug_url) ? $job->slug_url : null) }}"
+                                        value="{{ old('slug_url', isset($job_en->slug_url) ? $job_en->slug_url : null) }}"
                                         class="form-control" id="slug_url" aria-describedby="slug_urlHelp">
                                     <small id="slug_urlHelp" class="form-text text-white">Do not use the special charaters
                                         but you can you dash (-).</small>
@@ -177,9 +177,32 @@
                                 </div>
                                 <hr>
                                 <div class="form-group">
-                                    <label for="active">Active: </label>
+                                    <label for="main_category">Main Category <span class="text-danger">*</span></label>
+                                    <select id="main_category" name="main_category" id="main_category"
+                                        class="form-control select2" style="width: 100%;">
+                                        <option value="">Please choose the main category.</option>
+                                        @foreach ($category as $cat)
+                                            @if ($action == 'new')
+                                                <option value="{{ $cat->id }}, {{ $cat->machine }}">{{ $cat->name }}</option>
+                                            @else
+                                                <option value="{{ $cat->id }}"
+                                                    {{ $job_en->category_id == $cat->id ? ' selected' : '' }}>
+                                                    {{ $cat->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <label for="active">Open: </label>
                                     <input type="checkbox" id="active" name="active"
-                                        {{ (old('active', isset($job->is_vacant) ? $job->is_vacant : null) == true or $action == 'new')? 'checked': '' }}
+                                        {{ (old('active', isset($job_en->is_vacant) ? $job_en->is_vacant : null) == true or $action == 'new')? 'checked': '' }}
+                                        data-bootstrap-switch data-on-color="success">
+                                </div>
+                                <div class="form-group">
+                                    <label for="instant">Instant: </label>
+                                    <input type="checkbox" id="instant" name="instant"
+                                        {{ (old('instant', isset($job_en->instant) ? $job_en->instant : null) == true)? 'checked': '' }}
                                         data-bootstrap-switch data-on-color="success">
                                 </div>
                             </div>
@@ -236,8 +259,8 @@
             //Date picker
             $('#due').datetimepicker({
                 format: 'L',
-                @isset($job->due_date)
-                    defaultDate: moment("{{ date('Y-m-d', strtotime($job->due_date)) }}", "YYYY-MM-DD"),
+                @isset($job_en->due_date)
+                    defaultDate: moment("{{ date('Y-m-d', strtotime($job_en->due_date)) }}", "YYYY-MM-DD"),
                 @endisset
             });
 

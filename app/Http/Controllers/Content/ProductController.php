@@ -6,6 +6,7 @@ use Algolia\AlgoliaSearch\Http\Psr7\Response as Psr7Response;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -436,6 +437,14 @@ class ProductController extends Controller
 
         Product::create($product);
 
+        /*
+        * Product Updates
+        */
+        $response = Http::post('https://deploy-preview-27--efimm.netlify.app/api/revalidate', [
+            'type' => 'promotions-updated',
+        ]);
+        // End of Product Updates
+
         return redirect()->route('product#list')->with(['success_message' => 'Successfully <strong>saved!</strong>']);
     }
 
@@ -836,6 +845,14 @@ class ProductController extends Controller
         ];
 
         Product::where('id', '=', $id)->update($product);
+
+        /*
+        * Product Updates
+        */
+        $response = Http::post('https://deploy-preview-27--efimm.netlify.app/api/revalidate', [
+            'type' => 'promotions-updated',
+        ]);
+        // End of Product Updates
 
         return redirect()->route('product#list')->with(['success_message' => 'Successfully <strong>updated!</strong>']);
     }

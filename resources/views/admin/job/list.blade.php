@@ -49,9 +49,9 @@
                                 @foreach ($jobs as $job)
                                     <tr>
                                         <td class="text-nowrap"><a
-                                                href="{{ route('edit#job', Illuminate\Support\Facades\Crypt::encryptString($job->id)) }}">{{ $job->position }}
+                                                href="{{ route('edit#job', Illuminate\Support\Facades\Crypt::encryptString($job->id)) }}">{{ json_decode($job->position) }}
                                             </a></td>
-                                        <td>{{ $job->department }}</td>
+                                        <td>{{ Str::replace('"', '', $job->department) }}</td>
                                         <td class="text-nowrap">
                                             <form
                                                 action="{{ route('close#job', Illuminate\Support\Facades\Crypt::encryptString($job->id)) }}"

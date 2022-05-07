@@ -6,10 +6,12 @@ use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\ApplyJob;
+use App\Models\Category;
 use App\Models\Job;
 
 class JobController extends Controller
@@ -21,7 +23,7 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::where('is_vacant', '=', true)->get();
+        $jobs = $this->getJobsAPI(['vacant' => true, 'locale' => 'en-us'])->get();
 
         return view('admin.job.list')->with(['jobs' => $jobs]);
     }
@@ -33,7 +35,7 @@ class JobController extends Controller
      */
     public function closed()
     {
-        $jobs = Job::where('is_vacant', '=', false)->get();
+        $jobs = $this->getJobsAPI(['vacant' => false, 'locale' => 'en-us'])->get();
 
         return view('admin.job.list')->with(['jobs' => $jobs]);
     }
@@ -45,7 +47,8 @@ class JobController extends Controller
      */
     public function create()
     {
-        return view('admin.job.add-edit')->with(['action' => 'new']);
+        $category = Category::where('parent_id', '=', 9)->get();
+        return view('admin.job.add-edit')->with(['action' => 'new', 'category' => $category]);
     }
 
     /**
@@ -77,25 +80,49 @@ class JobController extends Controller
                 ->withInput();
         }
 
+        $category = explode(',', $request->main_category);
+
         $job = [
-            'position' => $request->position,
-            'department' => $request->department,
-            'description' => $request->jd,
-            'due' => isset($request->due) ? 'Closing at ' . strtotime('F d, Y', $request->due) : 'Open until candidate identified',
-            'position_burmese' => $request->position_burmese,
-            'department_burmese' => $request->department_burmese,
-            'description_burmese' => $request->jd_burmese,
-            'due_burmese' => isset($request->due) ? strtotime('F d, Y', $request->due) . ' နေ့တွင် စာရင်းပိတ်မည်' : 'သင့်တော်သူရသည့် အထိ ဖွင့်ထားပါသည်',
-            'position_chinese' => $request->position_chinese,
-            'department_chinese' => $request->department_chinese,
-            'description_chinese' => $request->jd_chinese,
-            'due_chinese' =>  isset($request->due) ? 'Closing at ' . strtotime('F d, Y', $request->due) : 'Open until candidate identified',
-            'due_date' =>  isset($request->due) ? strtotime('Y-m-d', $request->due) : NULL,
+            'position' => json_encode([
+                'en-us' => $request->position,
+                'my-mm' => $request->position_burmese,
+                'zh-cn' => $request->position_chinese
+            ]),
+            'department' => json_encode([
+                'en-us' => $request->department,
+                'my-mm' => $request->department_burmese,
+                'zh-cn' => $request->department_chinese
+            ]),
+            'description' => json_encode([
+                'en-us' => $request->jd,
+                'my-mm' => $request->jd_burmese,
+                'zh-cn' => $request->jd_chinese,
+            ]),
+            'due_text' => json_encode([
+                'en-us' => isset($request->due) ? 'Closing at ' . date('F d, Y', strtotime($request->due)) : 'Open until candidate identified',
+                'my-mm' => isset($request->due) ? 'Closing at ' . date('F d, Y', strtotime($request->due)) : 'Open until candidate identified',
+                'zh-cn' => isset($request->due) ? 'Closing at ' . date('F d, Y', strtotime($request->due)) : 'Open until candidate identified'
+            ]),
+            'category' => $category[0],
+            'due_date' => isset($request->due) ? date('Y-m-d', strtotime($request->due)) : NULL,
             'slug_url' => $request->slug_url,
             'is_vacant' => $request->active == 'on' ? TRUE : FALSE,
+            'instant' => $request->instant == 'on' ? TRUE : FALSE
         ];
 
         Job::create($job);
+
+        /*
+        * Career Updates
+        */
+        $response = Http::post('https://deploy-preview-27--efimm.netlify.app/api/revalidate', [
+            'type' => 'career-detail-updated',
+            'data' => [
+                'category_machine_name' => $category[1],
+                'slug' => $request->slug_url
+            ]
+        ]);
+        // End of Career Updates
 
         return redirect()->route('job#list')->with(['success_message' => 'Successfully <strong>saved!</strong>']);
     }
@@ -108,9 +135,12 @@ class JobController extends Controller
      */
     public function edit($id)
     {
-        $job = Job::where('id', '=', Crypt::decryptString($id))->first();
+        $category = Category::where('parent_id', '=', 9)->get();
+        $job_en = $this->getJobsAPI(['id' => Crypt::decryptString($id), 'locale' => 'en-us'])->first();
+        $job_mm = $this->getJobsAPI(['id' => Crypt::decryptString($id), 'locale' => 'my-mm'])->first();
+        $job_zh = $this->getJobsAPI(['id' => Crypt::decryptString($id), 'locale' => 'zh-cn'])->first();
 
-        return view('admin.job.add-edit')->with(['action' => 'update', 'job' => $job]);
+        return view('admin.job.add-edit')->with(['action' => 'update', 'category' => $category, 'job_en' => $job_en]);
     }
 
     /**
