@@ -185,7 +185,7 @@
                                             @if ($action == 'new')
                                                 <option value="{{ $cat->id }}, {{ $cat->machine }}">{{ $cat->name }}</option>
                                             @else
-                                                <option value="{{ $cat->id }}"
+                                                <option value="{{ $cat->id }}, {{ $cat->machine }}"
                                                     {{ $job_en->category_id == $cat->id ? ' selected' : '' }}>
                                                     {{ $cat->name }}</option>
                                             @endif

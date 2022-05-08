@@ -115,7 +115,9 @@ class JobController extends Controller
         /*
         * Career Updates
         */
-        $response = Http::post('https://deploy-preview-27--efimm.netlify.app/api/revalidate', [
+        $response = Http::withHeaders([
+            'NEXT_API_TOKEN'=>'vU5dK27yi5ABK001354J5Qud7OozBtrq02Y4d4H8rBs9P1gVWrpIGSyc1AF27J4g'
+        ])->post('https://deploy-preview-27--efimm.netlify.app/api/revalidate', [
             'type' => 'career-detail-updated',
             'data' => [
                 'category_machine_name' => $category[1],
@@ -168,30 +170,54 @@ class JobController extends Controller
 
         if ($validator->fails()) {
             return redirect()
-                ->route('edit#job')
+                ->route('new#job')
                 ->withErrors($validator)
                 ->withInput();
         }
 
+        $category = explode(',', $request->main_category);
+
         $job = [
-            'position' => $request->position,
-            'department' => $request->department,
-            'description' => $request->jd,
-            'due' => isset($request->due) ? 'Closing at ' . date('F d, Y', strtotime($request->due)) : 'Open until candidate identified',
-            'position_burmese' => $request->position_burmese,
-            'department_burmese' => $request->department_burmese,
-            'description_burmese' => $request->jd_burmese,
-            'due_burmese' => isset($request->due) ? date('F d, Y', strtotime($request->due)) . ' နေ့တွင် စာရင်းပိတ်မည်' : 'သင့်တော်သူရသည့် အထိ ဖွင့်ထားပါသည်',
-            'position_chinese' => $request->position_chinese,
-            'department_chinese' => $request->department_chinese,
-            'description_chinese' => $request->jd_chinese,
-            'due_chinese' =>  isset($request->due) ? 'Closing at ' . date('F d, Y', strtotime($request->due)) : 'Open until candidate identified',
-            'due_date' =>  isset($request->due) ? date('Y-m-d', strtotime($request->due)) : NULL,
+            'position' => json_encode([
+                'en-us' => $request->position,
+                'my-mm' => $request->position_burmese,
+                'zh-cn' => $request->position_chinese
+            ]),
+            'department' => json_encode([
+                'en-us' => $request->department,
+                'my-mm' => $request->department_burmese,
+                'zh-cn' => $request->department_chinese
+            ]),
+            'description' => json_encode([
+                'en-us' => $request->jd,
+                'my-mm' => $request->jd_burmese,
+                'zh-cn' => $request->jd_chinese,
+            ]),
+            'due_text' => json_encode([
+                'en-us' => isset($request->due) ? 'Closing at ' . date('F d, Y', strtotime($request->due)) : 'Open until candidate identified',
+                'my-mm' => isset($request->due) ? 'Closing at ' . date('F d, Y', strtotime($request->due)) : 'Open until candidate identified',
+                'zh-cn' => isset($request->due) ? 'Closing at ' . date('F d, Y', strtotime($request->due)) : 'Open until candidate identified'
+            ]),
+            'category' => $category[0],
+            'due_date' => isset($request->due) ? date('Y-m-d', strtotime($request->due)) : NULL,
             'slug_url' => $request->slug_url,
             'is_vacant' => $request->active == 'on' ? TRUE : FALSE,
+            'instant' => $request->instant == 'on' ? TRUE : FALSE
         ];
 
         Job::where('id', '=', $id)->update($job);
+
+        /*
+        * Career Updates
+        */
+        $response = Http::post('https://deploy-preview-27--efimm.netlify.app/api/revalidate', [
+            'type' => 'career-detail-updated',
+            'data' => [
+                'category_machine_name' => $category[1],
+                'slug' => $request->slug_url
+            ]
+        ]);
+        // End of Career Updates
 
         return redirect()->route('job#list')->with(['success_message' => 'Successfully <strong>updated!</strong>']);
     }
