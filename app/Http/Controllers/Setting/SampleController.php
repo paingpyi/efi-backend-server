@@ -1082,11 +1082,11 @@ class SampleController extends Controller
 
         $message .= 'Sample data of Slider has been successfully imported. ';
 
-        blog::insert($blogs);
+        /*blog::insert($blogs);
         $message .= 'Sample data of Blogs has been successfully imported. ';
 
         Job::insert($jobs);
-        $message .= 'Sample data of Job Vacancies has been successfully imported. ';
+        $message .= 'Sample data of Job Vacancies has been successfully imported. ';*/
 
         /*CSR::insert($csrs);
         $message .= 'Sample data of CSRs has been successfully imported. ';*/

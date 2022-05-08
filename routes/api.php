@@ -55,6 +55,10 @@ Route::group(['prefix' => 'blocks', 'namespace' => 'setting'], function () {
     Route::post('/slider', [BlockController::class, 'sliderAPI']);
 });
 
+Route::group(['prefix' => 'contact', 'namespace' => 'setting'], function () {
+    Route::post('/', [BlockController::class, 'contactAPI']);
+});
+
 Route::group(['prefix' => 'career', 'namespace' => 'Content'], function () {
     //Route::get('/{para?}', [JobController::class, 'getlist']);
 

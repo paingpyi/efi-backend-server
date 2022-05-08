@@ -9,6 +9,18 @@ use Illuminate\Support\Str;
 
 class BlockController extends Controller
 {
+    /***
+     * English
+     */
+    private $error400status_eng = 'Bad Request';
+    private $error404status_eng = 'Product Not Found';
+    private $error_operators_eng = 'Condition operator is not valid. The operator must be "<, >, <=, >=, ==".';
+    private $error_arithmetic_eng = 'Arithmetic operator is not valid. The operator must be "+, -, *, /".';
+    private $not_found_error_eng = 'Product is not found.';
+    private $not_eligible_error_eng = 'You are not eligible to buy this premium.';
+    private $success_eng = 'success';
+    // End of English
+
     /**
      * Display a listing of the resource.
      *
@@ -71,7 +83,7 @@ class BlockController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Contact API.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -81,18 +93,54 @@ class BlockController extends Controller
         $data = $request->json()->all();
 
         $response_code = 200;
-        $status_message = '';
+        $status_message = $this->success_eng;
+        $errors = [];
 
-        if (!isset($folder)) {
+        if (!isset($data['locale'])) {
             $response_code = 400;
+            $status_message = $this->error400status_eng;
+            $errors[] = __('validation.required', ['attribute' => 'locale']);
+        }
 
+        if (!isset($data['name'])) {
+            $response_code = 400;
+            $status_message = $this->error400status_eng;
+            $errors[] = __('validation.required', ['attribute' => 'name']);
+        }
+
+        if (!isset($data['email'])) {
+            $response_code = 400;
+            $status_message = $this->error400status_eng;
+            $errors[] = __('validation.required', ['attribute' => 'email']);
+        }
+
+        if (!isset($data['phone'])) {
+            $response_code = 400;
+            $status_message = $this->error400status_eng;
+            $errors[] = __('validation.required', ['attribute' => 'phone']);
+        }
+
+        if($response_code == 200) {
             $response = [
                 'code' => $response_code,
-                'status' => $this->error400status_eng,
-                'errors' => __('validation.required', ['attribute' => 'Folder']),
+                'status' => $status_message,
+                'locale' => $this->getLang($data),
+                'data' => [
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'message' => $request->message
+                ],
+            ];
+        } else {
+            $response = [
+                'code' => $response_code,
+                'status' => $status_message,
+                'errors' => $errors,
                 'olds' => $request->all(),
             ];
         }
+
+        return response()->json($response, 200);
     }
 
     private function getLang($data)
