@@ -813,6 +813,118 @@ class FormulaSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             // End of Snake Bite Insurance
+
+            /****
+             *
+             * Education Life Insurance
+             *
+             */
+            [
+                'method' => 'calculateEducationInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 18],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 24],
+                    ['field' => 'premium_term', 'operator' => '==', 'value' => 5],
+                    ['field' => 'benefit', 'operator' => '==', 'value' => 'basic'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 186],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateEducationInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 25],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 29],
+                    ['field' => 'premium_term', 'operator' => '==', 'value' => 5],
+                    ['field' => 'benefit', 'operator' => '==', 'value' => 'basic'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 187.2],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateEducationInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 18],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 19],
+                    ['field' => 'premium_term', 'operator' => '==', 'value' => 5],
+                    ['field' => 'benefit', 'operator' => '==', 'value' => 'double'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 192],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateEducationInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 18],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 24],
+                    ['field' => 'premium_term', 'operator' => '==', 'value' => 7],
+                    ['field' => 'benefit', 'operator' => '==', 'value' => 'basic'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 126],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateEducationInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 18],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 20],
+                    ['field' => 'premium_term', 'operator' => '==', 'value' => 7],
+                    ['field' => 'benefit', 'operator' => '==', 'value' => 'double'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 132],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateEducationInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 18],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 25],
+                    ['field' => 'premium_term', 'operator' => '==', 'value' => 10],
+                    ['field' => 'benefit', 'operator' => '==', 'value' => 'basic'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 84],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateEducationInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 18],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 20],
+                    ['field' => 'premium_term', 'operator' => '==', 'value' => 10],
+                    ['field' => 'benefit', 'operator' => '==', 'value' => 'double'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 90],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            // End of Education Life Insurance
         ]);
     }
 }

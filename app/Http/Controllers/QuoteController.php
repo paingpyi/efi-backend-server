@@ -424,7 +424,7 @@ class QuoteController extends Controller
 
         $product = Product::where('quote_machine_name', '=', $data['quote_machine_name'])->first();
 
-        if(isset($product)) {
+        if (isset($product)) {
             $info = [
                 'locale' => $data['locale'],
                 'product_id' => $product->id,
@@ -687,11 +687,19 @@ class QuoteController extends Controller
             return response()->json($response, $response_code);
         }
 
-        $output = [];
+        $output[] = [
+            0 => 'Policy Year',
+            1 => 'Annual Premium',
+            2 => 'Death Benefit',
+            3 => 'Maturity Benefit',
+        ];
 
-        for ($i = 1; $i <= $request->term; $i++) {
+        for ($i = 1; $i <= $data['term']; $i++) {
             $output[] = [
-                $i => $result,
+                0 => $i,
+                1 => $result,
+                2 => $data['insured_amount'],
+                3 => ($i == $data['term']) ? $data['insured_amount'] : 0,
             ];
         }
 
@@ -1235,7 +1243,7 @@ class QuoteController extends Controller
 
             $response = [
                 'code' => $response_code,
-                'status' => $this->error400status_eng,
+                'status' => __('validation.required', ['attribute' => 'Locale']),
                 'errors' => 'Locale' . $this->required_error_eng,
                 'olds' => $request->all(),
             ];
@@ -1246,7 +1254,7 @@ class QuoteController extends Controller
 
             $response = [
                 'code' => $response_code,
-                'status' => $this->error400status_eng,
+                'status' => __('validation.required', ['attribute' => 'insured_amount']),
                 'errors' => 'insured_amount' . $this->required_error_eng,
                 'olds' => $request->all(),
             ];
@@ -1357,5 +1365,16 @@ class QuoteController extends Controller
         ];
 
         return response()->json($response, $response_code);
+    }
+
+    /**
+     * Calculate Education Life Insurance API via JSON.
+     * Life Insurance
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function calculateEducationInsurance(Request $request)
+    {
     }
 }

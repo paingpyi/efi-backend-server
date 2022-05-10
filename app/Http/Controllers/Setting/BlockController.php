@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Setting;
 
 use App\Http\Controllers\Controller;
+use App\Models\Contact;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -120,19 +121,28 @@ class BlockController extends Controller
             $errors[] = __('validation.required', ['attribute' => 'phone']);
         }
 
-        if($response_code == 200) {
+        if ($response_code == 200) {
+            Contact::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'phone' => $data['phone'],
+                'message' => $data['message']
+            ]);
+
             $response = [
                 'code' => $response_code,
                 'status' => $status_message,
                 'locale' => $this->getLang($data),
                 'data' => [
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'phone' => $request->phone,
-                    'message' => $request->message
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'phone' => $data['phone'],
+                    'message' => $data['message']
                 ],
             ];
         } else {
+            $response_code = 400;
+
             $response = [
                 'code' => $response_code,
                 'status' => $status_message,
@@ -141,7 +151,7 @@ class BlockController extends Controller
             ];
         }
 
-        return response()->json($response, 200);
+        return response()->json($response, $response_code);
     }
 
     private function getLang($data)
