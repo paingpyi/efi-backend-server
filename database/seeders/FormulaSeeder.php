@@ -852,6 +852,153 @@ class FormulaSeeder extends Seeder
             [
                 'method' => 'calculateEducationInsurance',
                 'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 30],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 34],
+                    ['field' => 'premium_term', 'operator' => '==', 'value' => 5],
+                    ['field' => 'benefit', 'operator' => '==', 'value' => 'basic'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 188.4],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateEducationInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 35],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 39],
+                    ['field' => 'premium_term', 'operator' => '==', 'value' => 5],
+                    ['field' => 'benefit', 'operator' => '==', 'value' => 'basic'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 189.6],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateEducationInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 40],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 43],
+                    ['field' => 'premium_term', 'operator' => '==', 'value' => 5],
+                    ['field' => 'benefit', 'operator' => '==', 'value' => 'basic'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 190.8],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateEducationInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 44],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 47],
+                    ['field' => 'premium_term', 'operator' => '==', 'value' => 5],
+                    ['field' => 'benefit', 'operator' => '==', 'value' => 'basic'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 192],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateEducationInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 48],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 49],
+                    ['field' => 'premium_term', 'operator' => '==', 'value' => 5],
+                    ['field' => 'benefit', 'operator' => '==', 'value' => 'basic'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 193.2],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateEducationInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 50],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 51],
+                    ['field' => 'premium_term', 'operator' => '==', 'value' => 5],
+                    ['field' => 'benefit', 'operator' => '==', 'value' => 'basic'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 194.4],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateEducationInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '==', 'value' => 52],
+                    ['field' => 'premium_term', 'operator' => '==', 'value' => 5],
+                    ['field' => 'benefit', 'operator' => '==', 'value' => 'basic'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 195.6],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateEducationInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '==', 'value' => 53],
+                    ['field' => 'premium_term', 'operator' => '==', 'value' => 5],
+                    ['field' => 'benefit', 'operator' => '==', 'value' => 'basic'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 196.8],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateEducationInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 54],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 55],
+                    ['field' => 'premium_term', 'operator' => '==', 'value' => 5],
+                    ['field' => 'benefit', 'operator' => '==', 'value' => 'basic'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 198],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateEducationInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '==', 'value' => 56],
+                    ['field' => 'premium_term', 'operator' => '==', 'value' => 5],
+                    ['field' => 'benefit', 'operator' => '==', 'value' => 'basic'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 199.2],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateEducationInsurance',
+                'conditions' => json_encode([
                     ['field' => 'insured_age', 'operator' => '>=', 'value' => 18],
                     ['field' => 'insured_age', 'operator' => '<=', 'value' => 19],
                     ['field' => 'premium_term', 'operator' => '==', 'value' => 5],
