@@ -49,7 +49,7 @@ return [
         'file'  => [
             'folder_name'  => 'files',
             'startup_view' => 'list',
-            'max_size'     => 50000, // size in KB
+            'max_size'     => 500000, // size in KB
             'thumb' => true,
             'thumb_width' => 80,
             'thumb_height' => 80,
@@ -65,7 +65,7 @@ return [
         'image' => [
             'folder_name'  => 'photos',
             'startup_view' => 'grid',
-            'max_size'     => 50000, // size in KB
+            'max_size'     => 500000, // size in KB
             'thumb' => true,
             'thumb_width' => 80,
             'thumb_height' => 80,
@@ -74,6 +74,7 @@ return [
                 'image/pjpeg',
                 'image/png',
                 'image/gif',
+                'image/svg',
             ],
         ],
     ],
@@ -132,6 +133,7 @@ return [
         'image/jpeg',
         'image/pjpeg',
         'image/png',
+        'image/svg',
     ],
 
     'thumb_img_width'          => 200, // px
@@ -155,6 +157,7 @@ return [
         'jpg'  => 'JPEG Image',
         'jpeg' => 'JPEG Image',
         'png'  => 'PNG Image',
+        'svg'  => 'SVG Image',
         'ppt'  => 'Microsoft PowerPoint',
         'pptx' => 'Microsoft PowerPoint',
     ],
