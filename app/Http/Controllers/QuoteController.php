@@ -687,15 +687,17 @@ class QuoteController extends Controller
             return response()->json($response, $response_code);
         }
 
-        $output[] = [
-            0 => 'Policy Year',
-            1 => 'Annual Premium',
-            2 => 'Death Benefit',
-            3 => 'Maturity Benefit',
+        $output = [
+            'label' => [
+                'Policy Year',
+                'Annual Premium',
+                'Death Benefit',
+                'Maturity Benefit',
+            ]
         ];
 
         for ($i = 1; $i <= $data['term']; $i++) {
-            $output[] = [
+            $output['result'][] = [
                 0 => $i,
                 1 => $result,
                 2 => $data['insured_amount'],
