@@ -1365,6 +1365,39 @@ class FormulaSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             // End of Public Term Insurance
+
+            /****
+             *
+             * Personal Accident Insurance
+             *
+             */
+            [
+                'method' => 'calculatePersonalAccident',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 16],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 65],
+                    ['field' => 'is_risk_work', 'operator' => '==', 'value' => true],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.01],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculatePersonalAccident',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 16],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 65],
+                    ['field' => 'is_risk_work', 'operator' => '==', 'value' => false],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.007],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            // End of Personal Accident Insurance
         ]);
     }
 }
