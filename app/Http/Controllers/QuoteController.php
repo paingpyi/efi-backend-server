@@ -1798,7 +1798,7 @@ class QuoteController extends Controller
             return response()->json($response, $response_code);
         }
 
-        $output = $result;
+        $output = [$result];
 
         $product = Product::where('slug_url', '=', 'public-terms-life-insurnace')->first();
 
@@ -1859,7 +1859,7 @@ class QuoteController extends Controller
 
             $apply = [
                 'info' => json_encode($info),
-                'result' => $result,
+                'result' => json_encode($result),
                 'total' => $result,
             ];
 
@@ -1878,7 +1878,7 @@ class QuoteController extends Controller
             'code' => $response_code,
             'status' => $this->success_eng,
             'info' => $info,
-            'result' => $output,
+            'result' => json_encode($output),
             'total' => $result,
         ];
 
