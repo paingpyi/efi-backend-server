@@ -74,7 +74,7 @@ return [
                 'image/pjpeg',
                 'image/png',
                 'image/gif',
-                'image/svg',
+                'image/svg+xml',
             ],
         ],
     ],
@@ -133,7 +133,7 @@ return [
         'image/jpeg',
         'image/pjpeg',
         'image/png',
-        'image/svg',
+        'image/svg+xml',
     ],
 
     'thumb_img_width'          => 200, // px

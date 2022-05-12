@@ -689,19 +689,19 @@ class QuoteController extends Controller
 
         $output = [
             'label' => [
-                'Policy Year',
-                'Annual Premium',
-                'Death Benefit',
-                'Maturity Benefit',
+                '1' => 'Policy Year',
+                '2' => 'Annual Premium',
+                '3' => 'Death Benefit',
+                '4' => 'Maturity Benefit',
             ]
         ];
 
         for ($i = 1; $i <= $data['term']; $i++) {
-            $output['result'][] = [
-                $i,
-                $result,
-                $data['insured_amount'],
-                ($i == $data['term']) ? $data['insured_amount'] : 0,
+            $output['data'][] = [
+                '1' => $i,
+                '2' => $result,
+                '3' => $data['insured_amount'],
+                '4' => ($i == $data['term']) ? $data['insured_amount'] : 0,
             ];
         }
 

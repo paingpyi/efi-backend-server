@@ -1014,6 +1014,49 @@ class FormulaSeeder extends Seeder
             [
                 'method' => 'calculateEducationInsurance',
                 'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 20],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 22],
+                    ['field' => 'premium_term', 'operator' => '==', 'value' => 5],
+                    ['field' => 'benefit', 'operator' => '==', 'value' => 'double'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 193.2],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateEducationInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '==', 'value' => 23],
+                    ['field' => 'premium_term', 'operator' => '==', 'value' => 5],
+                    ['field' => 'benefit', 'operator' => '==', 'value' => 'double'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 194.4],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateEducationInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '==', 'value' => 24],
+                    ['field' => 'premium_term', 'operator' => '==', 'value' => 5],
+                    ['field' => 'benefit', 'operator' => '==', 'value' => 'double'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 195.6],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateEducationInsurance',
+                'conditions' => json_encode([
                     ['field' => 'insured_age', 'operator' => '>=', 'value' => 18],
                     ['field' => 'insured_age', 'operator' => '<=', 'value' => 24],
                     ['field' => 'premium_term', 'operator' => '==', 'value' => 7],
@@ -1072,6 +1115,24 @@ class FormulaSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             // End of Education Life Insurance
+
+            /****
+             *
+             * Public Term Life Insurance
+             *
+             */
+            [
+                'method' => 'calculateSnakeInsurance',
+                'conditions' => json_encode([
+                    [],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.001],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            // End of Public Term Insurance
         ]);
     }
 }
