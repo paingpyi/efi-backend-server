@@ -89,6 +89,7 @@ class PageCollection extends ResourceCollection
                 'description' => '<p>We’re the first customer-centric innovative insurance company minimize your effort and maximize the value while being proactive, swift and responsive for the hassle-free applications and claiming process.</p>',
                 'buttonText' => 'Claim Now',
             ],
+            'promotion' => [],
         ];
 
         return $page;
