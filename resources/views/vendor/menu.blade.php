@@ -57,35 +57,6 @@ with font-awesome or any other icon font library -->
                                 </ul>
                             </li>
                         @endif
-                        @if (in_array('page#list', json_decode($checkPermission->permissions)))
-                            <li class="nav-item">
-                                <a href="{{ route('page#list') }}" class="nav-link">
-                                    <i class="fas fa-file nav-icon"></i>
-                                    <p>Pages</p>
-                                    <i class="fas fa-angle-left right"></i>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    @if (in_array('page#list', json_decode($checkPermission->permissions)))
-                                        <li class="nav-item">
-                                            <a href="{{ route('page#list') }}" class="nav-link">
-                                                <i class="fas fa-file nav-icon"></i>
-                                                <p>Page List</p>
-                                            </a>
-                                        </li>
-                                    @endif
-
-                                    @if (in_array('new#page', json_decode($checkPermission->permissions)))
-                                        <li class="nav-item">
-                                            <a href="{{ route('new#page') }}" class="nav-link">
-                                                <i class="fas fa-file nav-icon"></i>
-                                                <p>New page</p>
-                                            </a>
-                                        </li>
-                                    @endif
-
-                                </ul>
-                            </li>
-                        @endif
                         @if (in_array('product#list', json_decode($checkPermission->permissions)))
                             <li class="nav-item">
                                 <a href="{{ route('product#list') }}" class="nav-link">
@@ -278,6 +249,36 @@ with font-awesome or any other icon font library -->
                                             <a href="{{ route('new#category') }}" class="nav-link">
                                                 <i class="fas fa-suitcase nav-icon"></i>
                                                 <p>New Category</p>
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                </ul>
+                            </li>
+                        @endif
+
+                        @if (in_array('slider#list', json_decode($checkPermission->permissions)))
+                            <li class="nav-item">
+                                <a href="{{ route('slider#list') }}" class="nav-link">
+                                    <i class="fab fa-slideshare nav-icon"></i>
+                                    <p>Slider Block</p>
+                                    <i class="fas fa-angle-left right"></i>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @if (in_array('slider#list', json_decode($checkPermission->permissions)))
+                                        <li class="nav-item">
+                                            <a href="{{ route('slider#list') }}" class="nav-link">
+                                                <i class="fab fa-slideshare nav-icon"></i>
+                                                <p>Slide List</p>
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                    @if (in_array('new#slider', json_decode($checkPermission->permissions)))
+                                        <li class="nav-item">
+                                            <a href="{{ route('new#slider') }}" class="nav-link">
+                                                <i class="fab fa-slideshare nav-icon"></i>
+                                                <p>New Slide</p>
                                             </a>
                                         </li>
                                     @endif

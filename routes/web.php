@@ -11,6 +11,7 @@ use App\Http\Controllers\Content\JobController;
 use App\Http\Controllers\Content\CsrController;
 use App\Http\Controllers\Setting\CategoryController;
 use App\Http\Controllers\Setting\SampleController;
+use App\Http\Controllers\Setting\SliderController;
 use App\Http\Middleware\AdminCheckMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -76,6 +77,16 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
         Route::post('/edit/{id}', [CategoryController::class,'update'])->name('update#data#category');
 
         Route::post('/deactivate/{id}', [CategoryController::class,'destroy'])->name('deactivate#category');
+    });
+
+    Route::group(['prefix' => 'block', 'namespace' => 'Setting'], function () {
+        Route::group(['prefix' => 'slider'], function () {
+            Route::get('/', [SliderController::class, 'index'])->name('slider#list');
+
+            Route::get('/new', [SliderController::class,'create'])->name('new#slider');
+
+            Route::get('/edit/{id}', [SliderController::class,'edit'])->name('edit#slider');
+        });
     });
 
     Route::group(['prefix' => 'product', 'namespace' => 'Content'], function () {

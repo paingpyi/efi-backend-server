@@ -14,11 +14,6 @@ class BlockController extends Controller
      * English
      */
     private $error400status_eng = 'Bad Request';
-    private $error404status_eng = 'Product Not Found';
-    private $error_operators_eng = 'Condition operator is not valid. The operator must be "<, >, <=, >=, ==".';
-    private $error_arithmetic_eng = 'Arithmetic operator is not valid. The operator must be "+, -, *, /".';
-    private $not_found_error_eng = 'Product is not found.';
-    private $not_eligible_error_eng = 'You are not eligible to buy this premium.';
     private $success_eng = 'success';
     // End of English
 
