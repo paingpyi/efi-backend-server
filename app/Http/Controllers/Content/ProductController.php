@@ -440,8 +440,23 @@ class ProductController extends Controller
         /*
         * Product Updates
         */
-        $response = Http::post('https://deploy-preview-27--efimm.netlify.app/api/revalidate', [
-            'type' => 'promotions-updated',
+        $category = Category::where('id','=', $request->category)->first();
+        $category_machine = '';
+
+        if(isset($category)) {
+            $category_machine = $category->machine;
+        }
+
+        $key = config('efi.api_key');
+
+        $response = Http::withHeaders([
+            'Authorization' => "Bearer {$key}"
+        ])->post('https://deploy-preview-27--efimm.netlify.app/api/revalidate', [
+            'type' => 'product-detail-updated',
+            'data' => [
+                'category_machine_name' => $category_machine,
+                'slug' => $request->slug_url
+            ]
         ]);
         // End of Product Updates
 
@@ -849,8 +864,23 @@ class ProductController extends Controller
         /*
         * Product Updates
         */
-        $response = Http::post('https://deploy-preview-27--efimm.netlify.app/api/revalidate', [
-            'type' => 'promotions-updated',
+        $category = Category::where('id','=', $request->category)->first();
+        $category_machine = '';
+
+        if(isset($category)) {
+            $category_machine = $category->machine;
+        }
+
+        $key = config('efi.api_key');
+
+        $response = Http::withHeaders([
+            'Authorization' => "Bearer {$key}"
+        ])->post('https://deploy-preview-27--efimm.netlify.app/api/revalidate', [
+            'type' => 'product-detail-updated',
+            'data' => [
+                'category_machine_name' => $category_machine,
+                'slug' => $request->slug_url
+            ]
         ]);
         // End of Product Updates
 

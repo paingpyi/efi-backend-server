@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -137,6 +138,21 @@ class BlogController extends Controller
 
         blog::create($blog);
 
+        /*
+        * Blog Updates
+        */
+        $key = config('efi.api_key');
+
+        $response = Http::withHeaders([
+            'Authorization' => "Bearer {$key}"
+        ])->post('https://deploy-preview-27--efimm.netlify.app/api/revalidate', [
+            'type' => 'blog-detail-updated',
+            'data' => [
+                'slug' => $request->slug_url
+            ]
+        ]);
+        // End of Blog Updates
+
         return redirect()->route('blog#list')->with(['success_message' => 'Successfully <strong>saved!</strong>']);
     }
 
@@ -226,6 +242,21 @@ class BlogController extends Controller
         ];
 
         blog::where('id', '=', $id)->update($blog);
+
+        /*
+        * Blog Updates
+        */
+        $key = config('efi.api_key');
+
+        $response = Http::withHeaders([
+            'Authorization' => "Bearer {$key}"
+        ])->post('https://deploy-preview-27--efimm.netlify.app/api/revalidate', [
+            'type' => 'blog-detail-updated',
+            'data' => [
+                'slug' => $request->slug_url
+            ]
+        ]);
+        // End of Blog Updates
 
         return redirect()->route('blog#list')->with(['success_message' => 'Successfully <strong>updated!</strong>']);
     }

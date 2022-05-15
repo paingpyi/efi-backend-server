@@ -115,8 +115,9 @@ class JobController extends Controller
         /*
         * Career Updates
         */
+        $key = config('efi.api_key');
         $response = Http::withHeaders([
-            'NEXT_API_TOKEN'=>'vU5dK27yi5ABK001354J5Qud7OozBtrq02Y4d4H8rBs9P1gVWrpIGSyc1AF27J4g'
+            'Authorization' => "Bearer {$key}"
         ])->post('https://deploy-preview-27--efimm.netlify.app/api/revalidate', [
             'type' => 'career-detail-updated',
             'data' => [
@@ -210,7 +211,10 @@ class JobController extends Controller
         /*
         * Career Updates
         */
-        $response = Http::post('https://deploy-preview-27--efimm.netlify.app/api/revalidate', [
+        $key = config('efi.api_key');
+        $response = Http::withHeaders([
+            'Authorization' => "Bearer {$key}"
+        ])->post('https://deploy-preview-27--efimm.netlify.app/api/revalidate', [
             'type' => 'career-detail-updated',
             'data' => [
                 'category_machine_name' => $category[1],

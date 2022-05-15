@@ -689,7 +689,7 @@ class QuoteController extends Controller
 
         $output = [
             'label' => [
-                '1' => 'Policy Year',
+                'year' => 'Policy Year',
                 '2' => 'Annual Premium',
                 '3' => 'Death Benefit',
                 '4' => 'Maturity Benefit',
@@ -698,7 +698,6 @@ class QuoteController extends Controller
 
         for ($i = 1; $i <= $data['term']; $i++) {
             $output['data'][] = [
-                '1' => $i,
                 '2' => $result,
                 '3' => $data['insured_amount'],
                 '4' => ($i == $data['term']) ? $data['insured_amount'] : 0,
