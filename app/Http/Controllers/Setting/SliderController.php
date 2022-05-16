@@ -35,7 +35,7 @@ class SliderController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.blocks.slider.add-edit')->with(['action' => 'new']);
     }
 
     /**

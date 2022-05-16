@@ -688,7 +688,7 @@ class QuoteController extends Controller
         }
 
         $output = [
-            'label' => [
+            'labels' => [
                 'year' => 'Policy Year',
                 '2' => 'Annual Premium',
                 '3' => 'Death Benefit',

@@ -31,7 +31,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-tools">
-                        @include('admin.csr.menu')
+                        @include('admin.blocks.slider.menu')
                     </div>
                 </div>
                 <!-- /.card-header -->
