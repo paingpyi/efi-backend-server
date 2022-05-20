@@ -584,6 +584,141 @@ class FormulaSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
+            [
+                'method' => 'calculateStudentLife',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '==', 'value' => 3],
+                    ['field' => 'premium_type', 'operator' => '==', 'value' => 'annual'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'policy_term', 'operator' => '=', 'value' => 17],
+                    ['field' => 'premium_term', 'operator' => '=', 'value' => 14],
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 49.55],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateStudentLife',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '==', 'value' => 3],
+                    ['field' => 'premium_type', 'operator' => '==', 'value' => 'semi-annual'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'policy_term', 'operator' => '=', 'value' => 17],
+                    ['field' => 'premium_term', 'operator' => '=', 'value' => 14],
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 25.33],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateStudentLife',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '==', 'value' => 3],
+                    ['field' => 'premium_type', 'operator' => '==', 'value' => 'quarterly'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'policy_term', 'operator' => '=', 'value' => 17],
+                    ['field' => 'premium_term', 'operator' => '=', 'value' => 14],
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 12.81],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateStudentLife',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '==', 'value' => 4],
+                    ['field' => 'premium_type', 'operator' => '==', 'value' => 'annual'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'policy_term', 'operator' => '=', 'value' => 16],
+                    ['field' => 'premium_term', 'operator' => '=', 'value' => 13],
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 54.55],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateStudentLife',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '==', 'value' => 4],
+                    ['field' => 'premium_type', 'operator' => '==', 'value' => 'semi-annual'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'policy_term', 'operator' => '=', 'value' => 16],
+                    ['field' => 'premium_term', 'operator' => '=', 'value' => 13],
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 27.89],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateStudentLife',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '==', 'value' => 4],
+                    ['field' => 'premium_type', 'operator' => '==', 'value' => 'quarterly'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'policy_term', 'operator' => '=', 'value' => 16],
+                    ['field' => 'premium_term', 'operator' => '=', 'value' => 13],
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 14.10],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateStudentLife',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '==', 'value' => 5],
+                    ['field' => 'premium_type', 'operator' => '==', 'value' => 'annual'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'policy_term', 'operator' => '=', 'value' => 15],
+                    ['field' => 'premium_term', 'operator' => '=', 'value' => 12],
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 60.35],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateStudentLife',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '==', 'value' => 5],
+                    ['field' => 'premium_type', 'operator' => '==', 'value' => 'semi-annual'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'policy_term', 'operator' => '=', 'value' => 15],
+                    ['field' => 'premium_term', 'operator' => '=', 'value' => 12],
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 30.85],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateStudentLife',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '==', 'value' => 5],
+                    ['field' => 'premium_type', 'operator' => '==', 'value' => 'quarterly'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'policy_term', 'operator' => '=', 'value' => 15],
+                    ['field' => 'premium_term', 'operator' => '=', 'value' => 12],
+                    ['field' => 'insured_amount', 'operator' => '/', 'value' => 1000],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 15.6],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
             // End of Student Life
 
             /****

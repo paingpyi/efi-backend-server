@@ -941,11 +941,21 @@ class QuoteController extends Controller
             return response()->json($response, $response_code);
         }
 
-        $output = [];
+        $output = [
+            'labels' => [
+                '1' => 'Policy Year',
+                '2' => 'Annual Premium',
+                '3' => 'Death Benefit',
+                '4' => 'Maturity Benefit',
+            ]
+        ];
 
-        for ($i = 1; $i <= $result['premium_term']; $i++) {
-            $output[] = [
-                $i => $result['value'],
+        for ($i = 1; $i <= $result['policy_term']; $i++) {
+            $output['data'][] = [
+                '1' => $i,
+                '2' => ($i <= $result['premium_term']) ? $result['value'] : '-',
+                '3' => $data['insured_amount'],
+                '4' => ($i >= $result['premium_term']) ? ($data['insured_amount'] * 0.25) : 0,
             ];
         }
 
