@@ -1874,6 +1874,7 @@ class QuoteController extends Controller
 
             $apply = [
                 'info' => json_encode($info),
+                'result' => json_encode([]),
                 'total' => $result,
             ];
 
@@ -2126,6 +2127,7 @@ class QuoteController extends Controller
 
             $apply = [
                 'info' => json_encode($info),
+                'result' => json_encode([]),
                 'total' => $result,
             ];
 
@@ -2191,29 +2193,11 @@ class QuoteController extends Controller
 
         foreach (Formula::where('method', '=', 'calculateGroupLife')->get() as $formula) {
             foreach (json_decode($formula->formulas) as $formula) {
-                if ($formula == '+') {
-                    if ($result == 0) {
-                        $result = $data[$formula->field] + $formula->value;
-                    } else {
-                        $result = $result + $formula->value;
-                    }
-                } else if ($formula->operator == '-') {
-                    if ($result == 0) {
-                        $result = $data[$formula->field] - $formula->value;
-                    } else {
-                        $result = $result - $formula->value;
-                    }
-                } else if ($formula->operator == '*') {
+                if ($formula->operator == '*') {
                     if ($result == 0) {
                         $result = $data[$formula->field] * $formula->value;
                     } else {
                         $result = $result * $formula->value;
-                    }
-                } else if ($formula->operator == '/') {
-                    if ($result == 0) {
-                        $result = $data[$formula->field] / $formula->value;
-                    } else {
-                        $result = $result / $formula->value;
                     }
                 } else {
                     $response_code = 400;
@@ -2301,6 +2285,7 @@ class QuoteController extends Controller
 
             $apply = [
                 'info' => json_encode($info),
+                'result' => json_encode([]),
                 'total' => $result,
             ];
 
