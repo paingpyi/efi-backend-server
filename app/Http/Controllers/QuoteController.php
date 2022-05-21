@@ -2464,4 +2464,236 @@ class QuoteController extends Controller
 
         return response()->json($response, $response_code);
     }
+
+    /**
+     * Calculate Critical Illness Insurance API via JSON.
+     * Life Insurance
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function calculateCriticalIllness(Request $request)
+    {
+        $data = $request->json()->all();
+
+        $response_code = 200;
+        $flag = false;
+        $result = 0;
+        $info = [];
+
+        if (!isset($data['locale'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => __('validation.required', ['attribute' => 'Locale']),
+                'errors' => __('validation.required', ['attribute' => 'Locale']),
+                'olds' => $request->all(),
+            ];
+        }
+
+        if (!isset($data['insured_age'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => __('validation.required', ['attribute' => 'insured age']),
+                'errors' => __('validation.required', ['attribute' => 'insured age']),
+                'olds' => $request->all(),
+            ];
+        }
+
+        if (!isset($data['type'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => __('validation.required', ['attribute' => 'type']),
+                'errors' => __('validation.required', ['attribute' => 'type']),
+                'olds' => $request->all(),
+            ];
+        }
+
+        if (!isset($data['payment'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => __('validation.required', ['attribute' => 'payment']),
+                'errors' => __('validation.required', ['attribute' => 'payment']),
+                'olds' => $request->all(),
+            ];
+        }
+
+        foreach (Formula::where('method', '=', 'calculateCriticalIllness')->get() as $formula) {
+            foreach (json_decode($formula->conditions) as $condition) {
+                if ($condition->operator == '<') {
+                    if ($data[$condition->field] < $condition->value) {
+                        $flag = true;
+                    } else {
+                        $flag = false;
+                        break;
+                    }
+                } else if ($condition->operator == '>') {
+                    if ($data[$condition->field] > $condition->value) {
+                        $flag = true;
+                    } else {
+                        $flag = false;
+                        break;
+                    }
+                } else if ($condition->operator == '<=') {
+                    if ($data[$condition->field] <= $condition->value) {
+                        $flag = true;
+                    } else {
+                        $flag = false;
+                        break;
+                    }
+                } else if ($condition->operator == '>=') {
+                    if ($data[$condition->field] >= $condition->value) {
+                        $flag = true;
+                    } else {
+                        $flag = false;
+                        break;
+                    }
+                } else if ($condition->operator == '==') {
+                    if ($data[$condition->field] == $condition->value) {
+                        $flag = true;
+                    } else {
+                        $flag = false;
+                        break;
+                    }
+                } else {
+                    $response_code = 400;
+
+                    $response = [
+                        'code' => $response_code,
+                        'status' => $this->error400status_eng,
+                        'errors' => $this->error_operators_eng,
+                        'olds' => $condition->field . ' ' . $condition->operator . ' ' . $condition->value,
+                    ];
+
+                    return response()->json($response, $response_code);
+                }
+            } // End of conditions
+
+            if ($flag) {
+                foreach (json_decode($formula->formulas) as $formula) {
+                    if ($formula->operator == '=') {
+                        $result = $formula->value;
+                    } else {
+                        $response_code = 400;
+
+                        $response = [
+                            'code' => $response_code,
+                            'status' => $this->error400status_eng,
+                            'errors' => $this->error_arithmetic_eng,
+                            'olds' => $formula->field . ': Formula - ' . $formula->value,
+                        ];
+
+                        return response()->json($response, $response_code);
+                    }
+                } // End of formula
+            }
+        } // End of Formula table
+
+        if ($result <= 0) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => $this->not_eligible_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response, $response_code);
+        }
+
+        $output = [$result];
+
+        $product = Product::where('slug_url', '=', 'critical-illness-insurance')->first();
+
+        /**
+         * Apply this calculation
+         */
+        if (isset($data['apply'])) {
+            if (!isset($data['apply']['name'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, name' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            if (!isset($data['apply']['phone'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, phone' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            if (!isset($data['apply']['email'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, email' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            $info = [
+                'locale' => $data['locale'],
+                'insured_age' => $data['insured_age'],
+                'type' => $data['type'],
+                'payment' => $data['payment'],
+                'product_id' => $product->id,
+                'customer' => [
+                    'name' => $data['apply']['name'],
+                    'email' => $data['apply']['email'],
+                    'phone' => $data['apply']['phone'],
+                ]
+            ];
+
+            $apply = [
+                'info' => json_encode($info),
+                'result' => json_encode([]),
+                'total' => $result,
+            ];
+
+            ApplyProduct::create($apply);
+        } else {
+            $info = [
+                'locale' => $data['locale'],
+                'insured_age' => $data['insured_age'],
+                'type' => $data['type'],
+                'payment' => $data['payment'],
+                'product_id' => $product->id,
+            ];
+        }
+        // End of Apply
+
+        $response = [
+            'code' => $response_code,
+            'status' => $this->success_eng,
+            'info' => $info,
+            'total' => $result,
+        ];
+
+        return response()->json($response, $response_code);
+    }
 }

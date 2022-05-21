@@ -1565,6 +1565,349 @@ class FormulaSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             // End of Farmer Life Insurance
+
+            /****
+             *
+             * Critical Illness Insurance
+             *
+             */
+            [
+                'method' => 'calculateCriticalIllness',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 6],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 30],
+                    ['field' => 'type', 'operator' => '==', 'value' => 'individual'],
+                    ['field' => 'payment', 'operator' => '==', 'value' => 'binnual'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_amount', 'operator' => '=', 'value' => 4500],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateCriticalIllness',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 6],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 30],
+                    ['field' => 'type', 'operator' => '==', 'value' => 'individual'],
+                    ['field' => 'payment', 'operator' => '==', 'value' => 'lumpsum'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_amount', 'operator' => '=', 'value' => 8800],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateCriticalIllness',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 6],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 30],
+                    ['field' => 'type', 'operator' => '==', 'value' => 'group'],
+                    ['field' => 'payment', 'operator' => '==', 'value' => 'monthly'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_amount', 'operator' => '=', 'value' => 800],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateCriticalIllness',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 6],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 30],
+                    ['field' => 'type', 'operator' => '==', 'value' => 'group'],
+                    ['field' => 'payment', 'operator' => '==', 'value' => 'quarterly'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_amount', 'operator' => '=', 'value' => 2200],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateCriticalIllness',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 6],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 30],
+                    ['field' => 'type', 'operator' => '==', 'value' => 'group'],
+                    ['field' => 'payment', 'operator' => '==', 'value' => 'binnual'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_amount', 'operator' => '=', 'value' => 4300],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateCriticalIllness',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 6],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 30],
+                    ['field' => 'type', 'operator' => '==', 'value' => 'group'],
+                    ['field' => 'payment', 'operator' => '==', 'value' => 'lumpsum'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_amount', 'operator' => '=', 'value' => 8400],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateCriticalIllness',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 31],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 40],
+                    ['field' => 'type', 'operator' => '==', 'value' => 'individual'],
+                    ['field' => 'payment', 'operator' => '==', 'value' => 'binnual'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_amount', 'operator' => '=', 'value' => 7800],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateCriticalIllness',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 31],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 40],
+                    ['field' => 'type', 'operator' => '==', 'value' => 'individual'],
+                    ['field' => 'payment', 'operator' => '==', 'value' => 'lumpsum'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_amount', 'operator' => '=', 'value' => 15400],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateCriticalIllness',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 31],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 40],
+                    ['field' => 'type', 'operator' => '==', 'value' => 'group'],
+                    ['field' => 'payment', 'operator' => '==', 'value' => 'monthly'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_amount', 'operator' => '=', 'value' => 1300],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateCriticalIllness',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 31],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 40],
+                    ['field' => 'type', 'operator' => '==', 'value' => 'group'],
+                    ['field' => 'payment', 'operator' => '==', 'value' => 'quarterly'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_amount', 'operator' => '=', 'value' => 3900],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateCriticalIllness',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 31],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 40],
+                    ['field' => 'type', 'operator' => '==', 'value' => 'group'],
+                    ['field' => 'payment', 'operator' => '==', 'value' => 'binnual'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_amount', 'operator' => '=', 'value' => 7400],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateCriticalIllness',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 31],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 40],
+                    ['field' => 'type', 'operator' => '==', 'value' => 'group'],
+                    ['field' => 'payment', 'operator' => '==', 'value' => 'lumpsum'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_amount', 'operator' => '=', 'value' => 14600],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateCriticalIllness',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 41],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 50],
+                    ['field' => 'type', 'operator' => '==', 'value' => 'individual'],
+                    ['field' => 'payment', 'operator' => '==', 'value' => 'binnual'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_amount', 'operator' => '=', 'value' => 12300],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateCriticalIllness',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 41],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 50],
+                    ['field' => 'type', 'operator' => '==', 'value' => 'individual'],
+                    ['field' => 'payment', 'operator' => '==', 'value' => 'lumpsum'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_amount', 'operator' => '=', 'value' => 24200],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateCriticalIllness',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 41],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 50],
+                    ['field' => 'type', 'operator' => '==', 'value' => 'group'],
+                    ['field' => 'payment', 'operator' => '==', 'value' => 'monthly'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_amount', 'operator' => '=', 'value' => 2100],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateCriticalIllness',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 41],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 50],
+                    ['field' => 'type', 'operator' => '==', 'value' => 'group'],
+                    ['field' => 'payment', 'operator' => '==', 'value' => 'quarterly'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_amount', 'operator' => '=', 'value' => 6100],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateCriticalIllness',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 41],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 50],
+                    ['field' => 'type', 'operator' => '==', 'value' => 'group'],
+                    ['field' => 'payment', 'operator' => '==', 'value' => 'binnual'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_amount', 'operator' => '=', 'value' => 11700],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateCriticalIllness',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 41],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 50],
+                    ['field' => 'type', 'operator' => '==', 'value' => 'group'],
+                    ['field' => 'payment', 'operator' => '==', 'value' => 'lumpsum'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_amount', 'operator' => '=', 'value' => 23000],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateCriticalIllness',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 51],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 60],
+                    ['field' => 'type', 'operator' => '==', 'value' => 'individual'],
+                    ['field' => 'payment', 'operator' => '==', 'value' => 'binnual'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_amount', 'operator' => '=', 'value' => 19000],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateCriticalIllness',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 51],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 60],
+                    ['field' => 'type', 'operator' => '==', 'value' => 'individual'],
+                    ['field' => 'payment', 'operator' => '==', 'value' => 'lumpsum'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_amount', 'operator' => '=', 'value' => 37400],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateCriticalIllness',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 51],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 60],
+                    ['field' => 'type', 'operator' => '==', 'value' => 'group'],
+                    ['field' => 'payment', 'operator' => '==', 'value' => 'monthly'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_amount', 'operator' => '=', 'value' => 3200],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateCriticalIllness',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 51],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 60],
+                    ['field' => 'type', 'operator' => '==', 'value' => 'group'],
+                    ['field' => 'payment', 'operator' => '==', 'value' => 'quarterly'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_amount', 'operator' => '=', 'value' => 9400],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateCriticalIllness',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 51],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 60],
+                    ['field' => 'type', 'operator' => '==', 'value' => 'group'],
+                    ['field' => 'payment', 'operator' => '==', 'value' => 'binnual'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_amount', 'operator' => '=', 'value' => 18100],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateCriticalIllness',
+                'conditions' => json_encode([
+                    ['field' => 'insured_age', 'operator' => '>=', 'value' => 51],
+                    ['field' => 'insured_age', 'operator' => '<=', 'value' => 60],
+                    ['field' => 'type', 'operator' => '==', 'value' => 'group'],
+                    ['field' => 'payment', 'operator' => '==', 'value' => 'lumpsum'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_amount', 'operator' => '=', 'value' => 35500],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            // End of Critical Illness Insurance
         ]);
     }
 }
