@@ -1565,7 +1565,7 @@ class QuoteController extends Controller
 
         for ($i = 1; $i <= $data['insured_age']; $i++) {
             $output['data'][] = [
-                '2' => ($i <= $data['premium_term']) ? $result['value'] : '-',
+                '2' => ($i <= $data['premium_term']) ? $result : '-',
                 '3' => $data['insured_amount'],
                 '4' => ($i >= $data['premium_term']) ? ($data['insured_amount'] * 0.20) : 0,
             ];
