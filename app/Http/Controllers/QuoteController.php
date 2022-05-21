@@ -943,7 +943,7 @@ class QuoteController extends Controller
 
         $output = [
             'labels' => [
-                '1' => 'Policy Year',
+                'year' => 'Policy Year',
                 '2' => 'Annual Premium',
                 '3' => 'Death Benefit',
                 '4' => 'Maturity Benefit',
@@ -952,7 +952,6 @@ class QuoteController extends Controller
 
         for ($i = 1; $i <= $result['policy_term']; $i++) {
             $output['data'][] = [
-                '1' => $i,
                 '2' => ($i <= $result['premium_term']) ? $result['value'] : '-',
                 '3' => $data['insured_amount'],
                 '4' => ($i >= $result['premium_term']) ? ($data['insured_amount'] * 0.25) : 0,
@@ -1555,11 +1554,20 @@ class QuoteController extends Controller
             return response()->json($response, $response_code);
         }
 
-        $output = [];
+        $output = [
+            'labels' => [
+                'year' => 'Policy Year',
+                '2' => 'Annual Premium',
+                '3' => 'Death Benefit',
+                '4' => 'Maturity Benefit',
+            ]
+        ];
 
-        for ($i = 1; $i <= $data['premium_term']; $i++) {
-            $output[] = [
-                $i => $result,
+        for ($i = 1; $i <= $result['insured_age']; $i++) {
+            $output['data'][] = [
+                '2' => ($i <= $result['premium_term']) ? $result['value'] : '-',
+                '3' => $data['insured_amount'],
+                '4' => ($i >= $result['premium_term']) ? ($data['insured_amount'] * 0.20) : 0,
             ];
         }
 
@@ -1868,7 +1876,6 @@ class QuoteController extends Controller
 
             $apply = [
                 'info' => json_encode($info),
-                'result' => json_encode($result),
                 'total' => $result,
             ];
 
@@ -1887,7 +1894,6 @@ class QuoteController extends Controller
             'code' => $response_code,
             'status' => $this->success_eng,
             'info' => $info,
-            'result' => json_encode($output),
             'total' => $result,
         ];
 
@@ -2122,7 +2128,6 @@ class QuoteController extends Controller
 
             $apply = [
                 'info' => json_encode($info),
-                'result' => json_encode($result),
                 'total' => $result,
             ];
 
@@ -2142,7 +2147,6 @@ class QuoteController extends Controller
             'code' => $response_code,
             'status' => $this->success_eng,
             'info' => $info,
-            'result' => json_encode($output),
             'total' => $result,
         ];
 
