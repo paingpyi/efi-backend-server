@@ -112,6 +112,8 @@ Route::group(['prefix' => 'quotes'], function () {
         Route::post('public-terms-life-insurnace', [QuoteController::class, 'calculatePublicTerm']);
 
         Route::post('personal-accident-life-insurance', [QuoteController::class, 'calculatePersonalAccident']);
+
+        Route::post('group-life-insurance', [QuoteController::class, 'calculateGroupLife']);
     });
 });
 

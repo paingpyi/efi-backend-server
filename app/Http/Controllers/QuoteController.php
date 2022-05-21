@@ -1558,16 +1558,14 @@ class QuoteController extends Controller
             'labels' => [
                 'year' => 'Policy Year',
                 '2' => 'Annual Premium',
-                '3' => 'Death Benefit',
-                '4' => 'Maturity Benefit',
+                '3' => 'Maturity Benefit',
             ]
         ];
 
-        for ($i = 1; $i <= $data['insured_age']; $i++) {
+        for ($i = 1; $i <= ($data['premium_term'] + 5); $i++) {
             $output['data'][] = [
                 '2' => ($i <= $data['premium_term']) ? $result : '-',
-                '3' => $data['insured_amount'],
-                '4' => ($i >= $data['premium_term']) ? ($data['insured_amount'] * 0.20) : 0,
+                '3' => ($i >= $data['premium_term']) ? ($data['insured_amount'] * 0.20) : 0,
             ];
         }
 
@@ -2138,6 +2136,179 @@ class QuoteController extends Controller
                 'insured_age' => $data['insured_age'],
                 'insured_amount' => $data['insured_amount'],
                 'is_risk_work' => $data['is_risk_work'],
+                'product_id' => $product->id,
+            ];
+        }
+        // End of Apply
+
+        $response = [
+            'code' => $response_code,
+            'status' => $this->success_eng,
+            'info' => $info,
+            'total' => $result,
+        ];
+
+        return response()->json($response, $response_code);
+    }
+
+    /**
+     * Calculate Group Life Insurance API via JSON.
+     * Life Insurance
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function calculateGroupLife(Request $request)
+    {
+        $data = $request->json()->all();
+
+        $response_code = 200;
+        $flag = false;
+        $result = 0;
+        $info = [];
+
+        if (!isset($data['locale'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => __('validation.required', ['attribute' => 'Locale']),
+                'errors' => __('validation.required', ['attribute' => 'Locale']),
+                'olds' => $request->all(),
+            ];
+        }
+
+        if (!isset($data['insured_amount'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => __('validation.required', ['attribute' => 'insured_amount']),
+                'errors' => __('validation.required', ['attribute' => 'insured_amount']),
+                'olds' => $request->all(),
+            ];
+        }
+
+        foreach (Formula::where('method', '=', 'calculateGroupLife')->get() as $formula) {
+            foreach (json_decode($formula->formulas) as $formula) {
+                if ($formula == '+') {
+                    if ($result == 0) {
+                        $result = $data[$formula->field] + $formula->value;
+                    } else {
+                        $result = $result + $formula->value;
+                    }
+                } else if ($formula->operator == '-') {
+                    if ($result == 0) {
+                        $result = $data[$formula->field] - $formula->value;
+                    } else {
+                        $result = $result - $formula->value;
+                    }
+                } else if ($formula->operator == '*') {
+                    if ($result == 0) {
+                        $result = $data[$formula->field] * $formula->value;
+                    } else {
+                        $result = $result * $formula->value;
+                    }
+                } else if ($formula->operator == '/') {
+                    if ($result == 0) {
+                        $result = $data[$formula->field] / $formula->value;
+                    } else {
+                        $result = $result / $formula->value;
+                    }
+                } else {
+                    $response_code = 400;
+
+                    $response = [
+                        'code' => $response_code,
+                        'status' => $this->error400status_eng,
+                        'errors' => $this->error_arithmetic_eng,
+                        'olds' => $formula->field . ': Formula - ' . $formula->value,
+                    ];
+
+                    return response()->json($response, $response_code);
+                }
+            } // End of formula
+        } // End of Formula table
+
+        if ($result <= 0) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => $this->not_eligible_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response, $response_code);
+        }
+
+        $product = Product::where('slug_url', '=', 'group-life-insurance')->first();
+
+        /**
+         * Apply this calculation
+         */
+        if (isset($data['apply'])) {
+            if (!isset($data['apply']['name'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, name' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            if (!isset($data['apply']['phone'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, phone' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            if (!isset($data['apply']['email'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, email' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            $info = [
+                'locale' => $data['locale'],
+                'insured_amount' => $data['insured_amount'],
+                'product_id' => $product->id,
+                'customer' => [
+                    'name' => $data['apply']['name'],
+                    'email' => $data['apply']['email'],
+                    'phone' => $data['apply']['phone'],
+                ]
+            ];
+
+            $apply = [
+                'info' => json_encode($info),
+                'total' => $result,
+            ];
+
+            ApplyProduct::create($apply);
+        } else {
+            $info = [
+                'locale' => $data['locale'],
+                'insured_amount' => $data['insured_amount'],
                 'product_id' => $product->id,
             ];
         }
