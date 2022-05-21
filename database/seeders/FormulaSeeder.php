@@ -1549,6 +1549,22 @@ class FormulaSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             // End of Group Life Insurance
+
+            /****
+             *
+             * Farmer Life Insurance
+             *
+             */
+            [
+                'method' => 'calculateFarmerLife',
+                'conditions' => json_encode([]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.01],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            // End of Farmer Life Insurance
         ]);
     }
 }
