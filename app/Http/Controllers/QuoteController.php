@@ -2683,7 +2683,7 @@ class QuoteController extends Controller
             $apply = [
                 'info' => json_encode($info),
                 'result' => json_encode([]),
-                'total' => $result,
+                'total' => ($data['insured_amount'] / 1000000) * $result,
             ];
 
             ApplyProduct::create($apply);
@@ -2753,6 +2753,28 @@ class QuoteController extends Controller
                 'code' => $response_code,
                 'status' => __('validation.required', ['attribute' => 'insured_amount']),
                 'errors' => __('validation.required', ['attribute' => 'insured_amount']),
+                'olds' => $request->all(),
+            ];
+        }
+
+        if (!isset($data['coverage_1'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => __('validation.required', ['attribute' => 'coverage_1']),
+                'errors' => __('validation.required', ['attribute' => 'coverage_1']),
+                'olds' => $request->all(),
+            ];
+        }
+
+        if (!isset($data['coverage_2'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => __('validation.required', ['attribute' => 'coverage_2']),
+                'errors' => __('validation.required', ['attribute' => 'coverage_2']),
                 'olds' => $request->all(),
             ];
         }
@@ -2833,7 +2855,11 @@ class QuoteController extends Controller
             if ($flag) {
                 foreach (json_decode($formula->formulas) as $formula) {
                     if ($formula->operator == '=') {
-                        $result = $formula->value;
+                        if ($result > 0) {
+                            $result = $result + $formula->value;
+                        } else {
+                            $result = $formula->value;
+                        }
                     } else {
                         $response_code = 400;
 
@@ -2863,9 +2889,7 @@ class QuoteController extends Controller
             return response()->json($response, $response_code);
         }
 
-        $output = [$result];
-
-        $product = Product::where('slug_url', '=', 'critical-illness-insurance')->first();
+        $product = Product::where('slug_url', '=', 'health-insurance')->first();
 
         /**
          * Apply this calculation
@@ -2926,7 +2950,7 @@ class QuoteController extends Controller
             $apply = [
                 'info' => json_encode($info),
                 'result' => json_encode([]),
-                'total' => $result,
+                'total' => ($data['insured_amount'] / 1000000) * $result,
             ];
 
             ApplyProduct::create($apply);

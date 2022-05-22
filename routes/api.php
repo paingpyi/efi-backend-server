@@ -118,6 +118,8 @@ Route::group(['prefix' => 'quotes'], function () {
         Route::post('farmer-insurance', [QuoteController::class, 'calculateFarmerLife']);
 
         Route::post('critical-illness-insurance', [QuoteController::class, 'calculateCriticalIllness']);
+
+        Route::post('health-insurance', [QuoteController::class, 'calculateHealth']);
     });
 });
 
