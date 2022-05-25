@@ -11,6 +11,7 @@ use App\Http\Controllers\Content\CsrController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\Setting\BlockController;
 use App\Http\Controllers\Setting\CategoryController;
+use App\Http\Resources\AboutEfigResource;
 use App\Http\Resources\AboutEfilResource;
 use App\Http\Resources\PageCollection;
 use App\Models\Page;
@@ -49,16 +50,16 @@ Route::group(['prefix' => 'blogs', 'namespace' => 'Content'], function () {
 });
 
 Route::group(['prefix' => 'pages', 'namespace' => 'Content'], function () {
-    //Route::get('/{para?}', [BlogController::class, 'list']);
-
-    //Route::post('/', [PageController::class, 'postList']);
-
     Route::post('/home', function () {
         return new PageCollection(Page::all());
     });
 
     Route::post('/about-efil', function () {
         return new AboutEfilResource(Page::all());
+    });
+
+    Route::post('/about-efig', function () {
+        return new AboutEfigResource(Page::all());
     });
 });
 
