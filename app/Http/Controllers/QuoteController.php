@@ -2974,4 +2974,103 @@ class QuoteController extends Controller
 
         return response()->json($response, $response_code);
     }
+
+    /**
+     * Calculate Fire Insurance API via JSON.
+     * Life Insurance
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function calculateFireInsurance(Request $request)
+    {
+        $data = $request->json()->all();
+
+        $response_code = 200;
+        $errors = [];
+        $flag = false;
+        $result = 0;
+        $info = [];
+
+        if (!isset($data['locale'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Locale']);
+        }
+
+        if (!isset($data['building']['type'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Building Type']);
+        }
+
+        if (!isset($data['building']['usage'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Usage of Building']);
+        }
+
+        if (!isset($data['building']['roof'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Roof']);
+        }
+
+        if (!isset($data['building']['wall'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Wall']);
+        }
+
+        if (!isset($data['building']['floor'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Floor']);
+        }
+
+        if (!isset($data['building']['length'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'length']);
+        }
+
+        if (!isset($data['building']['width'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'width']);
+        }
+
+        if (!isset($data['building']['age'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'age']);
+        }
+
+        if (!isset($data['building']['value'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'value']);
+        }
+
+        if(Str::lower($data['building']['type']) == 'residential') {
+            if(Str::lower($data['building']['usage']) == 'residential/dwelling house/apartment') {
+                if(Str::lower($data['building']['roof']) == 'aluzinc') {
+
+                }
+            }
+        }
+
+        if($response_code == 400) {
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => $errors,
+                'olds' => $request->all(),
+            ];
+        } else {
+            $response = $data;
+        }
+
+        dd($response);
+    }
 }

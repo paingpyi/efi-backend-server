@@ -11,6 +11,7 @@ use App\Http\Controllers\Content\CsrController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\Setting\BlockController;
 use App\Http\Controllers\Setting\CategoryController;
+use App\Http\Resources\AboutEfilResource;
 use App\Http\Resources\PageCollection;
 use App\Models\Page;
 
@@ -54,6 +55,10 @@ Route::group(['prefix' => 'pages', 'namespace' => 'Content'], function () {
 
     Route::post('/home', function () {
         return new PageCollection(Page::all());
+    });
+
+    Route::post('/about-efil', function () {
+        return new AboutEfilResource(Page::all());
     });
 });
 
@@ -120,6 +125,10 @@ Route::group(['prefix' => 'quotes'], function () {
         Route::post('critical-illness-insurance', [QuoteController::class, 'calculateCriticalIllness']);
 
         Route::post('health-insurance', [QuoteController::class, 'calculateHealth']);
+    });
+
+    Route::group(['prefix' => 'general'], function () {
+        Route::post('fire-insurance', [QuoteController::class, 'calculateFireInsurance']);
     });
 });
 

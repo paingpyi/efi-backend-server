@@ -2515,6 +2515,77 @@ class FormulaSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             // End of Health Insurance
+
+            /****
+             *
+             * Fire Insurance
+             *
+             */
+            [
+                'method' => 'getBuildingClass',
+                'conditions' => json_encode([
+                    ['field' => 'type', 'operator' => '==', 'value' => 'residential'],
+                    ['field' => 'usage', 'operator' => '==', 'value' => [
+                        'residential/dwelling house/apartment',
+                        'office',
+                        'schools/colleges/universities',
+                        'religious building',
+                        'gymnasium'
+                    ]],
+                    ['field' => 'roof', 'operator' => '==', 'value' => [
+                        'aluzinc',
+                        'clay/brick tile',
+                        'ac sheet',
+                        'metal sheet',
+                        'amcan'
+                    ]],
+                    ['field' => 'wall', 'operator' => '==', 'value' => [
+                        'brick',
+                        'brick+metal',
+                    ]],
+                    ['field' => 'floor', 'operator' => '==', 'value' => 'concrete'],
+                    ['field' => 'age', 'operator' => '<=', 'value' => 5],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'pae', 'operator' => '==', 'value' => 40000],
+                    ['field' => 'rate', 'operator' => '==', 'value' => 0.2],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'getBuildingClass',
+                'conditions' => json_encode([
+                    ['field' => 'type', 'operator' => '==', 'value' => 'residential'],
+                    ['field' => 'usage', 'operator' => '==', 'value' => [
+                        'residential/dwelling house/apartment',
+                        'office',
+                        'schools/colleges/universities',
+                        'religious building',
+                        'gymnasium'
+                    ]],
+                    ['field' => 'roof', 'operator' => '==', 'value' => [
+                        'aluzinc',
+                        'clay/brick tile',
+                        'ac sheet',
+                        'metal sheet',
+                        'amcan'
+                    ]],
+                    ['field' => 'wall', 'operator' => '==', 'value' => [
+                        'brick',
+                        'brick+metal',
+                    ]],
+                    ['field' => 'floor', 'operator' => '==', 'value' => 'concrete'],
+                    ['field' => 'age', 'operator' => '<=', 'value' => 5],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'pae', 'operator' => '==', 'value' => 40000],
+                    ['field' => 'rate', 'operator' => '==', 'value' => 0.2],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            // End of Fire Insurance
         ]);
     }
 }
