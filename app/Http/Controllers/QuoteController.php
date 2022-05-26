@@ -3052,15 +3052,78 @@ class QuoteController extends Controller
             $errors[] = __('validation.required', ['attribute' => 'value']);
         }
 
-        if(Str::lower($data['building']['type']) == 'residential') {
-            if(Str::lower($data['building']['usage']) == 'residential/dwelling house/apartment') {
-                if(Str::lower($data['building']['roof']) == 'aluzinc') {
+        if (!isset($data['riot'])) {
+            $response_code = 400;
 
-                }
-            }
+            $errors[] = __('validation.required', ['attribute' => 'Riot']);
         }
 
-        if($response_code == 400) {
+        if (!isset($data['air_craft'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Air Craft Damage']);
+        }
+
+        if (!isset($data['subsidence_landslide'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Subsidence and Landslide']);
+        }
+
+        if (!isset($data['impact'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Impact Damage']);
+        }
+
+        if (!isset($data['earth-quak'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Earth-quake fire/Earth-quake shock']);
+        }
+
+        if (!isset($data['explosion'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Explosion']);
+        }
+
+        if (!isset($data['spontaneous-combustion'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Spontaneous combustion']);
+        }
+
+        if (!isset($data['war'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'War Risk']);
+        }
+
+        if (!isset($data['flood-inundation'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Flood and Inundation']);
+        }
+
+        if (!isset($data['storm'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Storm, Typhoon, Hurricane, Tempest, Cyclone']);
+        }
+
+        $risk_point = $this->getBuildingRisk($data['building']);
+        $neighbor_risk_point = 0.0;
+
+        if (isset($data['neighbor'])) {
+            $neighbor_risk_point = $this->getBuildingRisk($data['neighbor']);
+
+            $risk = ($risk_point + $neighbor_risk_point) / 2;
+        } else {
+            $risk = $risk_point;
+        }
+
+        if ($response_code == 400) {
             $response = [
                 'code' => $response_code,
                 'status' => $this->error400status_eng,
@@ -3068,9 +3131,186 @@ class QuoteController extends Controller
                 'olds' => $request->all(),
             ];
         } else {
-            $response = $data;
+            $risk = ($risk_point + $neighbor_risk_point) / 2;
+
+            if ($data['riot']) {
+                $risk += 0.06;
+            }
+
+            if ($data['air_craft']) {
+                $risk += 0.1;
+            }
+
+            if ($data['subsidence_landslide']) {
+                $risk += 0.1;
+            }
+
+            if ($data['impact']) {
+                $risk += 0.1;
+            }
+
+            if ($data['earth-quak']) {
+                $risk += 0.1;
+            }
+
+            if ($data['explosion']) {
+                $risk += 0.1;
+            }
+
+            if ($data['spontaneous-combustion']) {
+                $risk += 0.08;
+            }
+
+            if ($data['war']) {
+                $risk += 0.1;
+            }
+
+            if ($data['flood-inundation']) {
+                $risk += 0.1;
+            }
+
+            if ($data['storm']) {
+                $risk += 0.2;
+            }
+
+            $product = Product::where('slug_url', '=', 'fire-insurance')->first();
+
+            $premium = $data['building']['value'] * ($risk / 100);
+
+            /**
+             * Apply this calculation
+             */
+            if (isset($data['apply'])) {
+                if (!isset($data['apply']['name'])) {
+                    $response_code = 400;
+
+                    $response = [
+                        'code' => $response_code,
+                        'status' => $this->error400status_eng,
+                        'errors' => 'For appling this product, name' . $this->required_error_eng,
+                        'olds' => $request->all(),
+                    ];
+
+                    return response()->json($response, $response_code);
+                }
+
+                if (!isset($data['apply']['phone'])) {
+                    $response_code = 400;
+
+                    $response = [
+                        'code' => $response_code,
+                        'status' => $this->error400status_eng,
+                        'errors' => 'For appling this product, phone' . $this->required_error_eng,
+                        'olds' => $request->all(),
+                    ];
+
+                    return response()->json($response, $response_code);
+                }
+
+                if (!isset($data['apply']['email'])) {
+                    $response_code = 400;
+
+                    $response = [
+                        'code' => $response_code,
+                        'status' => $this->error400status_eng,
+                        'errors' => 'For appling this product, email' . $this->required_error_eng,
+                        'olds' => $request->all(),
+                    ];
+
+                    return response()->json($response, $response_code);
+                }
+
+                $info = [
+                    'locale' => $data['locale'],
+                    'product_id' => $product->id,
+                    'customer' => [
+                        'name' => $data['apply']['name'],
+                        'email' => $data['apply']['email'],
+                        'phone' => $data['apply']['phone'],
+                    ]
+                ];
+
+                $apply = [
+                    'info' => json_encode($info),
+                    'result' => json_encode([]),
+                    'total' => $premium,
+                ];
+
+                ApplyProduct::create($apply);
+            } else {
+                $info = [
+                    'locale' => $data['locale'],
+                    'product_id' => $product->id,
+                ];
+            }
+            // End of Apply
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->success_eng,
+                'info' => $info,
+                'total' => $premium
+            ];
         }
 
-        dd($response);
+        return response()->json($response, $response_code);
+    }
+
+    private function getBuildingRisk($input)
+    {
+        $result = 0.0;
+        if (
+            Str::lower($input['roof']) == 'aluzinc' or
+            Str::lower($input['roof']) == 'clay/brick tile' or
+            Str::lower($input['roof']) == 'ac sheet' or
+            Str::lower($input['roof']) == 'metal sheet' or
+            Str::lower($input['roof']) == 'amcan'
+        ) {
+            if (
+                Str::lower($input['wall']) == 'brick' or
+                Str::lower($input['wall']) == 'brick+metal'
+            ) {
+                if (Str::lower($input['floor']) == 'concrete') {
+                    if ($input['age'] <= 5) {
+                        if (Str::lower($input['type']) == 'residential') {
+                            if (
+                                Str::lower($input['usage']) == 'residential/dwelling house/apartment' or
+                                Str::lower($input['usage']) == 'office' or
+                                Str::lower($input['usage']) == 'schools/colleges/universities' or
+                                Str::lower($input['usage']) == 'religious building' or
+                                Str::lower($input['usage']) == 'gymnasium'
+                            ) {
+                                $result = 0.2;
+                            } else if (
+                                Str::lower($input['usage']) == 'hotels/motels/similars as inns' or
+                                Str::lower($input['usage']) == 'libraries/museums and gallery'
+                            ) {
+                                $result = 0.34;
+                            } else if (Str::lower($input['usage']) == 'cinemas/a amusement part/airport/railway station') {
+                                $result = 0.70;
+                            }
+                        }
+                    } else if ($input['age'] <= 10) {
+                        $result = 0.28;
+                    } else {
+                        $result = 0.84;
+                    }
+                } else {
+                    $result = 0.28;
+                }
+            } else if (
+                Str::lower($input['wall']) == 'brick+timber' or
+                Str::lower($input['wall']) == 'ac sheet' or
+                Str::lower($input['wall']) == 'metal mesh'
+            ) {
+                $result = 0.28;
+            } else {
+                $result = 0.84;
+            }
+        } else {
+            $result = 0.84;
+        }
+
+        return $result;
     }
 }
