@@ -130,6 +130,8 @@ Route::group(['prefix' => 'quotes'], function () {
 
     Route::group(['prefix' => 'general'], function () {
         Route::post('fire-insurance', [QuoteController::class, 'calculateFireInsurance']);
+
+        Route::post('inland-transit', [QuoteController::class, 'calculateInlandTransit']);
     });
 });
 

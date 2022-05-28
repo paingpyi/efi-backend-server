@@ -3313,4 +3313,141 @@ class QuoteController extends Controller
 
         return $result;
     }
+
+    /**
+     * Calculate Fire Insurance API via JSON.
+     * Life Insurance
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function calculateInlandTransit(Request $request)
+    {
+        $data = $request->json()->all();
+
+        $response_code = 200;
+        $errors = [];
+        $flag = false;
+        $result = 0;
+        $info = [];
+
+        if (!isset($data['locale'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Locale']);
+        }
+
+        if (!isset($data['insured_amount'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Insured amount']);
+        }
+
+        if (!isset($data['from'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'From']);
+        }
+
+        if (!isset($data['to'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'To']);
+        }
+
+        if (!isset($data['goods_type'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Goods Type']);
+        }
+
+        $product = Product::where('slug_url', '=', 'fire-insurance')->first();
+
+        $premium = ($data['insured_amount'] * 0.28) + 10000;
+
+        /**
+         * Apply this calculation
+         */
+        if (isset($data['apply'])) {
+            if (!isset($data['apply']['name'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, name' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            if (!isset($data['apply']['phone'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, phone' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            if (!isset($data['apply']['email'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, email' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            $info = [
+                'locale' => $data['locale'],
+                'from' => $data['from'],
+                'to' => $data['to'],
+                'goods_type'=>$data['goods_type'],
+                'insured_amount' => $data['insured_amount'],
+                'product_id' => $product->id,
+                'customer' => [
+                    'name' => $data['apply']['name'],
+                    'email' => $data['apply']['email'],
+                    'phone' => $data['apply']['phone'],
+                ]
+            ];
+
+            $apply = [
+                'info' => json_encode($info),
+                'result' => json_encode([]),
+                'total' => $premium,
+            ];
+
+            ApplyProduct::create($apply);
+        } else {
+            $info = [
+                'locale' => $data['locale'],
+                'from' => $data['from'],
+                'to' => $data['to'],
+                'goods_type'=>$data['goods_type'],
+                'insured_amount' => $data['insured_amount'],
+                'product_id' => $product->id,
+            ];
+        }
+        // End of Apply
+
+        $response = [
+            'code' => $response_code,
+            'status' => $this->success_eng,
+            'info' => $info,
+            'total' => $premium
+        ];
+
+        return response()->json($response, $response_code);
+    }
 }
