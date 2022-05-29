@@ -2518,42 +2518,43 @@ class FormulaSeeder extends Seeder
 
             /****
              *
-             * Fire Insurance
+             * Inland Transit Insurance
              *
              */
             [
-                'method' => 'getBuildingClass',
+                'method' => 'calculateInlandTransit',
                 'conditions' => json_encode([
-                    ['field' => 'type', 'operator' => '==', 'value' => 'residential'],
-                    ['field' => 'usage', 'operator' => '==', 'value' => [
-                        'residential/dwelling house/apartment',
-                        'office',
-                        'schools/colleges/universities',
-                        'religious building',
-                        'gymnasium'
-                    ]],
-                    ['field' => 'roof', 'operator' => '==', 'value' => [
-                        'aluzinc',
-                        'clay/brick tile',
-                        'ac sheet',
-                        'metal sheet',
-                        'amcan'
-                    ]],
-                    ['field' => 'wall', 'operator' => '==', 'value' => [
-                        'brick',
-                        'brick+metal',
-                    ]],
-                    ['field' => 'floor', 'operator' => '==', 'value' => 'concrete'],
-                    ['field' => 'age', 'operator' => '<=', 'value' => 5],
+                    ['field' => 'goods_type', 'operator' => '==', 'value' => 'dagerous cargo (or) flammable cargo'],
                 ]),
                 'formulas' => json_encode([
-                    ['field' => 'pae', 'operator' => '==', 'value' => 40000],
-                    ['field' => 'rate', 'operator' => '==', 'value' => 0.2],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.28],
                 ]),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
-            // End of Fire Insurance
+            [
+                'method' => 'calculateInlandTransit',
+                'conditions' => json_encode([
+                    ['field' => 'goods_type', 'operator' => '==', 'value' => 'fragila goods'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.8],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateInlandTransit',
+                'conditions' => json_encode([
+                    ['field' => 'goods_type', 'operator' => '==', 'value' => 'general cargo '],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.14],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            // End of Inland Transit Insurance
         ]);
     }
 }

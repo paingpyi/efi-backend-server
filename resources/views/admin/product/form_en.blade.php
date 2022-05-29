@@ -1,7 +1,8 @@
 <div class="form-group">
     <label for="title"><i class="flag-icon flag-icon-us mr-2"></i> Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="title" value="{{ old('title', isset($product_en->title) ? json_decode($product_en->title) : '') }}"
+    <input type="text" name="title"
+        value="{{ old('title', isset($product_en->title) ? json_decode($product_en->title) : '') }}"
         class="form-control" id="title" aria-describedby="titleHelp">
     <small id="titleHelp" class="form-text text-muted">Please enter
         title.</small>
@@ -12,8 +13,8 @@
 <div class="form-group">
     <label for="slogan"><i class="flag-icon flag-icon-us mr-2"></i> Slogan</label>
     <input type="text" name="slogan"
-        value="{{ old('slogan', isset($product_en->slogan) ? json_decode($product_en->slogan) : '') }}" class="form-control"
-        id="slogan">
+        value="{{ old('slogan', isset($product_en->slogan) ? json_decode($product_en->slogan) : '') }}"
+        class="form-control" id="slogan">
 </div>
 <!-- Food for Thought -->
 <hr>
@@ -21,7 +22,7 @@
 <div class="form-group">
     <label for="food_for_thought"><i class="flag-icon flag-icon-us mr-2"></i> Title</label>
     <input type="text" name="food_for_thought"
-        value="{{ old('food_for_thought', isset($product_en) ? json_decode($product_en->food_for_thought)->title : '') }}"
+        value="{{ old('food_for_thought', isset($product_en) or (json_decode($product_en->food_for_thought)->title != null ? json_decode($product_en->food_for_thought)->title : '')) }}"
         class="form-control" id="food_for_thought">
 </div>
 <div class="form-group">
@@ -29,7 +30,7 @@
         Description
         <span class="text-danger">*</span></label>
     <textarea name="food_for_thought_description" class="summernote"
-        id="food_for_thought_description">{{ old('food_for_thought_description', isset($product_en) ? json_decode($product_en->food_for_thought)->description : '') }}</textarea>
+        id="food_for_thought_description">{{ old('food_for_thought_description', isset($product_en) or (json_decode($product_en->food_for_thought)->description != null ? json_decode($product_en->food_for_thought)->description : '')) }}</textarea>
 </div>
 <!-- /. End of Food for Thought -->
 <!-- Paragraphs -->
@@ -83,7 +84,7 @@ if (isset($product_en)) {
 @php
 $diagrams_and_table = [];
 
-if (isset($product_en)) {
+if (isset($product_en) or json_decode($product_en->diagrams_and_table) != null) {
     foreach (json_decode($product_en->diagrams_and_table) as $item) {
         $diagrams_and_table[] = [
             'title' => $item->title,
@@ -112,7 +113,7 @@ if (isset($product_en)) {
         Description
         <span class="text-danger">*</span></label>
     <textarea name="diagram_table_description[]" class="summernote"
-        id="diagram_table_description1">{{ old('diagram_table_description[0]',isset($diagrams_and_table[0]['description']) ? $diagrams_and_table[0]['description'] : '') }}</textarea>
+        id="diagram_table_description1">{{ old('diagram_table_description[0]', isset($diagrams_and_table[0]['description']) ? $diagrams_and_table[0]['description'] : '') }}</textarea>
 </div>
 <div class="form-group">
     <div class="input-group">
@@ -123,7 +124,7 @@ if (isset($product_en)) {
             </a>
         </span>
         <input id="diagram_table_image_thumbnail" class="form-control" type="text" name="diagram_table_image[]"
-            value="{{ old('diagram_table_image[0]',isset($diagrams_and_table[0]['image']['src']) ? $diagrams_and_table[0]['image']['src'] : '') }}">
+            value="{{ old('diagram_table_image[0]', isset($diagrams_and_table[0]['image']['src']) ? $diagrams_and_table[0]['image']['src'] : '') }}">
     </div>
     <div id="diagram_table_image_holder" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Diagram and Table Image -->
@@ -133,7 +134,7 @@ if (isset($product_en)) {
             <label for="diagram_table_image_width[]"><i class="flag-icon flag-icon-us mr-2"></i> Image Width
                 <span class="text-danger">*</span></label>
             <input type="text" name="diagram_table_image_width[]"
-                value="{{ old('diagram_table_image_width[0]',isset($diagrams_and_table[0]['image']['width']) ? $diagrams_and_table[0]['image']['width'] : '') }}"
+                value="{{ old('diagram_table_image_width[0]', isset($diagrams_and_table[0]['image']['width']) ? $diagrams_and_table[0]['image']['width'] : '') }}"
                 class="form-control" id="diagram_table_image_width1" placeholder="Image Width (px)">
         </div>
     </div> <!-- /. Image width -->
@@ -142,7 +143,7 @@ if (isset($product_en)) {
             <label for="diagram_table_image_height[]"><i class="flag-icon flag-icon-us mr-2"></i> Image Height
                 <span class="text-danger">*</span></label>
             <input type="text" name="diagram_table_image_height[]"
-                value="{{ old('diagram_table_image_height[0]',isset($diagrams_and_table[0]['image']['height']) ? $diagrams_and_table[0]['image']['height'] : '') }}"
+                value="{{ old('diagram_table_image_height[0]', isset($diagrams_and_table[0]['image']['height']) ? $diagrams_and_table[0]['image']['height'] : '') }}"
                 class="form-control" id="diagram_table_image_height1" placeholder="Image Height (px)">
         </div>
     </div> <!-- /. Image height -->
@@ -162,7 +163,7 @@ if (isset($product_en)) {
         Description
         <span class="text-danger">*</span></label>
     <textarea name="diagram_table_description[]" class="summernote"
-        id="diagram_table_description2">{{ old('diagram_table_description[1]',isset($diagrams_and_table[1]['description']) ? $diagrams_and_table[1]['description'] : '') }}</textarea>
+        id="diagram_table_description2">{{ old('diagram_table_description[1]', isset($diagrams_and_table[1]['description']) ? $diagrams_and_table[1]['description'] : '') }}</textarea>
 </div>
 <div class="form-group">
     <div class="input-group">
@@ -173,7 +174,7 @@ if (isset($product_en)) {
             </a>
         </span>
         <input id="diagram_table_image_thumbnail2" class="form-control" type="text" name="diagram_table_image[]"
-            value="{{ old('diagram_table_image[1]',isset($diagrams_and_table[1]['image']['src']) ? $diagrams_and_table[1]['image']['src'] : '') }}">
+            value="{{ old('diagram_table_image[1]', isset($diagrams_and_table[1]['image']['src']) ? $diagrams_and_table[1]['image']['src'] : '') }}">
     </div>
     <div id="diagram_table_image_holder2" class="img-thumbnail mx-auto d-block mt-3"></div>
 </div> <!-- /. Diagram and Table Image -->
@@ -183,7 +184,7 @@ if (isset($product_en)) {
             <label for="diagram_table_image_width[]"><i class="flag-icon flag-icon-us mr-2"></i> Image Width
                 <span class="text-danger">*</span></label>
             <input type="text" name="diagram_table_image_width[]"
-                value="{{ old('diagram_table_image_width[1]',isset($diagrams_and_table[1]['image']['width']) ? $diagrams_and_table[1]['image']['width'] : '') }}"
+                value="{{ old('diagram_table_image_width[1]', isset($diagrams_and_table[1]['image']['width']) ? $diagrams_and_table[1]['image']['width'] : '') }}"
                 class="form-control" id="diagram_table_image_width2" placeholder="Image Width (px)">
         </div>
     </div> <!-- /. Image width -->
@@ -192,7 +193,7 @@ if (isset($product_en)) {
             <label for="diagram_table_image_height[]"><i class="flag-icon flag-icon-us mr-2"></i> Image Height
                 <span class="text-danger">*</span></label>
             <input type="text" name="diagram_table_image_height[]"
-                value="{{ old('diagram_table_image_height[1]',isset($diagrams_and_table[1]['image']['height']) ? $diagrams_and_table[1]['image']['height'] : '') }}"
+                value="{{ old('diagram_table_image_height[1]', isset($diagrams_and_table[1]['image']['height']) ? $diagrams_and_table[1]['image']['height'] : '') }}"
                 class="form-control" id="diagram_table_image_height2" placeholder="Image Height (px)">
         </div>
     </div> <!-- /. Image height -->
@@ -217,13 +218,13 @@ if (isset($product_en)) {
         Description
         <span class="text-danger">*</span></label>
     <textarea name="apply_insurance_description" class="summernote"
-        id="apply_insurance_description">{{ old('apply_insurance_description',isset($product_en) ? json_decode($product_en->apply_insurance)->description : '') }}</textarea>
+        id="apply_insurance_description">{{ old('apply_insurance_description', isset($product_en) ? json_decode($product_en->apply_insurance)->description : '') }}</textarea>
 </div>
 <div class="form-group">
     <label for="apply_insurance_buttonText"><i class="flag-icon flag-icon-us mr-2"></i> Button Text
         <span class="text-danger">*</span></label>
     <input type="text" name="apply_insurance_buttonText"
-        value="{{ old('apply_insurance_buttonText',isset($product_en) ? json_decode($product_en->apply_insurance)->buttonText : '') }}"
+        value="{{ old('apply_insurance_buttonText', isset($product_en) ? json_decode($product_en->apply_insurance)->buttonText : '') }}"
         class="form-control" id="apply_insurance_buttonText">
     @error('apply_insurance_buttonText')
         <div class="alert alert-danger">{{ $message }}</div>
@@ -248,7 +249,7 @@ if (isset($product_en)) {
         Description
         <span class="text-danger">*</span></label>
     <textarea name="why_work_description" class="summernote"
-        id="why_work_description">{{ old('why_work_description',isset($product_en) ? json_decode($product_en->why_work_with_us)->description : '') }}</textarea>
+        id="why_work_description">{{ old('why_work_description', isset($product_en) ? json_decode($product_en->why_work_with_us)->description : '') }}</textarea>
 </div>
 <div class="form-group">
     <div class="input-group">
@@ -271,7 +272,7 @@ if (isset($product_en)) {
 @php
 $additional_benifits_data = [];
 
-if (isset($product_en)) {
+if (isset(json_decode($product_en->additional_benifits)->data)) {
     foreach (json_decode($product_en->additional_benifits)->data as $item) {
         $additional_benifits_data[] = [
             'icon' => config('app.url') . $item->icon,
@@ -284,7 +285,7 @@ if (isset($product_en)) {
     <label for="additional_title"><i class="flag-icon flag-icon-us mr-2"></i> Title
         <span class="text-danger">*</span></label>
     <input type="text" name="additional_title"
-        value="{{ old('additional_title', isset($product_en) ? json_decode($product_en->additional_benifits)->title : '') }}"
+        value="{{ old('additional_title', isset($product_en) or (json_decode($product_en->additional_benifits)->title != null ? json_decode($product_en->additional_benifits)->title : '')) }}"
         class="form-control" id="additional_title">
     @error('additional_title')
         <div class="alert alert-danger">{{ $message }}</div>
@@ -301,7 +302,7 @@ if (isset($product_en)) {
             </a>
         </span>
         <input id="additional_icon_thumbnail1" class="form-control" type="text"
-            value="{{ old('additional_icon[0]',isset($additional_benifits_data[0]['icon']) ? $additional_benifits_data[0]['icon'] : '') }}"
+            value="{{ old('additional_icon[0]', isset($additional_benifits_data[0]['icon']) ? $additional_benifits_data[0]['icon'] : '') }}"
             name="additional_icon[]">
     </div>
     <div class="row mt-3">
@@ -310,7 +311,7 @@ if (isset($product_en)) {
         </div>
         <div class="col-9">
             <textarea name="additional_iconText[]" class="summernote"
-                id="additional_iconText1">{{ old('additional_iconText[0]',isset($additional_benifits_data[0]['text']) ? $additional_benifits_data[0]['text'] : '') }}</textarea>
+                id="additional_iconText1">{{ old('additional_iconText[0]', isset($additional_benifits_data[0]['text']) ? $additional_benifits_data[0]['text'] : '') }}</textarea>
         </div>
     </div>
 </div> <!-- /. Additional Benefit Image -->
@@ -324,7 +325,7 @@ if (isset($product_en)) {
             </a>
         </span>
         <input id="additional_icon_thumbnail2" class="form-control" type="text"
-            value="{{ old('additional_icon[1]',isset($additional_benifits_data[1]['icon']) ? $additional_benifits_data[1]['icon'] : '') }}"
+            value="{{ old('additional_icon[1]', isset($additional_benifits_data[1]['icon']) ? $additional_benifits_data[1]['icon'] : '') }}"
             name="additional_icon[]">
     </div>
     <div class="row mt-3">
@@ -333,7 +334,7 @@ if (isset($product_en)) {
         </div>
         <div class="col-9">
             <textarea name="additional_iconText[]" class="summernote"
-                id="additional_iconText2">{{ old('additional_iconText[1]',isset($additional_benifits_data[1]['text']) ? $additional_benifits_data[1]['text'] : '') }}</textarea>
+                id="additional_iconText2">{{ old('additional_iconText[1]', isset($additional_benifits_data[1]['text']) ? $additional_benifits_data[1]['text'] : '') }}</textarea>
         </div>
     </div>
 </div> <!-- /. Additional Benefit Image -->
@@ -347,7 +348,7 @@ if (isset($product_en)) {
             </a>
         </span>
         <input id="additional_icon_thumbnail3" class="form-control"
-            value="{{ old('additional_icon[2]',isset($additional_benifits_data[2]['icon']) ? $additional_benifits_data[2]['icon'] : '') }}"
+            value="{{ old('additional_icon[2]', isset($additional_benifits_data[2]['icon']) ? $additional_benifits_data[2]['icon'] : '') }}"
             type="text" name="additional_icon[]">
     </div>
     <div class="row mt-3">
@@ -356,7 +357,7 @@ if (isset($product_en)) {
         </div>
         <div class="col-9">
             <textarea name="additional_iconText[]" class="summernote"
-                id="additional_iconText3">{{ old('additional_iconText[2]',isset($additional_benifits_data[2]['text']) ? $additional_benifits_data[2]['text'] : '') }}</textarea>
+                id="additional_iconText3">{{ old('additional_iconText[2]', isset($additional_benifits_data[2]['text']) ? $additional_benifits_data[2]['text'] : '') }}</textarea>
         </div>
     </div>
 </div> <!-- /. Additional Benefit Image -->
@@ -370,7 +371,7 @@ if (isset($product_en)) {
             </a>
         </span>
         <input id="additional_icon_thumbnail4" class="form-control"
-            value="{{ old('additional_icon[3]',isset($additional_benifits_data[3]['icon']) ? $additional_benifits_data[3]['icon'] : '') }}"
+            value="{{ old('additional_icon[3]', isset($additional_benifits_data[3]['icon']) ? $additional_benifits_data[3]['icon'] : '') }}"
             type="text" name="additional_icon[]">
     </div>
     <div class="row mt-3">
@@ -379,7 +380,7 @@ if (isset($product_en)) {
         </div>
         <div class="col-9">
             <textarea name="additional_iconText[]" class="summernote"
-                id="additional_iconText4">{{ old('additional_iconText[3]',isset($additional_benifits_data[3]['text']) ? $additional_benifits_data[3]['text'] : '') }}</textarea>
+                id="additional_iconText4">{{ old('additional_iconText[3]', isset($additional_benifits_data[3]['text']) ? $additional_benifits_data[3]['text'] : '') }}</textarea>
         </div>
     </div>
 </div> <!-- /. Additional Benefit Image -->
@@ -393,7 +394,7 @@ if (isset($product_en)) {
             </a>
         </span>
         <input id="additional_icon_thumbnail5" class="form-control" type="text"
-            value="{{ old('additional_icon[3]',isset($additional_benifits_data[4]['icon']) ? $additional_benifits_data[4]['icon'] : '') }}"
+            value="{{ old('additional_icon[3]', isset($additional_benifits_data[4]['icon']) ? $additional_benifits_data[4]['icon'] : '') }}"
             name="additional_icon[]">
     </div>
     <div class="row mt-3">
@@ -402,7 +403,7 @@ if (isset($product_en)) {
         </div>
         <div class="col-9">
             <textarea name="additional_iconText[]" class="summernote"
-                id="additional_iconText5">{{ old('additional_iconText[4]',isset($additional_benifits_data[4]['text']) ? $additional_benifits_data[4]['text'] : '') }}</textarea>
+                id="additional_iconText5">{{ old('additional_iconText[4]', isset($additional_benifits_data[4]['text']) ? $additional_benifits_data[4]['text'] : '') }}</textarea>
         </div>
     </div>
 </div> <!-- /. Additional Benefit Image -->
@@ -440,7 +441,7 @@ if (isset($product_en)) {
         Description
         <span class="text-danger">*</span></label>
     <textarea name="attachments_description[]" class="summernote"
-        id="attachments_description1">{{ old('attachments_description[0]',isset($attachments[0]['description']) ? $attachments[0]['description'] : '') }}</textarea>
+        id="attachments_description1">{{ old('attachments_description[0]', isset($attachments[0]['description']) ? $attachments[0]['description'] : '') }}</textarea>
 </div>
 <div class="form-group">
     <label>icon <span class="text-danger">*</span></label>
@@ -473,7 +474,7 @@ if (isset($product_en)) {
             </a>
         </span>
         <input id="attachments_proposal_file1" class="form-control" type="text"
-            value="{{ old('attachments_proposal_file[0]',isset($attachments[0]['proposal_file']) ? $attachments[0]['proposal_file'] : '') }}"
+            value="{{ old('attachments_proposal_file[0]', isset($attachments[0]['proposal_file']) ? $attachments[0]['proposal_file'] : '') }}"
             name="attachments_proposal_file[]">
     </div>
 </div> <!-- /. Product Proposal -->
@@ -492,7 +493,7 @@ if (isset($product_en)) {
         Description
         <span class="text-danger">*</span></label>
     <textarea name="attachments_description[]" class="summernote"
-        id="attachments_description2">{{ old('attachments_description[1]',isset($attachments[1]['description']) ? $attachments[1]['description'] : '') }}</textarea>
+        id="attachments_description2">{{ old('attachments_description[1]', isset($attachments[1]['description']) ? $attachments[1]['description'] : '') }}</textarea>
 </div>
 <div class="form-group">
     <label>icon <span class="text-danger">*</span></label>
@@ -525,7 +526,7 @@ if (isset($product_en)) {
             </a>
         </span>
         <input id="attachments_proposal_file2" class="form-control" type="text" name="attachments_proposal_file[]"
-            value="{{ old('attachments_proposal_file[1]',isset($attachments[1]['proposal_file']) ? $attachments[1]['proposal_file'] : '') }}">
+            value="{{ old('attachments_proposal_file[1]', isset($attachments[1]['proposal_file']) ? $attachments[1]['proposal_file'] : '') }}">
     </div>
 </div> <!-- /. Product Proposal -->
 <!-- /. End of Attachments -->

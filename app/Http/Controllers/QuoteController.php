@@ -3361,9 +3361,93 @@ class QuoteController extends Controller
             $errors[] = __('validation.required', ['attribute' => 'Goods Type']);
         }
 
+        foreach (Formula::where('method', '=', 'calculateInlandTransit')->get() as $formula) {
+            foreach (json_decode($formula->conditions) as $condition) {
+                if ($condition->operator == '<') {
+                    if ($data[$condition->field] < $condition->value) {
+                        $flag = true;
+                    } else {
+                        $flag = false;
+                        break;
+                    }
+                } else if ($condition->operator == '>') {
+                    if ($data[$condition->field] > $condition->value) {
+                        $flag = true;
+                    } else {
+                        $flag = false;
+                        break;
+                    }
+                } else if ($condition->operator == '<=') {
+                    if ($data[$condition->field] <= $condition->value) {
+                        $flag = true;
+                    } else {
+                        $flag = false;
+                        break;
+                    }
+                } else if ($condition->operator == '>=') {
+                    if ($data[$condition->field] >= $condition->value) {
+                        $flag = true;
+                    } else {
+                        $flag = false;
+                        break;
+                    }
+                } else if ($condition->operator == '==') {
+                    if (Str::lower($data[$condition->field]) == $condition->value) {
+                        $flag = true;
+                    } else {
+                        $flag = false;
+                        break;
+                    }
+                } else {
+                    $response_code = 400;
+
+                    $response = [
+                        'code' => $response_code,
+                        'status' => $this->error400status_eng,
+                        'errors' => $this->error_operators_eng,
+                        'olds' => $condition->field . ' ' . $condition->operator . ' ' . $condition->value,
+                    ];
+
+                    return response()->json($response, $response_code);
+                }
+            } // End of conditions
+
+            if ($flag) {
+                foreach (json_decode($formula->formulas) as $formula) {
+                    if ($formula->operator == '*') {
+                        $result = ($data[$formula->field] * $formula->value) / 100;
+                    } else {
+                        $response_code = 400;
+
+                        $response = [
+                            'code' => $response_code,
+                            'status' => $this->error400status_eng,
+                            'errors' => $this->error_arithmetic_eng,
+                            'olds' => $formula->field . ': Formula - ' . $formula->value,
+                        ];
+
+                        return response()->json($response, $response_code);
+                    }
+                } // End of formula
+            }
+        } // End of Formula table
+
+        if ($result <= 0) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => $this->not_eligible_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response, $response_code);
+        }
+
         $product = Product::where('slug_url', '=', 'fire-insurance')->first();
 
-        $premium = ($data['insured_amount'] * 0.28) + 10000;
+        $premium = $result + 10000;
 
         /**
          * Apply this calculation
@@ -3412,7 +3496,7 @@ class QuoteController extends Controller
                 'locale' => $data['locale'],
                 'from' => $data['from'],
                 'to' => $data['to'],
-                'goods_type'=>$data['goods_type'],
+                'goods_type' => $data['goods_type'],
                 'insured_amount' => $data['insured_amount'],
                 'product_id' => $product->id,
                 'customer' => [
@@ -3434,7 +3518,7 @@ class QuoteController extends Controller
                 'locale' => $data['locale'],
                 'from' => $data['from'],
                 'to' => $data['to'],
-                'goods_type'=>$data['goods_type'],
+                'goods_type' => $data['goods_type'],
                 'insured_amount' => $data['insured_amount'],
                 'product_id' => $product->id,
             ];

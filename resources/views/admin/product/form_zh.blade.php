@@ -22,7 +22,7 @@
 <div class="form-group">
     <label for="food_for_thought_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Title</label>
     <input type="text" name="food_for_thought_chinese"
-        value="{{ old('food_for_thought_chinese', isset($product_zh) ? json_decode($product_zh->food_for_thought)->title : '') }}"
+        value="{{ old('food_for_thought_chinese', isset($product_zh) or json_decode($product_zh->food_for_thought)->title != null ? json_decode($product_zh->food_for_thought)->title : '') }}"
         class="form-control" id="food_for_thought_chinese">
 </div>
 <div class="form-group">
@@ -30,7 +30,7 @@
         Description
         <span class="text-danger">*</span></label>
     <textarea name="food_for_thought_description_chinese" class="summernote"
-        id="food_for_thought_description_chinese">{{ old('food_for_thought_description_chinese', isset($product_zh) ? json_decode($product_zh->food_for_thought)->description : '') }}</textarea>
+        id="food_for_thought_description_chinese">{{ old('food_for_thought_description_chinese', isset($product_zh) or json_decode($product_zh->food_for_thought)->description != null ? json_decode($product_zh->food_for_thought)->description : '') }}</textarea>
 </div>
 <!-- /. End of Food for Thought -->
 <!-- Paragraphs -->
@@ -275,7 +275,7 @@ if (isset($product_zh)) {
 @php
 $additional_benifits_data = [];
 
-if (isset($product_zh)) {
+if (isset(json_decode($product_zh->additional_benifits)->data)) {
     foreach (json_decode($product_zh->additional_benifits)->data as $item) {
         $additional_benifits_data[] = [
             'icon' => config('app.url') . $item->icon,
@@ -288,7 +288,7 @@ if (isset($product_zh)) {
     <label for="additional_title_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Title
         <span class="text-danger">*</span></label>
     <input type="text" name="additional_title_chinese"
-        value="{{ old('additional_title_chinese',isset($product_zh) ? json_decode($product_zh->additional_benifits)->title: '') }}"
+        value="{{ old('additional_title_chinese',isset($product_zh) or json_decode($product_zh->additional_benifits)->title!=null ? json_decode($product_zh->additional_benifits)->title: '') }}"
         class="form-control" id="additional_title_chinese">
     @error('additional_title_chinese')
         <div class="alert alert-danger">{{ $message }}</div>

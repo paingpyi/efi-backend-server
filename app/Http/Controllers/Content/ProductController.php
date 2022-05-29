@@ -65,12 +65,6 @@ class ProductController extends Controller
             'title' => 'required|max:255',
             'title_burmese' => 'required|max:255',
             'title_chinese' => 'required|max:255',
-            'food_for_thought' => 'required',
-            'food_for_thought_burmese' => 'required',
-            'food_for_thought_chinese' => 'required',
-            'food_for_thought_description' => 'required',
-            'food_for_thought_description_burmese' => 'required',
-            'food_for_thought_description_chinese' => 'required',
             'lr_title' => 'required|max:255',
             'lr_description' => 'required',
             'lr_title_burmese' => 'required|max:255',
@@ -89,6 +83,107 @@ class ProductController extends Controller
                 ->withInput();
         }
 
+        $food_4_thought = [];
+
+        if (isset($request->additional_title)) {
+            $food_4_thought = [
+                'en-us' => [
+                    'title' => $request->food_for_thought,
+                    'description' => $request->food_for_thought_description,
+                ],
+                'my-mm' => [
+                    'title' => $request->food_for_thought_burmese,
+                    'description' => $request->food_for_thought_description_burmese,
+                ],
+                'zh-cn' => [
+                    'title' => $request->food_for_thought_chinese,
+                    'description' => $request->food_for_thought_description_chinese,
+                ],
+            ];
+        }
+
+        $additional_benifits_content = [];
+
+        if (isset($request->additional_title)) {
+            $additional_benifits_content = [
+                'en-us' => [
+                    'title' => $request->additional_title,
+                    'data' => [
+                        [
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon[0]),
+                            'text' => $request->additional_iconText[0],
+                        ],
+                        [
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon[1]),
+                            'text' => $request->additional_iconText[1],
+                        ],
+                        [
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon[2]),
+                            'text' => $request->additional_iconText[2],
+                        ],
+                        [
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon[3]),
+                            'text' => $request->additional_iconText[3],
+                        ],
+                        [
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon[4]),
+                            'text' => $request->additional_iconText[4],
+                        ],
+                    ],
+                ],
+                'my-mm' => [
+                    'title' => $request->additional_title_burmese,
+                    'data' => [
+                        [
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_burmese[0]),
+                            'text' => $request->additional_iconText_burmese[0],
+                        ],
+                        [
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_burmese[1]),
+                            'text' => $request->additional_iconText_burmese[1],
+                        ],
+                        [
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_burmese[2]),
+                            'text' => $request->additional_iconText_burmese[2],
+                        ],
+                        [
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_burmese[3]),
+                            'text' => $request->additional_iconText_burmese[3],
+                        ],
+                        [
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_burmese[4]),
+                            'text' => $request->additional_iconText_burmese[4],
+                        ],
+                    ],
+                ],
+                'zh-cn' => [
+                    'title' => $request->additional_title_chinese,
+                    'data' => [
+                        [
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_chinese[0]),
+                            'text' => $request->additional_iconText_chinese[0],
+                        ],
+                        [
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_chinese[1]),
+                            'text' => $request->additional_iconText_chinese[1],
+                        ],
+                        [
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_chinese[2]),
+                            'text' => $request->additional_iconText_chinese[2],
+                        ],
+                        [
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_chinese[3]),
+                            'text' => $request->additional_iconText_chinese[3],
+                        ],
+                        [
+                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_chinese[4]),
+                            'text' => $request->additional_iconText_chinese[4],
+                        ],
+                    ],
+                ],
+            ];
+        }
+
         $product = [
             'title' => json_encode([
                 'en-us' => $request->title,
@@ -102,20 +197,7 @@ class ProductController extends Controller
             ]),
             'image' => Str::replace(config('app.url'), '', $request->image),
             'cover_image' => Str::replace(config('app.url'), '', $request->cover_image),
-            'food_for_thought' => json_encode([
-                'en-us' => [
-                    'title' => $request->food_for_thought,
-                    'description' => $request->food_for_thought_description,
-                ],
-                'my-mm' => [
-                    'title' => $request->food_for_thought_burmese,
-                    'description' => $request->food_for_thought_description_burmese,
-                ],
-                'zh-cn' => [
-                    'title' => $request->food_for_thought_chinese,
-                    'description' => $request->food_for_thought_description_chinese,
-                ],
-            ]),
+            'food_for_thought' => json_encode($food_4_thought),
             'apply_insurance' => json_encode([
                 'en-us' => [
                     'title' => $request->apply_insurance_title,
@@ -288,83 +370,7 @@ class ProductController extends Controller
                     ],
                 ],
             ]),
-            'additional_benifits' => json_encode([
-                'en-us' => [
-                    'title' => $request->additional_title,
-                    'data' => [
-                        [
-                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon[0]),
-                            'text' => $request->additional_iconText[0],
-                        ],
-                        [
-                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon[1]),
-                            'text' => $request->additional_iconText[1],
-                        ],
-                        [
-                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon[2]),
-                            'text' => $request->additional_iconText[2],
-                        ],
-                        [
-                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon[3]),
-                            'text' => $request->additional_iconText[3],
-                        ],
-                        [
-                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon[4]),
-                            'text' => $request->additional_iconText[4],
-                        ],
-                    ],
-                ],
-                'my-mm' => [
-                    'title' => $request->additional_title_burmese,
-                    'data' => [
-                        [
-                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_burmese[0]),
-                            'text' => $request->additional_iconText_burmese[0],
-                        ],
-                        [
-                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_burmese[1]),
-                            'text' => $request->additional_iconText_burmese[1],
-                        ],
-                        [
-                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_burmese[2]),
-                            'text' => $request->additional_iconText_burmese[2],
-                        ],
-                        [
-                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_burmese[3]),
-                            'text' => $request->additional_iconText_burmese[3],
-                        ],
-                        [
-                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_burmese[4]),
-                            'text' => $request->additional_iconText_burmese[4],
-                        ],
-                    ],
-                ],
-                'zh-cn' => [
-                    'title' => $request->additional_title_chinese,
-                    'data' => [
-                        [
-                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_chinese[0]),
-                            'text' => $request->additional_iconText_chinese[0],
-                        ],
-                        [
-                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_chinese[1]),
-                            'text' => $request->additional_iconText_chinese[1],
-                        ],
-                        [
-                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_chinese[2]),
-                            'text' => $request->additional_iconText_chinese[2],
-                        ],
-                        [
-                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_chinese[3]),
-                            'text' => $request->additional_iconText_chinese[3],
-                        ],
-                        [
-                            'icon' => Str::replace(config('app.url'), '', $request->additional_icon_chinese[4]),
-                            'text' => $request->additional_iconText_chinese[4],
-                        ],
-                    ],
-                ],
-            ]),
+            'additional_benifits' => json_encode($additional_benifits_content),
             'diagrams_and_table' => json_encode([
                 'en-us' => [
                     [
@@ -440,10 +446,10 @@ class ProductController extends Controller
         /*
         * Product Updates
         */
-        $category = Category::where('id','=', $request->category)->first();
+        $category = Category::where('id', '=', $request->category)->first();
         $category_machine = '';
 
-        if(isset($category)) {
+        if (isset($category)) {
             $category_machine = $category->machine;
         }
 
@@ -864,10 +870,10 @@ class ProductController extends Controller
         /*
         * Product Updates
         */
-        $category = Category::where('id','=', $request->category)->first();
+        $category = Category::where('id', '=', $request->category)->first();
         $category_machine = '';
 
-        if(isset($category)) {
+        if (isset($category)) {
             $category_machine = $category->machine;
         }
 
@@ -1022,7 +1028,7 @@ class ProductController extends Controller
                 'slogan' => Str::replace('"', '', $row->slogan),
                 'image' => config('app.url') . $row->image,
                 'cover_image' => config('app.url') . $row->cover_image,
-                'food_for_thought'=>json_decode($row->food_for_thought),
+                'food_for_thought' => json_decode($row->food_for_thought),
                 'apply_insurance' => json_decode($row->apply_insurance),
                 'why_work_with_us' => $why_work_with_us,
                 'lr' => $lr,
@@ -1146,7 +1152,7 @@ class ProductController extends Controller
                     'slogan' => Str::replace('"', '', $products->slogan),
                     'image' => config('app.url') . $products->image,
                     'cover_image' => config('app.url') . $products->cover_image,
-                    'food_for_thought'=>json_decode($products->food_for_thought),
+                    'food_for_thought' => json_decode($products->food_for_thought),
                     'apply_insurance' => json_decode($products->apply_insurance),
                     'why_work_with_us' => $why_work_with_us,
                     'lr' => $lr,
