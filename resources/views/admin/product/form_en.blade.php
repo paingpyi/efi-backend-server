@@ -22,7 +22,7 @@
 <div class="form-group">
     <label for="food_for_thought"><i class="flag-icon flag-icon-us mr-2"></i> Title</label>
     <input type="text" name="food_for_thought"
-        value="{{ old('food_for_thought', isset($product_en) or (json_decode($product_en->food_for_thought)->title != null ? json_decode($product_en->food_for_thought)->title : '')) }}"
+        value="{{ old('food_for_thought', ((json_decode($product_en->food_for_thought) != null) ? json_decode($product_en->food_for_thought)->title : '')) }}"
         class="form-control" id="food_for_thought">
 </div>
 <div class="form-group">
@@ -30,7 +30,7 @@
         Description
         <span class="text-danger">*</span></label>
     <textarea name="food_for_thought_description" class="summernote"
-        id="food_for_thought_description">{{ old('food_for_thought_description', isset($product_en) or (json_decode($product_en->food_for_thought)->description != null ? json_decode($product_en->food_for_thought)->description : '')) }}</textarea>
+        id="food_for_thought_description">{{ old('food_for_thought_description', (json_decode($product_en->food_for_thought) !== null ? json_decode($product_en->food_for_thought)->description : '')) }}</textarea>
 </div>
 <!-- /. End of Food for Thought -->
 <!-- Paragraphs -->
@@ -285,7 +285,7 @@ if (isset(json_decode($product_en->additional_benifits)->data)) {
     <label for="additional_title"><i class="flag-icon flag-icon-us mr-2"></i> Title
         <span class="text-danger">*</span></label>
     <input type="text" name="additional_title"
-        value="{{ old('additional_title', isset($product_en) or (json_decode($product_en->additional_benifits)->title != null ? json_decode($product_en->additional_benifits)->title : '')) }}"
+        value="{{ old('additional_title', (json_decode($product_en->additional_benifits) != null ? json_decode($product_en->additional_benifits)->title : '')) }}"
         class="form-control" id="additional_title">
     @error('additional_title')
         <div class="alert alert-danger">{{ $message }}</div>

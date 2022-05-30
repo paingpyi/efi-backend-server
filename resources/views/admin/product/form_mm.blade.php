@@ -22,7 +22,7 @@
 <div class="form-group">
     <label for="food_for_thought_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Title</label>
     <input type="text" name="food_for_thought_burmese"
-        value="{{ old('food_for_thought_burmese', isset($product_mm) or json_decode($product_mm->food_for_thought)->title != null ? json_decode($product_mm->food_for_thought)->title : '') }}"
+        value="{{ old('food_for_thought_burmese', json_decode($product_mm->food_for_thought) != null ? json_decode($product_mm->food_for_thought)->title : '') }}"
         class="form-control" id="food_for_thought_burmese">
 </div>
 <div class="form-group">
@@ -30,7 +30,7 @@
         Description
         <span class="text-danger">*</span></label>
     <textarea name="food_for_thought_description_burmese" class="summernote"
-        id="food_for_thought_description_burmese">{{ old('food_for_thought_description_burmese', isset($product_mm) or isset(json_decode($product_mm->food_for_thought)->description) ? json_decode($product_mm->food_for_thought)->description : '') }}</textarea>
+        id="food_for_thought_description_burmese">{{ old('food_for_thought_description_burmese', json_decode($product_mm->food_for_thought) != null ? json_decode($product_mm->food_for_thought)->description : '') }}</textarea>
 </div>
 <!-- /. End of Food for Thought -->
 <!-- Paragraphs -->
@@ -288,7 +288,7 @@ if (isset(json_decode($product_mm->additional_benifits)->data)) {
     <label for="additional_title_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
         <span class="text-danger">*</span></label>
     <input type="text" name="additional_title_burmese"
-        value="{{ old('additional_title_burmese',isset($product_mm) or json_decode($product_mm->additional_benifits)->title != null ? json_decode($product_mm->additional_benifits)->title: '') }}"
+        value="{{ old('additional_title_burmese',json_decode($product_mm->additional_benifits) != null ? json_decode($product_mm->additional_benifits)->title: '') }}"
         class="form-control" id="additional_title_burmese">
     @error('additional_title_burmese')
         <div class="alert alert-danger">{{ $message }}</div>
