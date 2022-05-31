@@ -1641,6 +1641,7 @@ class QuoteController extends Controller
                 'insured_age' => $data['insured_age'],
                 'insured_amount' => $data['insured_amount'],
                 'premium_term' => $data['premium_term'],
+                'benefit' => $data['benefit'],
                 'product_id' => $product->id,
             ];
         }
