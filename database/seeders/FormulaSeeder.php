@@ -2546,7 +2546,7 @@ class FormulaSeeder extends Seeder
             [
                 'method' => 'calculateInlandTransit',
                 'conditions' => json_encode([
-                    ['field' => 'goods_type', 'operator' => '==', 'value' => 'general cargo '],
+                    ['field' => 'goods_type', 'operator' => '==', 'value' => 'general cargo'],
                 ]),
                 'formulas' => json_encode([
                     ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.14],
@@ -2555,6 +2555,86 @@ class FormulaSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             // End of Inland Transit Insurance
+
+
+            /****
+             *
+             * Marine Cargo Insurance
+             *
+             */
+            [
+                'method' => 'calculateMarineCargo',
+                'conditions' => json_encode([
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'general cargo'],
+                    ['field' => 'conveyance', 'operator' => '==', 'value' => 'marine inland'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0014],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMarineCargo',
+                'conditions' => json_encode([
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'general cargo'],
+                    ['field' => 'conveyance', 'operator' => '==', 'value' => 'costal (summer) (oct - 16th to april - 30th)'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0028],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMarineCargo',
+                'conditions' => json_encode([
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'general cargo'],
+                    ['field' => 'conveyance', 'operator' => '==', 'value' => 'costal (summer) (may - 1st to oct - 15th)'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0056],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMarineCargo',
+                'conditions' => json_encode([
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'dagerous cargo (or) flammable cargo'],
+                    ['field' => 'conveyance', 'operator' => '==', 'value' => 'marine inland'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0028],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMarineCargo',
+                'conditions' => json_encode([
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'dagerous cargo (or) flammable cargo'],
+                    ['field' => 'conveyance', 'operator' => '==', 'value' => 'costal (summer) (oct - 16th to april - 30th)'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0042],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMarineCargo',
+                'conditions' => json_encode([
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'dagerous cargo (or) flammable cargo'],
+                    ['field' => 'conveyance', 'operator' => '==', 'value' => 'costal (summer) (may - 1st to oct - 15th)'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0084],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            // End of Marine Cargo Insurance
         ]);
     }
 }
