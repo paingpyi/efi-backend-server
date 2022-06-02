@@ -22,7 +22,7 @@
 <div class="form-group">
     <label for="food_for_thought_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Title</label>
     <input type="text" name="food_for_thought_chinese"
-        value="{{ old('food_for_thought_chinese', json_decode($product_zh->food_for_thought) != null ? json_decode($product_zh->food_for_thought)->title : '') }}"
+        value="{{ old('food_for_thought_chinese', isset($product_mm) and json_decode($product_zh->food_for_thought) != null ? json_decode($product_zh->food_for_thought)->title : '') }}"
         class="form-control" id="food_for_thought_chinese">
 </div>
 <div class="form-group">

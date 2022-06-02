@@ -21,16 +21,26 @@
 <h4>Food for thought</h4>
 <div class="form-group">
     <label for="food_for_thought"><i class="flag-icon flag-icon-us mr-2"></i> Title</label>
-    <input type="text" name="food_for_thought"
-        value="{{ old('food_for_thought', ((json_decode($product_en->food_for_thought) != null) ? json_decode($product_en->food_for_thought)->title : '')) }}"
-        class="form-control" id="food_for_thought">
+    @if ($action == 'new')
+        <input type="text" name="food_for_thought" value="{{ old('food_for_thought') }}" class="form-control"
+            id="food_for_thought">
+    @else
+        <input type="text" name="food_for_thought"
+            value="{{ old('food_for_thought', json_decode($product_en->food_for_thought) != null ? json_decode($product_en->food_for_thought)->title : '') }}"
+            class="form-control" id="food_for_thought">
+    @endif
 </div>
 <div class="form-group">
     <label for="food_for_thought_description"><i class="flag-icon flag-icon-us mr-2"></i>
         Description
         <span class="text-danger">*</span></label>
-    <textarea name="food_for_thought_description" class="summernote"
-        id="food_for_thought_description">{{ old('food_for_thought_description', (json_decode($product_en->food_for_thought) !== null ? json_decode($product_en->food_for_thought)->description : '')) }}</textarea>
+    @if ($action == 'new')
+        <textarea name="food_for_thought_description" class="summernote"
+            id="food_for_thought_description">{{ old('food_for_thought_description') }}</textarea>
+    @else
+        <textarea name="food_for_thought_description" class="summernote"
+            id="food_for_thought_description">{{ old('food_for_thought_description', json_decode($product_en->food_for_thought) !== null ? json_decode($product_en->food_for_thought)->description : '') }}</textarea>
+    @endif
 </div>
 <!-- /. End of Food for Thought -->
 <!-- Paragraphs -->
@@ -84,7 +94,7 @@ if (isset($product_en)) {
 @php
 $diagrams_and_table = [];
 
-if (isset($product_en) or json_decode($product_en->diagrams_and_table) != null) {
+if (isset($product_en) and json_decode($product_en->diagrams_and_table) != null) {
     foreach (json_decode($product_en->diagrams_and_table) as $item) {
         $diagrams_and_table[] = [
             'title' => $item->title,
@@ -272,21 +282,28 @@ if (isset($product_en) or json_decode($product_en->diagrams_and_table) != null) 
 @php
 $additional_benifits_data = [];
 
-if (isset(json_decode($product_en->additional_benifits)->data)) {
-    foreach (json_decode($product_en->additional_benifits)->data as $item) {
-        $additional_benifits_data[] = [
-            'icon' => config('app.url') . $item->icon,
-            'text' => $item->text,
-        ];
+if (isset($product_en)) {
+    if (isset(json_decode($product_en->additional_benifits)->data)) {
+        foreach (json_decode($product_en->additional_benifits)->data as $item) {
+            $additional_benifits_data[] = [
+                'icon' => config('app.url') . $item->icon,
+                'text' => $item->text,
+            ];
+        }
     }
 }
 @endphp
 <div class="form-group">
     <label for="additional_title"><i class="flag-icon flag-icon-us mr-2"></i> Title
         <span class="text-danger">*</span></label>
-    <input type="text" name="additional_title"
-        value="{{ old('additional_title', (json_decode($product_en->additional_benifits) != null ? json_decode($product_en->additional_benifits)->title : '')) }}"
-        class="form-control" id="additional_title">
+    @if ($action == 'new')
+        <input type="text" name="additional_title" value="{{ old('additional_title') }}" class="form-control"
+            id="additional_title">
+    @else
+        <input type="text" name="additional_title"
+            value="{{ old('additional_title', json_decode($product_en->additional_benifits) != null ? json_decode($product_en->additional_benifits)->title : '') }}"
+            class="form-control" id="additional_title">
+    @endif
     @error('additional_title')
         <div class="alert alert-danger">{{ $message }}</div>
     @enderror
