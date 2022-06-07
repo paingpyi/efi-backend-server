@@ -13,6 +13,7 @@ use App\Http\Controllers\Setting\BlockController;
 use App\Http\Controllers\Setting\CategoryController;
 use App\Http\Resources\AboutEfigResource;
 use App\Http\Resources\AboutEfilResource;
+use App\Http\Resources\FireTypeOfBuildingResource;
 use App\Http\Resources\PageCollection;
 use App\Models\Page;
 
@@ -100,10 +101,6 @@ Route::group(['prefix' => 'quotes'], function () {
         Route::post('types', [QuoteController::class, 'getTravelType']);
     });
 
-    Route::group(['prefix' => 'general'], function () {
-        Route::post('comprehensive-motor-insurance', [QuoteController::class, 'calculateMotor']);
-    });
-
     Route::group(['prefix' => 'life'], function () {
         Route::post('short-term-endowment-insurance', [QuoteController::class, 'calculateShortTermEndowment']);
 
@@ -129,6 +126,12 @@ Route::group(['prefix' => 'quotes'], function () {
     });
 
     Route::group(['prefix' => 'general'], function () {
+        Route::post('/building-types', function () {
+            return new FireTypeOfBuildingResource(Page::all());
+        });
+
+        Route::post('comprehensive-motor-insurance', [QuoteController::class, 'calculateMotor']);
+
         Route::post('fire-insurance', [QuoteController::class, 'calculateFireInsurance']);
 
         Route::post('inland-transit', [QuoteController::class, 'calculateInlandTransit']);

@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Str;
 
 class FireTypeOfBuildingResource extends JsonResource
 {
@@ -14,6 +15,8 @@ class FireTypeOfBuildingResource extends JsonResource
      */
     public function toArray($request)
     {
+        $data = $request->json()->all();
+
         $types = [
             'residential' => [
                 'Residential/Dwelling House/Apartment',
@@ -62,7 +65,7 @@ class FireTypeOfBuildingResource extends JsonResource
                 'Medicine, Optical and Test eye(retail)',
                 'Motor Showroom',
             ],
-            'factories'=> [
+            'factories' => [
                 'Radio , Television , Transmitting Stations and Studios',
                 'Electric Power Stations',
                 'Transformers',
@@ -106,59 +109,61 @@ class FireTypeOfBuildingResource extends JsonResource
                 'Paint Manufacturing',
                 'Soap, Shampoo, Tooth Paste Factory',
                 'Package Servic (Soap, Shanpoo, Tooth Paste Factory)',
-                'Cosmetic Factory
-                Only Cosmetic Packaging Services
-                Candles , Wax Factory
-                "Fertilizer Factory
-                (Produce From Natural Gas)"
-                Only Fertilizer Packaging Services
-                Bio Fertilizer Factory
-                Insecticide Factory / Including Bottling
-                Only Insecticide Packaging Services
-                "Matches , Joss Stick ,
-                Mosquito Coil Product Factory"
-                Rubber Factory
-                Leather Goods Manufacturing
-                Plastic Goods Manufacturing
-                Melamine Goods Manufacturing
-                Packaging Foam / Plastic Bag Factory
-                Cement Factory
-                Glass , Ceramic Factory
-                Kerosene , Petrol , Natural Gas Factory
-                "Black Smith , Produce of
-                Metal goods which is melted"
-                Metal mould services
-                Gold Smith
-                Car Workshop
-                Car Servicing
-                Tyre Retreading and Vulcaniting
-                Battery
-                Battery Cell
-                "Concrete Mixer and
-                Concrete Form Services"
-                Brick Processor
-                Fluoresent Lamp, Bult Factory
-                Cablewire Factory
-                "Transformer and Electrical device ,
-                 Voltage regulator"
-                "Production of Motor
-                Vehicle Motor Cycle , Bicycle"
-                Lathe Services
-                Workshop Training School
-                Cotton Machine , Weaving Machine
-                Silk - Screen Printing
-                Vest Factory
-                Blanket Factory
-                Garment Factory
-                Tailors
-                Silk wear
-                Carpet
-                Mattress
-                Knit Wear, Lace Manufacturing
-                Weaving Machine by hand'
+                'Cosmetic Factory',
+                'Only Cosmetic Packaging Services',
+                'Candles , Wax Factory',
+                'Fertilizer Factory (Produce From Natural Gas)',
+                'Only Fertilizer Packaging Services',
+                'Bio Fertilizer Factory',
+                'Insecticide Factory / Including Bottling',
+                'Only Insecticide Packaging Services',
+                'Matches , Joss Stick, Mosquito Coil Product Factory',
+                'Rubber Factory',
+                'Leather Goods Manufacturing',
+                'Plastic Goods Manufacturing',
+                'Melamine Goods Manufacturing',
+                'Packaging Foam / Plastic Bag Factory',
+                'Cement Factory',
+                'Glass , Ceramic Factory',
+                'Kerosene , Petrol , Natural Gas Factory',
+                'Black Smith , Produce of Metal goods which is melted',
+                'Metal mould services',
+                'Gold Smith',
+                'Car Workshop',
+                'Car Servicing',
+                'Tyre Retreading and Vulcaniting',
+                'Battery',
+                'Battery Cell',
+                'Concrete Mixer and Concrete Form Services',
+                'Brick Processor',
+                'Fluoresent Lamp, Bult Factory',
+                'Cablewire Factory',
+                'Transformer and Electrical device, Voltage regulator',
+                'Production of Motor Vehicle Motor Cycle , Bicycle',
+                'Lathe Services',
+                'Workshop Training School',
+                'Cotton Machine , Weaving Machine',
+                'Silk - Screen Printing',
+                'Vest Factory',
+                'Blanket Factory',
+                'Garment Factory',
+                'Tailors',
+                'Silk wear',
+                'Carpet',
+                'Mattress',
+                'Knit Wear, Lace Manufacturing',
+                'Weaving Machine by hand',
             ],
         ];
 
-        return $types;
+        if(isset($data['buildingType'])) {
+            if($data['buildingType'] == '*') {
+                return $types;
+            } else {
+                return $types[Str::lower($data['buildingType'])];
+            }
+        } else {
+            return $types;
+        }
     }
 }
