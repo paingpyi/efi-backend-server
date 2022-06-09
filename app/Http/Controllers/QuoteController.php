@@ -3447,7 +3447,7 @@ class QuoteController extends Controller
             return response()->json($response, $response_code);
         }
 
-        $product = Product::where('slug_url', '=', 'fire-insurance')->first();
+        $product = Product::where('slug_url', '=', 'inland-transit-insurance')->first();
 
         $premium = $result + 10000;
 
@@ -3764,5 +3764,16 @@ class QuoteController extends Controller
         ];
 
         return response()->json($response, $response_code);
+    }
+
+     /**
+     * Calculate Oversea Cargo Insurance API via JSON.
+     * Life Insurance
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function calculateOverseaCargo(Request $request)
+    {
     }
 }

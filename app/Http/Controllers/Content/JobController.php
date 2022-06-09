@@ -70,6 +70,7 @@ class JobController extends Controller
             'department_chinese' => 'required|max:255',
             'jd_chinese' => 'required',
             'slug_url' => 'required|unique:news,url_slug',
+            'linkedin_url' => 'nullable|url',
             'due' => 'nullable|date',
         ]);
 
@@ -106,6 +107,7 @@ class JobController extends Controller
             'category' => $category[0],
             'due_date' => isset($request->due) ? date('Y-m-d', strtotime($request->due)) : NULL,
             'slug_url' => $request->slug_url,
+            'linkedin_url' => $request->linkedin_url,
             'is_vacant' => $request->active == 'on' ? TRUE : FALSE,
             'instant' => $request->instant == 'on' ? TRUE : FALSE
         ];
@@ -166,6 +168,7 @@ class JobController extends Controller
             'department_chinese' => 'required|max:255',
             'jd_chinese' => 'required',
             'slug_url' => 'required|unique:news,url_slug',
+            'linkedin_url' => 'nullable|url',
             'due' => 'nullable|date',
         ]);
 
@@ -202,6 +205,7 @@ class JobController extends Controller
             'category' => $category[0],
             'due_date' => isset($request->due) ? date('Y-m-d', strtotime($request->due)) : NULL,
             'slug_url' => $request->slug_url,
+            'linkedin_url' => $request->linkedin_url,
             'is_vacant' => $request->active == 'on' ? TRUE : FALSE,
             'instant' => $request->instant == 'on' ? TRUE : FALSE
         ];
@@ -557,6 +561,7 @@ class JobController extends Controller
                 'due_text' => json_decode($row->due_text),
                 'due_date' => $row->due_date,
                 'slug_url' => $row->slug_url,
+                'linkedin_url' => $row->linkedin_url,
                 'is_vacant' => $row->is_vacant,
                 'instant' => $row->instant,
                 'created_at' => $row->created_at,
@@ -621,6 +626,7 @@ class JobController extends Controller
                     'due_text' => json_decode($jobs->due_text),
                     'due_date' => $jobs->due_date,
                     'slug_url' => $jobs->slug_url,
+                    'linkedin_url' => $jobs->linkedin_url,
                     'is_vacant' => $jobs->is_vacant,
                     'instant' => $jobs->instant,
                     'created_at' => $jobs->created_at,
@@ -740,6 +746,7 @@ class JobController extends Controller
                 'categories.is_active as category_is_active',
                 'jobs.due_date',
                 'jobs.slug_url',
+                'jobs.linkedin_url',
                 'jobs.is_vacant',
                 'jobs.instant',
                 'jobs.created_at',

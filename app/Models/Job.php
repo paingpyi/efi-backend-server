@@ -17,6 +17,7 @@ class Job extends Model
         'due_text',
         'due_date',
         'slug_url',
+        'linkedin_url',
         'is_vacant',
         'instant'
     ];

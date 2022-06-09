@@ -161,6 +161,13 @@
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
+                                <div class="form-group">
+                                    <label for="linkedin_url"><i class="fab fa-linkedin"></i> LinkedIn URL</label>
+                                    <input type="text" name="linkedin_url"
+                                        value="{{ old('linkedin_url', isset($job_en->linkedin_url) ? $job_en->linkedin_url : null) }}"
+                                        class="form-control" id="linkedin_url" aria-describedby="linkedin_urlHelp">
+                                    <small id="linkedin_urlHelp" class="form-text text-white">This must be URL.</small>
+                                </div>
                                 <hr>
                                 <div class="form-group">
                                     <label for="due">Application Due Date</label>

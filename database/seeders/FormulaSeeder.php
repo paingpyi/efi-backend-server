@@ -2635,6 +2635,79 @@ class FormulaSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             // End of Marine Cargo Insurance
+
+            /****
+             *
+             * Marine Cargo Insurance
+             *
+             */
+            [
+                'method' => 'calculateOverseaCargo',
+                'conditions' => json_encode([
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'general cargo'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0056],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateOverseaCargo',
+                'conditions' => json_encode([
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'split materials'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.008],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateOverseaCargo',
+                'conditions' => json_encode([
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'fertilizers (powder)'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.008],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateOverseaCargo',
+                'conditions' => json_encode([
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'fertilizers (liquid)'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0056],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateOverseaCargo',
+                'conditions' => json_encode([
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'perishable goods(by air(tlo))'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0056],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateOverseaCargo',
+                'conditions' => json_encode([
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'chick (by air (tlo))'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0056],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            // End of Oversea Cargo Insurance
         ]);
     }
 }

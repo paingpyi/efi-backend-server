@@ -22,6 +22,7 @@ return new class extends Migration
             $table->json('due_text');
             $table->date('due_date')->nullable();
             $table->string('slug_url');
+            $table->string('linkedin_url')->nullable();
             $table->boolean('is_vacant')->default(true);
             $table->boolean('instant')->default(false);
             $table->timestamps();
