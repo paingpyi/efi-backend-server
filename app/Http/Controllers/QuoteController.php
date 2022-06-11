@@ -3775,5 +3775,247 @@ class QuoteController extends Controller
      */
     public function calculateOverseaCargo(Request $request)
     {
+        $data = $request->json()->all();
+
+        $response_code = 200;
+        $errors = [];
+        $flag = false;
+        $result = 0;
+        $info = [];
+
+        if (!isset($data['locale'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Locale']);
+        }
+
+        if (!isset($data['insured_amount'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Insured amount']);
+        }
+
+        if (!isset($data['from'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'From']);
+        }
+
+        if (!isset($data['to'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'To']);
+        }
+
+        if (!isset($data['cargo_type'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Cargo Type']);
+        }
+
+        if (!isset($data['description'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'conveyance']);
+        }
+
+        foreach (Formula::where('method', '=', 'calculateOverseaCargo')->get() as $formula) {
+            foreach (json_decode($formula->conditions) as $condition) {
+                if ($condition->operator == '<') {
+                    if ($data[$condition->field] < $condition->value) {
+                        $flag = true;
+                    } else {
+                        $flag = false;
+                        break;
+                    }
+                } else if ($condition->operator == '>') {
+                    if ($data[$condition->field] > $condition->value) {
+                        $flag = true;
+                    } else {
+                        $flag = false;
+                        break;
+                    }
+                } else if ($condition->operator == '<=') {
+                    if ($data[$condition->field] <= $condition->value) {
+                        $flag = true;
+                    } else {
+                        $flag = false;
+                        break;
+                    }
+                } else if ($condition->operator == '>=') {
+                    if ($data[$condition->field] >= $condition->value) {
+                        $flag = true;
+                    } else {
+                        $flag = false;
+                        break;
+                    }
+                } else if ($condition->operator == '==') {
+                    if (Str::lower($data[$condition->field]) == $condition->value) {
+                        $flag = true;
+                    } else {
+                        $flag = false;
+                        break;
+                    }
+                } else {
+                    $response_code = 400;
+
+                    $response = [
+                        'code' => $response_code,
+                        'status' => $this->error400status_eng,
+                        'errors' => $this->error_operators_eng,
+                        'olds' => $condition->field . ' ' . $condition->operator . ' ' . $condition->value,
+                    ];
+
+                    return response()->json($response, $response_code);
+                }
+            } // End of conditions
+
+            if ($flag) {
+                foreach (json_decode($formula->formulas) as $formula) {
+                    if ($formula->operator == '*') {
+                        $result = ($data[$formula->field] * $formula->value);
+                    } else {
+                        $response_code = 400;
+
+                        $response = [
+                            'code' => $response_code,
+                            'status' => $this->error400status_eng,
+                            'errors' => $this->error_arithmetic_eng,
+                            'olds' => $formula->field . ': Formula - ' . $formula->value,
+                        ];
+
+                        return response()->json($response, $response_code);
+                    }
+                } // End of formula
+            }
+        } // End of Formula table
+
+        if ($result <= 0) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => $this->not_eligible_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response, $response_code);
+        }
+
+        $product = Product::where('slug_url', '=', 'oversea-marine-cargo-insurance')->first();
+
+        if (isset($data['transshipment'])) {
+            if ($data['transshipment'] == true) {
+                $result = $result + ($data['insured_amount'] * 0.0028);
+            }
+        }
+
+        if (isset($data['via'])) {
+            if ($data['via'] == true) {
+                $result = $result + ($data['insured_amount'] * 0.0014);
+            }
+        }
+
+        if (isset($data['suez'])) {
+            if ($data['suez'] == true) {
+                $result = $result + ($data['insured_amount'] * 0.000375);
+            }
+        }
+
+        if (isset($data['war'])) {
+            if ($data['war'] == true) {
+                $result = $result + ($data['insured_amount'] * 0.0005);
+            }
+        }
+
+        $premium = $result + 1000;
+
+        /**
+         * Apply this calculation
+         */
+        if (isset($data['apply'])) {
+            if (!isset($data['apply']['name'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, name' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            if (!isset($data['apply']['phone'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, phone' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            if (!isset($data['apply']['email'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, email' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            $info = [
+                'locale' => $data['locale'],
+                'from' => $data['from'],
+                'to' => $data['to'],
+                'cargo_type' => $data['cargo_type'],
+                'description' => $data['description'],
+                'insured_amount' => $data['insured_amount'],
+                'product_id' => $product->id,
+                'customer' => [
+                    'name' => $data['apply']['name'],
+                    'email' => $data['apply']['email'],
+                    'phone' => $data['apply']['phone'],
+                ]
+            ];
+
+            $apply = [
+                'info' => json_encode($info),
+                'result' => json_encode([]),
+                'total' => $premium,
+            ];
+
+            ApplyProduct::create($apply);
+        } else {
+            $info = [
+                'locale' => $data['locale'],
+                'from' => $data['from'],
+                'to' => $data['to'],
+                'cargo_type' => $data['cargo_type'],
+                'description' => $data['description'],
+                'insured_amount' => $data['insured_amount'],
+                'product_id' => $product->id,
+            ];
+        }
+        // End of Apply
+
+        $response = [
+            'code' => $response_code,
+            'status' => $this->success_eng,
+            'info' => $info,
+            'total' => $premium
+        ];
+
+        return response()->json($response, $response_code);
     }
 }
