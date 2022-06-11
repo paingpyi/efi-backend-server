@@ -1128,6 +1128,8 @@ class ProductController extends Controller
                 }
 
                 $additional_benifits_data = [];
+                $additional_benifits = [];
+
                 if ($products->additional_benifits !== null) {
                     foreach (json_decode($products->additional_benifits)->data as $item) {
                         $additional_benifits_data[] = [
@@ -1135,12 +1137,12 @@ class ProductController extends Controller
                             'text' => $item->text,
                         ];
                     }
-                }
 
-                $additional_benifits = [
-                    'title' => json_decode($products->additional_benifits)->title,
-                    'data' => $additional_benifits_data,
-                ];
+                    $additional_benifits = [
+                        'title' => json_decode($products->additional_benifits)->title,
+                        'data' => $additional_benifits_data,
+                    ];
+                }
 
                 $diagrams_and_table = [];
                 foreach (json_decode($products->diagrams_and_table) as $item) {
