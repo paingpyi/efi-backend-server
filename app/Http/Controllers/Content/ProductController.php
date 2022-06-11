@@ -1128,11 +1128,13 @@ class ProductController extends Controller
                 }
 
                 $additional_benifits_data = [];
-                foreach (json_decode($products->additional_benifits)->data as $item) {
-                    $additional_benifits_data[] = [
-                        'icon' => config('app.url') . $item->icon,
-                        'text' => $item->text,
-                    ];
+                if ($products->additional_benifits !== null) {
+                    foreach (json_decode($products->additional_benifits)->data as $item) {
+                        $additional_benifits_data[] = [
+                            'icon' => config('app.url') . $item->icon,
+                            'text' => $item->text,
+                        ];
+                    }
                 }
 
                 $additional_benifits = [
