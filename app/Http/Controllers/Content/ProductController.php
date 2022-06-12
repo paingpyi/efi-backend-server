@@ -457,7 +457,7 @@ class ProductController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => "Bearer {$key}"
-        ])->post('https://deploy-preview-27--efimm.netlify.app/api/revalidate', [
+        ])->post('https://efigmm.com/api/revalidate', [
             'type' => 'product-detail-updated',
             'data' => [
                 'category_machine_name' => $category_machine,
@@ -887,7 +887,7 @@ class ProductController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => "Bearer {$key}"
-        ])->post('https://deploy-preview-27--efimm.netlify.app/api/revalidate', [
+        ])->post('https://efigmm.com/api/revalidate', [
             'type' => 'product-detail-updated',
             'data' => [
                 'category_machine_name' => $category_machine,
