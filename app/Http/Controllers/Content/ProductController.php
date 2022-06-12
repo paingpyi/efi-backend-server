@@ -1134,10 +1134,12 @@ class ProductController extends Controller
 
                 if ($products->additional_benifits !== null) {
                     foreach (json_decode($products->additional_benifits)->data as $item) {
-                        $additional_benifits_data[] = [
-                            'icon' => config('app.url') . $item->icon,
-                            'text' => $item->text,
-                        ];
+                        if ($item->icon !== null) {
+                            $additional_benifits_data[] = [
+                                'icon' => config('app.url') . $item->icon,
+                                'text' => $item->text,
+                            ];
+                        }
                     }
 
                     $additional_benifits = [
@@ -1148,7 +1150,7 @@ class ProductController extends Controller
 
                 $diagrams_and_table = [];
                 foreach (json_decode($products->diagrams_and_table) as $item) {
-                    if($item->title !== null) {
+                    if ($item->title !== null) {
                         $diagrams_and_table[] = [
                             'title' => $item->title,
                             'description' => $item->description,
