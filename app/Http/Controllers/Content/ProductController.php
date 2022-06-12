@@ -1165,7 +1165,6 @@ class ProductController extends Controller
                             $diagrams_and_table[] = [
                                 'title' => $item->title,
                                 'description' => $item->description,
-                                'image' => []
                             ];
                         }
                     }
