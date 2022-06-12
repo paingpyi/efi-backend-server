@@ -1118,13 +1118,15 @@ class ProductController extends Controller
                 }
                 $attachments = [];
                 foreach (json_decode($products->attachments) as $item) {
-                    $attachments[] = [
-                        'title' => $item->title,
-                        'description' => $item->description,
-                        'icon' => config('app.url') . $item->icon,
-                        'buttonText' => $item->buttonText,
-                        'proposal_file' => config('app.url') . $item->proposal_file,
-                    ];
+                    if ($item->title !== null) {
+                        $attachments[] = [
+                            'title' => $item->title,
+                            'description' => $item->description,
+                            'icon' => (isset($item->icon)) ? config('app.url') . $item->icon : '',
+                            'buttonText' => $item->buttonText,
+                            'proposal_file' => config('app.url') . $item->proposal_file,
+                        ];
+                    }
                 }
 
                 $additional_benifits_data = [];
