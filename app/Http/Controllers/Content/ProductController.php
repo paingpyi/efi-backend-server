@@ -461,7 +461,7 @@ class ProductController extends Controller
             'type' => 'product-detail-updated',
             'data' => [
                 'category_machine_name' => $category_machine,
-                'slug' => $request->slug_url
+                'slug' => Str::slug($request->title, '-')
             ]
         ]);
         // End of Product Updates
@@ -891,12 +891,12 @@ class ProductController extends Controller
             'type' => 'product-detail-updated',
             'data' => [
                 'category_machine_name' => $category_machine,
-                'slug' => $request->slug_url
+                'slug' => Str::slug($request->title, '-')
             ]
         ]);
         // End of Product Updates
 
-        return redirect()->route('product#list')->with(['success_message' => 'Successfully <strong>updated!</strong>' . $response . ':' . $category_machine]);
+        return redirect()->route('product#list')->with(['success_message' => 'Successfully <strong>updated!</strong>']);
     }
 
     /**
