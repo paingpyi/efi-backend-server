@@ -1148,15 +1148,17 @@ class ProductController extends Controller
 
                 $diagrams_and_table = [];
                 foreach (json_decode($products->diagrams_and_table) as $item) {
-                    $diagrams_and_table[] = [
-                        'title' => $item->title,
-                        'description' => $item->description,
-                        'image' => [
-                            'src' => config('app.url') . $item->image->src,
-                            'width' => $item->image->width,
-                            'height' => $item->image->height
-                        ]
-                    ];
+                    if($item->title !== null) {
+                        $diagrams_and_table[] = [
+                            'title' => $item->title,
+                            'description' => $item->description,
+                            'image' => [
+                                'src' => config('app.url') . $item->image->src,
+                                'width' => $item->image->width,
+                                'height' => $item->image->height
+                            ]
+                        ];
+                    }
                 }
 
                 $response = [
