@@ -1151,7 +1151,7 @@ class ProductController extends Controller
                 $diagrams_and_table = [];
                 foreach (json_decode($products->diagrams_and_table) as $item) {
                     if ($item->title !== null) {
-                        if($item->image->src !== null) {
+                        if($item->image->src !== '') {
                             $diagrams_and_table[] = [
                                 'title' => $item->title,
                                 'description' => $item->description,
