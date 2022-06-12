@@ -896,7 +896,7 @@ class ProductController extends Controller
         ]);
         // End of Product Updates
 
-        return redirect()->route('product#list')->with(['success_message' => 'Successfully <strong>updated!</strong>']);
+        return redirect()->route('product#list')->with(['success_message' => 'Successfully <strong>updated!</strong>' . $response->status()]);
     }
 
     /**
