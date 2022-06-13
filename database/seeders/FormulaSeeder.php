@@ -2638,7 +2638,7 @@ class FormulaSeeder extends Seeder
 
             /****
              *
-             * Marine Cargo Insurance
+             * Oversea Cargo Insurance
              *
              */
             [
@@ -2708,6 +2708,35 @@ class FormulaSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             // End of Oversea Cargo Insurance
+
+            /****
+             *
+             * Fidelity Insurance
+             *
+             */
+            [
+                'method' => 'calculateFidelity',
+                'conditions' => json_encode([
+                    ['field' => 'business_type', 'operator' => '==', 'value' => 'cooperate and private company'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.02],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateFidelity',
+                'conditions' => json_encode([
+                    ['field' => 'business_type', 'operator' => '==', 'value' => 'government and private bank'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.01],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            // End of Fidelity Insurance
         ]);
     }
 }
