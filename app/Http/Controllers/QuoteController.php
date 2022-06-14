@@ -4277,7 +4277,31 @@ class QuoteController extends Controller
             $errors[] = __('validation.required', ['attribute' => 'Insured amount']);
         }
 
-        if (!isset($data['business_type'])) {
+        if (!isset($data['insurance_type'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Business Type']);
+        }
+
+        if (!isset($data['cargo_type'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Business Type']);
+        }
+
+        if (!isset($data['hull_type'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Business Type']);
+        }
+
+        if (!isset($data['route'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Business Type']);
+        }
+
+        if (!isset($data['month'])) {
             $response_code = 400;
 
             $errors[] = __('validation.required', ['attribute' => 'Business Type']);
@@ -4370,31 +4394,7 @@ class QuoteController extends Controller
 
         $product = Product::where('slug_url', '=', 'marine-hull-insurance')->first();
 
-        if (isset($data['transshipment'])) {
-            if ($data['transshipment'] == true) {
-                $result = $result + ($data['insured_amount'] * 0.0028);
-            }
-        }
-
-        if (isset($data['via'])) {
-            if ($data['via'] == true) {
-                $result = $result + ($data['insured_amount'] * 0.0014);
-            }
-        }
-
-        if (isset($data['suez'])) {
-            if ($data['suez'] == true) {
-                $result = $result + ($data['insured_amount'] * 0.000375);
-            }
-        }
-
-        if (isset($data['war'])) {
-            if ($data['war'] == true) {
-                $result = $result + ($data['insured_amount'] * 0.0005);
-            }
-        }
-
-        $premium = $result;
+        $premium = $result + 10000;
 
         /**
          * Apply this calculation
@@ -4441,7 +4441,7 @@ class QuoteController extends Controller
 
             $info = [
                 'locale' => $data['locale'],
-                'business_type' => $data['business_type'],
+                'insurance_type' => $data['insurance_type'],
                 'insured_amount' => $data['insured_amount'],
                 'product_id' => $product->id,
                 'customer' => [
@@ -4461,7 +4461,7 @@ class QuoteController extends Controller
         } else {
             $info = [
                 'locale' => $data['locale'],
-                'business_type' => $data['business_type'],
+                'insurance_type' => $data['insurance_type'],
                 'insured_amount' => $data['insured_amount'],
                 'product_id' => $product->id,
             ];
