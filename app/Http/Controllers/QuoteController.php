@@ -4930,4 +4930,130 @@ class QuoteController extends Controller
 
         return response()->json($response, $response_code);
     }
+
+    /**
+     * Calculate Cash In Safe Insurance API via form data.
+     * Life Insurance
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function calculateCashInSafe(Request $request)
+    {
+        $data = $request->json()->all();
+
+        $response_code = 200;
+        $errors = [];
+        $flag = false;
+        $result = 0;
+        $info = [];
+
+        if (!isset($data['locale'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Locale']);
+        }
+
+        if (!isset($data['insured_amount'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Insured amount']);
+        }
+
+        $premium = ($data['insured_amount'] * 0.005) + 100;
+
+        if ($premium <= 0) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => $this->not_eligible_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response, $response_code);
+        }
+
+        $product = Product::where('slug_url', '=', 'cash-in-safe-insurance')->first();
+
+        /**
+         * Apply this calculation
+         */
+        if (isset($data['apply'])) {
+            if (!isset($data['apply']['name'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, name' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            if (!isset($data['apply']['phone'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, phone' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            if (!isset($data['apply']['email'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, email' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            $info = [
+                'locale' => $data['locale'],
+                'insured_amount' => $data['insured_amount'],
+                'product_id' => $product->id,
+                'customer' => [
+                    'name' => $data['apply']['name'],
+                    'email' => $data['apply']['email'],
+                    'phone' => $data['apply']['phone'],
+                ]
+            ];
+
+            $apply = [
+                'info' => json_encode($info),
+                'result' => json_encode([]),
+                'total' => $premium,
+            ];
+
+            ApplyProduct::create($apply);
+        } else {
+            $info = [
+                'locale' => $data['locale'],
+                'insured_amount' => $data['insured_amount'],
+                'product_id' => $product->id,
+            ];
+        }
+        // End of Apply
+
+        $response = [
+            'code' => $response_code,
+            'status' => $this->success_eng,
+            'info' => $info,
+            'total' => $premium
+        ];
+
+        return response()->json($response, $response_code);
+    }
 }

@@ -145,6 +145,8 @@ Route::group(['prefix' => 'quotes'], function () {
         Route::post('marine-hull-insurance', [QuoteController::class, 'calculateMarineHull']);
 
         Route::post('cash-in-transit-insurance', [QuoteController::class, 'calculateCashInTransit']);
+
+        Route::post('cash-in-safe-insurance', [QuoteController::class, 'calculateCashInSafe']);
     });
 });
 
