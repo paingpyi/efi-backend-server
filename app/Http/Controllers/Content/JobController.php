@@ -523,7 +523,6 @@ class JobController extends Controller
         $result = [];
 
         $job_db = $this->getJobsAPI($data);
-        $job_db->where('jobs.is_vacant', '=', true);
 
         /*
         * Record count
