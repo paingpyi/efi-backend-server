@@ -473,7 +473,254 @@ class QuoteController extends Controller
      */
     public function calculateMotor(Request $request)
     {
-        // Code Here...
+        $data = $request->json()->all();
+
+        $response_code = 200;
+        $errors = [];
+        $flag = false;
+        $result = 0;
+        $info = [];
+
+        if (!isset($data['locale'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Locale']);
+        }
+
+        if (!isset($data['insured_amount'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Insured amount']);
+        }
+
+        if (!isset($data['vehicle_type'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Vehicle Type']);
+        }
+
+        if (!isset($data['engine_displacement'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Engine Displacement']);
+        }
+
+        if (!isset($data['windscreen'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'Windscreen']);
+        }
+
+        foreach (Formula::where('method', '=', 'calculateMotor')->get() as $formula) {
+            foreach (json_decode($formula->conditions) as $condition) {
+                if ($condition->operator == '<') {
+                    if ($data[$condition->field] < $condition->value) {
+                        $flag = true;
+                    } else {
+                        $flag = false;
+                        break;
+                    }
+                } else if ($condition->operator == '>') {
+                    if ($data[$condition->field] > $condition->value) {
+                        $flag = true;
+                    } else {
+                        $flag = false;
+                        break;
+                    }
+                } else if ($condition->operator == '<=') {
+                    if ($data[$condition->field] <= $condition->value) {
+                        $flag = true;
+                    } else {
+                        $flag = false;
+                        break;
+                    }
+                } else if ($condition->operator == '>=') {
+                    if ($data[$condition->field] >= $condition->value) {
+                        $flag = true;
+                    } else {
+                        $flag = false;
+                        break;
+                    }
+                } else if ($condition->operator == '==') {
+                    if ($data[$condition->field] == $condition->value) {
+                        $flag = true;
+                    } else {
+                        $flag = false;
+                        break;
+                    }
+                } else {
+                    $response_code = 400;
+
+                    $response = [
+                        'code' => $response_code,
+                        'status' => $this->error400status_eng,
+                        'errors' => $this->error_operators_eng,
+                        'olds' => $condition->field . ' ' . $condition->operator . ' ' . $condition->value,
+                    ];
+
+                    return response()->json($response, $response_code);
+                }
+            } // End of conditions
+
+            if ($flag) {
+                $result = $data['insured_amount'];
+                foreach (json_decode($formula->formulas) as $formula) {
+                    if ($formula->operator == '==') {
+                        $result =  $formula->value;
+                    } else {
+                        $response_code = 400;
+
+                        $response = [
+                            'code' => $response_code,
+                            'status' => $this->error400status_eng,
+                            'errors' => $this->error_arithmetic_eng,
+                            'olds' => $formula->field . ': Formula - ' . $formula->value,
+                        ];
+
+                        return response()->json($response, $response_code);
+                    }
+                } // End of formula
+            }
+        } // End of Formula table
+
+        if ($result <= 0) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => $this->error400status_eng,
+                'errors' => $this->not_eligible_error_eng,
+                'olds' => $request->all(),
+            ];
+
+            return response()->json($response, $response_code);
+        }
+
+        $product = Product::where('slug_url', '=', 'comprehensive-motor-insurance')->first();
+
+        $result = $result + (ceil($data['insured_amount'] / 5000000) * 5000);
+        $premium = $result;
+
+        if (isset($data['war'])) {
+            if ($data['war'] == true) {
+                $premium = $premium + ($data['insured_amount'] * 0.0005);
+            }
+        }
+
+        if (isset($data['aog'])) {
+            if ($data['aog'] == true) {
+                $premium = $premium + ($data['insured_amount'] * 0.0005);
+            }
+        }
+
+        if (isset($data['srcc'])) {
+            if ($data['srcc'] == true) {
+                $premium = $premium + ($data['insured_amount'] * 0.0005);
+            }
+        }
+
+        if (isset($data['theft'])) {
+            if ($data['theft'] == true) {
+                $premium = $premium + ($result * 0.0015);
+            }
+        }
+
+        if (isset($data['windscreen'])) {
+            $premium = $premium + ($data['windscreen'] * 0.0005);
+        }
+
+        if (isset($data['nill'])) {
+            if ($data['nill'] == true) {
+                if($data['vehicle_type'] == 'private car') {
+                    $premium = $premium + 5000;
+                } else if($data['vehicle_type'] == 'commercial car') {
+                    $premium = $premium + 10000;
+                }
+            }
+        }
+
+        /**
+         * Apply this calculation
+         */
+        if (isset($data['apply'])) {
+            if (!isset($data['apply']['name'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, name' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            if (!isset($data['apply']['phone'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, phone' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            if (!isset($data['apply']['email'])) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => 'For appling this product, email' . $this->required_error_eng,
+                    'olds' => $request->all(),
+                ];
+
+                return response()->json($response, $response_code);
+            }
+
+            $info = [
+                'locale' => $data['locale'],
+                'vehicle_type' => $data['vehicle_type'],
+                'engine_displacement' => $data['engine_displacement'],
+                'insured_amount' => $data['insured_amount'],
+                'product_id' => $product->id,
+                'customer' => [
+                    'name' => $data['apply']['name'],
+                    'email' => $data['apply']['email'],
+                    'phone' => $data['apply']['phone'],
+                ]
+            ];
+
+            $apply = [
+                'info' => json_encode($info),
+                'result' => json_encode([]),
+                'total' => $premium,
+            ];
+
+            ApplyProduct::create($apply);
+        } else {
+            $info = [
+                'locale' => $data['locale'],
+                'vehicle_type' => $data['vehicle_type'],
+                'engine_displacement' => $data['engine_displacement'],
+                'insured_amount' => $data['insured_amount'],
+                'product_id' => $product->id,
+            ];
+        }
+        // End of Apply
+
+        $response = [
+            'code' => $response_code,
+            'status' => $this->success_eng,
+            'info' => $info,
+            'total' => $premium
+        ];
+
+        return response()->json($response, $response_code);
     }
 
     /**

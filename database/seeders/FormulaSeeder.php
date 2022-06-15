@@ -3642,7 +3642,333 @@ class FormulaSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
+            [
+                'method' => 'calculateMarineHull',
+                'conditions' => json_encode([
+                    ['field' => 'insurance_type', 'operator' => '==', 'value' => 'all risks'],
+                    ['field' => 'hull_type', 'operator' => '==', 'value' => 'steel'],
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'oil & gas/fishing'],
+                    ['field' => 'route', 'operator' => '==', 'value' => 'coastal'],
+                    ['field' => 'month', 'operator' => '==', 'value' => 'voyage'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.03],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0833],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMarineHull',
+                'conditions' => json_encode([
+                    ['field' => 'insurance_type', 'operator' => '==', 'value' => 'all risks'],
+                    ['field' => 'hull_type', 'operator' => '==', 'value' => 'steel'],
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'oil & gas/fishing'],
+                    ['field' => 'route', 'operator' => '==', 'value' => 'coastal'],
+                    ['field' => 'month', 'operator' => '==', 'value' => '1 month'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.03],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.1666],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMarineHull',
+                'conditions' => json_encode([
+                    ['field' => 'insurance_type', 'operator' => '==', 'value' => 'all risks'],
+                    ['field' => 'hull_type', 'operator' => '==', 'value' => 'steel'],
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'oil & gas/fishing'],
+                    ['field' => 'route', 'operator' => '==', 'value' => 'coastal'],
+                    ['field' => 'month', 'operator' => '==', 'value' => '2 months'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.03],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.25],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMarineHull',
+                'conditions' => json_encode([
+                    ['field' => 'insurance_type', 'operator' => '==', 'value' => 'all risks'],
+                    ['field' => 'hull_type', 'operator' => '==', 'value' => 'steel'],
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'oil & gas/fishing'],
+                    ['field' => 'route', 'operator' => '==', 'value' => 'coastal'],
+                    ['field' => 'month', 'operator' => '==', 'value' => '3 months'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.03],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.3333],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMarineHull',
+                'conditions' => json_encode([
+                    ['field' => 'insurance_type', 'operator' => '==', 'value' => 'all risks'],
+                    ['field' => 'hull_type', 'operator' => '==', 'value' => 'steel'],
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'oil & gas/fishing'],
+                    ['field' => 'route', 'operator' => '==', 'value' => 'coastal'],
+                    ['field' => 'month', 'operator' => '==', 'value' => '4 months'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.03],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.4166],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMarineHull',
+                'conditions' => json_encode([
+                    ['field' => 'insurance_type', 'operator' => '==', 'value' => 'all risks'],
+                    ['field' => 'hull_type', 'operator' => '==', 'value' => 'steel'],
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'oil & gas/fishing'],
+                    ['field' => 'route', 'operator' => '==', 'value' => 'coastal'],
+                    ['field' => 'month', 'operator' => '==', 'value' => '5 months'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.03],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.5],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMarineHull',
+                'conditions' => json_encode([
+                    ['field' => 'insurance_type', 'operator' => '==', 'value' => 'all risks'],
+                    ['field' => 'hull_type', 'operator' => '==', 'value' => 'steel'],
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'oil & gas/fishing'],
+                    ['field' => 'route', 'operator' => '==', 'value' => 'coastal'],
+                    ['field' => 'month', 'operator' => '==', 'value' => '6 months'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.03],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.5833],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMarineHull',
+                'conditions' => json_encode([
+                    ['field' => 'insurance_type', 'operator' => '==', 'value' => 'all risks'],
+                    ['field' => 'hull_type', 'operator' => '==', 'value' => 'steel'],
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'oil & gas/fishing'],
+                    ['field' => 'route', 'operator' => '==', 'value' => 'coastal'],
+                    ['field' => 'month', 'operator' => '==', 'value' => '6 months to 1 year'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.03],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 1],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMarineHull',
+                'conditions' => json_encode([
+                    ['field' => 'insurance_type', 'operator' => '==', 'value' => 'all risks'],
+                    ['field' => 'hull_type', 'operator' => '==', 'value' => 'steel'],
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'general'],
+                    ['field' => 'route', 'operator' => '==', 'value' => 'coastal'],
+                    ['field' => 'month', 'operator' => '==', 'value' => 'voyage'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.024],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0833],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMarineHull',
+                'conditions' => json_encode([
+                    ['field' => 'insurance_type', 'operator' => '==', 'value' => 'all risks'],
+                    ['field' => 'hull_type', 'operator' => '==', 'value' => 'steel'],
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'general'],
+                    ['field' => 'route', 'operator' => '==', 'value' => 'coastal'],
+                    ['field' => 'month', 'operator' => '==', 'value' => '1 month'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.024],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.1666],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMarineHull',
+                'conditions' => json_encode([
+                    ['field' => 'insurance_type', 'operator' => '==', 'value' => 'all risks'],
+                    ['field' => 'hull_type', 'operator' => '==', 'value' => 'steel'],
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'general'],
+                    ['field' => 'route', 'operator' => '==', 'value' => 'coastal'],
+                    ['field' => 'month', 'operator' => '==', 'value' => '2 months'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.024],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.25],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMarineHull',
+                'conditions' => json_encode([
+                    ['field' => 'insurance_type', 'operator' => '==', 'value' => 'all risks'],
+                    ['field' => 'hull_type', 'operator' => '==', 'value' => 'steel'],
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'general'],
+                    ['field' => 'route', 'operator' => '==', 'value' => 'coastal'],
+                    ['field' => 'month', 'operator' => '==', 'value' => '3 months'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.024],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.3333],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMarineHull',
+                'conditions' => json_encode([
+                    ['field' => 'insurance_type', 'operator' => '==', 'value' => 'all risks'],
+                    ['field' => 'hull_type', 'operator' => '==', 'value' => 'steel'],
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'general'],
+                    ['field' => 'route', 'operator' => '==', 'value' => 'coastal'],
+                    ['field' => 'month', 'operator' => '==', 'value' => '4 months'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.024],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.4166],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMarineHull',
+                'conditions' => json_encode([
+                    ['field' => 'insurance_type', 'operator' => '==', 'value' => 'all risks'],
+                    ['field' => 'hull_type', 'operator' => '==', 'value' => 'steel'],
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'general'],
+                    ['field' => 'route', 'operator' => '==', 'value' => 'coastal'],
+                    ['field' => 'month', 'operator' => '==', 'value' => '5 months'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.024],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.5],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMarineHull',
+                'conditions' => json_encode([
+                    ['field' => 'insurance_type', 'operator' => '==', 'value' => 'all risks'],
+                    ['field' => 'hull_type', 'operator' => '==', 'value' => 'steel'],
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'general'],
+                    ['field' => 'route', 'operator' => '==', 'value' => 'coastal'],
+                    ['field' => 'month', 'operator' => '==', 'value' => '6 months'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.024],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.5833],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMarineHull',
+                'conditions' => json_encode([
+                    ['field' => 'insurance_type', 'operator' => '==', 'value' => 'all risks'],
+                    ['field' => 'hull_type', 'operator' => '==', 'value' => 'steel'],
+                    ['field' => 'cargo_type', 'operator' => '==', 'value' => 'general'],
+                    ['field' => 'route', 'operator' => '==', 'value' => 'coastal'],
+                    ['field' => 'month', 'operator' => '==', 'value' => '6 months to 1 year'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.024],
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 1],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
             // End of Marine Hull Insurance
+
+            /****
+             *
+             * Mortor Insurance
+             *
+             */
+            [
+                'method' => 'calculateMotor',
+                'conditions' => json_encode([
+                    ['field' => 'vehicle_type', 'operator' => '==', 'value' => 'private car'],
+                    ['field' => 'engine_displacement', 'operator' => '<=', 'value' => 1500],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '==', 'value' => 41200],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMotor',
+                'conditions' => json_encode([
+                    ['field' => 'vehicle_type', 'operator' => '==', 'value' => 'private car'],
+                    ['field' => 'engine_displacement', 'operator' => '>', 'value' => 1500],
+                    ['field' => 'engine_displacement', 'operator' => '<=', 'value' => 2000],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '==', 'value' => 41400],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMotor',
+                'conditions' => json_encode([
+                    ['field' => 'vehicle_type', 'operator' => '==', 'value' => 'private car'],
+                    ['field' => 'engine_displacement', 'operator' => '>', 'value' => 2000],
+                    ['field' => 'engine_displacement', 'operator' => '<=', 'value' => 3000],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '==', 'value' => 41700],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMotor',
+                'conditions' => json_encode([
+                    ['field' => 'vehicle_type', 'operator' => '==', 'value' => 'private car'],
+                    ['field' => 'engine_displacement', 'operator' => '>', 'value' => 3000],
+                    ['field' => 'engine_displacement', 'operator' => '<=', 'value' => 4000],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '==', 'value' => 42000],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMotor',
+                'conditions' => json_encode([
+                    ['field' => 'vehicle_type', 'operator' => '==', 'value' => 'private car'],
+                    ['field' => 'engine_displacement', 'operator' => '>', 'value' => 4000],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '==', 'value' => 42300],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            // End of Motor Insurance
         ]);
     }
 }
