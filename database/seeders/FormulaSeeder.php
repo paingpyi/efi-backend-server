@@ -3969,6 +3969,59 @@ class FormulaSeeder extends Seeder
                 'updated_at' => Carbon::now()
             ],
             // End of Motor Insurance
+
+            /****
+             *
+             * Cash in Transit Insurance
+             *
+             */
+            [
+                'method' => 'calculateCashInTransit',
+                'conditions' => json_encode([
+                    ['field' => 'mile', 'operator' => '<=', 'value' => 10],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.00027],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateCashInTransit',
+                'conditions' => json_encode([
+                    ['field' => 'mile', 'operator' => '>', 'value' => 10],
+                    ['field' => 'mile', 'operator' => '<=', 'value' => 15],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.00054],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateCashInTransit',
+                'conditions' => json_encode([
+                    ['field' => 'mile', 'operator' => '>', 'value' => 15],
+                    ['field' => 'mile', 'operator' => '<=', 'value' => 20],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.00081],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateCashInTransit',
+                'conditions' => json_encode([
+                    ['field' => 'mile', 'operator' => '>', 'value' => 20],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0009],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            // End of Cash in Transit Insurance
         ]);
     }
 }
