@@ -1175,7 +1175,7 @@ class QuoteController extends Controller
             }
         }
 
-        if ($result <= 0) {
+        if ($result['value'] <= 0) {
             $response_code = 400;
 
             $response = [
