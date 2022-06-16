@@ -123,6 +123,8 @@ Route::group(['prefix' => 'quotes'], function () {
         Route::post('critical-illness-insurance', [QuoteController::class, 'calculateCriticalIllness']);
 
         Route::post('health-insurance', [QuoteController::class, 'calculateHealth']);
+
+        Route::post('micro-health-insurance', [QuoteController::class, 'calculateMicroHealth']);
     });
 
     Route::group(['prefix' => 'general'], function () {
