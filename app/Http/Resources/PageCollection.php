@@ -94,7 +94,7 @@ class PageCollection extends ResourceCollection
                 ],
                 'promotion' => [],
             ];
-        } else {
+        } else if(Str::lower($data['locale']) == 'my-mm') {
             $page = [
                 'slider' => $slider_block,
                 'feature' => [
@@ -113,6 +113,29 @@ class PageCollection extends ResourceCollection
                 ],
                 'promotion' => [],
             ];
+        }  else if(Str::lower($data['locale']) == 'zh-cn') {
+            $page = [
+                'slider' => $slider_block,
+                'feature' => [
+                    'life' => $feature_life_block,
+                    'general' => $feature_general_block,
+                ],
+                'why-efi' => [
+                    'title' => 'Why EFI',
+                    'description' => '<p>Life is a journey of uncertainties. And since 2018, we have made it our mission to people find the assurance they need. As a subsidiary of Excellent Fortune Development Group, a top multi-sector conglomerate with a presence in the financial, real estate, mining, agricultural, and industrial sector, we are financially sound and strong.</p><p>We are committed to creating a positive social impact through our products and services that serve the protection, savings, and investment needs of different life stages and for all segments of society. We aim to serve our customers with professionalism and integrity, guided by strong moral values.</p>',
+                    'image' => config('app.url') . '/storage/photos/1/wwwu.png',
+                ],
+                'claim' => [
+                    'title' => 'Claim Your Insurances',
+                    'description' => '<p>We’re the first customer-centric innovative insurance company minimize your effort and maximize the value while being proactive, swift and responsive for the hassle-free applications and claiming process.</p>',
+                    'buttonText' => 'Claim Now',
+                ],
+                'promotion' => [],
+            ];
+        } else {
+            $error_messages[] = __('validation.required', ['attribute' => 'locale']);
+
+            return $error_messages;
         }
 
         return $page;

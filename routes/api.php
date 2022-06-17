@@ -13,6 +13,7 @@ use App\Http\Controllers\Setting\BlockController;
 use App\Http\Controllers\Setting\CategoryController;
 use App\Http\Resources\AboutEfigResource;
 use App\Http\Resources\AboutEfilResource;
+use App\Http\Resources\CareerPageResource;
 use App\Http\Resources\FireTypeOfBuildingResource;
 use App\Http\Resources\PageCollection;
 use App\Models\Page;
@@ -61,6 +62,10 @@ Route::group(['prefix' => 'pages', 'namespace' => 'Content'], function () {
 
     Route::post('/about-efig', function () {
         return new AboutEfigResource(Page::all());
+    });
+
+    Route::post('/career', function () {
+        return new CareerPageResource(Page::all());
     });
 });
 
