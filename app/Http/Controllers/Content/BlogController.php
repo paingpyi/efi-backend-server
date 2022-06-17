@@ -349,7 +349,7 @@ class BlogController extends Controller
          */
         if (isset($data['limit'])) {
             if (isset($data['page'])) {
-                $blog_db->paginate($data['limit'], $data['page']);
+                $blogs =$blog_db->paginate($data['limit'], $data['page']);
             } else {
                 $blogs = $blog_db->paginate($data['limit']);
             }

@@ -107,31 +107,19 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="slug_url">Slug URL
-                                        <span class="text-danger">*</span></label>
-                                    <input type="text" name="slug_url"
-                                        value="{{ old('slug_url', isset($blog_en->slug_url) ? $blog_en->slug_url : null) }}"
-                                        class="form-control" id="slug_url" aria-describedby="slug_urlHelp">
-                                    <small id="slug_urlHelp" class="form-text text-white">Do not use the special charaters
-                                        but you can you dash (-).</small>
-                                    @error('slug_url')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                                <hr>
-                                <div class="form-group">
-                                    <label for="status">Status <span class="text-danger">*</span></label>
+                                    <label for="status">Kind <span class="text-danger">*</span></label>
                                     <select name="status" id="status" class="form-control select2" style="width: 100%;">
                                         <option value="">Please choose the status.</option>
-                                        <option value="published"
-                                            {{ isset($blog_en->status) ? ($blog_en->status == 'published' ? ' selected' : '') : '' }}>
-                                            published</option>
-                                        <option value="draft"
-                                            {{ isset($blog_en->status) ? ($blog_en->status == 'draft' ? ' selected' : '') : '' }}>
-                                            draft</option>
-                                        <option value="unpublished"
-                                            {{ isset($blog_en->status) ? ($blog_en->status == 'unpublished' ? ' selected' : '') : '' }}>
-                                            unpublished</option>
+                                        <option value="one">One</option>
+                                        <option value="two">Two</option>
+                                        <option value="three">Three</option>
+                                        <option value="four">Four</option>
+                                        <option value="five">Five</option>
+                                        <option value="six">Six</option>
+                                        <option value="seven">Seven</option>
+                                        <option value="eight">Eight</option>
+                                        <option value="nine">Nine</option>
+                                        <option value="ten">Ten</option>
                                     </select>
                                 </div>
                                 <hr>
