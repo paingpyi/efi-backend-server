@@ -27,7 +27,7 @@
         <div class="col">
             <div class="card">
                 <form id="inputForm"
-                    action="{{ $action == 'new' ? route('store#data#blog') : route('update#data#blog', isset($blog_en->id) ? $blog_en->id : 0) }}"
+                    action="{{ $action == 'new' ? route('store#data#slider') : route('update#data#blog', isset($blog_en->id) ? $blog_en->id : 0) }}"
                     method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card-header">
@@ -107,9 +107,9 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="status">Kind <span class="text-danger">*</span></label>
-                                    <select name="status" id="status" class="form-control select2" style="width: 100%;">
-                                        <option value="">Please choose the status.</option>
+                                    <label for="kind">Kind <span class="text-danger">*</span></label>
+                                    <select name="kind" id="kind" class="form-control select2" style="width: 100%;">
+                                        <option value="">Please choose the kind.</option>
                                         <option value="one">One</option>
                                         <option value="two">Two</option>
                                         <option value="three">Three</option>
@@ -134,8 +134,8 @@
                                     <label>
                                         Cover Images
                                         @php
-                                            if ($errors->has('cover_image.0')) {
-                                                echo '<span class="error bg-danger p-1 text-sm">* ' . Str::replace('.0', '', $errors->first('cover_image.0')) . '</span>';
+                                            if ($errors->has('cover_image')) {
+                                                echo '<span class="error bg-danger p-1 text-sm">* ' . Str::replace('.0', '', $errors->first('cover_image')) . '</span>';
                                             } else {
                                                 echo '<span class="text-danger">*</span>';
                                             }
@@ -143,14 +143,14 @@
                                     </label>
                                     <div class="input-group pb-3">
                                         <span class="input-group-btn">
-                                            <a id="cover_image1" data-input="cover_image1_thumbnail"
+                                            <a id="cover_image" data-input="cover_image_thumbnail"
                                                 class="btn btn-primary lfm">
                                                 <i class="fa fa-picture-o"></i> Choose
                                             </a>
                                         </span>
-                                        <input id="cover_image1_thumbnail" class="form-control" type="text"
-                                            name="cover_image[]"
-                                            value="{{ old('cover_image[0]', isset($cover_images[0]) ? ($cover_images[0] != '' ? config('app.url') . $cover_images[0] : '') : '') }}">
+                                        <input id="cover_image_thumbnail" class="form-control" type="text"
+                                            name="cover_image"
+                                            value="{{ old('cover_image') }}">
                                     </div>
                                 </div><!-- /. Slider Image -->
                             </div>
@@ -224,56 +224,6 @@
             //Bootstrap Duallistbox
             $('.duallistbox').bootstrapDualListbox();
 
-            $("#main_category").on('change', function(event) {
-                event.preventDefault();
-
-                if ($('#main_category').val() == 2) {
-                    $.ajax({
-                        url: "/api/categories/blogs",
-                        type: "POST",
-                        data: {
-                            locale: 'en-US',
-                            parent: $('#main_category').val()
-                        },
-                        success: function(response) {
-                            console.log(response);
-                            if (response) {
-                                $('#categories').empty();
-
-                                for (i = 0; i < response.data.length; i++) {
-                                    $('#categories').append(
-                                        $('<option></option>')
-                                        .text(response.data[i].name)
-                                        .val(response.data[i].id)
-                                    );
-                                }
-                                $('#categories').bootstrapDualListbox('refresh');
-                            }
-                        },
-                        error: function(error) {
-                            console.log(error);
-                            $('#categories').empty();
-                            $('#categories').bootstrapDualListbox('refresh');
-                        }
-                    });
-                } else {
-                    $('#categories').empty();
-                    $('#categories').bootstrapDualListbox('refresh');
-                }
-            });
-
-            $(".title2slug").keyup(function() {
-                var Text = $(this).val();
-                Text = Text.toLowerCase()
-                    .replace(/[^\w ]+/g, '')
-                    .replace(/ +/g, '-');
-                $("#slug_url").val(Text);
-            });
-
-            $.validator.addMethod("titleRegex", function(value, element) {
-                return this.optional(element) || /^[a-z0-9\-\s]+$/i.test(value);
-            }, "Title must contain only letters, numbers, or dashes.");
-
             $('#inputForm').validate({
                 rules: {
                     title: {
@@ -285,9 +235,8 @@
                     title_chinese: {
                         required: true,
                     },
-                    slug_url: {
+                    kind: {
                         required: true,
-                        titleRegex: true
                     },
                     main_category: {
                         required: true,

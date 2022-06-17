@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Setting;
 
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -46,7 +47,32 @@ class SliderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|max:255',
+            'title_burmese' => 'required|max:255',
+            'title_chinese' => 'required|max:255',
+            'kind' => 'required|max:255',
+            'cover_image' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->route('new#product')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        SliderBlock::create([
+            'title' => json_encode([
+                'en-us' => $request->title,
+                'my-mm' => $request->title_burmese,
+                'zh-cn' => $request->title_chinese
+            ]),
+            'image' => $request->cover_image,
+            'kind' => $request->kind,
+        ]);
+
+        return redirect()->route('slider#list')->with(['success_message' => 'Successfully <strong>saved!</strong>']);
     }
 
     /**
