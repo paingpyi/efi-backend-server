@@ -1042,7 +1042,7 @@ class SampleController extends Controller
         SliderBlock::insert([
             'title' => json_encode([
                 'en-us' => 'Live Life Truly',
-                'my-mm' => 'ဘာသာပြန်ရန်',
+                'my-mm' => 'စစ်မှန်သောလူနေမှုဘ၀ဆီသို့',
                 'zh-cn' => '高標催極用'
             ]),
             'image' => '/storage/uploads/one.jpg',
@@ -1053,8 +1053,8 @@ class SampleController extends Controller
 
         SliderBlock::insert([
             'title' => json_encode([
-                'en-us' => 'Protect Your Future',
-                'my-mm' => 'ဘာသာပြန်ရန်',
+                'en-us' => 'Protecting you, securing your future',
+                'my-mm' => 'အကျိုးစီးပွားမဆုံးရှုံးစေဖို့ ကြိုတင်ကာကွယ်စို့',
                 'zh-cn' => '高標催極用'
             ]),
             'image' => '/storage/uploads/two.jpg',
@@ -1066,7 +1066,7 @@ class SampleController extends Controller
         SliderBlock::insert([
             'title' => json_encode([
                 'en-us' => 'Come Journey With Us',
-                'my-mm' => 'ဘာသာပြန်ရန်',
+                'my-mm' => 'အတူတူရှေ့ဆက်ကြမယ်',
                 'zh-cn' => '高標催極用'
             ]),
             'image' => '/storage/uploads/three.jpg',

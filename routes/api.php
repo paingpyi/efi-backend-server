@@ -127,6 +127,8 @@ Route::group(['prefix' => 'quotes'], function () {
         Route::post('micro-health-insurance', [QuoteController::class, 'calculateMicroHealth']);
 
         Route::post('single-premium-credit-life', [QuoteController::class, 'calculateSinglePremiumCredit']);
+
+        Route::post('short-term-single-premium-credit-life-insurance', [QuoteController::class, 'calculateShortTermSinglePremiumCredit']);
     });
 
     Route::group(['prefix' => 'general'], function () {
