@@ -45,13 +45,16 @@ class CareerPageResource extends JsonResource
                     ]
                 ],
                 'blocks_4' =>    [
-                    'image' => config('app.url') . '/storage/uploads/demo/career/career-b-3.jpg',
+                    'image' => config('app.url') . '/storage/uploads/demo/career/presentation.jpg',
                     'title' => 'We are always either solving problems or seeking new ideas',
                     'text' => 'At EFI, we aim to help and support you in maximizing your full potential. With the industry’s broadest multi-channel distribution network and unique channel transfer opportunities, you’ll have the flexibility to find the career track that maximizes your strengths, so that you can realize your career aspirations.'
                 ],
                 'blocks_5' =>   [
                     'title' => 'Unlock your exclusive privilege opportunities now.',
-                    'link' => 'about/careers/efi-l'
+                    'button' => [
+                        'text' => 'View Open Positions',
+                        'link' => 'about/careers/efi-l'
+                    ]
                 ],
             ];
         } else if (Str::lower($data['locale']) == 'my-mm') {
@@ -75,13 +78,16 @@ class CareerPageResource extends JsonResource
                     ]
                 ],
                 'blocks_4' =>     [
-                    'image' => config('app.url') . '/storage/uploads/demo/career/career-b-3.jpg',
+                    'image' => config('app.url') . '/storage/uploads/demo/career/presentation.jpg',
                     'title' => 'ကျွန်ုပ်တို့သည် အစဉ်သဖြင့် ပြဿနာရပ်များအဖြေရှာခြင်းနှင့် ဆန်းသစ်သောအတွေးအခေါ်များ ဖန်တီးလျက်ရှိပါသည်။',
                     'text' => 'EFI တွင် သင့်စွမ်းရည်များ တိုးပွါးလာစေရန် ထောက်ပံ့ကူညီပေးခြင်းမှာ ကျွန်ုပ်တို့၏ ရည်မှန်းချက်ပင်ဖြစ်သည်။ လုပ်ငန်း၏အကျယ်ပြန့်ဆုံး ဘက်စုံဖြန့်ချီရေး စနစ်များနှင့် တစ်မူထူးခြားသော ဖြန့်ချီမှု အခွင့်အရေးများနှင့်အတူ သင့်အားသာချက်များ တိုးပွါးစေနိုင်ရုံမက သင်၏အသက်မွေးဝမ်းကြောင်း ရည်မှန်းချက်ကိုပါ ဖြည့်ဆည်းပေးနိုင်သည့် အသက်မွေးမှု လမ်းကြောင်းကို ရှာတွေ့နိုင်မည်ဖြစ်သည်။'
                 ],
-                'blocks_5' =>     [
+                'blocks_5' =>   [
                     'title' => 'Unlock your exclusive privilege opportunities now.',
-                    'link' => 'about/careers/efi-l'
+                    'button' => [
+                        'text' => 'View Open Positions',
+                        'link' => 'about/careers/efi-l'
+                    ]
                 ],
             ];
         } else if (Str::lower($data['locale']) == 'zh-cn') {
