@@ -35,7 +35,8 @@
                 <div class="icon">
                     <i class="ion ion-bag"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ route('product#list') }}" class="small-box-footer">More info <i
+                        class="fab fa-product-hunt"></i></a>
             </div>
         </div>
         <!-- ./col -->
@@ -469,8 +470,8 @@
     <script>
         $(function() {
             @isset($success_message)
-            $( document ).ready(function() {
-                toastr.success('{!! $success_message !!}');
+                $(document).ready(function() {
+                    toastr.success('{!! $success_message !!}');
                 });
             @endisset
         });
