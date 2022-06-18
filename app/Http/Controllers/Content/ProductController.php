@@ -1081,7 +1081,7 @@ class ProductController extends Controller
             $response_code = 200;
         }
 
-        return response()->json($response, $response_code)->withHeaders(['accept-language', '*']);
+        return response()->json($response, $response_code)->withHeaders(['accept-language' => '*']);
     }
 
     /**
