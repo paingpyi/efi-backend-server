@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -13,7 +14,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard');
+        $product = Product::where('is_active', '=', true)->get()->count();
+        return view('admin.dashboard')->with(['product_count' => $product]);
     }
 
     /**
