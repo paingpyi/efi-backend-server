@@ -60,10 +60,10 @@ class CSRResource extends JsonResource
                 'gallery' => [
                     'title' => 'Project Photos',
                     'image' => [
-                        'src' => '/storage/photos/1/stock-images/Short term endownment 02.jpg',
-                        'src' => '/storage/uploads/demo/kid-on-lap.jpg',
-                        'src' => '/storage/uploads/demo/news.jpg',
-                    ]
+                        'src_1' => config('app.url') . '/storage/photos/1/stock-images/Short term endownment 02.jpg',
+                        'src_2' => config('app.url') . '/storage/uploads/demo/kid-on-lap.jpg',
+                        'src_3' => config('app.url') . '/storage/uploads/demo/news.jpg',
+                    ],
                 ]
             ];
         } else if (Str::lower($data['locale']) == 'zh-cn') {
@@ -81,10 +81,10 @@ class CSRResource extends JsonResource
                 'gallery' => [
                     'title' => 'Project Photos',
                     'image' => [
-                        'src' => '/storage/photos/1/stock-images/Short term endownment 02.jpg',
-                        'src' => '/storage/uploads/demo/kid-on-lap.jpg',
-                        'src' => '/storage/uploads/demo/news.jpg',
-                    ]
+                        'src_1' => config('app.url') . '/storage/photos/1/stock-images/Short term endownment 02.jpg',
+                        'src_2' => config('app.url') . '/storage/uploads/demo/kid-on-lap.jpg',
+                        'src_3' => config('app.url') . '/storage/uploads/demo/news.jpg',
+                    ],
                 ]
             ];
         } else {
