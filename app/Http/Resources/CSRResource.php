@@ -81,9 +81,9 @@ class CSRResource extends JsonResource
                 'gallery' => [
                     'title' => 'Project Photos',
                     'image' => [
-                        'src_1' => config('app.url') . '/storage/photos/1/stock-images/Short term endownment 02.jpg',
-                        'src_2' => config('app.url') . '/storage/uploads/demo/kid-on-lap.jpg',
-                        'src_3' => config('app.url') . '/storage/uploads/demo/news.jpg',
+                        config('app.url') . '/storage/photos/1/stock-images/Short term endownment 02.jpg',
+                        config('app.url') . '/storage/uploads/demo/kid-on-lap.jpg',
+                        config('app.url') . '/storage/uploads/demo/news.jpg',
                     ],
                 ]
             ];

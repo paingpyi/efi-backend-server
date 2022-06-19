@@ -29,8 +29,8 @@ class NewsroomResource extends JsonResource
                 'title' => 'Newsroom',
                 'cover' => [
                     'image' => config('app.url') . '/storage/uploads/demo/news.jpg',
-                    'title' => 'Presess releases',
-                    'text' => 'Get the latest news and announcements from EFI'
+                    'summery' => 'Presess releases',
+                    'title' => 'Get the latest news and announcements from EFI'
                 ],
             ];
         } else if(Str::lower($data['locale']) == 'my-mm') {
@@ -38,8 +38,8 @@ class NewsroomResource extends JsonResource
                 'title' => 'Newsroom',
                 'cover' => [
                     'image' => config('app.url') . '/storage/uploads/demo/news.jpg',
-                    'title' => 'Presess releases',
-                    'text' => 'Get the latest news and announcements from EFI'
+                    'summery' => 'Presess releases',
+                    'title' => 'Get the latest news and announcements from EFI'
                 ],
             ];
         }  else if(Str::lower($data['locale']) == 'zh-cn') {
@@ -47,8 +47,8 @@ class NewsroomResource extends JsonResource
                 'title' => 'Newsroom',
                 'cover' => [
                     'image' => config('app.url') . '/storage/uploads/demo/news.jpg',
-                    'title' => 'Presess releases',
-                    'text' => 'Get the latest news and announcements from EFI'
+                    'summery' => 'Presess releases',
+                    'title' => 'Get the latest news and announcements from EFI'
                 ],
             ];
         } else {

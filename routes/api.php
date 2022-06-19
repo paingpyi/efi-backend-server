@@ -15,6 +15,8 @@ use App\Http\Resources\AboutEfigResource;
 use App\Http\Resources\AboutEfilResource;
 use App\Http\Resources\CareerPageResource;
 use App\Http\Resources\CSRResource;
+use App\Http\Resources\EFIGResource;
+use App\Http\Resources\EFILResource;
 use App\Http\Resources\FireTypeOfBuildingResource;
 use App\Http\Resources\NewsroomResource;
 use App\Http\Resources\PageCollection;
@@ -68,6 +70,14 @@ Route::group(['prefix' => 'pages', 'namespace' => 'Content'], function () {
 
     Route::post('/career', function () {
         return new CareerPageResource(Page::all());
+    });
+
+    Route::post('/career/efil', function () {
+        return new EFILResource(Page::all());
+    });
+
+    Route::post('/career/efig', function () {
+        return new EFIGResource(Page::all());
     });
 
     Route::post('/newsroom', function () {

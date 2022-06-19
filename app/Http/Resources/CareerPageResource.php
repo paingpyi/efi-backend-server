@@ -53,7 +53,7 @@ class CareerPageResource extends JsonResource
                     'title' => 'Unlock your exclusive privilege opportunities now.',
                     'button' => [
                         'text' => 'View Open Positions',
-                        'link' => 'about/careers/efi-l'
+                        'link' => '/about/careers/efi-l'
                     ]
                 ],
             ];
@@ -86,7 +86,7 @@ class CareerPageResource extends JsonResource
                     'title' => 'Unlock your exclusive privilege opportunities now.',
                     'button' => [
                         'text' => 'View Open Positions',
-                        'link' => 'about/careers/efi-l'
+                        'link' => '/about/careers/efi-l'
                     ]
                 ],
             ];
@@ -119,7 +119,7 @@ class CareerPageResource extends JsonResource
                     'title' => 'Unlock your exclusive privilege opportunities now.',
                     'button' => [
                         'text' => 'View Open Positions',
-                        'link' => 'about/careers/efi-l'
+                        'link' => '/about/careers/efi-l'
                     ]
                 ],
             ];
