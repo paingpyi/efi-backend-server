@@ -42,6 +42,22 @@ class AboutEfilResource extends JsonResource
                         'image' => config('app.url') . '/storage/photos/1/pages/family_1.jpg',
                         'description' => '<p>We provide comprehensive explanations of the solutions based on your needs so that you can understand their features, benefits, risks, terms and conditions, and your commitment - before you make your purchase decision.We are committed to creating a positive social impact through our products and services and to empowering the people of Myanmar to live better life. We are making insurance available to all segments of society.</p>'
                     ],
+                ],
+                'stakeholders' => [
+                    'title' => 'Our Stakeholders',
+                    'description' => '<p>Loren scelequie plays an important role. We are always either believe in nurturing an engaging environment create and develop ourselves in unparalleled ways.</p>',
+                    'data' => [
+                        [
+                            'image' => config('app.url') . '/storage/demo/stakeholders/annette-black.jpg',
+                            'name' => 'Annette Black',
+                            'description' => 'Position'
+                        ],
+                        [
+                            'image' => config('app.url') . '/storage/demo/stakeholders/jacob-jones.jpg',
+                            'name' => 'Jacob Jones',
+                            'description' => 'Position'
+                        ],
+                    ]
                 ]
             ];
         } else if(Str::lower($data['locale']) == 'my-mm') {
@@ -62,6 +78,22 @@ class AboutEfilResource extends JsonResource
                         'image' => config('app.url') . '/storage/photos/1/pages/family_1.jpg',
                         'description' => '<p>ကျွန်ုပ်တို့သည် ဝယ်ယူအားပေးသူများ၏ လိုအပ်ချက်များအပေါ်မူတည်၍ သင့်လျော်သော အာမခံဝန်ဆောင်မှုများကို ပေးလျက်ရှိပါသည်။ ထို့အပြင် ဝယ်ယူအားပေးသူများအနေဖြင့် မဝယ်ယူမှီ အာမခံဝန်ဆောင်မှုများ၏ သဘောသဘာဝများ၊ ရရှိနိုင်သော အကျိုးခံစားခွင့်များနှင့် စည်းမျဉ်းစည်းကမ်းများကို နားလည်စေရန်လည်း သေချာစွာရှင်းပြပေးလျက်ရှိပါသည်။ ကျွန်ုပ်တို့သည် ထုတ်ကုန်များနှင့် ဝန်ဆောင်မှုများမှတစ်ဆင့် ကောင်းမွန်သော လူမှုပတ်ဝန်းကျင်ဆိုင်ရာ အကျိုးသက်ရောက်မှုတစ်ခုဖန်တီးရန်နှင့် မြန်မာပြည်သူများ ပိုမိုကောင်းမွန်သော ဘဝတစ်ခုပိုင်ဆိုင်နိုင်ရန်အတွက် ဝန်ဆောင်မှုပေးလျက်ရှိပါသည်။ ကျွန်ုပ်တို့သည်ကဏ္ဍပေါင်းစုံအသီးသီးအတွက်အာမခံဝန်ဆောင်မှုများပေးနိုင်ရန် အစဉ်ကြိုးပန်းလျက်ရှိပါသည်။</p>'
                     ],
+                ],
+                'stakeholders' => [
+                    'title' => 'Our Stakeholders',
+                    'description' => '<p>Loren scelequie plays an important role. We are always either believe in nurturing an engaging environment create and develop ourselves in unparalleled ways.</p>',
+                    'data' => [
+                        [
+                            'image' => config('app.url') . '/storage/demo/stakeholders/annette-black.jpg',
+                            'name' => 'Annette Black',
+                            'description' => 'Position'
+                        ],
+                        [
+                            'image' => config('app.url') . '/storage/demo/stakeholders/jacob-jones.jpg',
+                            'name' => 'Jacob Jones',
+                            'description' => 'Position'
+                        ],
+                    ]
                 ]
             ];
         }  else if(Str::lower($data['locale']) == 'zh-cn') {
@@ -82,6 +114,22 @@ class AboutEfilResource extends JsonResource
                         'image' => config('app.url') . '/storage/photos/1/pages/family_1.jpg',
                         'description' => '<p>We provide comprehensive explanations of the solutions based on your needs so that you can understand their features, benefits, risks, terms and conditions, and your commitment - before you make your purchase decision.We are committed to creating a positive social impact through our products and services and to empowering the people of Myanmar to live better life. We are making insurance available to all segments of society.</p>'
                     ],
+                ],
+                'stakeholders' => [
+                    'title' => 'Our Stakeholders',
+                    'description' => '<p>Loren scelequie plays an important role. We are always either believe in nurturing an engaging environment create and develop ourselves in unparalleled ways.</p>',
+                    'data' => [
+                        [
+                            'image' => config('app.url') . '/storage/demo/stakeholders/annette-black.jpg',
+                            'name' => 'Annette Black',
+                            'description' => 'Position'
+                        ],
+                        [
+                            'image' => config('app.url') . '/storage/demo/stakeholders/jacob-jones.jpg',
+                            'name' => 'Jacob Jones',
+                            'description' => 'Position'
+                        ],
+                    ]
                 ]
             ];
         } else {

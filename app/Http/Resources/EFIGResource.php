@@ -29,66 +29,18 @@ class EFIGResource extends JsonResource
                 'title' => 'Careers at EFI General',
                 'text' => '<p>Being a lean organization, every employee plays an important role. We are always either solving problems or seeking new ideas. As such, we have plenty of opportunities to innovate, create and develop ourselves in unparalleled ways. We are always creating the opportunities to learn new skills and develop themselves through the journey of our people at EFIG.</p>',
                 'image' => config('app.url') . '/storage/photos/1/stock-images/public term life insurance 01.jpg',
-                'stakeholders' => [
-                    'title' => 'Our Stakeholders',
-                    'description' => '<p>Loren scelequie plays an important role. We are always either believe in nurturing an engaging environment create and develop ourselves in unparalleled ways.</p>',
-                    'data' => [
-                        [
-                            'image' => config('app.url') . '/storage/demo/stakeholders/annette-black.jpg',
-                            'name' => 'Annette Black',
-                            'description' => 'Position'
-                        ],
-                        [
-                            'image' => config('app.url') . '/storage/demo/stakeholders/jacob-jones.jpg',
-                            'name' => 'Jacob Jones',
-                            'description' => 'Position'
-                        ],
-                    ]
-                ]
             ];
         } else if (Str::lower($data['locale']) == 'my-mm') {
             $response = [
                 'title' => 'Careers at EFI General',
                 'text' => '<p>Being a lean organization, every employee plays an important role. We are always either solving problems or seeking new ideas. As such, we have plenty of opportunities to innovate, create and develop ourselves in unparalleled ways. We are always creating the opportunities to learn new skills and develop themselves through the journey of our people at EFIG.</p>',
                 'image' => config('app.url') . '/storage/photos/1/stock-images/public term life insurance 01.jpg',
-                'stakeholders' => [
-                    'title' => 'Our Stakeholders',
-                    'description' => '<p>Loren scelequie plays an important role. We are always either believe in nurturing an engaging environment create and develop ourselves in unparalleled ways.</p>',
-                    'data' => [
-                        [
-                            'image' => config('app.url') . '/storage/demo/stakeholders/annette-black.jpg',
-                            'name' => 'Annette Black',
-                            'description' => 'Position'
-                        ],
-                        [
-                            'image' => config('app.url') . '/storage/demo/stakeholders/jacob-jones.jpg',
-                            'name' => 'Jacob Jones',
-                            'description' => 'Position'
-                        ],
-                    ]
-                ]
             ];
         } else if (Str::lower($data['locale']) == 'zh-cn') {
             $response = [
                 'title' => 'Careers at EFI General',
                 'text' => '<p>Being a lean organization, every employee plays an important role. We are always either solving problems or seeking new ideas. As such, we have plenty of opportunities to innovate, create and develop ourselves in unparalleled ways. We are always creating the opportunities to learn new skills and develop themselves through the journey of our people at EFIG.</p>',
                 'image' => config('app.url') . '/storage/photos/1/stock-images/public term life insurance 01.jpg',
-                'stakeholders' => [
-                    'title' => 'Our Stakeholders',
-                    'description' => '<p>Loren scelequie plays an important role. We are always either believe in nurturing an engaging environment create and develop ourselves in unparalleled ways.</p>',
-                    'data' => [
-                        [
-                            'image' => config('app.url') . '/storage/demo/stakeholders/annette-black.jpg',
-                            'name' => 'Annette Black',
-                            'description' => 'Position'
-                        ],
-                        [
-                            'image' => config('app.url') . '/storage/demo/stakeholders/jacob-jones.jpg',
-                            'name' => 'Jacob Jones',
-                            'description' => 'Position'
-                        ],
-                    ]
-                ]
             ];
         } else {
             $response = [__('validation.required', ['attribute' => 'locale'])];

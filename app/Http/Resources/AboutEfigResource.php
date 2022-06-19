@@ -42,6 +42,22 @@ class AboutEfigResource extends JsonResource
                         'image' => config('app.url') . '/storage/photos/1/pages/efig_2.jpg',
                         'description' => '<p>We are a financially sound and strong company backed by Excellent Fortune Development Group, a top multi-sector conglomerate in Myanmar. We serve our customers with professionalism and integrity, guided by strong moral principles. We listen to your feedback will respond to your concerns in a fair and timely manner.</p>'
                     ],
+                ],
+                'stakeholders' => [
+                    'title' => 'Our Stakeholders',
+                    'description' => '<p>Loren scelequie plays an important role. We are always either believe in nurturing an engaging environment create and develop ourselves in unparalleled ways.</p>',
+                    'data' => [
+                        [
+                            'image' => config('app.url') . '/storage/demo/stakeholders/annette-black.jpg',
+                            'name' => 'Annette Black',
+                            'description' => 'Position'
+                        ],
+                        [
+                            'image' => config('app.url') . '/storage/demo/stakeholders/jacob-jones.jpg',
+                            'name' => 'Jacob Jones',
+                            'description' => 'Position'
+                        ],
+                    ]
                 ]
             ];
         } else if(Str::lower($data['locale']) == 'my-mm') {
@@ -62,6 +78,22 @@ class AboutEfigResource extends JsonResource
                         'image' => config('app.url') . '/storage/photos/1/pages/efig_2.jpg',
                         'description' => '<p>ကျွန်ုပ်တို့သည် မြန်မာနိုင်ငံတွင် ထိပ်တန်းစီးပွားရေးလုပ်ငန်းများစွာ ပေါင်းစည်း ပါဝင်သော ကော်ပိုရေးတစ်ခုဖြစ်သည့် Excellent Fortune Development Group နောက်ခံရှိသောကြောင့် ဘဏ္ဍာရေးအားဖြင့် တောင့်တင်းခိုင်မာသော ကုမ္ပဏီတစ်ခုဖြစ်သည်။ ကျွန်ုပ်တို့သည် ကျွန်ုပ်တို့၏ ဝယ်ယူအားပေးသူများကို လုပ်ငန်းပိုင်းဆိုင်ရာကျွမ်းကျင်ပိုင်နိုင်မှု၊ ဂုဏ်သိက္ခာနှင့်အညီ ခိုင်မာသော ကျင့်ဝတ်စည်းကမ်းများနှင့်အတူ ဝန်ဆောင်မှုပေးရန် ရည်ရွယ်ပါသည်။ ကျွန်ုပ်တို့သည် ဝယ်ယူသူ၏ တုန့်ပြန်ချက်များကို အစဉ်နားထောင်လျက်ရှိပြီး လျင်မြန်စွာ အလေးထားတုံပြန်လျက်ရှိပါသည်။</p>'
                     ],
+                ],
+                'stakeholders' => [
+                    'title' => 'Our Stakeholders',
+                    'description' => '<p>Loren scelequie plays an important role. We are always either believe in nurturing an engaging environment create and develop ourselves in unparalleled ways.</p>',
+                    'data' => [
+                        [
+                            'image' => config('app.url') . '/storage/demo/stakeholders/annette-black.jpg',
+                            'name' => 'Annette Black',
+                            'description' => 'Position'
+                        ],
+                        [
+                            'image' => config('app.url') . '/storage/demo/stakeholders/jacob-jones.jpg',
+                            'name' => 'Jacob Jones',
+                            'description' => 'Position'
+                        ],
+                    ]
                 ]
             ];
         }  else if(Str::lower($data['locale']) == 'zh-cn') {
@@ -82,6 +114,22 @@ class AboutEfigResource extends JsonResource
                         'image' => config('app.url') . '/storage/photos/1/pages/efig_2.jpg',
                         'description' => '<p>We are a financially sound and strong company backed by Excellent Fortune Development Group, a top multi-sector conglomerate in Myanmar. We serve our customers with professionalism and integrity, guided by strong moral principles. We listen to your feedback will respond to your concerns in a fair and timely manner.</p>'
                     ],
+                ],
+                'stakeholders' => [
+                    'title' => 'Our Stakeholders',
+                    'description' => '<p>Loren scelequie plays an important role. We are always either believe in nurturing an engaging environment create and develop ourselves in unparalleled ways.</p>',
+                    'data' => [
+                        [
+                            'image' => config('app.url') . '/storage/demo/stakeholders/annette-black.jpg',
+                            'name' => 'Annette Black',
+                            'description' => 'Position'
+                        ],
+                        [
+                            'image' => config('app.url') . '/storage/demo/stakeholders/jacob-jones.jpg',
+                            'name' => 'Jacob Jones',
+                            'description' => 'Position'
+                        ],
+                    ]
                 ]
             ];
         } else {
