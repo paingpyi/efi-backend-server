@@ -47,7 +47,7 @@ class AboutEfigResource extends JsonResource
                     'title' => 'Our Stakeholders',
                     'description' => '<p>Loren scelequie plays an important role. We are always either believe in nurturing an engaging environment create and develop ourselves in unparalleled ways.</p>',
                     'data' => [
-                        [
+                        /*[
                             'image' => config('app.url') . '/storage/demo/stakeholders/annette-black.jpg',
                             'name' => 'Annette Black',
                             'description' => 'Position'
@@ -56,7 +56,7 @@ class AboutEfigResource extends JsonResource
                             'image' => config('app.url') . '/storage/demo/stakeholders/jacob-jones.jpg',
                             'name' => 'Jacob Jones',
                             'description' => 'Position'
-                        ],
+                        ],*/
                     ]
                 ]
             ];
@@ -83,7 +83,7 @@ class AboutEfigResource extends JsonResource
                     'title' => 'Our Stakeholders',
                     'description' => '<p>Loren scelequie plays an important role. We are always either believe in nurturing an engaging environment create and develop ourselves in unparalleled ways.</p>',
                     'data' => [
-                        [
+                        /*[
                             'image' => config('app.url') . '/storage/demo/stakeholders/annette-black.jpg',
                             'name' => 'Annette Black',
                             'description' => 'Position'
@@ -92,7 +92,7 @@ class AboutEfigResource extends JsonResource
                             'image' => config('app.url') . '/storage/demo/stakeholders/jacob-jones.jpg',
                             'name' => 'Jacob Jones',
                             'description' => 'Position'
-                        ],
+                        ],*/
                     ]
                 ]
             ];
@@ -119,7 +119,7 @@ class AboutEfigResource extends JsonResource
                     'title' => 'Our Stakeholders',
                     'description' => '<p>Loren scelequie plays an important role. We are always either believe in nurturing an engaging environment create and develop ourselves in unparalleled ways.</p>',
                     'data' => [
-                        [
+                        /*[
                             'image' => config('app.url') . '/storage/demo/stakeholders/annette-black.jpg',
                             'name' => 'Annette Black',
                             'description' => 'Position'
@@ -128,7 +128,7 @@ class AboutEfigResource extends JsonResource
                             'image' => config('app.url') . '/storage/demo/stakeholders/jacob-jones.jpg',
                             'name' => 'Jacob Jones',
                             'description' => 'Position'
-                        ],
+                        ],*/
                     ]
                 ]
             ];
