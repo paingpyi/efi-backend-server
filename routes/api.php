@@ -13,6 +13,7 @@ use App\Http\Controllers\Setting\BlockController;
 use App\Http\Controllers\Setting\CategoryController;
 use App\Http\Resources\AboutEfigResource;
 use App\Http\Resources\AboutEfilResource;
+use App\Http\Resources\BlogPageResource;
 use App\Http\Resources\CareerPageResource;
 use App\Http\Resources\CSRResource;
 use App\Http\Resources\EFIGResource;
@@ -86,6 +87,10 @@ Route::group(['prefix' => 'pages', 'namespace' => 'Content'], function () {
 
     Route::post('/csr', function () {
         return new CSRResource(Page::all());
+    });
+
+    Route::post('/blogs', function () {
+        return new BlogPageResource(Page::all());
     });
 });
 
