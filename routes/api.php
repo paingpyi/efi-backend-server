@@ -14,6 +14,7 @@ use App\Http\Controllers\Setting\CategoryController;
 use App\Http\Resources\AboutEfigResource;
 use App\Http\Resources\AboutEfilResource;
 use App\Http\Resources\CareerPageResource;
+use App\Http\Resources\CSRResource;
 use App\Http\Resources\FireTypeOfBuildingResource;
 use App\Http\Resources\NewsroomResource;
 use App\Http\Resources\PageCollection;
@@ -71,6 +72,10 @@ Route::group(['prefix' => 'pages', 'namespace' => 'Content'], function () {
 
     Route::post('/newsroom', function () {
         return new NewsroomResource(Page::all());
+    });
+
+    Route::post('/csr', function () {
+        return new CSRResource(Page::all());
     });
 });
 
