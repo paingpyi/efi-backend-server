@@ -24,7 +24,7 @@ class CSRResource extends JsonResource
             return $error_messages;
         }
 
-        if(Str::lower($data['locale']) == 'en-us') {
+        if (Str::lower($data['locale']) == 'en-us') {
             $response = [
                 'title' => 'CSR',
                 'blocks' => [
@@ -37,15 +37,15 @@ class CSRResource extends JsonResource
                     'text' => '<p>We go beyond providing financial assistance. We also prepare youths to be future-ready by offering them basic financial literacy, personal career and character development training.</p>'
                 ],
                 'gallery' => [
-                    'title'=>'Project Photos',
+                    'title' => 'Project Photos',
                     'image' => [
-                        'src' => config('app.url') . '/storage/photos/1/stock-images/Short term endownment 02.jpg',
-                        'src' => config('app.url') . '/storage/uploads/demo/kid-on-lap.jpg',
-                        'src' => config('app.url') . '/storage/uploads/demo/news.jpg',
-                    ]
+                        'src_1' => config('app.url') . '/storage/photos/1/stock-images/Short term endownment 02.jpg',
+                        'src_2' => config('app.url') . '/storage/uploads/demo/kid-on-lap.jpg',
+                        'src_3' => config('app.url') . '/storage/uploads/demo/news.jpg',
+                    ],
                 ]
             ];
-        } else if(Str::lower($data['locale']) == 'my-mm') {
+        } else if (Str::lower($data['locale']) == 'my-mm') {
             $response = [
                 'title' => 'CSR',
                 'blocks' => [
@@ -58,7 +58,7 @@ class CSRResource extends JsonResource
                     'text' => '<p>We go beyond providing financial assistance. We also prepare youths to be future-ready by offering them basic financial literacy, personal career and character development training.</p>'
                 ],
                 'gallery' => [
-                    'title'=>'Project Photos',
+                    'title' => 'Project Photos',
                     'image' => [
                         'src' => '/storage/photos/1/stock-images/Short term endownment 02.jpg',
                         'src' => '/storage/uploads/demo/kid-on-lap.jpg',
@@ -66,7 +66,7 @@ class CSRResource extends JsonResource
                     ]
                 ]
             ];
-        }  else if(Str::lower($data['locale']) == 'zh-cn') {
+        } else if (Str::lower($data['locale']) == 'zh-cn') {
             $response = [
                 'title' => 'CSR',
                 'blocks' => [
@@ -79,7 +79,7 @@ class CSRResource extends JsonResource
                     'text' => '<p>We go beyond providing financial assistance. We also prepare youths to be future-ready by offering them basic financial literacy, personal career and character development training.</p>'
                 ],
                 'gallery' => [
-                    'title'=>'Project Photos',
+                    'title' => 'Project Photos',
                     'image' => [
                         'src' => '/storage/photos/1/stock-images/Short term endownment 02.jpg',
                         'src' => '/storage/uploads/demo/kid-on-lap.jpg',
