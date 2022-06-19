@@ -15,6 +15,7 @@ use App\Http\Resources\AboutEfigResource;
 use App\Http\Resources\AboutEfilResource;
 use App\Http\Resources\CareerPageResource;
 use App\Http\Resources\FireTypeOfBuildingResource;
+use App\Http\Resources\NewsroomResource;
 use App\Http\Resources\PageCollection;
 use App\Models\Page;
 
@@ -66,6 +67,10 @@ Route::group(['prefix' => 'pages', 'namespace' => 'Content'], function () {
 
     Route::post('/career', function () {
         return new CareerPageResource(Page::all());
+    });
+
+    Route::post('/newsroom', function () {
+        return new NewsroomResource(Page::all());
     });
 });
 
