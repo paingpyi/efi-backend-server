@@ -899,8 +899,8 @@ class ProductController extends Controller
             ]
         ]);
         // End of Product Updates
-dd($old_product->slug_url);
-        return redirect()->route('product#list')->with(['success_message' => 'Successfully <strong>updated!</strong>' . (($response->status() >= 200 and $response->status() >= 299)? $old_product->slug_url:'<br><span class="text-danger">Error on response Frontend</span>')]);
+
+        return redirect()->route('product#list')->with(['success_message' => 'Successfully <strong>updated!</strong>']);
     }
 
     /**
