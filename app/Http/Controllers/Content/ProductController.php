@@ -901,15 +901,16 @@ class ProductController extends Controller
         ]);
         // End of Product Updates
 
-        Log::info('Log message', array(
-            'response code' => $response->status(),
-            'response reason' => $response->body(),
+        Log::info('Log message', array([
             'context' => [
-            'type' => 'product-detail-updated',
-            'locale' => ["en-US", "my-MM", "zh-CN"],
-            'data' => [
-                'category_machine_name' => $category_machine,
-                'slug' => $old_product->slug_url
+                'response code' => $response->status(),
+                'response reason' => $response->body(),
+                'type' => 'product-detail-updated',
+                'locale' => ["en-US", "my-MM", "zh-CN"],
+                'data' => [
+                    'category_machine_name' => $category_machine,
+                    'slug' => $old_product->slug_url
+                ]
             ]
         ]));
 
