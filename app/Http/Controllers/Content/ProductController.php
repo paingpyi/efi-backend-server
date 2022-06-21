@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -899,6 +900,15 @@ class ProductController extends Controller
             ]
         ]);
         // End of Product Updates
+
+        Log::info('Log message', array('context' => [
+            'type' => 'product-detail-updated',
+            'locale' => ["en-US", "my-MM", "zh-CN"],
+            'data' => [
+                'category_machine_name' => $category_machine,
+                'slug' => $old_product->slug_url
+            ]
+        ]));
 
         return redirect()->route('product#list')->with(['success_message' => 'Successfully <strong>updated!</strong>']);
     }
