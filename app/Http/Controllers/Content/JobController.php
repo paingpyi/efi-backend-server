@@ -120,8 +120,9 @@ class JobController extends Controller
         $key = config('efi.api_key');
         $response = Http::withHeaders([
             'Authorization' => "Bearer {$key}"
-        ])->post('https://deploy-preview-27--efimm.netlify.app/api/revalidate', [
+        ])->post('https://efigmm.com/api/revalidate', [
             'type' => 'career-detail-updated',
+            'locale' => ["en-US", "my-MM", "zh-CN"],
             'data' => [
                 'category_machine_name' => $category[1],
                 'slug' => $request->slug_url
@@ -218,8 +219,9 @@ class JobController extends Controller
         $key = config('efi.api_key');
         $response = Http::withHeaders([
             'Authorization' => "Bearer {$key}"
-        ])->post('https://deploy-preview-27--efimm.netlify.app/api/revalidate', [
+        ])->post('https://efigmm.com/api/revalidate', [
             'type' => 'career-detail-updated',
+            'locale' => ["en-US", "my-MM", "zh-CN"],
             'data' => [
                 'category_machine_name' => $category[1],
                 'slug' => $request->slug_url

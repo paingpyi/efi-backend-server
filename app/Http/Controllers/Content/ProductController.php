@@ -459,6 +459,7 @@ class ProductController extends Controller
             'Authorization' => "Bearer {$key}"
         ])->post('https://efigmm.com/api/revalidate', [
             'type' => 'product-detail-updated',
+            'locale' => ["en-US", "my-MM", "zh-CN"],
             'data' => [
                 'category_machine_name' => $category_machine,
                 'slug' => Str::slug($request->title, '-')
@@ -760,14 +761,14 @@ class ProductController extends Controller
                         'description' => $request->attachments_description[0],
                         'icon' => Str::replace(config('app.url'), '', $request->attachments_icon[0]),
                         'buttonText' => $request->attachments_buttonText[0],
-                        'proposal_file' => Str::replace(config('app.url'), '',$request->attachments_proposal_file[0]),
+                        'proposal_file' => Str::replace(config('app.url'), '', $request->attachments_proposal_file[0]),
                     ],
                     [
                         'title' => $request->attachments_title[1],
                         'description' => $request->attachments_description[1],
                         'icon' => Str::replace(config('app.url'), '', $request->attachments_icon[1]),
                         'buttonText' => $request->attachments_buttonText[1],
-                        'proposal_file' => Str::replace(config('app.url'), '',$request->attachments_proposal_file[1]),
+                        'proposal_file' => Str::replace(config('app.url'), '', $request->attachments_proposal_file[1]),
                     ],
                 ],
                 'my-mm' => [
@@ -776,14 +777,14 @@ class ProductController extends Controller
                         'description' => $request->attachments_description_burmese[0],
                         'icon' => Str::replace(config('app.url'), '', $request->attachments_icon_burmese[0]),
                         'buttonText' => $request->attachments_buttonText_burmese[0],
-                        'proposal_file' => Str::replace(config('app.url'), '',$request->attachments_proposal_file_burmese[0]),
+                        'proposal_file' => Str::replace(config('app.url'), '', $request->attachments_proposal_file_burmese[0]),
                     ],
                     [
                         'title' => $request->attachments_title_burmese[1],
                         'description' => $request->attachments_description_burmese[1],
                         'icon' => Str::replace(config('app.url'), '', $request->attachments_icon_burmese[1]),
                         'buttonText' => $request->attachments_buttonText_burmese[1],
-                        'proposal_file' => Str::replace(config('app.url'), '',$request->attachments_proposal_file_burmese[1]),
+                        'proposal_file' => Str::replace(config('app.url'), '', $request->attachments_proposal_file_burmese[1]),
                     ],
                 ],
                 'zh-cn' => [
@@ -792,14 +793,14 @@ class ProductController extends Controller
                         'description' => $request->attachments_description_chinese[0],
                         'icon' => Str::replace(config('app.url'), '', $request->attachments_icon_chinese[0]),
                         'buttonText' => $request->attachments_buttonText_chinese[0],
-                        'proposal_file' => Str::replace(config('app.url'), '',$request->attachments_proposal_file_chinese[0]),
+                        'proposal_file' => Str::replace(config('app.url'), '', $request->attachments_proposal_file_chinese[0]),
                     ],
                     [
                         'title' => $request->attachments_title_chinese[1],
                         'description' => $request->attachments_description_chinese[1],
                         'icon' => Str::replace(config('app.url'), '', $request->attachments_icon_chinese[1]),
                         'buttonText' => $request->attachments_buttonText_chinese[1],
-                        'proposal_file' => Str::replace(config('app.url'), '',$request->attachments_proposal_file_chinese[1]),
+                        'proposal_file' => Str::replace(config('app.url'), '', $request->attachments_proposal_file_chinese[1]),
                     ],
                 ],
             ]),
@@ -889,6 +890,7 @@ class ProductController extends Controller
             'Authorization' => "Bearer {$key}"
         ])->post('https://efigmm.com/api/revalidate', [
             'type' => 'product-detail-updated',
+            'locale' => ["en-US", "my-MM", "zh-CN"],
             'data' => [
                 'category_machine_name' => $category_machine,
                 'slug' => Str::slug($request->title, '-')
@@ -1151,7 +1153,7 @@ class ProductController extends Controller
                 $diagrams_and_table = [];
                 foreach (json_decode($products->diagrams_and_table) as $item) {
                     if ($item->title !== null) {
-                        if($item->image->src !== '') {
+                        if ($item->image->src !== '') {
                             $diagrams_and_table[] = [
                                 'title' => $item->title,
                                 'description' => $item->description,

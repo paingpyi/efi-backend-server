@@ -145,8 +145,9 @@ class BlogController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => "Bearer {$key}"
-        ])->post('https://deploy-preview-27--efimm.netlify.app/api/revalidate', [
+        ])->post('https://efigmm.com/api/revalidate', [
             'type' => 'blog-detail-updated',
+            'locale' => ["en-US", "my-MM", "zh-CN"],
             'data' => [
                 'slug' => $request->slug_url
             ]
@@ -250,8 +251,9 @@ class BlogController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => "Bearer {$key}"
-        ])->post('https://deploy-preview-27--efimm.netlify.app/api/revalidate', [
+        ])->post('https://efigmm.com/api/revalidate', [
             'type' => 'blog-detail-updated',
+            'locale' => ["en-US", "my-MM", "zh-CN"],
             'data' => [
                 'slug' => $request->slug_url
             ]

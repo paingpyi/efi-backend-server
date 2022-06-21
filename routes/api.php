@@ -170,7 +170,7 @@ Route::group(['prefix' => 'quotes'], function () {
 
         Route::post('fire-insurance', [QuoteController::class, 'calculateFireInsurance']);
 
-        Route::post('inland-transit', [QuoteController::class, 'calculateInlandTransit']);
+        Route::post('inland-transit-insurance', [QuoteController::class, 'calculateInlandTransit']);
 
         Route::post('marine-cargo-insurance', [QuoteController::class, 'calculateMarineCargo']);
 
