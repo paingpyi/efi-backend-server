@@ -517,6 +517,8 @@ class ProductController extends Controller
                 ->withInput();
         }
 
+        $old_product = Product::where('id', '=', $id)->first();
+
         $food_4_thought = [];
 
         if (isset($request->additional_title)) {
@@ -893,7 +895,7 @@ class ProductController extends Controller
             'locale' => ["en-US", "my-MM", "zh-CN"],
             'data' => [
                 'category_machine_name' => $category_machine,
-                'slug' => Str::slug($request->title, '-')
+                'slug' => $old_product->slug_url
             ]
         ]);
         // End of Product Updates
