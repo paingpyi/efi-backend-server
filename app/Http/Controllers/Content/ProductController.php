@@ -460,7 +460,7 @@ class ProductController extends Controller
             'Authorization' => "Bearer {$key}"
         ])->post('https://efigmm.com/api/revalidate', [
             'type' => 'product-detail-updated',
-            'locale' => ["en-US", "my-MM", "zh-CN"],
+            'locales' => ["en-US", "my-MM", "zh-CN"],
             'data' => [
                 'category_machine_name' => $category_machine,
                 'slug' => Str::slug($request->title, '-')
@@ -893,7 +893,7 @@ class ProductController extends Controller
             'Authorization' => "Bearer {$key}"
         ])->post('https://efigmm.com/api/revalidate', [
             'type' => 'product-detail-updated',
-            'locale' => ["en-US", "my-MM", "zh-CN"],
+            'locales' => ["en-US", "my-MM", "zh-CN"],
             'data' => [
                 'category_machine_name' => $category_machine,
                 'slug' => $old_product->slug_url
@@ -906,7 +906,7 @@ class ProductController extends Controller
                 'response code' => $response->status(),
                 'response reason' => $response->body(),
                 'type' => 'product-detail-updated',
-                'locale' => ["en-US", "my-MM", "zh-CN"],
+                'locales' => ["en-US", "my-MM", "zh-CN"],
                 'data' => [
                     'category_machine_name' => $category_machine,
                     'slug' => $old_product->slug_url

@@ -122,7 +122,7 @@ class JobController extends Controller
             'Authorization' => "Bearer {$key}"
         ])->post('https://efigmm.com/api/revalidate', [
             'type' => 'career-detail-updated',
-            'locale' => ["en-US", "my-MM", "zh-CN"],
+            'locales' => ["en-US", "my-MM", "zh-CN"],
             'data' => [
                 'category_machine_name' => $category[1],
                 'slug' => $request->slug_url
@@ -221,7 +221,7 @@ class JobController extends Controller
             'Authorization' => "Bearer {$key}"
         ])->post('https://efigmm.com/api/revalidate', [
             'type' => 'career-detail-updated',
-            'locale' => ["en-US", "my-MM", "zh-CN"],
+            'locales' => ["en-US", "my-MM", "zh-CN"],
             'data' => [
                 'category_machine_name' => $category[1],
                 'slug' => $request->slug_url
