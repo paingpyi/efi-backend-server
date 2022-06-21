@@ -890,7 +890,7 @@ class ProductController extends Controller
         $key = config('efi.api_key');
 
         $response = Http::withHeaders([
-            'Authorization' => "bearer {$key}"
+            'Authorization' => "Bearer {$key}"
         ])->post('https://efigmm.com/api/revalidate', [
             'type' => 'product-detail-updated',
             'locale' => ["en-US", "my-MM", "zh-CN"],
@@ -903,7 +903,7 @@ class ProductController extends Controller
 
         Log::info('Log message', array(
             'response code' => $response->status(),
-            'response reason' => $response->reason(),
+            'response reason' => $response->body(),
             'context' => [
             'type' => 'product-detail-updated',
             'locale' => ["en-US", "my-MM", "zh-CN"],
