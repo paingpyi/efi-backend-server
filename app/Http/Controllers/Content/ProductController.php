@@ -901,7 +901,9 @@ class ProductController extends Controller
         ]);
         // End of Product Updates
 
-        Log::info('Log message', array('context' => [
+        Log::info('Log message', array(
+            'response' => $response->status(),
+            'context' => [
             'type' => 'product-detail-updated',
             'locale' => ["en-US", "my-MM", "zh-CN"],
             'data' => [
