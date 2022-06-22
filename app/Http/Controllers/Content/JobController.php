@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Crypt;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\ApplyJob;
@@ -128,6 +129,17 @@ class JobController extends Controller
                 'slug' => $request->slug_url
             ]
         ]);
+
+        Log::info('Log message', array([
+            'context' => [
+                'type' => 'career-detail-updated',
+                'locales' => ["en-US", "my-MM", "zh-CN"],
+                'data' => [
+                    'category_machine_name' => $category[1],
+                    'slug' => $request->slug_url
+                ]
+            ]
+        ]));
         // End of Career Updates
 
         return redirect()->route('job#list')->with(['success_message' => 'Successfully <strong>saved!</strong>']);
