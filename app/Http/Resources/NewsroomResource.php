@@ -28,7 +28,7 @@ class NewsroomResource extends JsonResource
             $response = [
                 'title' => 'Newsroom',
                 'cover' => [
-                    'image' => config('app.url') . '/storage/uploads/demo/news.jpg',
+                    'image' => config('app.url') . '/storage/photos/1/news.jpg',
                     'summery' => 'Presess releases',
                     'title' => 'Get the latest news and announcements from EFI'
                 ],
@@ -37,7 +37,7 @@ class NewsroomResource extends JsonResource
             $response = [
                 'title' => 'Newsroom',
                 'cover' => [
-                    'image' => config('app.url') . '/storage/uploads/demo/news.jpg',
+                    'image' => config('app.url') . '/storage/photos/1/news.jpg',
                     'summery' => 'Presess releases',
                     'title' => 'Get the latest news and announcements from EFI'
                 ],
@@ -46,7 +46,7 @@ class NewsroomResource extends JsonResource
             $response = [
                 'title' => 'Newsroom',
                 'cover' => [
-                    'image' => config('app.url') . '/storage/uploads/demo/news.jpg',
+                    'image' => config('app.url') . '/storage/photos/1/news.jpg',
                     'summery' => 'Presess releases',
                     'title' => 'Get the latest news and announcements from EFI'
                 ],
