@@ -33,10 +33,9 @@
                     <p>Products</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-bag"></i>
+                    <i class="ion ion-albums"></i>
                 </div>
-                <a href="{{ route('product#list') }}" class="small-box-footer">More info <i
-                        class="fab fa-product-hunt"></i></a>
+                <a href="{{ route('product#list') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- ./col -->
