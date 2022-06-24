@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\blog;
 use App\Models\Product;
+use App\Models\Job;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -15,7 +18,11 @@ class DashboardController extends Controller
     public function index()
     {
         $product = Product::where('is_active', '=', true)->get()->count();
-        return view('admin.dashboard')->with(['product_count' => $product]);
+        $jobs = Job::where('is_vacant', '=', true)->get()->count();
+        $blog = blog::where('status', '=', 'published')->get()->count();
+        $user = User::where('is_active', '=', true)->get()->count();
+
+        return view('admin.dashboard')->with(['product_count' => $product, 'jobs_count' => $jobs, 'blog_count' => $blog, 'user_count' => $user]);
     }
 
     /**
