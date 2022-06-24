@@ -112,10 +112,10 @@ class SliderController extends Controller
         $sliders_mm = DB::table('slider_blocks')
             ->select(
                 'id',
-                DB::raw('JSON_EXTRACT(title, \'$."mm-my"\') as title'),
+                DB::raw('JSON_EXTRACT(title, \'$."my-mm"\') as title'),
                 'image',
                 'kind'
-            )->where('id', '=', Crypt::decryptString($id))->first();
+            )->where('id', '=', Crypt::decryptString($id))->first();dd($sliders_en);
 
         return view('admin.blocks.slider.add-edit')->with(['action' => 'update', 'sliders_en' => $sliders_en, 'sliders_zh' => $sliders_zh, 'sliders_mm' => $sliders_mm]);
     }
