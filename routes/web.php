@@ -37,6 +37,8 @@ Route::get('/', function () {
 Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('admin#dashboard');
 
+    Route::post('/refresh', [DashboardController::class, 'refresh'])->name('refresh#dashboard');
+
     Route::group(['prefix' => 'user', 'namespace' => 'User'], function () {
         Route::get('/', [UserController::class, 'index'])->name('user#list');
 

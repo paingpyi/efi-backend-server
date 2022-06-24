@@ -5,6 +5,9 @@
 
 {{-- Head Stylesheets --}}
 @section('headStyle')
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('adminlite/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminlite/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet"
         href="{{ asset('adminlite/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
@@ -16,6 +19,8 @@
     <link rel="stylesheet" href="{{ asset('adminlite/plugins/daterangepicker/daterangepicker.css') }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('adminlite/plugins/summernote/summernote-bs4.min.css') }}">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{ asset('adminlite/plugins/toastr/toastr.min.css') }}">
 @endsection
 {{-- /. Head Stylesheets --}}
 
@@ -167,21 +172,28 @@
                     <!-- /. tools -->
                 </div>
                 <div class="card-body">
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-8">
-                                <select name="page" id="page" class="form-control select2">
-                                    <option value="">Please Select the page</option>
-                                    <option value="home">Home page</option>
-                                    <option value="product">Product page</option>
-                                    <option value="blog">Blog page</option>
-                                    <option value="career">Career page</option>
-                                </select>
-                            </div>
-                            <div class="col-4"><button class="btn btn-success border" type="submit">Refresh</button>
+                    <form id="inputForm" action="{{ route('refresh#dashboard') }}" method="post"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-8">
+                                    <select name="page" id="status" class="form-control select2"
+                                        style="width: 100%;">
+                                        <option value="">Please Select the page</option>
+                                        <option value="home">Home page</option>
+                                        <option value="product">Product page</option>
+                                        <option value="blog">Blog page</option>
+                                        <option value="career">Career page</option>
+                                    </select>
+                                </div>
+                                <div class="col-4">
+                                    <button type="submit" class="btn btn-success"><i class="fa fa-retweet"></i>
+                                        Refresh</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </section>
@@ -194,8 +206,6 @@
 @section('footerScripts')
     <!-- ChartJS -->
     <script src="{{ asset('adminlite/plugins/chart.js/Chart.min.js') }}"></script>
-    <!-- Sparkline -->
-    <script src="{{ asset('adminlite/plugins/sparklines/sparkline.js') }}"></script>
     <!-- JQVMap -->
     <script src="{{ asset('adminlite/plugins/jqvmap/jquery.vmap.min.js') }}"></script>
     <script src="{{ asset('adminlite/plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
@@ -204,15 +214,17 @@
     <!-- daterangepicker -->
     <script src="{{ asset('adminlite/plugins/moment/moment.min.js') }}"></script>
     <script src="{{ asset('adminlite/plugins/daterangepicker/daterangepicker.js') }}"></script>
+    <!-- Select2 -->
+    <script src="{{ asset('adminlite/plugins/select2/js/select2.full.min.js') }}"></script>
     <!-- Tempusdominus Bootstrap 4 -->
     <script src="{{ asset('adminlite/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}">
     </script>
     <!-- Summernote -->
     <script src="{{ asset('adminlite/plugins/summernote/summernote-bs4.min.js') }}"></script>
+    <!-- Toastr -->
+    <script src="{{ asset('adminlite/plugins/toastr/toastr.min.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('adminlite/dist/js/demo.js') }}"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    {{-- <script src="{{ asset('adminlite/dist/js/pages/dashboard.js') }}"></script> --}}
     <!-- Page specific script -->
     <script>
         $(function() {
@@ -225,27 +237,21 @@
                 handle: '.card-header, .nav-tabs',
                 forcePlaceholderSize: true,
                 zIndex: 999999
-            })
-            $('.connectedSortable .card-header').css('cursor', 'move')
+            });
+            $('.connectedSortable .card-header').css('cursor', 'move');
 
             /* jQueryKnob */
-            $('.knob').knob()
-
-            // The Calender
-            $('#calendar').datetimepicker({
-                format: 'L',
-                inline: true
-            })
+            $('.knob').knob();
 
             $('.select2').select2({
                 theme: 'bootstrap4'
             });
 
-            @isset($success_message)
-                $(document).ready(function() {
-                    toastr.success('{!! $success_message !!}');
-                });
-            @endisset
+            // The Calender
+            $('#calendar').datetimepicker({
+                format: 'L',
+                inline: true
+            });
         });
     </script>
     <script>
@@ -263,5 +269,10 @@
                 $(".sec").html((seconds < 10 ? "0" : "") + seconds);
             }, 1000);
         });
+        @isset($success_message)
+            $(document).ready(function() {
+                toastr.success('{!! $success_message !!}');
+            });
+        @endisset
     </script>
 @endsection
