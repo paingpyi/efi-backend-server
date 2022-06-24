@@ -27,7 +27,7 @@
         <div class="col">
             <div class="card">
                 <form id="inputForm"
-                    action="{{ $action == 'new' ? route('store#data#slider') : route('update#data#blog', isset($blog_en->id) ? $blog_en->id : 0) }}"
+                    action="{{ $action == 'new' ? route('store#data#slider') : route('update#data#slider', isset($blog_en->id) ? $blog_en->id : 0) }}"
                     method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card-header">

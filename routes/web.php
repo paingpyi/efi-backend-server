@@ -89,6 +89,7 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
             Route::post('/new', [SliderController::class,'store'])->name('store#data#slider');
 
             Route::get('/edit/{id}', [SliderController::class,'edit'])->name('edit#slider');
+            Route::post('/edit/{id}', [SliderController::class,'update'])->name('update#data#slider');
         });
     });
 
