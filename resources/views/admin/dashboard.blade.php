@@ -127,7 +127,7 @@
         <!-- right col (We are only adding the ID to make the widgets sortable)-->
         <section class="col-lg-5 connectedSortable">
             <!-- Clock -->
-            <div class="card bg-dark text-white">
+            <!--<div class="card bg-dark text-white">
                 <h3 class="card-title text-center">
                     <div class="d-flex flex-wrap justify-content-center mt-2">
                         <a><span class="badge"><i class="fa fa-clock-o" aria-hidden="true"></i></span></a>
@@ -136,7 +136,7 @@
                         <a><span class="badge sec"></span></a>
                     </div>
                 </h3>
-            </div>
+            </div>-->
             <!-- /.card -->
         </section>
         <!-- right col -->
@@ -177,7 +177,7 @@
             @endisset
         });
     </script>
-    <script>
+    <!--<script>
         $(document).ready(function() {
             setInterval(function() {
                 var hours = new Date().getHours();
@@ -192,5 +192,5 @@
                 $(".sec").html((seconds < 10 ? "0" : "") + seconds);
             }, 1000);
         });
-    </script>
+    </script>-->
 @endsection
