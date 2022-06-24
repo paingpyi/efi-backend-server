@@ -178,7 +178,8 @@
                                     <option value="career">Career page</option>
                                 </select>
                             </div>
-                            <div class="col-4"><button class="btn btn-success border" type="submit">Refresh</button></div>
+                            <div class="col-4"><button class="btn btn-success border" type="submit">Refresh</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -211,10 +212,31 @@
     <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('adminlite/dist/js/demo.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="{{ asset('adminlite/dist/js/pages/dashboard.js') }}"></script>
+    {{-- <script src="{{ asset('adminlite/dist/js/pages/dashboard.js') }}"></script> --}}
     <!-- Page specific script -->
     <script>
         $(function() {
+            'use strict'
+
+            // Make the dashboard widgets sortable Using jquery UI
+            $('.connectedSortable').sortable({
+                placeholder: 'sort-highlight',
+                connectWith: '.connectedSortable',
+                handle: '.card-header, .nav-tabs',
+                forcePlaceholderSize: true,
+                zIndex: 999999
+            })
+            $('.connectedSortable .card-header').css('cursor', 'move')
+
+            /* jQueryKnob */
+            $('.knob').knob()
+
+            // The Calender
+            $('#calendar').datetimepicker({
+                format: 'L',
+                inline: true
+            })
+
             $('.select2').select2({
                 theme: 'bootstrap4'
             });
