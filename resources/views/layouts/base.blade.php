@@ -55,7 +55,7 @@ $checkPermission = App\Models\Team::where('id', '=', Auth::user()->current_team_
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-                <!-- Navbar Search -->
+                {{--<!-- Navbar Search -->
                 <li class="nav-item">
                     <a class="nav-link" data-widget="navbar-search" href="#" role="button">
                         <i class="fas fa-search"></i>
@@ -76,10 +76,10 @@ $checkPermission = App\Models\Team::where('id', '=', Auth::user()->current_team_
                             </div>
                         </form>
                     </div>
-                </li>
+                </li>--}}
 
                 {{-- Notification --}}
-                @include('vendor.notification')
+                {{--@include('vendor.notification')--}}
                 {{-- /. End of notification --}}
                 <li class="nav-item">
                     <a class="nav-link" data-widget="fullscreen" href="#" role="button">

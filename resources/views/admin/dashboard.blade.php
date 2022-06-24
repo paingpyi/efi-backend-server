@@ -95,49 +95,94 @@
         <!-- Left col -->
         <section class="col-lg-7 connectedSortable">
             <!-- Calendar -->
-            <div class="card bg-gradient-success">
+            <div class="card bg-gradient-primary">
                 <div class="card-header border-0">
 
-                  <h3 class="card-title">
-                    <i class="far fa-calendar-alt"></i>
-                    Calendar
-                  </h3>
-                  <!-- tools card -->
-                  <div class="card-tools">
-                    <!-- button -->
-                    <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse">
-                      <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-success btn-sm" data-card-widget="remove">
-                      <i class="fas fa-times"></i>
-                    </button>
-                  </div>
-                  <!-- /. tools -->
+                    <h3 class="card-title">
+                        <i class="far fa-calendar-alt"></i>
+                        Calendar
+                    </h3>
+                    <!-- tools card -->
+                    <div class="card-tools">
+                        <!-- button -->
+                        <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-primary btn-sm" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <!-- /. tools -->
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body pt-0">
-                  <!--The calendar -->
-                  <div id="calendar" style="width: 100%"></div>
+                    <!--The calendar -->
+                    <div id="calendar" style="width: 100%"></div>
                 </div>
                 <!-- /.card-body -->
-              </div>
-              <!-- /.card -->
+            </div>
+            <!-- /.card -->
         </section>
         <!-- /.Left col -->
         <!-- right col (We are only adding the ID to make the widgets sortable)-->
         <section class="col-lg-5 connectedSortable">
             <!-- Clock -->
-            <div class="card bg-dark text-white">
-                <h3 class="card-title text-center">
-                    <div class="d-flex flex-wrap justify-content-center mt-2">
-                        <a><span class="badge"><i class="fa fa-clock-o" aria-hidden="true"></i></span></a>
-                        <a><span class="badge hours"></span></a> :
-                        <a><span class="badge min"></span></a> :
-                        <a><span class="badge sec"></span></a>
+            <div class="card bg-gradient-dark text-white">
+                <div class="card-header border-0">
+                    <h3 class="card-title"><i class="fa fa-clock"></i> Clock</h3>
+                    <!-- tools card -->
+                    <div class="card-tools">
+                        <!-- button -->
+                        <button type="button" class="btn btn-secondary btn-sm" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-secondary btn-sm" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
                     </div>
-                </h3>
+                    <!-- /. tools -->
+                </div>
+                <div class="card-body">
+                    <div class="d-flex flex-wrap justify-content-center mt-2 h2">
+                        <a><span class="hours border border-secondary rounded p-3"></span></a> :
+                        <a><span class="min border border-secondary rounded p-3"></span></a> :
+                        <a><span class="sec border border-secondary rounded p-3"></span></a>
+                    </div>
+                </div>
             </div>
             <!-- /.card -->
+            <div class="card bg-gradient-success">
+                <div class="card-header border-0">
+                    <h3 class="card-title"><i class="fa fa-question-circle"></i> Troubleshoot</h3>
+                    <!-- tools card -->
+                    <div class="card-tools">
+                        <!-- button -->
+                        <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-success btn-sm" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <!-- /. tools -->
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-8">
+                                <select name="page" id="page" class="form-control select2">
+                                    <option value="">Please Select the page</option>
+                                    <option value="home">Home page</option>
+                                    <option value="product">Product page</option>
+                                    <option value="blog">Blog page</option>
+                                    <option value="career">Career page</option>
+                                </select>
+                            </div>
+                            <div class="col-4"><button class="btn btn-success border" type="submit">Refresh</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
         <!-- right col -->
     </div>
@@ -170,6 +215,10 @@
     <!-- Page specific script -->
     <script>
         $(function() {
+            $('.select2').select2({
+                theme: 'bootstrap4'
+            });
+
             @isset($success_message)
                 $(document).ready(function() {
                     toastr.success('{!! $success_message !!}');
