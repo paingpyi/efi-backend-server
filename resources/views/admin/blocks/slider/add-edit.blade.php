@@ -169,7 +169,7 @@
                                     <span class="input-group-btn">
                                         <a id="cover_image" data-input="cover_image_thumbnail"
                                             class="btn btn-primary lfm">
-                                            <i class="fa fa-picture-o"></i> Choose
+                                            <i class="fa fa-picture-o"></i> Choose {{$sliders_en->image}}
                                         </a>
                                     </span>
                                     <input id="cover_image_thumbnail" class="form-control" type="text"

@@ -115,7 +115,7 @@ class SliderController extends Controller
                 DB::raw('JSON_EXTRACT(title, \'$."my-mm"\') as title'),
                 'image',
                 'kind'
-            )->where('id', '=', Crypt::decryptString($id))->first();dd($sliders_en);
+            )->where('id', '=', Crypt::decryptString($id))->first();
 
         return view('admin.blocks.slider.add-edit')->with(['action' => 'update', 'sliders_en' => $sliders_en, 'sliders_zh' => $sliders_zh, 'sliders_mm' => $sliders_mm]);
     }
