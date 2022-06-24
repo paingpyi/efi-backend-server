@@ -31,7 +31,7 @@
                     method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card-header">
-                        @include('admin.blog.menu')
+                        @include('admin.blocks.slider.menu')
                         <div class="card-tools">
                             <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
                         </div>

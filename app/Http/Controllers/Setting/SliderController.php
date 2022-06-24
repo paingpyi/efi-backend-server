@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Setting;
 
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Crypt;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -26,7 +27,7 @@ class SliderController extends Controller
                 'kind'
             )->get();
 
-        return view('admin.blocks.slider.list')->with(['sliders'=>$sliders]);
+        return view('admin.blocks.slider.list')->with(['sliders' => $sliders]);
     }
 
     /**
@@ -94,7 +95,29 @@ class SliderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $sliders_en = DB::table('slider_blocks')
+            ->select(
+                'id',
+                DB::raw('JSON_EXTRACT(title, \'$."en-us"\') as title'),
+                'image',
+                'kind'
+            )->where('id', '=', Crypt::decryptString($id))->first();
+        $sliders_zh = DB::table('slider_blocks')
+            ->select(
+                'id',
+                DB::raw('JSON_EXTRACT(title, \'$."zh-cn"\') as title'),
+                'image',
+                'kind'
+            )->where('id', '=', Crypt::decryptString($id))->first();
+        $sliders_mm = DB::table('slider_blocks')
+            ->select(
+                'id',
+                DB::raw('JSON_EXTRACT(title, \'$."mm-my"\') as title'),
+                'image',
+                'kind'
+            )->where('id', '=', Crypt::decryptString($id))->first();
+
+        return view('admin.blocks.slider.add-edit')->with(['action' => 'update', 'sliders_en' => $sliders_en, 'sliders_zh' => $sliders_zh, 'sliders_mm' => $sliders_mm]);
     }
 
     /**
