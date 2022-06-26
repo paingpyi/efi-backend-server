@@ -97,11 +97,11 @@ class DashboardController extends Controller
                     ]
                 ];
 
-                $response = Http::withHeaders([
+                Http::withHeaders([
                     'Authorization' => "Bearer {$key}"
                 ])->post('https://efigmm.com/api/revalidate', $data);
 
-                Log::info('Log message', array([
+                /*Log::info('Log message', array([
                     'context' => [
                         'response code' => $response->status(),
                         'response reason' => $response->body(),
@@ -109,7 +109,7 @@ class DashboardController extends Controller
                     ]
                 ]));
 
-                sleep(0.30);
+                sleep(0.30);*/
             }
         } else if ($request->page == 'blog') {
             $blogs = DB::table('blogs')
@@ -142,19 +142,9 @@ class DashboardController extends Controller
                     ]
                 ];
 
-                $response = Http::withHeaders([
+                Http::withHeaders([
                     'Authorization' => "Bearer {$key}"
                 ])->post('https://efigmm.com/api/revalidate', $data);
-
-                Log::info('Log message', array([
-                    'context' => [
-                        'response code' => $response->status(),
-                        'response reason' => $response->body(),
-                        'data' => $data
-                    ]
-                ]));
-
-                sleep(0.30);
             }
         } else if ($request->page == 'career') {
             $jobs = DB::table('jobs')
@@ -185,19 +175,9 @@ class DashboardController extends Controller
                     ]
                 ];
 
-                $response = Http::withHeaders([
+                Http::withHeaders([
                     'Authorization' => "Bearer {$key}"
                 ])->post('https://efigmm.com/api/revalidate', $data);
-
-                Log::info('Log message', array([
-                    'context' => [
-                        'response code' => $response->status(),
-                        'response reason' => $response->body(),
-                        'data' => $data
-                    ]
-                ]));
-
-                sleep(0.30);
             }
         }
 
