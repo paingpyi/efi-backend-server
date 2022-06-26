@@ -105,7 +105,7 @@ class PageCollection extends ResourceCollection
                     'description' => '<p>We’re the first customer-centric innovative insurance company minimize your effort and maximize the value while being proactive, swift and responsive for the hassle-free applications and claiming process.</p>',
                     'buttonText' => 'Claim Now',
                 ],
-                'promotion' => [$promo_content],
+                'promotions' => [$promo_content],
             ];
         } else if (Str::lower($data['locale']) == 'my-mm') {
             $page = [
@@ -124,7 +124,7 @@ class PageCollection extends ResourceCollection
                     'description' => '<p>ကျွန်ုပ်တို့သည် ပထမဆုံး ဝယ်သူယူဗဟိုပြုအာမခံကုမ္ပဏီအနေဖြင့် မြန်ဆန်သော လျော်ကြေးပေးအပ်မှုကို ဝယ်ယူသူများ နှောင့်နှေးကြန့်ကြာမှုမရှိဘဲ လွယ်ကူစွာတောင်းခံနိုင်ရန် ပြုလုပ်ဆောင်ရွက်ပေးလျက်ရှိပါသည်။</p>',
                     'buttonText' => 'Claim Now',
                 ],
-                'promotion' => [$promo_content],
+                'promotions' => [$promo_content],
             ];
         } else if (Str::lower($data['locale']) == 'zh-cn') {
             $page = [
@@ -143,7 +143,7 @@ class PageCollection extends ResourceCollection
                     'description' => '<p>We’re the first customer-centric innovative insurance company minimize your effort and maximize the value while being proactive, swift and responsive for the hassle-free applications and claiming process.</p>',
                     'buttonText' => 'Claim Now',
                 ],
-                'promotion' => [$promo_content],
+                'promotions' => [$promo_content],
             ];
         } else {
             $error_messages[] = __('validation.required', ['attribute' => 'locale']);
