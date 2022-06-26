@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Setting;
 
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -62,6 +64,25 @@ class PromotionBlockController extends Controller
             'image' => $request->image,
             'is_active' => ($request->is_active == 'on' ? true : false),
         ]);
+
+        $key = config('efi.api_key');
+
+        $data = [
+            'type' => 'home-page-updated',
+            'locales' => ["en-US", "my-MM", "zh-CN"],
+        ];
+
+        $response = Http::withHeaders([
+            'Authorization' => "Bearer {$key}"
+        ])->post('https://efigmm.com/api/revalidate', $data);
+
+        Log::info('Log message', array([
+            'context' => [
+                'response code' => $response->status(),
+                'response reason' => $response->body(),
+                'data' => $data
+            ]
+        ]));
 
         return redirect()->route('promotion#block')->with(['success_message' => 'Successfully <strong>saved!</strong>']);
     }
