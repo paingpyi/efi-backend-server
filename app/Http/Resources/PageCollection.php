@@ -77,7 +77,7 @@ class PageCollection extends ResourceCollection
             }
         }
 
-        $promotion = PromotionBlock::where('id', '=', 1)->where('is_active', '=', true)->first();
+        $promotion = PromotionBlock::where('is_active', '=', true)->get();
         $promo_content = [];
         $restrict = ['<p>', '</p>', '<br>', '<br/>'];
 

@@ -62,7 +62,7 @@ class PromotionBlockController extends Controller
                 ->withInput();
         }
 
-        PromotionBlock::where('id', '=', 1)->update([
+        PromotionBlock::create([
             'title' => json_encode([
                 'en-us' => $request->title,
                 'my-mm' => $request->title_burmese,
@@ -138,7 +138,7 @@ class PromotionBlockController extends Controller
                 ->withInput();
         }
 
-        PromotionBlock::where('id', '=', 1)->update([
+        PromotionBlock::where('id', '=', $id)->update([
             'title' => json_encode([
                 'en-us' => $request->title,
                 'my-mm' => $request->title_burmese,
