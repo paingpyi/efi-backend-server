@@ -79,11 +79,12 @@ class PageCollection extends ResourceCollection
 
         $promotion = PromotionBlock::where('id', '=', 1)->where('is_active', '=', true)->first();
         $promo_content = [];
+        $restrict = ['<p>', '</p>', '<br>', '<br/>'];
 
         if (isset($promotion)) {
             $promo_content[] = [
                 'title' => json_decode($promotion->title, true)[Str::lower($data['locale'])],
-                'description' => json_decode($promotion->description, true)[Str::lower($data['locale'])],
+                'description' => str_replace($restrict, '', json_decode($promotion->description, true)[Str::lower($data['locale'])]),
                 'image' => $promotion->image
             ];
         }

@@ -26,10 +26,12 @@
     <div class="row">
         <div class="col">
             <div class="card">
-                <form id="inputForm" action="{{ route('store#data#promotion') }}" method="post"
-                    enctype="multipart/form-data">
+                <form id="inputForm"
+                    action="{{ $action == 'new' ? route('store#data#promotion') : route('update#data#promotion', $promotion->id) }}"
+                    method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card-header">
+                        @include('admin.blocks.promotion.menu')
                         <div class="card-tools">
                             <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
                         </div>
@@ -56,7 +58,7 @@
                                             <label for="title"><i class="flag-icon flag-icon-us mr-2"></i> Title <span
                                                     class="text-danger">*</span></label>
                                             <input type="text" name="title"
-                                                value="{{ old('title', isset($promotion->title) ? json_decode($promotion->title,true)['en-us'] : null) }}"
+                                                value="{{ old('title', isset($promotion->title) ? json_decode($promotion->title, true)['en-us'] : null) }}"
                                                 class="form-control title2slug" id="title" aria-describedby="titleHelp"
                                                 required>
                                             <small id="titleHelp" class="form-text text-muted">Please enter title.</small>
@@ -75,8 +77,7 @@
                                                     }
                                                 @endphp
                                             </label>
-                                            <textarea name="description_english" class="summernote" required
-                                                id="description_english">{{ old('description_english', isset($promotion->description) ? json_decode($promotion->description,true)['en-us'] : '') }}</textarea>
+                                            <textarea name="description_english" class="summernote" required id="description_english">{{ old('description_english', isset($promotion->description) ? json_decode($promotion->description, true)['en-us'] : '') }}</textarea>
                                         </div>
                                     </div> {{-- /. End of English Inputs --}}
                                     <div class="tab-pane fade pt-3" id="nav-mm" role="tabpanel"
@@ -85,7 +86,7 @@
                                             <label for="title_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
                                                 <span class="text-danger">*</span></label>
                                             <input type="text" name="title_burmese"
-                                                value="{{ old('title_burmese', isset($promotion->title) ? json_decode($promotion->title,true)['my-mm'] : null) }}"
+                                                value="{{ old('title_burmese', isset($promotion->title) ? json_decode($promotion->title, true)['my-mm'] : null) }}"
                                                 class="form-control" id="title_burmese"
                                                 aria-describedby="title_burmeseHelp">
                                             <small id="title_burmeseHelp" class="form-text text-muted">Please enter
@@ -106,8 +107,7 @@
                                                     }
                                                 @endphp
                                             </label>
-                                            <textarea name="description_burmese" class="summernote" required
-                                                id="description_burmese">{{ old('description_burmese', isset($promotion->description) ? json_decode($promotion->description,true)['my-mm'] : '') }}</textarea>
+                                            <textarea name="description_burmese" class="summernote" required id="description_burmese">{{ old('description_burmese', isset($promotion->description) ? json_decode($promotion->description, true)['my-mm'] : '') }}</textarea>
                                         </div>
                                     </div> {{-- /. End of Burmese Inputs --}}
                                     <div class="tab-pane fade pt-3" id="nav-zh" role="tabpanel"
@@ -116,7 +116,7 @@
                                             <label for="title_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Title
                                                 <span class="text-danger">*</span></label>
                                             <input type="text" name="title_chinese"
-                                                value="{{ old('title_chinese', isset($promotion->title) ? json_decode($promotion->title,true)['zh-cn'] : null) }}"
+                                                value="{{ old('title_chinese', isset($promotion->title) ? json_decode($promotion->title, true)['zh-cn'] : null) }}"
                                                 class="form-control" id="title_chinese"
                                                 aria-describedby="title_chineseHelp">
                                             <small id="title_chineseHelp" class="form-text text-muted">Please enter
@@ -137,8 +137,7 @@
                                                     }
                                                 @endphp
                                             </label>
-                                            <textarea name="description_chinese" class="summernote" required
-                                                id="description_chinese">{{ old('description_chinese', isset($promotion->description) ? json_decode($promotion->description,true)['zh-cn'] : '') }}</textarea>
+                                            <textarea name="description_chinese" class="summernote" required id="description_chinese">{{ old('description_chinese', isset($promotion->description) ? json_decode($promotion->description, true)['zh-cn'] : '') }}</textarea>
                                         </div>
                                     </div> {{-- /. End of Chinese Inputs --}}
                                 </div>
@@ -159,21 +158,24 @@
                                     </label>
                                     <div class="input-group pb-3">
                                         <span class="input-group-btn">
-                                            <a id="image" data-input="image_thumbnail"
-                                                class="btn btn-primary lfm">
+                                            <a id="image" data-input="image_thumbnail" class="btn btn-primary lfm">
                                                 <i class="fa fa-picture-o"></i> Choose
                                             </a>
                                         </span>
-                                        <input id="image_thumbnail" class="form-control" type="text"
-                                            name="image"
+                                        <input id="image_thumbnail" class="form-control" type="text" name="image"
                                             value="{{ old('image', isset($promotion->image) ? $promotion->image : '') }}">
                                     </div>
                                 </div><!-- /. Promotion Image -->
                                 <div class="form-group">
                                     <label for="is_active">Active: </label>
-                                    <input type="checkbox" id="is_active" name="is_active"
-                                        {{ old('is_active', $promotion->is_active ==true ? 'checked': '') }}
-                                        data-bootstrap-switch data-on-color="success">
+                                    @if (isset($promotion->is_active))
+                                        <input type="checkbox" id="is_active" name="is_active"
+                                            {{ old('is_active', $promotion->is_active == true ? 'checked' : '') }}
+                                            data-bootstrap-switch data-on-color="success">
+                                    @else
+                                        <input type="checkbox" id="is_active" name="is_active" {{ old('is_active') }}
+                                            data-bootstrap-switch data-on-color="success">
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -231,12 +233,6 @@
                 toolbar: [
                     ['undo', ['undo']],
                     ['redo', ['redo']],
-                    ['font', ['bold', 'underline', 'clear']],
-                    ['fontname', ['fontname']],
-                    ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['table', ['table']],
-                    ['insert', ['link']],
                     ['view', ['fullscreen']],
                 ],
             });

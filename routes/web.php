@@ -94,8 +94,15 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
         });
 
         Route::group(['prefix' => 'promotion'], function () {
-            Route::get('/', [PromotionBlockController::class,'create'])->name('promotion#block');
-            Route::post('/', [PromotionBlockController::class,'store'])->name('store#data#promotion');
+            Route::get('/', [PromotionBlockController::class,'index'])->name('promotion#list');
+
+            Route::get('/new', [PromotionBlockController::class,'create'])->name('promotion#block');
+            Route::post('/new', [PromotionBlockController::class,'store'])->name('store#data#promotion');
+
+            Route::get('/edit/{id}', [PromotionBlockController::class,'edit'])->name('edit#promotion');
+            Route::post('/edit/{id}', [PromotionBlockController::class,'update'])->name('update#data#promotion');
+
+            Route::post('/deactivate/{id}', [PromotionBlockController::class, 'destroy'])->name('deactivate#promotion');
         });
     });
 

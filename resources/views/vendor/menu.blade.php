@@ -291,7 +291,7 @@ with font-awesome or any other icon font library -->
                                 @if (in_array('slider#list', json_decode($checkPermission->permissions)))
                                     <li class="nav-item">
                                         <a href="{{ route('slider#list') }}"
-                                            class="nav-link{{ Route::currentRouteName() == 'blog#list' ? ' active' : '' }}">
+                                            class="nav-link{{ Route::currentRouteName() == 'slider#list' ? ' active' : '' }}">
                                             <i class="fab fa-slideshare nav-icon"></i>
                                             <p>Slider Block</p>
                                             <i class="fas fa-angle-left right"></i>
@@ -319,12 +319,32 @@ with font-awesome or any other icon font library -->
                                     </li>
                                 @endif
 
-                                @if (in_array('promotion#block', json_decode($checkPermission->permissions)))
+                                @if (in_array('promotion#list', json_decode($checkPermission->permissions)))
                                     <li class="nav-item">
-                                        <a href="{{ route('promotion#block') }}" class="nav-link">
+                                        <a href="{{ route('promotion#list') }}" class="nav-link">
                                             <i class="fa fa-tasks nav-icon"></i>
-                                            <p>Promotion Block</p>
+                                            <p>Promotion</p>
+                                            <i class="fas fa-angle-left right"></i>
                                         </a>
+                                        <ul class="nav nav-treeview">
+                                            @if (in_array('promotion#list', json_decode($checkPermission->permissions)))
+                                                <li class="nav-item">
+                                                    <a href="{{ route('promotion#list') }}" class="nav-link">
+                                                        <i class="fa fa-tasks nav-icon"></i>
+                                                        <p>Promotion List</p>
+                                                    </a>
+                                                </li>
+                                            @endif
+
+                                            @if (in_array('promotion#block', json_decode($checkPermission->permissions)))
+                                                <li class="nav-item">
+                                                    <a href="{{ route('promotion#block') }}" class="nav-link">
+                                                        <i class="fa fa-tasks nav-icon"></i>
+                                                        <p>New Promotion Block</p>
+                                                    </a>
+                                                </li>
+                                            @endif
+                                        </ul>
                                     </li>
                                 @endif
                             </ul>
