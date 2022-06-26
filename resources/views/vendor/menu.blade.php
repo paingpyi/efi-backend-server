@@ -145,7 +145,10 @@ with font-awesome or any other icon font library -->
             @if (in_array('user#list', json_decode($checkPermission->permissions)))
                 <li class="nav-item">
                     <a href="#"
-                        class="nav-link{{ (Route::currentRouteName() == 'user#list' or Route::currentRouteName() == 'deactivated#user#list' or Route::currentRouteName() == 'new#user' or Route::currentRouteName() == 'team#list' or Route::currentRouteName() == 'deactivated#team#list' or Route::currentRouteName() == 'new#team') ? ' active' : '' }}">
+                        class="nav-link{{ (Route::currentRouteName() == 'user#list' or Route::currentRouteName() == 'deactivated#user#list' or Route::currentRouteName() == 'new#user'
+                        or Route::currentRouteName() == 'team#list' or Route::currentRouteName() == 'deactivated#team#list' or Route::currentRouteName() == 'new#team'
+                        or Route::currentRouteName() == 'category#list' or Route::currentRouteName() == 'deactivated#category#list' or Route::currentRouteName() == 'new#category'
+                        or Route::currentRouteName() == 'slider#list' or Route::currentRouteName() == 'new#slider' or Route::currentRouteName() == 'promotion#list' or Route::currentRouteName() == 'promotion#block') ? ' active' : '' }}">
                         <i class="nav-icon fa fa-cogs"></i>
                         <p>
                             Management
@@ -282,7 +285,7 @@ with font-awesome or any other icon font library -->
                         @endif
 
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="#" class="nav-link{{ (Route::currentRouteName() == 'slider#list' or Route::currentRouteName() == 'new#slider' or Route::currentRouteName() == 'promotion#list' or Route::currentRouteName() == 'promotion#block') ? ' active' : '' }}">
                                 <i class="fa fa-th-large nav-icon"></i>
                                 <p>Blocks</p>
                                 <i class="fas fa-angle-left right"></i>
@@ -291,7 +294,7 @@ with font-awesome or any other icon font library -->
                                 @if (in_array('slider#list', json_decode($checkPermission->permissions)))
                                     <li class="nav-item">
                                         <a href="{{ route('slider#list') }}"
-                                            class="nav-link{{ Route::currentRouteName() == 'slider#list' ? ' active' : '' }}">
+                                            class="nav-link{{ (Route::currentRouteName() == 'slider#list' or Route::currentRouteName() == 'new#slider') ? ' active' : '' }}">
                                             <i class="fab fa-slideshare nav-icon"></i>
                                             <p>Slider Block</p>
                                             <i class="fas fa-angle-left right"></i>
@@ -299,7 +302,7 @@ with font-awesome or any other icon font library -->
                                         <ul class="nav nav-treeview">
                                             @if (in_array('slider#list', json_decode($checkPermission->permissions)))
                                                 <li class="nav-item">
-                                                    <a href="{{ route('slider#list') }}" class="nav-link">
+                                                    <a href="{{ route('slider#list') }}" class="nav-link{{ Route::currentRouteName() == 'slider#list' ? ' active' : '' }}">
                                                         <i class="fab fa-slideshare nav-icon"></i>
                                                         <p>Slide List</p>
                                                     </a>
@@ -308,7 +311,7 @@ with font-awesome or any other icon font library -->
 
                                             @if (in_array('new#slider', json_decode($checkPermission->permissions)))
                                                 <li class="nav-item">
-                                                    <a href="{{ route('new#slider') }}" class="nav-link">
+                                                    <a href="{{ route('new#slider') }}" class="nav-link{{ Route::currentRouteName() == 'new#slider' ? ' active' : '' }}">
                                                         <i class="fab fa-slideshare nav-icon"></i>
                                                         <p>New Slide</p>
                                                     </a>
@@ -321,7 +324,7 @@ with font-awesome or any other icon font library -->
 
                                 @if (in_array('promotion#list', json_decode($checkPermission->permissions)))
                                     <li class="nav-item">
-                                        <a href="{{ route('promotion#list') }}" class="nav-link">
+                                        <a href="{{ route('promotion#list') }}" class="nav-link{{ (Route::currentRouteName() == 'promotion#list' or Route::currentRouteName() == 'promotion#block') ? ' active' : '' }}">
                                             <i class="fa fa-tasks nav-icon"></i>
                                             <p>Promotion</p>
                                             <i class="fas fa-angle-left right"></i>
@@ -329,7 +332,7 @@ with font-awesome or any other icon font library -->
                                         <ul class="nav nav-treeview">
                                             @if (in_array('promotion#list', json_decode($checkPermission->permissions)))
                                                 <li class="nav-item">
-                                                    <a href="{{ route('promotion#list') }}" class="nav-link">
+                                                    <a href="{{ route('promotion#list') }}" class="nav-link{{ Route::currentRouteName() == 'promotion#list' ? ' active' : '' }}">
                                                         <i class="fa fa-tasks nav-icon"></i>
                                                         <p>Promotion List</p>
                                                     </a>
@@ -338,7 +341,7 @@ with font-awesome or any other icon font library -->
 
                                             @if (in_array('promotion#block', json_decode($checkPermission->permissions)))
                                                 <li class="nav-item">
-                                                    <a href="{{ route('promotion#block') }}" class="nav-link">
+                                                    <a href="{{ route('promotion#block') }}" class="nav-link{{ Route::currentRouteName() == 'promotion#block' ? ' active' : '' }}">
                                                         <i class="fa fa-tasks nav-icon"></i>
                                                         <p>New Promotion Block</p>
                                                     </a>
