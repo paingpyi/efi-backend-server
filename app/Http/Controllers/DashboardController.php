@@ -108,6 +108,8 @@ class DashboardController extends Controller
                         'data' => $data
                     ]
                 ]));
+
+                sleep(0.30);
             }
         } else if ($request->page == 'blog') {
             $blogs = DB::table('blogs')
@@ -151,6 +153,8 @@ class DashboardController extends Controller
                         'data' => $data
                     ]
                 ]));
+
+                sleep(0.30);
             }
         } else if ($request->page == 'career') {
             $jobs = DB::table('jobs')
@@ -192,6 +196,8 @@ class DashboardController extends Controller
                         'data' => $data
                     ]
                 ]));
+
+                sleep(0.30);
             }
         }
 

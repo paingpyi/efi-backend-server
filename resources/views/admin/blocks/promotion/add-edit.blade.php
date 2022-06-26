@@ -257,15 +257,6 @@
                     title_chinese: {
                         required: true,
                     },
-                    kind: {
-                        required: true,
-                    },
-                    main_category: {
-                        required: true,
-                    },
-                    status: {
-                        required: true,
-                    },
                 },
                 messages: {
                     title: {
@@ -276,16 +267,6 @@
                     },
                     title_chinese: {
                         required: "{{ __('validation.required', ['attribute' => 'title chinese']) }}",
-                    },
-                    slug_url: {
-                        required: "{{ __('validation.required', ['attribute' => 'slug url']) }}",
-                        titleRegex: "Title must contain only letters, numbers, or dashes.",
-                    },
-                    main_category: {
-                        required: "{{ __('validation.required', ['attribute' => 'main category']) }}",
-                    },
-                    status: {
-                        required: "{{ __('validation.required', ['attribute' => 'status']) }}",
                     },
                 },
                 errorElement: 'span',

@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Setting;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use App\Models\PromotionBlock;
 use Illuminate\Http\Request;
+
+use App\Models\PromotionBlock;
 
 class PromotionBlockController extends Controller
 {

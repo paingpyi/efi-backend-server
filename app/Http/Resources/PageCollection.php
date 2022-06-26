@@ -6,6 +6,8 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
+use App\Models\PromotionBlock;
+
 class PageCollection extends ResourceCollection
 {
     /**
@@ -75,7 +77,14 @@ class PageCollection extends ResourceCollection
             }
         }
 
-        if(Str::lower($data['locale']) == 'en-us') {
+        $promotion = PromotionBlock::where('id', '=', 1)->first();
+        $promo_content = [];
+
+        if (isset($promotion)) {
+            $promo_content = $promotion;
+        }
+
+        if (Str::lower($data['locale']) == 'en-us') {
             $page = [
                 'slider' => $slider_block,
                 'feature' => [
@@ -94,7 +103,7 @@ class PageCollection extends ResourceCollection
                 ],
                 'promotion' => [],
             ];
-        } else if(Str::lower($data['locale']) == 'my-mm') {
+        } else if (Str::lower($data['locale']) == 'my-mm') {
             $page = [
                 'slider' => $slider_block,
                 'feature' => [
@@ -113,7 +122,7 @@ class PageCollection extends ResourceCollection
                 ],
                 'promotion' => [],
             ];
-        }  else if(Str::lower($data['locale']) == 'zh-cn') {
+        } else if (Str::lower($data['locale']) == 'zh-cn') {
             $page = [
                 'slider' => $slider_block,
                 'feature' => [

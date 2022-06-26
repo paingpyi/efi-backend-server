@@ -7,7 +7,8 @@ with font-awesome or any other icon font library -->
             {{-- Admin Dashboard --}}
             @if (in_array('admin#dashboard', json_decode($checkPermission->permissions)))
                 <li class="nav-item">
-                    <a href="{{ route('admin#dashboard') }}" class="nav-link active">
+                    <a href="{{ route('admin#dashboard') }}"
+                        class="nav-link{{ Route::currentRouteName() == 'admin#dashboard' ? ' active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -20,7 +21,8 @@ with font-awesome or any other icon font library -->
             {{-- Content --}}
             @if (in_array('product#list', json_decode($checkPermission->permissions)))
                 <li class="nav-item">
-                    <a href="{{ route('product#list') }}" class="nav-link">
+                    <a href="{{ route('product#list') }}"
+                        class="nav-link{{ (Route::currentRouteName() == 'blog#list' or Route::currentRouteName() == 'new#blog' or Route::currentRouteName() == 'product#list' or Route::currentRouteName() == 'deactivated#product#list' or Route::currentRouteName() == 'new#product' or Route::currentRouteName() == 'job#list' or Route::currentRouteName() == 'new#job') ? ' active' : '' }}">
                         <i class="nav-icon fas fa-pen-nib"></i>
                         <p>
                             Content
@@ -30,7 +32,8 @@ with font-awesome or any other icon font library -->
                     <ul class="nav nav-treeview">
                         @if (in_array('blog#list', json_decode($checkPermission->permissions)))
                             <li class="nav-item">
-                                <a href="{{ route('blog#list') }}" class="nav-link">
+                                <a href="{{ route('blog#list') }}"
+                                    class="nav-link{{ (Route::currentRouteName() == 'blog#list' or Route::currentRouteName() == 'new#blog') ? ' active' : '' }}">
                                     <i class="fas fa-blog nav-icon"></i>
                                     <p>Blogs</p>
                                     <i class="fas fa-angle-left right"></i>
@@ -38,7 +41,8 @@ with font-awesome or any other icon font library -->
                                 <ul class="nav nav-treeview">
                                     @if (in_array('blog#list', json_decode($checkPermission->permissions)))
                                         <li class="nav-item">
-                                            <a href="{{ route('blog#list') }}" class="nav-link">
+                                            <a href="{{ route('blog#list') }}"
+                                                class="nav-link{{ Route::currentRouteName() == 'blog#list' ? ' active' : '' }}">
                                                 <i class="fas fa-blog nav-icon"></i>
                                                 <p>Blog List</p>
                                             </a>
@@ -47,7 +51,8 @@ with font-awesome or any other icon font library -->
 
                                     @if (in_array('new#blog', json_decode($checkPermission->permissions)))
                                         <li class="nav-item">
-                                            <a href="{{ route('new#blog') }}" class="nav-link">
+                                            <a href="{{ route('new#blog') }}"
+                                                class="nav-link{{ Route::currentRouteName() == 'new#blog' ? ' active' : '' }}">
                                                 <i class="fas fa-blog nav-icon"></i>
                                                 <p>New Blog</p>
                                             </a>
@@ -59,7 +64,8 @@ with font-awesome or any other icon font library -->
                         @endif
                         @if (in_array('product#list', json_decode($checkPermission->permissions)))
                             <li class="nav-item">
-                                <a href="{{ route('product#list') }}" class="nav-link">
+                                <a href="{{ route('product#list') }}"
+                                    class="nav-link{{ (Route::currentRouteName() == 'product#list' or Route::currentRouteName() == 'deactivated#product#list' or Route::currentRouteName() == 'new#product') ? ' active' : '' }}">
                                     <i class="fas fa-box nav-icon"></i>
                                     <p>Products</p>
                                     <i class="fas fa-angle-left right"></i>
@@ -67,7 +73,8 @@ with font-awesome or any other icon font library -->
                                 <ul class="nav nav-treeview">
                                     @if (in_array('product#list', json_decode($checkPermission->permissions)))
                                         <li class="nav-item">
-                                            <a href="{{ route('product#list') }}" class="nav-link">
+                                            <a href="{{ route('product#list') }}"
+                                                class="nav-link{{ Route::currentRouteName() == 'product#list' ? ' active' : '' }}">
                                                 <i class="fas fa-box nav-icon"></i>
                                                 <p>Product List</p>
                                             </a>
@@ -76,7 +83,8 @@ with font-awesome or any other icon font library -->
 
                                     @if (in_array('deactivated#product#list', json_decode($checkPermission->permissions)))
                                         <li class="nav-item">
-                                            <a href="{{ route('deactivated#product#list') }}" class="nav-link">
+                                            <a href="{{ route('deactivated#product#list') }}"
+                                                class="nav-link{{ Route::currentRouteName() == 'deactivated#product#list' ? ' active' : '' }}">
                                                 <i class="fas fa-box nav-icon"></i>
                                                 <p>Deactivated Product List</p>
                                             </a>
@@ -85,7 +93,8 @@ with font-awesome or any other icon font library -->
 
                                     @if (in_array('new#product', json_decode($checkPermission->permissions)))
                                         <li class="nav-item">
-                                            <a href="{{ route('new#product') }}" class="nav-link">
+                                            <a href="{{ route('new#product') }}"
+                                                class="nav-link{{ Route::currentRouteName() == 'new#product' ? ' active' : '' }}">
                                                 <i class="fas fa-box-open nav-icon"></i>
                                                 <p>New Product</p>
                                             </a>
@@ -97,7 +106,8 @@ with font-awesome or any other icon font library -->
                         @endif
                         @if (in_array('job#list', json_decode($checkPermission->permissions)))
                             <li class="nav-item">
-                                <a href="{{ route('job#list') }}" class="nav-link">
+                                <a href="{{ route('job#list') }}"
+                                    class="nav-link{{ (Route::currentRouteName() == 'job#list' or Route::currentRouteName() == 'new#job') ? ' active' : '' }}">
                                     <i class="fa fa-address-card nav-icon"></i>
                                     <p>Job Vacancy</p>
                                     <i class="fas fa-angle-left right"></i>
@@ -105,7 +115,8 @@ with font-awesome or any other icon font library -->
                                 <ul class="nav nav-treeview">
                                     @if (in_array('job#list', json_decode($checkPermission->permissions)))
                                         <li class="nav-item">
-                                            <a href="{{ route('job#list') }}" class="nav-link">
+                                            <a href="{{ route('job#list') }}"
+                                                class="nav-link{{ Route::currentRouteName() == 'job#list' ? ' active' : '' }}">
                                                 <i class="fa fa-address-card nav-icon"></i>
                                                 <p>Job Vacancy List</p>
                                             </a>
@@ -114,7 +125,8 @@ with font-awesome or any other icon font library -->
 
                                     @if (in_array('new#job', json_decode($checkPermission->permissions)))
                                         <li class="nav-item">
-                                            <a href="{{ route('new#job') }}" class="nav-link">
+                                            <a href="{{ route('new#job') }}"
+                                                class="nav-link{{ Route::currentRouteName() == 'new#job' ? ' active' : '' }}">
                                                 <i class="fa fa-address-card nav-icon"></i>
                                                 <p>New Job Vacancy</p>
                                             </a>
@@ -132,7 +144,8 @@ with font-awesome or any other icon font library -->
             {{-- Management --}}
             @if (in_array('user#list', json_decode($checkPermission->permissions)))
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="#"
+                        class="nav-link{{ (Route::currentRouteName() == 'user#list' or Route::currentRouteName() == 'deactivated#user#list' or Route::currentRouteName() == 'new#user' or Route::currentRouteName() == 'team#list' or Route::currentRouteName() == 'deactivated#team#list' or Route::currentRouteName() == 'new#team') ? ' active' : '' }}">
                         <i class="nav-icon fa fa-cogs"></i>
                         <p>
                             Management
@@ -142,7 +155,8 @@ with font-awesome or any other icon font library -->
                     <ul class="nav nav-treeview">
                         @if (in_array('user#list', json_decode($checkPermission->permissions)))
                             <li class="nav-item">
-                                <a href="{{ route('user#list') }}" class="nav-link">
+                                <a href="{{ route('user#list') }}"
+                                    class="nav-link{{ (Route::currentRouteName() == 'user#list' or Route::currentRouteName() == 'deactivated#user#list' or Route::currentRouteName() == 'new#user') ? ' active' : '' }}">
                                     <i class="fas fa-users nav-icon"></i>
                                     <p>Users</p>
                                     <i class="fas fa-angle-left right"></i>
@@ -150,7 +164,8 @@ with font-awesome or any other icon font library -->
                                 <ul class="nav nav-treeview">
                                     @if (in_array('user#list', json_decode($checkPermission->permissions)))
                                         <li class="nav-item">
-                                            <a href="{{ route('user#list') }}" class="nav-link">
+                                            <a href="{{ route('user#list') }}"
+                                                class="nav-link{{ Route::currentRouteName() == 'user#list' ? ' active' : '' }}">
                                                 <i class="fas fa-users nav-icon"></i>
                                                 <p>User List</p>
                                             </a>
@@ -159,7 +174,8 @@ with font-awesome or any other icon font library -->
 
                                     @if (in_array('deactivated#user#list', json_decode($checkPermission->permissions)))
                                         <li class="nav-item">
-                                            <a href="{{ route('deactivated#user#list') }}" class="nav-link">
+                                            <a href="{{ route('deactivated#user#list') }}"
+                                                class="nav-link{{ Route::currentRouteName() == 'deactivated#user#list' ? ' active' : '' }}">
                                                 <i class="fas fa-users nav-icon"></i>
                                                 <p>Deactivated User List</p>
                                             </a>
@@ -168,7 +184,8 @@ with font-awesome or any other icon font library -->
 
                                     @if (in_array('new#user', json_decode($checkPermission->permissions)))
                                         <li class="nav-item">
-                                            <a href="{{ route('new#user') }}" class="nav-link">
+                                            <a href="{{ route('new#user') }}"
+                                                class="nav-link{{ Route::currentRouteName() == 'new#user' ? ' active' : '' }}">
                                                 <i class="fas fa-user-plus nav-icon"></i>
                                                 <p>New User</p>
                                             </a>
@@ -181,7 +198,8 @@ with font-awesome or any other icon font library -->
 
                         @if (in_array('team#list', json_decode($checkPermission->permissions)))
                             <li class="nav-item">
-                                <a href="{{ route('team#list') }}" class="nav-link">
+                                <a href="{{ route('team#list') }}"
+                                    class="nav-link{{ (Route::currentRouteName() == 'team#list' or Route::currentRouteName() == 'deactivated#team#list' or Route::currentRouteName() == 'new#team') ? ' active' : '' }}">
                                     <i class="fa fa-sitemap nav-icon"></i>
                                     <p>Teams</p>
                                     <i class="fas fa-angle-left right"></i>
@@ -189,7 +207,8 @@ with font-awesome or any other icon font library -->
                                 <ul class="nav nav-treeview">
                                     @if (in_array('team#list', json_decode($checkPermission->permissions)))
                                         <li class="nav-item">
-                                            <a href="{{ route('team#list') }}" class="nav-link">
+                                            <a href="{{ route('team#list') }}"
+                                                class="nav-link{{ (Route::currentRouteName() == 'team#list' or Route::currentRouteName() == 'new#team') ? ' active' : '' }}">
                                                 <i class="fas fa-sitemap nav-icon"></i>
                                                 <p>Team List</p>
                                             </a>
@@ -198,7 +217,8 @@ with font-awesome or any other icon font library -->
 
                                     @if (in_array('deactivated#team#list', json_decode($checkPermission->permissions)))
                                         <li class="nav-item">
-                                            <a href="{{ route('deactivated#team#list') }}" class="nav-link">
+                                            <a href="{{ route('deactivated#team#list') }}"
+                                                class="nav-link{{ Route::currentRouteName() == 'deactivated#team#list' ? ' active' : '' }}">
                                                 <i class="fas fa-sitemap nav-icon"></i>
                                                 <p>Deactivated Team List</p>
                                             </a>
@@ -207,7 +227,8 @@ with font-awesome or any other icon font library -->
 
                                     @if (in_array('deactivated#team#list', json_decode($checkPermission->permissions)))
                                         <li class="nav-item">
-                                            <a href="{{ route('new#team') }}" class="nav-link">
+                                            <a href="{{ route('new#team') }}"
+                                                class="nav-link{{ Route::currentRouteName() == 'new#team' ? ' active' : '' }}">
                                                 <i class="fas fa-sitemap nav-icon"></i>
                                                 <p>New Team</p>
                                             </a>
@@ -219,7 +240,8 @@ with font-awesome or any other icon font library -->
 
                         @if (in_array('category#list', json_decode($checkPermission->permissions)))
                             <li class="nav-item">
-                                <a href="{{ route('category#list') }}" class="nav-link">
+                                <a href="{{ route('category#list') }}"
+                                    class="nav-link{{ (Route::currentRouteName() == 'category#list' or Route::currentRouteName() == 'deactivated#category#list' or Route::currentRouteName() == 'new#category') ? ' active' : '' }}">
                                     <i class="fa fa-suitcase nav-icon"></i>
                                     <p>Categories</p>
                                     <i class="fas fa-angle-left right"></i>
@@ -227,7 +249,8 @@ with font-awesome or any other icon font library -->
                                 <ul class="nav nav-treeview">
                                     @if (in_array('category#list', json_decode($checkPermission->permissions)))
                                         <li class="nav-item">
-                                            <a href="{{ route('category#list') }}" class="nav-link">
+                                            <a href="{{ route('category#list') }}"
+                                                class="nav-link{{ Route::currentRouteName() == 'category#list' ? ' active' : '' }}">
                                                 <i class="fas fa-suitcase nav-icon"></i>
                                                 <p>Category List</p>
                                             </a>
@@ -236,7 +259,8 @@ with font-awesome or any other icon font library -->
 
                                     @if (in_array('deactivated#category#list', json_decode($checkPermission->permissions)))
                                         <li class="nav-item">
-                                            <a href="{{ route('deactivated#category#list') }}" class="nav-link">
+                                            <a href="{{ route('deactivated#category#list') }}"
+                                                class="nav-link{{ Route::currentRouteName() == 'deactivated#category#list' ? ' active' : '' }}">
                                                 <i class="fas fa-suitcase nav-icon"></i>
                                                 <p>Deactivated Category List</p>
                                             </a>
@@ -245,7 +269,8 @@ with font-awesome or any other icon font library -->
 
                                     @if (in_array('new#category', json_decode($checkPermission->permissions)))
                                         <li class="nav-item">
-                                            <a href="{{ route('new#category') }}" class="nav-link">
+                                            <a href="{{ route('new#category') }}"
+                                                class="nav-link{{ Route::currentRouteName() == 'new#category' ? ' active' : '' }}">
                                                 <i class="fas fa-suitcase nav-icon"></i>
                                                 <p>New Category</p>
                                             </a>
@@ -265,7 +290,8 @@ with font-awesome or any other icon font library -->
                             <ul class="nav nav-treeview">
                                 @if (in_array('slider#list', json_decode($checkPermission->permissions)))
                                     <li class="nav-item">
-                                        <a href="{{ route('slider#list') }}" class="nav-link">
+                                        <a href="{{ route('slider#list') }}"
+                                            class="nav-link{{ Route::currentRouteName() == 'blog#list' ? ' active' : '' }}">
                                             <i class="fab fa-slideshare nav-icon"></i>
                                             <p>Slider Block</p>
                                             <i class="fas fa-angle-left right"></i>
