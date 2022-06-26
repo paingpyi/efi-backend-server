@@ -236,8 +236,7 @@ with font-awesome or any other icon font library -->
 
                                     @if (in_array('deactivated#category#list', json_decode($checkPermission->permissions)))
                                         <li class="nav-item">
-                                            <a href="{{ route('deactivated#category#list') }}"
-                                                class="nav-link">
+                                            <a href="{{ route('deactivated#category#list') }}" class="nav-link">
                                                 <i class="fas fa-suitcase nav-icon"></i>
                                                 <p>Deactivated Category List</p>
                                             </a>
@@ -257,35 +256,53 @@ with font-awesome or any other icon font library -->
                             </li>
                         @endif
 
-                        @if (in_array('slider#list', json_decode($checkPermission->permissions)))
-                            <li class="nav-item">
-                                <a href="{{ route('slider#list') }}" class="nav-link">
-                                    <i class="fab fa-slideshare nav-icon"></i>
-                                    <p>Slider Block</p>
-                                    <i class="fas fa-angle-left right"></i>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    @if (in_array('slider#list', json_decode($checkPermission->permissions)))
-                                        <li class="nav-item">
-                                            <a href="{{ route('slider#list') }}" class="nav-link">
-                                                <i class="fab fa-slideshare nav-icon"></i>
-                                                <p>Slide List</p>
-                                            </a>
-                                        </li>
-                                    @endif
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fa fa-th-large nav-icon"></i>
+                                <p>Blocks</p>
+                                <i class="fas fa-angle-left right"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                @if (in_array('slider#list', json_decode($checkPermission->permissions)))
+                                    <li class="nav-item">
+                                        <a href="{{ route('slider#list') }}" class="nav-link">
+                                            <i class="fab fa-slideshare nav-icon"></i>
+                                            <p>Slider Block</p>
+                                            <i class="fas fa-angle-left right"></i>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            @if (in_array('slider#list', json_decode($checkPermission->permissions)))
+                                                <li class="nav-item">
+                                                    <a href="{{ route('slider#list') }}" class="nav-link">
+                                                        <i class="fab fa-slideshare nav-icon"></i>
+                                                        <p>Slide List</p>
+                                                    </a>
+                                                </li>
+                                            @endif
 
-                                    @if (in_array('new#slider', json_decode($checkPermission->permissions)))
-                                        <li class="nav-item">
-                                            <a href="{{ route('new#slider') }}" class="nav-link">
-                                                <i class="fab fa-slideshare nav-icon"></i>
-                                                <p>New Slide</p>
-                                            </a>
-                                        </li>
-                                    @endif
+                                            @if (in_array('new#slider', json_decode($checkPermission->permissions)))
+                                                <li class="nav-item">
+                                                    <a href="{{ route('new#slider') }}" class="nav-link">
+                                                        <i class="fab fa-slideshare nav-icon"></i>
+                                                        <p>New Slide</p>
+                                                    </a>
+                                                </li>
+                                            @endif
 
-                                </ul>
-                            </li>
-                        @endif
+                                        </ul>
+                                    </li>
+                                @endif
+
+                                @if (in_array('promotion#block', json_decode($checkPermission->permissions)))
+                                    <li class="nav-item">
+                                        <a href="{{ route('promotion#block') }}" class="nav-link">
+                                            <i class="fa fa-tasks nav-icon"></i>
+                                            <p>Promotion Block</p>
+                                        </a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
 
                     </ul>
                 </li>

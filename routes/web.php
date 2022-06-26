@@ -10,6 +10,7 @@ use App\Http\Controllers\Content\PageController;
 use App\Http\Controllers\Content\JobController;
 use App\Http\Controllers\Content\CsrController;
 use App\Http\Controllers\Setting\CategoryController;
+use App\Http\Controllers\Setting\PromotionBlockController;
 use App\Http\Controllers\Setting\SampleController;
 use App\Http\Controllers\Setting\SliderController;
 use App\Http\Middleware\AdminCheckMiddleware;
@@ -91,6 +92,11 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
             Route::get('/edit/{id}', [SliderController::class,'edit'])->name('edit#slider');
             Route::post('/edit/{id}', [SliderController::class,'update'])->name('update#data#slider');
         });
+
+        Route::group(['prefix' => 'promotion'], function () {
+            Route::get('/', [PromotionBlockController::class,'create'])->name('promotion#block');
+            Route::post('/', [PromotionBlockController::class,'store'])->name('store#data#promotion');
+        });
     });
 
     Route::group(['prefix' => 'product', 'namespace' => 'Content'], function () {
@@ -139,7 +145,7 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
         Route::post('/deactivate/{id}', [PageController::class, 'destroy'])->name('deactivate#page');
     });
 
-    Route::group(['prefix' => 'news', 'namespace' => 'Content'], function () {
+    /*Route::group(['prefix' => 'news', 'namespace' => 'Content'], function () {
         Route::get('/', [NewsController::class, 'index'])->name('news#list');
 
         Route::get('/unpublished', [NewsController::class, 'unpublished'])->name('unpublished#news#list');
@@ -155,7 +161,7 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
         Route::post('/unpublishing/{id}', [NewsController::class, 'destroy'])->name('unpublishing#news');
 
         Route::post('/drafting/{id}', [NewsController::class, 'draft'])->name('drafting#news');
-    });
+    });*/
 
     Route::group(['prefix' => 'job', 'namespace' => 'Content'], function () {
         Route::get('/', [JobController::class, 'index'])->name('job#list');

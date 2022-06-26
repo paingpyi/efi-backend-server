@@ -112,25 +112,32 @@
                                         style="width: 100%;">
                                         <option value="">Please choose the kind.</option>
                                         @if (isset($sliders_en->kind))
-                                            <option value="one"{{ $sliders_en->kind == 'one' ? ' selected' : '' }}>One
+                                            <option value="one"{{ $sliders_en->kind == 'one' ? ' selected' : '' }}>
+                                                One
                                             </option>
-                                            <option value="two"{{ $sliders_en->kind == 'two' ? ' selected' : '' }}>Two
+                                            <option value="two"{{ $sliders_en->kind == 'two' ? ' selected' : '' }}>
+                                                Two
                                             </option>
                                             <option value="three"{{ $sliders_en->kind == 'three' ? ' selected' : '' }}>
                                                 Three</option>
-                                            <option value="four"{{ $sliders_en->kind == 'four' ? ' selected' : '' }}>Four
+                                            <option value="four"{{ $sliders_en->kind == 'four' ? ' selected' : '' }}>
+                                                Four
                                             </option>
-                                            <option value="five"{{ $sliders_en->kind == 'five' ? ' selected' : '' }}>Five
+                                            <option value="five"{{ $sliders_en->kind == 'five' ? ' selected' : '' }}>
+                                                Five
                                             </option>
-                                            <option value="six"{{ $sliders_en->kind == 'six' ? ' selected' : '' }}>Six
+                                            <option value="six"{{ $sliders_en->kind == 'six' ? ' selected' : '' }}>
+                                                Six
                                             </option>
                                             <option value="seven"{{ $sliders_en->kind == 'seven' ? ' selected' : '' }}>
                                                 Seven</option>
                                             <option value="eight"{{ $sliders_en->kind == 'eight' ? ' selected' : '' }}>
                                                 Eight</option>
-                                            <option value="nine"{{ $sliders_en->kind == 'nine' ? ' selected' : '' }}>Nine
+                                            <option value="nine"{{ $sliders_en->kind == 'nine' ? ' selected' : '' }}>
+                                                Nine
                                             </option>
-                                            <option value="ten"{{ $sliders_en->kind == 'ten' ? ' selected' : '' }}>Ten
+                                            <option value="ten"{{ $sliders_en->kind == 'ten' ? ' selected' : '' }}>
+                                                Ten
                                             </option>
                                         @else
                                             <option value="one">One</option>
@@ -148,13 +155,6 @@
                             </div>
                             <hr>
                             <div class="form-group">
-                                @php
-                                    if (isset($blog_en)) {
-                                        $cover_images = json_decode($blog_en->images);
-                                    } else {
-                                        $cover_images = [];
-                                    }
-                                @endphp
                                 <label>
                                     Cover Images
                                     @php
@@ -165,6 +165,10 @@
                                         }
                                     @endphp
                                 </label>
+                                @isset($sliders_en->image)
+                                    <img src="{{ config('app.url') . $sliders_en->image }}" class="img-fluid"
+                                        alt="Responsive image">
+                                @endisset
                                 <div class="input-group pb-3">
                                     <span class="input-group-btn">
                                         <a id="cover_image" data-input="cover_image_thumbnail"
@@ -173,7 +177,8 @@
                                         </a>
                                     </span>
                                     <input id="cover_image_thumbnail" class="form-control" type="text"
-                                        name="cover_image" value="{{ old('cover_image', isset($sliders_en->image) ? config('app.url').$sliders_en->image : '') }}">
+                                        name="cover_image"
+                                        value="{{ old('cover_image', isset($sliders_en->image) ? config('app.url') . $sliders_en->image : '') }}">
                                 </div>
                             </div><!-- /. Slider Image -->
                         </div>

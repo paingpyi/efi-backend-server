@@ -53,10 +53,22 @@ class DashboardController extends Controller
         $flag = false;
 
         if ($request->page == 'home') {
-            $data[] = [
+            $data = [
                 'type' => 'home-page-updated',
                 'locales' => ["en-US", "my-MM", "zh-CN"],
             ];
+
+            $response = Http::withHeaders([
+                'Authorization' => "Bearer {$key}"
+            ])->post('https://efigmm.com/api/revalidate', $data);
+
+            Log::info('Log message', array([
+                'context' => [
+                    'response code' => $response->status(),
+                    'response reason' => $response->body(),
+                    'data' => $data
+                ]
+            ]));
         } else if ($request->page == 'product') {
             $products = DB::table('products')
                 ->join('categories', 'categories.id', '=', 'products.category_id')
@@ -76,7 +88,7 @@ class DashboardController extends Controller
                 ->get();
 
             foreach ($products as $row) {
-                $data[] = [
+                $data = [
                     'type' => 'product-detail-updated',
                     'locales' => ["en-US", "my-MM", "zh-CN"],
                     'data' => [
@@ -84,6 +96,18 @@ class DashboardController extends Controller
                         'slug' => $row->slug_url
                     ]
                 ];
+
+                $response = Http::withHeaders([
+                    'Authorization' => "Bearer {$key}"
+                ])->post('https://efigmm.com/api/revalidate', $data);
+
+                Log::info('Log message', array([
+                    'context' => [
+                        'response code' => $response->status(),
+                        'response reason' => $response->body(),
+                        'data' => $data
+                    ]
+                ]));
             }
         } else if ($request->page == 'blog') {
             $blogs = DB::table('blogs')
@@ -107,7 +131,7 @@ class DashboardController extends Controller
                 ->get();
 
             foreach ($blogs as $row) {
-                $data[] = [
+                $data = [
                     'type' => 'product-detail-updated',
                     'locales' => ["en-US", "my-MM", "zh-CN"],
                     'data' => [
@@ -115,6 +139,18 @@ class DashboardController extends Controller
                         'slug' => $row->slug_url
                     ]
                 ];
+
+                $response = Http::withHeaders([
+                    'Authorization' => "Bearer {$key}"
+                ])->post('https://efigmm.com/api/revalidate', $data);
+
+                Log::info('Log message', array([
+                    'context' => [
+                        'response code' => $response->status(),
+                        'response reason' => $response->body(),
+                        'data' => $data
+                    ]
+                ]));
             }
         } else if ($request->page == 'career') {
             $jobs = DB::table('jobs')
@@ -136,7 +172,7 @@ class DashboardController extends Controller
                 ->get();
 
             foreach ($jobs as $row) {
-                $data[] = [
+                $data = [
                     'type' => 'product-detail-updated',
                     'locales' => ["en-US", "my-MM", "zh-CN"],
                     'data' => [
@@ -144,23 +180,19 @@ class DashboardController extends Controller
                         'slug' => $row->slug_url
                     ]
                 ];
+
+                $response = Http::withHeaders([
+                    'Authorization' => "Bearer {$key}"
+                ])->post('https://efigmm.com/api/revalidate', $data);
+
+                Log::info('Log message', array([
+                    'context' => [
+                        'response code' => $response->status(),
+                        'response reason' => $response->body(),
+                        'data' => $data
+                    ]
+                ]));
             }
-        }
-
-        foreach ($data as $value) {
-            $response = Http::withHeaders([
-                'Authorization' => "Bearer {$key}"
-            ])->post('https://efigmm.com/api/revalidate', $value);
-
-            Log::info('Log message', array([
-                'context' => [
-                    'response code' => $response->status(),
-                    'response reason' => $response->body(),
-                    'data' => $value
-                ]
-            ]));
-
-            $flag = true;
         }
 
         return redirect()->route('admin#dashboard')->with(['success_message' => 'Successfully <strong>refresh!</strong>']);
