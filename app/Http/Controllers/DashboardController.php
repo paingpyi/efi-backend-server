@@ -38,7 +38,8 @@ class DashboardController extends Controller
     public function refresh(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'page' => 'required'
+            'page' => 'required',
+            'language'=>'required'
         ]);
 
         if ($validator->fails()) {
@@ -51,11 +52,12 @@ class DashboardController extends Controller
         $key = config('efi.api_key');
         $data = [];
         $flag = false;
+        $language = $request->language;
 
         if ($request->page == 'home') {
             $data = [
                 'type' => 'home-page-updated',
-                'locales' => ["en-US", "my-MM", "zh-CN"],
+                'locales' => [$language],
             ];
 
             $response = Http::withHeaders([
@@ -89,12 +91,8 @@ class DashboardController extends Controller
 
             foreach ($products as $row) {
                 $data = [
-                    'type' => 'product-detail-updated',
-                    'locales' => ["en-US", "my-MM", "zh-CN"],
-                    'data' => [
-                        'category_machine_name' => $row->category_machine_name,
-                        'slug' => $row->slug_url
-                    ]
+                    'type' => 'all-products-updated',
+                    'locales' => [$language]
                 ];
 
                 Http::withHeaders([
@@ -135,7 +133,7 @@ class DashboardController extends Controller
             foreach ($blogs as $row) {
                 $data = [
                     'type' => 'product-detail-updated',
-                    'locales' => ["en-US", "my-MM", "zh-CN"],
+                    'locales' => [$language],
                     'data' => [
                         'category_machine_name' => $row->category_machine_name,
                         'slug' => $row->slug_url
@@ -168,7 +166,7 @@ class DashboardController extends Controller
             foreach ($jobs as $row) {
                 $data = [
                     'type' => 'product-detail-updated',
-                    'locales' => ["en-US", "my-MM", "zh-CN"],
+                    'locales' => [$language],
                     'data' => [
                         'category_machine_name' => $row->category_machine_name,
                         'slug' => $row->slug_url

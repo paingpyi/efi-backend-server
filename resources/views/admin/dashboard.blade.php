@@ -177,7 +177,7 @@
                         @csrf
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-8">
+                                <div class="col">
                                     <select name="page" id="status" class="form-control select2"
                                         style="width: 100%;">
                                         <option value="">Please Select the page</option>
@@ -185,6 +185,14 @@
                                         <option value="product">Product page</option>
                                         <option value="blog">Blog page</option>
                                         <option value="career">Career page</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-auto">
+                                    <select name="language" id="language" class="form-control select2"
+                                        style="width: 100%;">
+                                        <option value="en-us">English</option>
+                                        <option value="my-mm">Burmese</option>
+                                        <option value="zh-cn">Chinese</option>
                                     </select>
                                 </div>
                                 <div class="col-4">
