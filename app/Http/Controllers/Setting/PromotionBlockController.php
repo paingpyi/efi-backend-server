@@ -68,7 +68,7 @@ class PromotionBlockController extends Controller
         $key = config('efi.api_key');
 
         $data = [
-            'type' => 'home-page-updated',
+            'type' => 'promotions-updated',
             'locales' => ["en-US", "my-MM", "zh-CN"],
         ];
 
