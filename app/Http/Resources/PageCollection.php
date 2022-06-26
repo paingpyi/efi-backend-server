@@ -81,7 +81,7 @@ class PageCollection extends ResourceCollection
         $promo_content = [];
         $restrict = ['<p>', '</p>', '<br>', '<br/>'];
 
-        if (isset($promotion)) {
+        if (count($promotion)) {
             $promo_content[] = [
                 'title' => json_decode($promotion->title, true)[Str::lower($data['locale'])],
                 'description' => str_replace($restrict, '', json_decode($promotion->description, true)[Str::lower($data['locale'])]),
