@@ -77,11 +77,15 @@ class PageCollection extends ResourceCollection
             }
         }
 
-        $promotion = PromotionBlock::where('id', '=', 1)->first();
+        $promotion = PromotionBlock::where('id', '=', 1)->where('is_active', '=', true)->first();
         $promo_content = [];
 
         if (isset($promotion)) {
-            $promo_content = $promotion;
+            $promo_content = [
+                'title' => json_decode($promotion->title, true)[Str::lower($data['locale'])],
+                'description' => json_decode($promotion->description, true)[Str::lower($data['locale'])],
+                'image' => $promotion->image
+            ];
         }
 
         if (Str::lower($data['locale']) == 'en-us') {
@@ -101,7 +105,7 @@ class PageCollection extends ResourceCollection
                     'description' => '<p>We’re the first customer-centric innovative insurance company minimize your effort and maximize the value while being proactive, swift and responsive for the hassle-free applications and claiming process.</p>',
                     'buttonText' => 'Claim Now',
                 ],
-                'promotion' => [],
+                'promotion' => $promo_content,
             ];
         } else if (Str::lower($data['locale']) == 'my-mm') {
             $page = [
@@ -120,7 +124,7 @@ class PageCollection extends ResourceCollection
                     'description' => '<p>ကျွန်ုပ်တို့သည် ပထမဆုံး ဝယ်သူယူဗဟိုပြုအာမခံကုမ္ပဏီအနေဖြင့် မြန်ဆန်သော လျော်ကြေးပေးအပ်မှုကို ဝယ်ယူသူများ နှောင့်နှေးကြန့်ကြာမှုမရှိဘဲ လွယ်ကူစွာတောင်းခံနိုင်ရန် ပြုလုပ်ဆောင်ရွက်ပေးလျက်ရှိပါသည်။</p>',
                     'buttonText' => 'Claim Now',
                 ],
-                'promotion' => [],
+                'promotion' => $promo_content,
             ];
         } else if (Str::lower($data['locale']) == 'zh-cn') {
             $page = [
@@ -139,7 +143,7 @@ class PageCollection extends ResourceCollection
                     'description' => '<p>We’re the first customer-centric innovative insurance company minimize your effort and maximize the value while being proactive, swift and responsive for the hassle-free applications and claiming process.</p>',
                     'buttonText' => 'Claim Now',
                 ],
-                'promotion' => [],
+                'promotion' => $promo_content,
             ];
         } else {
             $error_messages[] = __('validation.required', ['attribute' => 'locale']);
