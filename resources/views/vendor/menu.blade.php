@@ -350,6 +350,36 @@ with font-awesome or any other icon font library -->
                                         </ul>
                                     </li>
                                 @endif
+
+                                @if (in_array('stakeholder#list', json_decode($checkPermission->permissions)))
+                                    <li class="nav-item">
+                                        <a href="{{ route('stakeholder#list') }}" class="nav-link{{ (Route::currentRouteName() == 'stakeholder#list' or Route::currentRouteName() == 'stakeholder#block') ? ' active' : '' }}">
+                                            <i class="fa fa-tasks nav-icon"></i>
+                                            <p>Stakeholder</p>
+                                            <i class="fas fa-angle-left right"></i>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            @if (in_array('stakeholder#list', json_decode($checkPermission->permissions)))
+                                                <li class="nav-item">
+                                                    <a href="{{ route('stakeholder#list') }}" class="nav-link{{ Route::currentRouteName() == 'stakeholder#list' ? ' active' : '' }}">
+                                                        <i class="fa fa-tasks nav-icon"></i>
+                                                        <p>Stakeholder List</p>
+                                                    </a>
+                                                </li>
+                                            @endif
+
+                                            @if (in_array('stakeholder#block', json_decode($checkPermission->permissions)))
+                                                <li class="nav-item">
+                                                    <a href="{{ route('stakeholder#block') }}" class="nav-link{{ Route::currentRouteName() == 'stakeholder#block' ? ' active' : '' }}">
+                                                        <i class="fa fa-tasks nav-icon"></i>
+                                                        <p>New Stakeholder</p>
+                                                    </a>
+                                                </li>
+                                            @endif
+                                        </ul>
+                                    </li>
+                                @endif
+                                {{-- End of Blocks --}}
                             </ul>
                         </li>
 

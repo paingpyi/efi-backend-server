@@ -96,7 +96,7 @@ class PromotionBlockController extends Controller
             ]
         ]));
 
-        return redirect()->route('promotion#block')->with(['success_message' => 'Successfully <strong>saved!</strong>']);
+        return redirect()->route('promotion#list')->with(['success_message' => 'Successfully <strong>saved!</strong>']);
     }
 
     /**
