@@ -13,6 +13,7 @@ class Stakeholders extends Model
         'image',
         'name',
         'description',
+        'team',
         'is_active',
     ];
 }

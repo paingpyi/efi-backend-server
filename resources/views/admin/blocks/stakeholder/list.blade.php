@@ -42,6 +42,7 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Image</th>
+                                    <th>Team</th>
                                     <th>Enable</th>
                                 </tr>
                             </thead>
@@ -52,6 +53,7 @@
                                                 href="{{ route('edit#stakeholder', Illuminate\Support\Facades\Crypt::encryptString($stakeholder->id)) }}">{{ json_decode($stakeholder->name,true)['en-us'] }}
                                             </a></td>
                                         <td><img src="{{ $stakeholder->image }}" alt="stakeholder Image" class="img-thumbnail" width="200px"></td>
+                                        <td>{{$stakeholder->category_name}}</td>
                                         <td class="text-nowrap">
                                             <form
                                             action="{{ route('deactivate#stakeholder', Illuminate\Support\Facades\Crypt::encryptString($stakeholder->id)) }}"
@@ -84,6 +86,7 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Image</th>
+                                    <th>Team</th>
                                     <th>Enable</th>
                                 </tr>
                             </tfoot>

@@ -146,6 +146,22 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
+                                    <label for="category">Team <span class="text-danger">*</span></label>
+                                    <select name="category" id="category" class="form-control select2"
+                                        style="width: 100%;">
+                                        <option value="">Please choose the team.</option>
+                                        @foreach ($category as $cat)
+                                            @if ($action == 'new')
+                                                <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                            @else
+                                                <option value="{{ $cat->id }}"
+                                                    {{ $product_en->category_id == $cat->id ? ' selected' : '' }}>
+                                                    {{ $cat->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label>
                                         Image
                                         @php

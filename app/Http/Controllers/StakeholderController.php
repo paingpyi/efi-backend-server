@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
@@ -19,7 +21,22 @@ class StakeholderController extends Controller
      */
     public function index()
     {
-        $stakeholders = Stakeholders::get();
+        $stakeholders = DB::table('stakeholders')
+        ->join('categories', 'categories.id', '=', 'stakeholders.team')
+        ->select(
+            'stakeholders.id',
+            'stakeholders.name',
+            'stakeholders.description',
+            'stakeholders.image',
+            'categories.id as category_id',
+            'categories.name as category_name',
+            'categories.description as category_description',
+            'categories.machine as category_machine_name',
+            'categories.is_active as category_is_active',
+            'stakeholders.is_active',
+            'stakeholders.created_at',
+            'stakeholders.updated_at'
+        )->get();
 
         return view('admin.blocks.stakeholder.list')->with(['stakeholders' => $stakeholders]);
     }
@@ -31,7 +48,9 @@ class StakeholderController extends Controller
      */
     public function create()
     {
-        return view('admin.blocks.stakeholder.add-edit')->with(['action' => 'new']);
+        $category = Category::where('is_active', '=', true)->where('parent_id', '=', 9)->get();
+
+        return view('admin.blocks.stakeholder.add-edit')->with(['action' => 'new', 'category' => $category]);
     }
 
     /**
@@ -71,6 +90,7 @@ class StakeholderController extends Controller
                 'zh-cn' => $request->description_chinese
             ]),
             'image' => $request->image,
+            'team' => $request->category,
             'is_active' => ($request->is_active == 'on' ? true : false),
         ]);
 
