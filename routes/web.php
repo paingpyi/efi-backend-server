@@ -13,6 +13,7 @@ use App\Http\Controllers\Setting\CategoryController;
 use App\Http\Controllers\Setting\PromotionBlockController;
 use App\Http\Controllers\Setting\SampleController;
 use App\Http\Controllers\Setting\SliderController;
+use App\Http\Controllers\StakeholderController;
 use App\Http\Middleware\AdminCheckMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -103,6 +104,18 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
             Route::post('/edit/{id}', [PromotionBlockController::class,'update'])->name('update#data#promotion');
 
             Route::post('/deactivate/{id}', [PromotionBlockController::class, 'destroy'])->name('deactivate#promotion');
+        });
+
+        Route::group(['prefix' => 'stakeholder'], function () {
+            Route::get('/', [StakeholderController::class,'index'])->name('stakeholder#list');
+
+            Route::get('/new', [StakeholderController::class,'create'])->name('stakeholder#block');
+            Route::post('/new', [StakeholderController::class,'store'])->name('store#data#stakeholder');
+
+            Route::get('/edit/{id}', [StakeholderController::class,'edit'])->name('edit#stakeholder');
+            Route::post('/edit/{id}', [StakeholderController::class,'update'])->name('update#data#stakeholder');
+
+            Route::post('/deactivate/{id}', [StakeholderController::class, 'destroy'])->name('deactivate#stakeholder');
         });
     });
 

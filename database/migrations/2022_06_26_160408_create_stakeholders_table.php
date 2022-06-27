@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('stakeholders', function (Blueprint $table) {
             $table->id();
+            $table->string('image');
+            $table->string('name');
+            $table->string('description');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

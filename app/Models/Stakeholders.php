@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Stakeholders extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'image',
+        'name',
+        'description',
+        'is_active',
+    ];
 }
