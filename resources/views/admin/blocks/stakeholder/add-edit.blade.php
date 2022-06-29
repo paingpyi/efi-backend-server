@@ -155,7 +155,7 @@
                                                 <option value="{{ $cat->id }}">{{ $cat->name }}</option>
                                             @else
                                                 <option value="{{ $cat->id }}"
-                                                    {{ $product_en->category_id == $cat->id ? ' selected' : '' }}>
+                                                    {{ $stakeholder->team == $cat->id ? ' selected' : '' }}>
                                                     {{ $cat->name }}</option>
                                             @endif
                                         @endforeach

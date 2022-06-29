@@ -52,7 +52,7 @@
                                         <td class="text-nowrap"><a
                                                 href="{{ route('edit#stakeholder', Illuminate\Support\Facades\Crypt::encryptString($stakeholder->id)) }}">{{ json_decode($stakeholder->name,true)['en-us'] }}
                                             </a></td>
-                                        <td><img src="{{ $stakeholder->image }}" alt="stakeholder Image" class="img-thumbnail" width="200px"></td>
+                                        <td><img src="{{ $stakeholder->image }}" alt="stakeholder Image" class="img-thumbnail" width="100px"></td>
                                         <td>{{$stakeholder->category_name}}</td>
                                         <td class="text-nowrap">
                                             <form

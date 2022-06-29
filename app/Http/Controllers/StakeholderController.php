@@ -137,7 +137,9 @@ class StakeholderController extends Controller
     {
         $stakeholder = Stakeholders::where('id', '=', Crypt::decryptString($id))->first();
 
-        return view('admin.blocks.stakeholder.add-edit')->with(['action' => 'update', 'stakeholder' => $stakeholder]);
+        $category = Category::where('is_active', '=', true)->where('parent_id', '=', 9)->get();
+
+        return view('admin.blocks.stakeholder.add-edit')->with(['action' => 'update', 'stakeholder' => $stakeholder, 'category' => $category]);
     }
 
     /**
@@ -149,7 +151,59 @@ class StakeholderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'name_burmese' => 'required|max:255',
+            'name_chinese' => 'required|max:255',
+            'description_english' => 'required',
+            'description_burmese' => 'required',
+            'description_chinese' => 'required',
+            'image' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->route('stakeholder#block')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        Stakeholders::where('id', '=', $id)->update([
+            'name' => json_encode([
+                'en-us' => $request->name,
+                'my-mm' => $request->name_burmese,
+                'zh-cn' => $request->name_chinese
+            ]),
+            'description' => json_encode([
+                'en-us' => $request->description_english,
+                'my-mm' => $request->description_burmese,
+                'zh-cn' => $request->description_chinese
+            ]),
+            'image' => $request->image,
+            'team' => $request->category,
+            'is_active' => ($request->is_active == 'on' ? true : false),
+        ]);
+
+        $key = config('efi.api_key');
+
+        $data = [
+            'type' => 'careers-efi-l-page-updated',
+            'locales' => ["en-US", "my-MM", "zh-CN"],
+        ];
+
+        $response = Http::withHeaders([
+            'Authorization' => "Bearer {$key}"
+        ])->post('https://efigmm.com/api/revalidate', $data);
+
+        Log::info('Log message', array([
+            'context' => [
+                'response code' => $response->status(),
+                'response reason' => $response->body(),
+                'data' => $data
+            ]
+        ]));
+
+        return redirect()->route('stakeholder#list')->with(['success_message' => 'Successfully <strong>saved!</strong>']);
     }
 
     /**
@@ -160,6 +214,26 @@ class StakeholderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $product = Stakeholders::where('id', '=', Crypt::decryptString($id))->first();
+            $flag = false;
+            $message = 'deactivated';
+
+            if ($product->is_active) {
+                $flag = false;
+                $message = 'deactivated';
+            } else {
+                $flag = true;
+                $message = 'activated';
+            }
+
+            Stakeholders::where('id', '=', Crypt::decryptString($id))->update(['is_active' => $flag]);
+
+            return redirect()
+                ->route('stakeholder#list')
+                ->with(['success_message' => 'Successfully <strong>' . $message . '!</strong>']);
+        } catch (DecryptException $e) {
+            abort(404, 'Decrypt Exception occured.');
+        }
     }
 }
