@@ -81,11 +81,11 @@ class PageCollection extends ResourceCollection
         $promo_content = [];
         $restrict = ['<p>', '</p>', '<br>', '<br/>'];
 
-        if (count($promotion)) {
+        foreach($promotion as $row) {
             $promo_content[] = [
-                'title' => json_decode($promotion->title, true)[Str::lower($data['locale'])],
-                'description' => str_replace($restrict, '', json_decode($promotion->description, true)[Str::lower($data['locale'])]),
-                'image' => $promotion->image
+                'title' => json_decode($row->title, true)[Str::lower($data['locale'])],
+                'description' => str_replace($restrict, '', json_decode($row->description, true)[Str::lower($data['locale'])]),
+                'image' => $row->image
             ];
         }
 

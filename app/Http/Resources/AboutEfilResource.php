@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Str;
+use App\Models\Stakeholders;
 
 class AboutEfilResource extends JsonResource
 {
@@ -22,6 +23,18 @@ class AboutEfilResource extends JsonResource
             $error_messages[] = __('validation.required', ['attribute' => 'locale']);
 
             return $error_messages;
+        }
+
+        $stakeholders = Stakeholders::where('is_active', '=', true)->where('team', '=', 11)->get();
+        $stakeholders_content = [];
+        $restrict = ['<p>', '</p>', '<br>', '<br/>'];
+
+        foreach($stakeholders as $row) {
+            $stakeholders_content[] = [
+                'name' => json_decode($row->name, true)[Str::lower($data['locale'])],
+                'description' => str_replace($restrict, '', json_decode($row->description, true)[Str::lower($data['locale'])]),
+                'image' => $row->image
+            ];
         }
 
         if(Str::lower($data['locale']) == 'en-us') {
@@ -46,18 +59,7 @@ class AboutEfilResource extends JsonResource
                 'stakeholders' => [
                     'title' => 'Our Stakeholders',
                     'description' => '<p>Loren scelequie plays an important role. We are always either believe in nurturing an engaging environment create and develop ourselves in unparalleled ways.</p>',
-                    'data' => [
-                        /*[
-                            'image' => config('app.url') . '/storage/demo/stakeholders/annette-black.jpg',
-                            'name' => 'Annette Black',
-                            'description' => 'Position'
-                        ],
-                        [
-                            'image' => config('app.url') . '/storage/demo/stakeholders/jacob-jones.jpg',
-                            'name' => 'Jacob Jones',
-                            'description' => 'Position'
-                        ],*/
-                    ]
+                    'data' => $stakeholders
                 ]
             ];
         } else if(Str::lower($data['locale']) == 'my-mm') {
@@ -82,18 +84,7 @@ class AboutEfilResource extends JsonResource
                 'stakeholders' => [
                     'title' => 'Our Stakeholders',
                     'description' => '<p>Loren scelequie plays an important role. We are always either believe in nurturing an engaging environment create and develop ourselves in unparalleled ways.</p>',
-                    'data' => [
-                        /*[
-                            'image' => config('app.url') . '/storage/demo/stakeholders/annette-black.jpg',
-                            'name' => 'Annette Black',
-                            'description' => 'Position'
-                        ],
-                        [
-                            'image' => config('app.url') . '/storage/demo/stakeholders/jacob-jones.jpg',
-                            'name' => 'Jacob Jones',
-                            'description' => 'Position'
-                        ],*/
-                    ]
+                    'data' => $stakeholders
                 ]
             ];
         }  else if(Str::lower($data['locale']) == 'zh-cn') {
@@ -118,18 +109,7 @@ class AboutEfilResource extends JsonResource
                 'stakeholders' => [
                     'title' => 'Our Stakeholders',
                     'description' => '<p>Loren scelequie plays an important role. We are always either believe in nurturing an engaging environment create and develop ourselves in unparalleled ways.</p>',
-                    'data' => [
-                        /*[
-                            'image' => config('app.url') . '/storage/demo/stakeholders/annette-black.jpg',
-                            'name' => 'Annette Black',
-                            'description' => 'Position'
-                        ],
-                        [
-                            'image' => config('app.url') . '/storage/demo/stakeholders/jacob-jones.jpg',
-                            'name' => 'Jacob Jones',
-                            'description' => 'Position'
-                        ],*/
-                    ]
+                    'data' => $stakeholders
                 ]
             ];
         } else {
