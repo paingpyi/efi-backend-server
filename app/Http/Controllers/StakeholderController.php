@@ -22,21 +22,21 @@ class StakeholderController extends Controller
     public function index()
     {
         $stakeholders = DB::table('stakeholders')
-        ->join('categories', 'categories.id', '=', 'stakeholders.team')
-        ->select(
-            'stakeholders.id',
-            'stakeholders.name',
-            'stakeholders.description',
-            'stakeholders.image',
-            'categories.id as category_id',
-            'categories.name as category_name',
-            'categories.description as category_description',
-            'categories.machine as category_machine_name',
-            'categories.is_active as category_is_active',
-            'stakeholders.is_active',
-            'stakeholders.created_at',
-            'stakeholders.updated_at'
-        )->get();
+            ->join('categories', 'categories.id', '=', 'stakeholders.team')
+            ->select(
+                'stakeholders.id',
+                'stakeholders.name',
+                'stakeholders.description',
+                'stakeholders.image',
+                'categories.id as category_id',
+                'categories.name as category_name',
+                'categories.description as category_description',
+                'categories.machine as category_machine_name',
+                'categories.is_active as category_is_active',
+                'stakeholders.is_active',
+                'stakeholders.created_at',
+                'stakeholders.updated_at'
+            )->get();
 
         return view('admin.blocks.stakeholder.list')->with(['stakeholders' => $stakeholders]);
     }
@@ -97,7 +97,7 @@ class StakeholderController extends Controller
         $key = config('efi.api_key');
 
         $data = [
-            'type' => 'careers-efi-l-page-updated',
+            'type' => $request->category == 10 ? 'about-efi-g-page-updated' : 'about-efi-l-page-updated',
             'locales' => ["en-US", "my-MM", "zh-CN"],
         ];
 
@@ -187,7 +187,7 @@ class StakeholderController extends Controller
         $key = config('efi.api_key');
 
         $data = [
-            'type' => 'careers-efi-l-page-updated',
+            'type' => $request->category == 10 ? 'about-efi-g-page-updated' : 'about-efi-l-page-updated',
             'locales' => ["en-US", "my-MM", "zh-CN"],
         ];
 
@@ -228,6 +228,17 @@ class StakeholderController extends Controller
             }
 
             Stakeholders::where('id', '=', Crypt::decryptString($id))->update(['is_active' => $flag]);
+
+            $key = config('efi.api_key');
+
+            $data = [
+                'type' => $product->team == 10 ? 'about-efi-g-page-updated' : 'about-efi-l-page-updated',
+                'locales' => ["en-US", "my-MM", "zh-CN"],
+            ];
+
+            $response = Http::withHeaders([
+                'Authorization' => "Bearer {$key}"
+            ])->post('https://efigmm.com/api/revalidate', $data);
 
             return redirect()
                 ->route('stakeholder#list')
