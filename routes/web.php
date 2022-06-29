@@ -151,7 +151,7 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
         Route::post('/drafting/{id}', [BlogController::class, 'draft'])->name('drafting#blog');
     });
 
-    Route::group(['prefix' => 'page', 'namespace' => 'Content'], function () {
+    /*Route::group(['prefix' => 'page', 'namespace' => 'Content'], function () {
         Route::get('/', [PageController::class, 'index'])->name('page#list');
 
         Route::get('/deactivated', [PageController::class, 'deactivated'])->name('deactivated#page#list');
@@ -163,7 +163,7 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
         Route::post('/edit/{id}', [PageController::class, 'update'])->name('update#data#page');
 
         Route::post('/deactivate/{id}', [PageController::class, 'destroy'])->name('deactivate#page');
-    });
+    });*/
 
     /*Route::group(['prefix' => 'news', 'namespace' => 'Content'], function () {
         Route::get('/', [NewsController::class, 'index'])->name('news#list');
@@ -197,7 +197,7 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
         Route::post('/close/{id}', [JobController::class, 'destroy'])->name('close#job');
     });
 
-    Route::group(['prefix' => 'csr', 'namespace' => 'Content'], function () {
+    /*Route::group(['prefix' => 'csr', 'namespace' => 'Content'], function () {
         Route::get('/', [CsrController::class, 'index'])->name('csr#list');
 
         Route::get('/unpublished', [CsrController::class, 'unpublished'])->name('unpublished#csr#list');
@@ -213,7 +213,7 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
         Route::post('/unpublishing/{id}', [CsrController::class, 'destroy'])->name('unpublishing#csr');
 
         Route::post('/drafting/{id}', [CsrController::class, 'draft'])->name('drafting#csr');
-    });
+    });*/
 
     Route::group(['prefix' => 'sample', 'namespace' => 'Setting'], function () {
         Route::post('/import', [SampleController::class, 'store'])->name('sample#data');
