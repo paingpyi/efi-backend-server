@@ -12199,6 +12199,266 @@ class FormulaSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
+            [
+                'method' => 'calculateShortTermSinglePremiumCredit',
+                'conditions' => json_encode([
+                    ['field' => 'age', 'operator' => '==', 'value' => 31],
+                    ['field' => 'policy_term', 'operator' => '==', 'value' => 1],
+                    ['field' => 'policy_type', 'operator' => '==', 'value' => 'fixed sum insured'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.009],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateShortTermSinglePremiumCredit',
+                'conditions' => json_encode([
+                    ['field' => 'age', 'operator' => '==', 'value' => 31],
+                    ['field' => 'policy_term', 'operator' => '==', 'value' => 2],
+                    ['field' => 'policy_type', 'operator' => '==', 'value' => 'fixed sum insured'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.017],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateShortTermSinglePremiumCredit',
+                'conditions' => json_encode([
+                    ['field' => 'age', 'operator' => '==', 'value' => 32],
+                    ['field' => 'policy_term', 'operator' => '==', 'value' => 1],
+                    ['field' => 'policy_type', 'operator' => '==', 'value' => 'fixed sum insured'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0095],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateShortTermSinglePremiumCredit',
+                'conditions' => json_encode([
+                    ['field' => 'age', 'operator' => '==', 'value' => 32],
+                    ['field' => 'policy_term', 'operator' => '==', 'value' => 2],
+                    ['field' => 'policy_type', 'operator' => '==', 'value' => 'fixed sum insured'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0179],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateShortTermSinglePremiumCredit',
+                'conditions' => json_encode([
+                    ['field' => 'age', 'operator' => '==', 'value' => 33],
+                    ['field' => 'policy_term', 'operator' => '==', 'value' => 1],
+                    ['field' => 'policy_type', 'operator' => '==', 'value' => 'fixed sum insured'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0099],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateShortTermSinglePremiumCredit',
+                'conditions' => json_encode([
+                    ['field' => 'age', 'operator' => '==', 'value' => 33],
+                    ['field' => 'policy_term', 'operator' => '==', 'value' => 2],
+                    ['field' => 'policy_type', 'operator' => '==', 'value' => 'fixed sum insured'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0187],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateShortTermSinglePremiumCredit',
+                'conditions' => json_encode([
+                    ['field' => 'age', 'operator' => '==', 'value' => 34],
+                    ['field' => 'policy_term', 'operator' => '==', 'value' => 1],
+                    ['field' => 'policy_type', 'operator' => '==', 'value' => 'fixed sum insured'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0104],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateShortTermSinglePremiumCredit',
+                'conditions' => json_encode([
+                    ['field' => 'age', 'operator' => '==', 'value' => 34],
+                    ['field' => 'policy_term', 'operator' => '==', 'value' => 2],
+                    ['field' => 'policy_type', 'operator' => '==', 'value' => 'fixed sum insured'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0196],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateShortTermSinglePremiumCredit',
+                'conditions' => json_encode([
+                    ['field' => 'age', 'operator' => '==', 'value' => 35],
+                    ['field' => 'policy_term', 'operator' => '==', 'value' => 1],
+                    ['field' => 'policy_type', 'operator' => '==', 'value' => 'fixed sum insured'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0108],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateShortTermSinglePremiumCredit',
+                'conditions' => json_encode([
+                    ['field' => 'age', 'operator' => '==', 'value' => 35],
+                    ['field' => 'policy_term', 'operator' => '==', 'value' => 2],
+                    ['field' => 'policy_type', 'operator' => '==', 'value' => 'fixed sum insured'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0205],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateShortTermSinglePremiumCredit',
+                'conditions' => json_encode([
+                    ['field' => 'age', 'operator' => '==', 'value' => 36],
+                    ['field' => 'policy_term', 'operator' => '==', 'value' => 1],
+                    ['field' => 'policy_type', 'operator' => '==', 'value' => 'fixed sum insured'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0113],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateShortTermSinglePremiumCredit',
+                'conditions' => json_encode([
+                    ['field' => 'age', 'operator' => '==', 'value' => 36],
+                    ['field' => 'policy_term', 'operator' => '==', 'value' => 2],
+                    ['field' => 'policy_type', 'operator' => '==', 'value' => 'fixed sum insured'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0214],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateShortTermSinglePremiumCredit',
+                'conditions' => json_encode([
+                    ['field' => 'age', 'operator' => '==', 'value' => 37],
+                    ['field' => 'policy_term', 'operator' => '==', 'value' => 1],
+                    ['field' => 'policy_type', 'operator' => '==', 'value' => 'fixed sum insured'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0118],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateShortTermSinglePremiumCredit',
+                'conditions' => json_encode([
+                    ['field' => 'age', 'operator' => '==', 'value' => 37],
+                    ['field' => 'policy_term', 'operator' => '==', 'value' => 2],
+                    ['field' => 'policy_type', 'operator' => '==', 'value' => 'fixed sum insured'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0222],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateShortTermSinglePremiumCredit',
+                'conditions' => json_encode([
+                    ['field' => 'age', 'operator' => '==', 'value' => 38],
+                    ['field' => 'policy_term', 'operator' => '==', 'value' => 1],
+                    ['field' => 'policy_type', 'operator' => '==', 'value' => 'fixed sum insured'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0122],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateShortTermSinglePremiumCredit',
+                'conditions' => json_encode([
+                    ['field' => 'age', 'operator' => '==', 'value' => 38],
+                    ['field' => 'policy_term', 'operator' => '==', 'value' => 2],
+                    ['field' => 'policy_type', 'operator' => '==', 'value' => 'fixed sum insured'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.023],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateShortTermSinglePremiumCredit',
+                'conditions' => json_encode([
+                    ['field' => 'age', 'operator' => '==', 'value' => 39],
+                    ['field' => 'policy_term', 'operator' => '==', 'value' => 1],
+                    ['field' => 'policy_type', 'operator' => '==', 'value' => 'fixed sum insured'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0126],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateShortTermSinglePremiumCredit',
+                'conditions' => json_encode([
+                    ['field' => 'age', 'operator' => '==', 'value' => 39],
+                    ['field' => 'policy_term', 'operator' => '==', 'value' => 2],
+                    ['field' => 'policy_type', 'operator' => '==', 'value' => 'fixed sum insured'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0237],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateShortTermSinglePremiumCredit',
+                'conditions' => json_encode([
+                    ['field' => 'age', 'operator' => '==', 'value' => 40],
+                    ['field' => 'policy_term', 'operator' => '==', 'value' => 1],
+                    ['field' => 'policy_type', 'operator' => '==', 'value' => 'fixed sum insured'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.013],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateShortTermSinglePremiumCredit',
+                'conditions' => json_encode([
+                    ['field' => 'age', 'operator' => '==', 'value' => 40],
+                    ['field' => 'policy_term', 'operator' => '==', 'value' => 2],
+                    ['field' => 'policy_type', 'operator' => '==', 'value' => 'fixed sum insured'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.0245],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
             // End of Short Term Single Premium Credit
         ]);
     }
