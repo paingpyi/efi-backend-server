@@ -2153,7 +2153,7 @@
         this._addNotFound();
       } else {
         endResults.each(function (i, result) {
-          var link = result.link;
+          var link = result.link;alert(link.replace("https://admin.efigmm.com/", ""));
           $__default['default'](SELECTOR_SEARCH_RESULTS_GROUP).append(_this2._renderItem(escape(result.name), escape(link.replace("https://admin.efigmm.com/", "")), result.path));
         });
       }
