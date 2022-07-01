@@ -44,8 +44,8 @@
                                 <div class="form-group">
                                     <label for="jobapply">Job Application <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="jobapply"
-                                        value="{{ old('jobapply', isset($promotion->jobapply) ? json_decode($promotion->jobapply, true)['en-us'] : null) }}"
+                                    <input type="email" name="jobapply"
+                                        value="{{ old('jobapply', isset($email->job_apply) ? $email->job_apply : null) }}"
                                         class="form-control" id="jobapply" aria-describedby="jobapplyHelp"
                                         required>
                                     <small id="jobapplyHelp" class="form-text text-muted">Please enter email address.</small>
@@ -58,8 +58,8 @@
                                 <div class="form-group">
                                     <label for="contact">Customer Contact <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="contact"
-                                        value="{{ old('contact', isset($promotion->contact) ? json_decode($promotion->contact, true)['en-us'] : null) }}"
+                                    <input type="email" name="contact"
+                                        value="{{ old('contact', isset($email->contact) ? $email->contact : null) }}"
                                         class="form-control" id="contact" aria-describedby="contactHelp"
                                         required>
                                     <small id="contactHelp" class="form-text text-muted">Please enter email address.</small>
@@ -74,8 +74,8 @@
                                 <div class="form-group">
                                     <label for="quote">Quote <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="quote"
-                                        value="{{ old('quote', isset($promotion->quote) ? json_decode($promotion->quote, true)['en-us'] : null) }}"
+                                    <input type="email" name="quote"
+                                        value="{{ old('quote', isset($email->quotes) ? $email->quotes : null) }}"
                                         class="form-control" id="quote" aria-describedby="quoteHelp"
                                         required>
                                     <small id="quoteHelp" class="form-text text-muted">Please enter email address.</small>
@@ -88,8 +88,8 @@
                                 <div class="form-group">
                                     <label for="claim">Claim <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="claim"
-                                        value="{{ old('claim', isset($promotion->claim) ? json_decode($promotion->claim, true)['en-us'] : null) }}"
+                                    <input type="email" name="claim"
+                                        value="{{ old('claim', isset($email->claims) ? $email->claims : null) }}"
                                         class="form-control" id="claim" aria-describedby="quoteHelp"
                                         required>
                                     <small id="quoteHelp" class="form-text text-muted">Please enter email address.</small>
@@ -137,31 +137,6 @@
     <!-- Page specific script -->
     <script>
         $(function() {
-            //Initialize Select2 Elements
-            $('.select2').select2({
-                theme: 'bootstrap4'
-            });
-
-            $("input[data-bootstrap-switch]").each(function() {
-                $(this).bootstrapSwitch('state', $(this).prop('checked'));
-            });
-
-            // Summernote
-            $('.summernote').summernote({
-                height: 150,
-                placeholder: 'Write content here...',
-                toolbar: [
-                    ['undo', ['undo']],
-                    ['redo', ['redo']],
-                    ['view', ['fullscreen']],
-                ],
-            });
-
-            $('.lfm').filemanager('image');
-
-            //Bootstrap Duallistbox
-            $('.duallistbox').bootstrapDualListbox();
-
             $('#inputForm').validate({
                 rules: {
                     job_apply: {

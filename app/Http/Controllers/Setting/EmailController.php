@@ -26,7 +26,9 @@ class EmailController extends Controller
      */
     public function create()
     {
-        return view('admin.email.add-edit');
+        $email = EmailSetting::where('id', '=', 1)->first();
+
+        return view('admin.email.add-edit')->with(['email'=>$email]);
     }
 
     /**
@@ -38,10 +40,10 @@ class EmailController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'job_apply' => 'required|email|max:255',
-            'contact' => 'required|email|max:255',
-            'quotes' => 'required|email|max:255',
-            'claims' => 'required|email|max:255',
+            'jobapply' => 'required|email',
+            'contact' => 'required|email',
+            'quote' => 'required|email',
+            'claim' => 'required|email',
         ]);
 
         if ($validator->fails()) {
@@ -51,12 +53,14 @@ class EmailController extends Controller
                 ->withInput();
         }
 
-        EmailSetting::create([
+        EmailSetting::where('id', '=', 1)->update([
             'job_apply' => $request->jobapply,
             'contact' => $request->contact,
             'quotes' => $request->quote,
             'claims' => $request->claim,
         ]);
+
+        return redirect()->route('admin#dashboard')->with(['success_message' => 'Successfully <strong>saved!</strong>']);
     }
 
     /**

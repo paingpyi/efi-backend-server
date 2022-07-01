@@ -26,7 +26,11 @@ class DashboardController extends Controller
         $blog = blog::where('status', '=', 'published')->get()->count();
         $user = User::where('is_active', '=', true)->get()->count();
 
-        return view('admin.dashboard')->with(['product_count' => $product, 'jobs_count' => $jobs, 'blog_count' => $blog, 'user_count' => $user]);
+        if (session()->has('success_message')) {
+            return view('admin.dashboard')->with(['success_message' => session('success_message'), 'product_count' => $product, 'jobs_count' => $jobs, 'blog_count' => $blog, 'user_count' => $user]);
+        } else {
+            return view('admin.dashboard')->with(['product_count' => $product, 'jobs_count' => $jobs, 'blog_count' => $blog, 'user_count' => $user]);
+        }
     }
 
     /**
@@ -39,7 +43,7 @@ class DashboardController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'page' => 'required',
-            'language'=>'required'
+            'language' => 'required'
         ]);
 
         if ($validator->fails()) {
