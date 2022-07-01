@@ -46,10 +46,10 @@ $checkPermission = App\Models\Team::where('id', '=', Auth::user()->current_team_
                             class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ route('admin#dashboard') }}" class="nav-link">Home</a>
+                    <a href="{{ route('admin#dashboard') }}" class="nav-link{{ Route::currentRouteName() == 'admin#dashboard' ? ' active' : '' }}"><i class="fa fa-home"></i> Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
+                    <a href="{{ route('email#setting') }}" class="nav-link{{ Route::currentRouteName() == 'email#setting' ? ' active' : '' }}"><i class="fa fa-envelope"></i> Email Setting</a>
                 </li>
             </ul>
 

@@ -10,6 +10,7 @@ use App\Http\Controllers\Content\PageController;
 use App\Http\Controllers\Content\JobController;
 use App\Http\Controllers\Content\CsrController;
 use App\Http\Controllers\Setting\CategoryController;
+use App\Http\Controllers\Setting\EmailController;
 use App\Http\Controllers\Setting\PromotionBlockController;
 use App\Http\Controllers\Setting\SampleController;
 use App\Http\Controllers\Setting\SliderController;
@@ -53,6 +54,11 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
         Route::post('/edit/{id}', [UserController::class, 'update'])->name('update#data#user');
 
         Route::post('/deactivate/{id}', [UserController::class, 'destroy'])->name('deactivate#user');
+    });
+
+    Route::group(['prefix' => 'emails', 'namespace' => 'User'], function () {
+        Route::get('/setting', [EmailController::class, 'create'])->name('email#setting');
+        Route::post('/setting', [EmailController::class, 'store'])->name('store#data#email');
     });
 
     Route::group(['prefix' => 'team', 'namespace' => 'User'], function () {
