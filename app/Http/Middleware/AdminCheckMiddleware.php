@@ -31,6 +31,6 @@ class AdminCheckMiddleware
             return redirect()->route('home');
         }
 
-        return back();
+        return redirect()->route('home');
     }
 }
