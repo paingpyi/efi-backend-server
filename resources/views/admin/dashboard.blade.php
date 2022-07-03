@@ -195,7 +195,7 @@
                                         <option value="zh-cn">Chinese</option>
                                     </select>
                                 </div>
-                                <div class="col-4">
+                                <div class="col col-lg-2">
                                     <button type="submit" class="btn btn-success"><i class="fa fa-retweet"></i>
                                         Refresh</button>
                                 </div>
