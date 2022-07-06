@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactPageController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\User\TeamController;
 use App\Http\Controllers\User\UserController;
@@ -122,6 +123,10 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
             Route::post('/edit/{id}', [StakeholderController::class,'update'])->name('update#data#stakeholder');
 
             Route::post('/deactivate/{id}', [StakeholderController::class, 'destroy'])->name('deactivate#stakeholder');
+        });
+
+        Route::group(['prefix' => 'contact'], function () {
+            Route::get('/', [ContactPageController::class,'index'])->name('contact#list');
         });
     });
 
