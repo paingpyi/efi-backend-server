@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\ContactPage;
+use Illuminate\Support\Str;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ContactPageResource extends JsonResource
@@ -27,11 +28,22 @@ class ContactPageResource extends JsonResource
         $main_contact = ContactPage::where('main', '=', true)->first();
         $content = [];
 
-        if($main_contact) {
+        if ($main_contact) {
+            $contacts = ContactPage::where('main', '=', false)->get();
+            $addresses = [];
+
+            foreach ($contacts as $row) {
+                $addresses[] = [
+                    'title' => json_decode($row->title, true)[Str::lower($data['locale'])],
+                    'description' => json_decode($row->address, true)[Str::lower($data['locale'])],
+                ];
+            }
+
             $content = [
-                'title' => $main_contact->title,
-                'main_address' => $main_contact->address,
+                'title' => json_decode($main_contact->title, true)[Str::lower($data['locale'])],
+                'main_address' => json_decode($main_contact->address, true)[Str::lower($data['locale'])],
                 'map' => $main_contact->map,
+                'addresses' => $addresses
             ];
         }
 
