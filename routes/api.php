@@ -15,6 +15,7 @@ use App\Http\Resources\AboutEfigResource;
 use App\Http\Resources\AboutEfilResource;
 use App\Http\Resources\BlogPageResource;
 use App\Http\Resources\CareerPageResource;
+use App\Http\Resources\ContactPageResource;
 use App\Http\Resources\CSRResource;
 use App\Http\Resources\EFIGResource;
 use App\Http\Resources\EFILResource;
@@ -91,6 +92,10 @@ Route::group(['prefix' => 'pages', 'namespace' => 'Content'], function () {
 
     Route::post('/blogs', function () {
         return new BlogPageResource(Page::all());
+    });
+
+    Route::post('/contact', function () {
+        return new ContactPageResource(Page::all());
     });
 });
 

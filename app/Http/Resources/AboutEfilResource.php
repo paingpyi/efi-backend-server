@@ -59,7 +59,7 @@ class AboutEfilResource extends JsonResource
                 'stakeholders' => [
                     'title' => 'Our Stakeholders',
                     'description' => '<p>Loren scelequie plays an important role. We are always either believe in nurturing an engaging environment create and develop ourselves in unparalleled ways.</p>',
-                    'data' => $stakeholders
+                    'data' => $stakeholders_content
                 ]
             ];
         } else if(Str::lower($data['locale']) == 'my-mm') {
@@ -84,7 +84,7 @@ class AboutEfilResource extends JsonResource
                 'stakeholders' => [
                     'title' => 'Our Stakeholders',
                     'description' => '<p>Loren scelequie plays an important role. We are always either believe in nurturing an engaging environment create and develop ourselves in unparalleled ways.</p>',
-                    'data' => $stakeholders
+                    'data' => $stakeholders_content
                 ]
             ];
         }  else if(Str::lower($data['locale']) == 'zh-cn') {
@@ -109,7 +109,7 @@ class AboutEfilResource extends JsonResource
                 'stakeholders' => [
                     'title' => 'Our Stakeholders',
                     'description' => '<p>Loren scelequie plays an important role. We are always either believe in nurturing an engaging environment create and develop ourselves in unparalleled ways.</p>',
-                    'data' => $stakeholders
+                    'data' => $stakeholders_content
                 ]
             ];
         } else {
