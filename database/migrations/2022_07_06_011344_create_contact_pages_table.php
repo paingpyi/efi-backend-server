@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('contact_pages', function (Blueprint $table) {
             $table->id();
-            $table->longText('map');
+            $table->longText('map')->nullable();
             $table->json('title');
             $table->json('address');
             $table->boolean('main');

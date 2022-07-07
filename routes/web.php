@@ -127,6 +127,14 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
 
         Route::group(['prefix' => 'contact'], function () {
             Route::get('/', [ContactPageController::class,'index'])->name('contact#list');
+
+            Route::get('/new', [ContactPageController::class,'create'])->name('contact#block');
+            Route::post('/new', [ContactPageController::class,'store'])->name('store#data#contact');
+
+            Route::get('/edit/{id}', [ContactPageController::class,'edit'])->name('edit#contact');
+            Route::post('/edit/{id}', [ContactPageController::class,'update'])->name('update#data#contact');
+
+            Route::post('/set/{id}', [ContactPageController::class, 'destroy'])->name('deactivate#contact');
         });
     });
 

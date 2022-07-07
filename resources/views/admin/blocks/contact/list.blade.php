@@ -12,8 +12,7 @@
     <link rel="stylesheet" href="{{ asset('adminlite/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('adminlite/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet"
-        href="{{ asset('adminlite/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminlite/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlite/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <!-- Toastr -->
     <link rel="stylesheet" href="{{ asset('adminlite/plugins/toastr/toastr.min.css') }}">
@@ -31,7 +30,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-tools">
-                        @include('admin.blocks.promotion.menu')
+                        @include('admin.blocks.contact.menu')
                     </div>
                 </div>
                 <!-- /.card-header -->
@@ -42,40 +41,40 @@
                                 <tr>
                                     <th>Title</th>
                                     <th>Address</th>
-                                    <th>Main</th>
+                                    <th>Main Address</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($contacts as $contact)
                                     <tr>
                                         <td class="text-nowrap"><a
-                                                href="{{ route('edit#promotion', Illuminate\Support\Facades\Crypt::encryptString($contact->id)) }}">{{ json_decode($contact->title,true)['en-us'] }}
+                                                href="{{ route('edit#contact', Illuminate\Support\Facades\Crypt::encryptString($contact->id)) }}">{{ json_decode($contact->title, true)['en-us'] }}
                                             </a></td>
-                                        <td>{{json_decode($contact->address,true)['en-us']}}</td>
+                                        <td>{!!json_decode($contact->address, true)['en-us'] !!}</td>
                                         <td class="text-nowrap">
                                             <form
-                                            action="{{ route('deactivate#promotion', Illuminate\Support\Facades\Crypt::encryptString($contact->id)) }}"
-                                            method="post">
-                                            @csrf
-                                            <div class="btn-group">
-                                                <button type="submit"
-                                                    class="btn {{ $contact->main ? 'btn-success' : 'btn-danger' }}">{!! $contact->main
-? '<i
-                                                class="fas fa-check-square"></i> Enabled'
-: '<i class="fas fa-square"></i> Disabled' !!}</button>
-                                                <button type="button"
-                                                    class="btn {{ $contact->main ? 'btn-success' : 'btn-danger' }} dropdown-toggle dropdown-toggle-split"
-                                                    data-toggle="dropdown" aria-expanded="false">
-                                                    <span class="sr-only">Toggle Dropdown</span>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('edit#promotion', Illuminate\Support\Facades\Crypt::encryptString($contact->id)) }}">Edit</a>
+                                                action="{{ route('deactivate#contact', Illuminate\Support\Facades\Crypt::encryptString($contact->id)) }}"
+                                                method="post">
+                                                @csrf
+                                                <div class="btn-group">
                                                     <button type="submit"
-                                                        class="dropdown-item">{{ $contact->main ? 'Disabled' : 'Enabled' }}</button>
+                                                        class="btn {{ $contact->main ? 'btn-success' : 'btn-info' }}">{!! $contact->main
+    ? '<i
+                                                class="fas fa-check-square"></i> Yes'
+    : '<i class="fas fa-square"></i> No' !!}</button>
+                                                    <button type="button"
+                                                        class="btn {{ $contact->main ? 'btn-success' : 'btn-info' }} dropdown-toggle dropdown-toggle-split"
+                                                        data-toggle="dropdown" aria-expanded="false">
+                                                        <span class="sr-only">Toggle Dropdown</span>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('edit#promotion', Illuminate\Support\Facades\Crypt::encryptString($contact->id)) }}">Edit</a>
+                                                        <button type="submit"
+                                                            class="dropdown-item">{{ $contact->main ? 'No' : 'Yes' }}</button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </form>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -83,8 +82,8 @@
                             <tfoot>
                                 <tr>
                                     <th>Title</th>
-                                    <th>Image</th>
-                                    <th>Enable</th>
+                                    <th>Address</th>
+                                    <th>Main Address</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -139,8 +138,8 @@
             });
 
             @if (Session::has('success_message'))
-                $( document ).ready(function() {
-                toastr.success('{!! Session::get('success_message') !!}');
+                $(document).ready(function() {
+                    toastr.success('{!! Session::get('success_message') !!}');
                 });
             @endif
         });
