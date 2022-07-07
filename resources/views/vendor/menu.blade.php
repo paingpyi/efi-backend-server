@@ -379,6 +379,35 @@ with font-awesome or any other icon font library -->
                                         </ul>
                                     </li>
                                 @endif
+
+                                @if (in_array('contact#list', json_decode($checkPermission->permissions)))
+                                    <li class="nav-item">
+                                        <a href="{{ route('contact#list') }}" class="nav-link{{ (Route::currentRouteName() == 'contact#list' or Route::currentRouteName() == 'contact#block') ? ' active' : '' }}">
+                                            <i class="fa fa-tasks nav-icon"></i>
+                                            <p>Contact Page</p>
+                                            <i class="fas fa-angle-left right"></i>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                            @if (in_array('contact#list', json_decode($checkPermission->permissions)))
+                                                <li class="nav-item">
+                                                    <a href="{{ route('contact#list') }}" class="nav-link{{ Route::currentRouteName() == 'contact#list' ? ' active' : '' }}">
+                                                        <i class="fa fa-tasks nav-icon"></i>
+                                                        <p>Contact List</p>
+                                                    </a>
+                                                </li>
+                                            @endif
+
+                                            @if (in_array('contact#block', json_decode($checkPermission->permissions)))
+                                                <li class="nav-item">
+                                                    <a href="{{ route('contact#block') }}" class="nav-link{{ Route::currentRouteName() == 'contact#block' ? ' active' : '' }}">
+                                                        <i class="fa fa-tasks nav-icon"></i>
+                                                        <p>New Contact</p>
+                                                    </a>
+                                                </li>
+                                            @endif
+                                        </ul>
+                                    </li>
+                                @endif
                                 {{-- End of Blocks --}}
                             </ul>
                         </li>
