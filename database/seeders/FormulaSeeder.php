@@ -4499,6 +4499,258 @@ class FormulaSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
+            [
+                'method' => 'calculateMotor',
+                'conditions' => json_encode([
+                    ['field' => 'vehicle_type', 'operator' => '==', 'value' => 'private truck'],
+                    ['field' => 'engine_displacement', 'operator' => '<=', 'value' => 1500],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '==', 'value' => 41100],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMotor',
+                'conditions' => json_encode([
+                    ['field' => 'vehicle_type', 'operator' => '==', 'value' => 'private truck'],
+                    ['field' => 'engine_displacement', 'operator' => '>', 'value' => 1500],
+                    ['field' => 'engine_displacement', 'operator' => '<=', 'value' => 2000],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '==', 'value' => 41300],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMotor',
+                'conditions' => json_encode([
+                    ['field' => 'vehicle_type', 'operator' => '==', 'value' => 'private truck'],
+                    ['field' => 'engine_displacement', 'operator' => '>', 'value' => 2000],
+                    ['field' => 'engine_displacement', 'operator' => '<=', 'value' => 3000],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '==', 'value' => 41600],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMotor',
+                'conditions' => json_encode([
+                    ['field' => 'vehicle_type', 'operator' => '==', 'value' => 'private truck'],
+                    ['field' => 'engine_displacement', 'operator' => '>', 'value' => 3000],
+                    ['field' => 'engine_displacement', 'operator' => '<=', 'value' => 4000],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '==', 'value' => 41900],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMotor',
+                'conditions' => json_encode([
+                    ['field' => 'vehicle_type', 'operator' => '==', 'value' => 'private truck'],
+                    ['field' => 'engine_displacement', 'operator' => '>', 'value' => 4000],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '==', 'value' => 42400],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMotor',
+                'conditions' => json_encode([
+                    ['field' => 'vehicle_type', 'operator' => '==', 'value' => 'commercial car'],
+                    ['field' => 'engine_displacement', 'operator' => '<=', 'value' => 1500],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '==', 'value' => 66700],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMotor',
+                'conditions' => json_encode([
+                    ['field' => 'vehicle_type', 'operator' => '==', 'value' => 'commercial car'],
+                    ['field' => 'engine_displacement', 'operator' => '>', 'value' => 1500],
+                    ['field' => 'engine_displacement', 'operator' => '<=', 'value' => 2000],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '==', 'value' => 66900],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMotor',
+                'conditions' => json_encode([
+                    ['field' => 'vehicle_type', 'operator' => '==', 'value' => 'commercial car'],
+                    ['field' => 'engine_displacement', 'operator' => '>', 'value' => 2000],
+                    ['field' => 'engine_displacement', 'operator' => '<=', 'value' => 3000],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '==', 'value' => 67200],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMotor',
+                'conditions' => json_encode([
+                    ['field' => 'vehicle_type', 'operator' => '==', 'value' => 'commercial car'],
+                    ['field' => 'engine_displacement', 'operator' => '>', 'value' => 3000],
+                    ['field' => 'engine_displacement', 'operator' => '<=', 'value' => 4000],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '==', 'value' => 67500],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMotor',
+                'conditions' => json_encode([
+                    ['field' => 'vehicle_type', 'operator' => '==', 'value' => 'commercial car'],
+                    ['field' => 'engine_displacement', 'operator' => '>', 'value' => 4000],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '==', 'value' => 67800],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMotor',
+                'conditions' => json_encode([
+                    ['field' => 'vehicle_type', 'operator' => '==', 'value' => 'commercial truck'],
+                    ['field' => 'engine_displacement', 'operator' => '<=', 'value' => 1500],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '==', 'value' => 66600],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMotor',
+                'conditions' => json_encode([
+                    ['field' => 'vehicle_type', 'operator' => '==', 'value' => 'commercial truck'],
+                    ['field' => 'engine_displacement', 'operator' => '>', 'value' => 1500],
+                    ['field' => 'engine_displacement', 'operator' => '<=', 'value' => 2000],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '==', 'value' => 66800],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMotor',
+                'conditions' => json_encode([
+                    ['field' => 'vehicle_type', 'operator' => '==', 'value' => 'commercial truck'],
+                    ['field' => 'engine_displacement', 'operator' => '>', 'value' => 2000],
+                    ['field' => 'engine_displacement', 'operator' => '<=', 'value' => 3000],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '==', 'value' => 67100],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMotor',
+                'conditions' => json_encode([
+                    ['field' => 'vehicle_type', 'operator' => '==', 'value' => 'commercial truck'],
+                    ['field' => 'engine_displacement', 'operator' => '>', 'value' => 3000],
+                    ['field' => 'engine_displacement', 'operator' => '<=', 'value' => 4000],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '==', 'value' => 67400],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMotor',
+                'conditions' => json_encode([
+                    ['field' => 'vehicle_type', 'operator' => '==', 'value' => 'commercial truck'],
+                    ['field' => 'engine_displacement', 'operator' => '>', 'value' => 4000],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '==', 'value' => 67900],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMotor',
+                'conditions' => json_encode([
+                    ['field' => 'vehicle_type', 'operator' => '==', 'value' => 'fire and ambulance'],
+                    ['field' => 'engine_displacement', 'operator' => '<=', 'value' => 1500],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '==', 'value' => 40200],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMotor',
+                'conditions' => json_encode([
+                    ['field' => 'vehicle_type', 'operator' => '==', 'value' => 'fire and ambulance'],
+                    ['field' => 'engine_displacement', 'operator' => '>', 'value' => 1500],
+                    ['field' => 'engine_displacement', 'operator' => '<=', 'value' => 2000],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '==', 'value' => 40400],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMotor',
+                'conditions' => json_encode([
+                    ['field' => 'vehicle_type', 'operator' => '==', 'value' => 'fire and ambulance'],
+                    ['field' => 'engine_displacement', 'operator' => '>', 'value' => 2000],
+                    ['field' => 'engine_displacement', 'operator' => '<=', 'value' => 3000],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '==', 'value' => 40700],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMotor',
+                'conditions' => json_encode([
+                    ['field' => 'vehicle_type', 'operator' => '==', 'value' => 'fire and ambulance'],
+                    ['field' => 'engine_displacement', 'operator' => '>', 'value' => 3000],
+                    ['field' => 'engine_displacement', 'operator' => '<=', 'value' => 4000],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '==', 'value' => 41000],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'method' => 'calculateMotor',
+                'conditions' => json_encode([
+                    ['field' => 'vehicle_type', 'operator' => '==', 'value' => 'fire and ambulance'],
+                    ['field' => 'engine_displacement', 'operator' => '>', 'value' => 4000],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'insured_amount', 'operator' => '==', 'value' => 41300],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
             // End of Motor Insurance
 
             /****

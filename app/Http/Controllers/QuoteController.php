@@ -596,9 +596,17 @@ class QuoteController extends Controller
             return response()->json($response, $response_code);
         }
 
+        $multiple = 5000;
+
+        if($data['vehicle_type'] == 'commercial car') {
+            $multiple = 10000;
+        } else if($data['vehicle_type'] == 'commercial truck') {
+            $multiple = 10000;
+        }
+
         $product = Product::where('slug_url', '=', 'comprehensive-motor-insurance')->first();
 
-        $result = $result + ((ceil(($data['insured_amount'] - 5000000) / 1000000)) * 5000);
+        $result = $result + ((ceil(($data['insured_amount'] - 5000000) / 1000000)) * $multiple);
         $premium = $result;
 
         if (isset($data['war'])) {
