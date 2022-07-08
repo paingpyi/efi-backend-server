@@ -598,7 +598,7 @@ class QuoteController extends Controller
 
         $product = Product::where('slug_url', '=', 'comprehensive-motor-insurance')->first();
 
-        $result = $result + ((ceil($data['insured_amount'] / 5000000) - 1) * 5000);
+        $result = $result + ((ceil(($data['insured_amount'] - 5000000) / 1000000) - 1) * 5000);
         $premium = $result;
 
         if (isset($data['war'])) {
