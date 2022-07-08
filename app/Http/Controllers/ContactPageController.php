@@ -49,7 +49,6 @@ class ContactPageController extends Controller
             'address_burmese' => 'required',
             'title_chinese' => 'required',
             'address_chinese' => 'required',
-            'map' => 'nullable|url',
         ]);
 
         if ($validator->fails()) {
@@ -134,7 +133,6 @@ class ContactPageController extends Controller
             'address_burmese' => 'required',
             'title_chinese' => 'required',
             'address_chinese' => 'required',
-            'map' => 'nullable|url',
         ]);
 
         if ($validator->fails()) {
