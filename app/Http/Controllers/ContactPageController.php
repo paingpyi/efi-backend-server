@@ -83,6 +83,7 @@ class ContactPageController extends Controller
 
         $data = [
             'type' => 'contact-page-updated',
+            'locales' => ["en-US", "my-MM", "zh-CN"],
         ];
 
         $response = Http::withHeaders([
@@ -165,7 +166,8 @@ class ContactPageController extends Controller
         $key = config('efi.api_key');
 
         $data = [
-            'type' => 'contact-page-updated'
+            'type' => 'contact-page-updated',
+            'locales' => ["en-US", "my-MM", "zh-CN"],
         ];
 
         $response = Http::withHeaders([
