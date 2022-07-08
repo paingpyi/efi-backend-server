@@ -598,7 +598,7 @@ class QuoteController extends Controller
 
         $product = Product::where('slug_url', '=', 'comprehensive-motor-insurance')->first();
 
-        $result = $result + (ceil($data['insured_amount'] / 5000000) * 5000);
+        $result = $result + ((ceil($data['insured_amount'] / 5000000) - 1) * 5000);
         $premium = $result;
 
         if (isset($data['war'])) {
@@ -5106,14 +5106,14 @@ class QuoteController extends Controller
             } else {
                 $response_code = 400;
 
-            $response = [
-                'code' => $response_code,
-                'status' => $this->error400status_eng,
-                'errors' => $this->not_eligible_error_eng,
-                'olds' => $request->all(),
-            ];
+                $response = [
+                    'code' => $response_code,
+                    'status' => $this->error400status_eng,
+                    'errors' => $this->not_eligible_error_eng,
+                    'olds' => $request->all(),
+                ];
 
-            return response()->json($response, $response_code);
+                return response()->json($response, $response_code);
             }
         } else {
             $response_code = 400;
@@ -5473,7 +5473,7 @@ class QuoteController extends Controller
             $errors[] = __('validation.required', ['attribute' => 'Policy Type']);
         }
 
-        if($response_code == 400) {
+        if ($response_code == 400) {
             $response = [
                 'code' => $response_code,
                 'status' => $this->error400status_eng,
