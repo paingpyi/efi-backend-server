@@ -149,14 +149,12 @@
                                     <label for="map"><i class="fa fa-map-marker"></i>
                                         Google Map
                                         @php
-                                            if ($errors->has('image')) {
-                                                echo '<span class="error bg-danger p-1 text-sm">* ' . Str::replace('.0', '', $errors->first('image')) . '</span>';
-                                            } else {
-                                                echo '<span class="text-danger">*</span>';
+                                            if ($errors->has('map')) {
+                                                echo '<span class="error bg-danger p-1 text-sm">* ' . Str::replace('.0', '', $errors->first('map')) . '</span>';
                                             }
                                         @endphp
                                     </label>
-                                    <input type="url" name="map"
+                                    <input type="text" name="map"
                                                 value="{{ old('map', isset($contact->map) ? $contact->map : null) }}"
                                                 class="form-control" id="map">
                                 </div><!-- /. contact Image -->
