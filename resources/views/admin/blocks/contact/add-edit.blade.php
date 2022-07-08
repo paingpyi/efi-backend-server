@@ -227,6 +227,7 @@
                     ['undo', ['undo']],
                     ['redo', ['redo']],
                     ['view', ['fullscreen']],
+                    ['font', ['bold', 'underline', 'clear']],
                 ],
             });
 
