@@ -1114,7 +1114,7 @@ class ProductController extends Controller
         $response_code = 200;
         $data = $request->json()->all();
 
-        if ((isset($data['slug_url']) or isset($data['id'])) and isset($data['locale'])) {
+        if (isset($data['slug_url']) and isset($data['locale'])) {
             $product_db = $this->getProductsAPI($data);
 
             $products = $product_db->first();
