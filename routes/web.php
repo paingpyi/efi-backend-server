@@ -10,6 +10,7 @@ use App\Http\Controllers\Content\ProductController;
 use App\Http\Controllers\Content\PageController;
 use App\Http\Controllers\Content\JobController;
 use App\Http\Controllers\Content\CsrController;
+use App\Http\Controllers\HomeBlockController;
 use App\Http\Controllers\Setting\CategoryController;
 use App\Http\Controllers\Setting\EmailController;
 use App\Http\Controllers\Setting\PromotionBlockController;
@@ -135,6 +136,11 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
             Route::post('/edit/{id}', [ContactPageController::class,'update'])->name('update#data#contact');
 
             Route::post('/set/{id}', [ContactPageController::class, 'destroy'])->name('deactivate#contact');
+        });
+
+        Route::group(['prefix' => 'home-why-efi'], function () {
+            Route::get('/', [HomeBlockController::class,'whyEFI'])->name('why#efi#block');
+            Route::post('/', [HomeBlockController::class,'store'])->name('store#data#why#efi#block');
         });
     });
 

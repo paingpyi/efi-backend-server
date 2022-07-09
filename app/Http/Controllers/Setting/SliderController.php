@@ -58,7 +58,7 @@ class SliderController extends Controller
 
         if ($validator->fails()) {
             return redirect()
-                ->route('new#product')
+                ->route('new#slider')
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -139,7 +139,7 @@ class SliderController extends Controller
 
         if ($validator->fails()) {
             return redirect()
-                ->route('new#product')
+                ->route('edit#slider')
                 ->withErrors($validator)
                 ->withInput();
         }

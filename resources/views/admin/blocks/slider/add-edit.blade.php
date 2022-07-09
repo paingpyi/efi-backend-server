@@ -87,7 +87,7 @@
                                     <div class="tab-pane fade pt-3" id="nav-zh" role="tabpanel"
                                         aria-labelledby="nav-profile-tab">
                                         <div class="form-group">
-                                            <label for="title_chinese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
+                                            <label for="title_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Title
                                                 <span class="text-danger">*</span></label>
                                             <input type="text" name="title_chinese"
                                                 value="{{ old('title_chinese', isset($sliders_zh->title) ? json_decode($sliders_zh->title) : null) }}"
