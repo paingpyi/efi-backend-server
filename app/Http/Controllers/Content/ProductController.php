@@ -1213,7 +1213,10 @@ class ProductController extends Controller
                     'apply_insurance' => json_decode($products->apply_insurance),
                     'why_work_with_us' => $why_work_with_us,
                     'lr' => $lr,
-                    'faq' => $faq,
+                    'faq' => [
+                        'title' => json_decode($products->faq)->title,
+                        'data' => $faq
+                    ],
                     'attachments' => $attachments,
                     'additional_benifits' => $additional_benifits,
                     'diagrams_and_table' => $diagrams_and_table,
