@@ -196,8 +196,7 @@
                                     </select>
                                 </div>
                                 <div class="col col-lg-2">
-                                    <button type="submit" class="btn btn-success"><i class="fa fa-retweet"></i>
-                                        Refresh</button>
+                                    <button type="submit" class="btn btn-success"><i class="fa fa-retweet"></i></button>
                                 </div>
                             </div>
                         </div>
