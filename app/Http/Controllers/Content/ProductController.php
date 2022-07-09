@@ -1189,13 +1189,15 @@ class ProductController extends Controller
                 }
 
                 $faq = [];
-                foreach (json_decode($products->faq) as $item) {dd($item);
-                    if ($item->question !== null) {
+                $i = 0;
+                foreach (json_decode($products->faq) as $item) {
+                    if ($item[$i]->question !== null) {
                         $faq[] = [
-                            'question' => $item->question,
-                            'answers' => $item->answers
+                            'question' => $item[$i]->question,
+                            'answers' => $item[$i]->answers
                         ];
                     }
+                    $i++;
                 }
 
                 $response = [
