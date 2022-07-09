@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\HomeWhyEFIBlock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
@@ -20,7 +21,19 @@ class HomeBlockController extends Controller
     public function whyEFI()
     {
         $why = HomeWhyEFIBlock::where('id', '=', 1)->first();
-        return view('admin.blocks.whyblock.add-edit')->with(['why' => $why]);
+
+        if(Session::has('success_message')) {
+            $data = [
+                'why' => $why,
+                'success_message' =>Session::get('success_message')
+            ];
+        } else {
+            $data = [
+                'why' => $why,
+            ];
+        }
+
+        return view('admin.blocks.whyblock.add-edit')->with($data);
     }
 
     /**

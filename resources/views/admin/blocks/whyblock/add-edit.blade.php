@@ -252,6 +252,12 @@
                     $(element).removeClass('is-invalid');
                 }
             });
+
+            @if (Session::has('success_message'))
+                $( document ).ready(function() {
+                toastr.success('{!! Session::get('success_message') !!}');
+                });
+            @endif
         });
     </script>
 @endsection
