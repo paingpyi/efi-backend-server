@@ -14,6 +14,8 @@ class Category extends Model
         'description',
         'name_burmese',
         'description_burmese',
+        'name_chinese',
+        'description_chinese',
         'parent_id',
         'is_active',
         'machine',
