@@ -1188,6 +1188,16 @@ class ProductController extends Controller
                     }
                 }
 
+                $faq = [];
+                foreach (json_decode($products->faq) as $item) {
+                    if ($item->question !== null) {
+                        $faq[] = [
+                            'question' => $item->question,
+                            'answers' => $item->answers
+                        ];
+                    }
+                }
+
                 $response = [
                     'code' => 200,
                     'status' => 'success',
@@ -1201,7 +1211,7 @@ class ProductController extends Controller
                     'apply_insurance' => json_decode($products->apply_insurance),
                     'why_work_with_us' => $why_work_with_us,
                     'lr' => $lr,
-                    'faq' => json_decode($products->faq),
+                    'faq' => $faq,
                     'attachments' => $attachments,
                     'additional_benifits' => $additional_benifits,
                     'diagrams_and_table' => $diagrams_and_table,
