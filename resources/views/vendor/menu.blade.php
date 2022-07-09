@@ -297,7 +297,12 @@ with font-awesome or any other icon font library -->
 
                         <li class="nav-item">
                             <a href="#"
-                                class="nav-link{{ (Route::currentRouteName() == 'slider#list' or Route::currentRouteName() == 'new#slider' or Route::currentRouteName() == 'promotion#list' or Route::currentRouteName() == 'promotion#block' or Route::currentRouteName() == 'why#efi#block') ? ' active' : '' }}">
+                                class="nav-link{{ (
+                                    Route::currentRouteName() == 'slider#list' or
+                                    Route::currentRouteName() == 'new#slider' or
+                                    Route::currentRouteName() == 'promotion#list' or
+                                    Route::currentRouteName() == 'promotion#block' or
+                                    Route::currentRouteName() == 'why#efi#block') ? ' active' : '' }}">
                                 <i class="fa fa-th-large nav-icon"></i>
                                 <p>Blocks</p>
                                 <i class="fas fa-angle-left right"></i>
@@ -305,7 +310,7 @@ with font-awesome or any other icon font library -->
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="{{ route('slider#list') }}"
-                                        class="nav-link{{ (Route::currentRouteName() == 'slider#list' or Route::currentRouteName() == 'new#slider' or Route::currentRouteName() == 'promotion#list' or Route::currentRouteName() == 'promotion#block') ? ' active' : '' }}">
+                                        class="nav-link{{ (Route::currentRouteName() == 'slider#list' or Route::currentRouteName() == 'new#slider' or Route::currentRouteName() == 'promotion#list' or Route::currentRouteName() == 'promotion#block' or Route::currentRouteName() == 'why#efi#block') ? ' active' : '' }}">
                                         <i class="fa fa-tasks nav-icon"></i>
                                         <p>Home Page</p>
                                         <i class="fas fa-angle-left right"></i>
