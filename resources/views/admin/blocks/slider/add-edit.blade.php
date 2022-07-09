@@ -245,6 +245,11 @@
                 ['insert', ['link']],
                 ['view', ['fullscreen']],
             ],
+            callbacks: {
+                onImageUpload: function(data) {
+                    data.pop();
+                }
+            },
         });
 
         $('.lfm').filemanager('image');

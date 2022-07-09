@@ -229,6 +229,11 @@
                     ['view', ['fullscreen']],
                     ['font', ['bold', 'underline', 'clear']],
                 ],
+                callbacks: {
+                    onImageUpload: function(data) {
+                        data.pop();
+                    }
+                },
             });
 
             $('.lfm').filemanager('image');

@@ -173,13 +173,18 @@
                     ['undo', ['undo']],
                     ['redo', ['redo']],
                     ['font', ['bold', 'underline', 'clear']],
-                    ['fontname', ['fontname']],
+                    ['fontsize', ['fontsize']],
                     ['color', ['color']],
                     ['para', ['ul', 'ol', 'paragraph']],
                     ['table', ['table']],
                     ['insert', ['link']],
                     ['view', ['fullscreen']],
                 ],
+                callbacks: {
+                    onImageUpload: function(data) {
+                        data.pop();
+                    }
+                },
             });
 
             $.validator.addMethod("titleRegex", function(value, element) {

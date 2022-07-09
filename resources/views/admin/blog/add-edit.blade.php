@@ -47,10 +47,10 @@
                                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                         <a class="nav-link active" id="nav-eng-tab" data-toggle="tab" href="#nav-eng"
                                             role="tab" aria-controls="nav-home" aria-selected="true">English</a>
-                                        <a class="nav-link" id="nav-mm-tab" data-toggle="tab" href="#nav-mm"
-                                            role="tab" aria-controls="nav-profile" aria-selected="false">Burmese</a>
-                                        <a class="nav-link" id="nav-zh-tab" data-toggle="tab" href="#nav-zh"
-                                            role="tab" aria-controls="nav-profile" aria-selected="false">Chinese</a>
+                                        <a class="nav-link" id="nav-mm-tab" data-toggle="tab" href="#nav-mm" role="tab"
+                                            aria-controls="nav-profile" aria-selected="false">Burmese</a>
+                                        <a class="nav-link" id="nav-zh-tab" data-toggle="tab" href="#nav-zh" role="tab"
+                                            aria-controls="nav-profile" aria-selected="false">Chinese</a>
                                     </div>
                                 </nav>
                                 <div class="tab-content pr-2" id="nav-tabContent">
@@ -78,8 +78,7 @@
                                                     }
                                                 @endphp
                                             </label>
-                                            <textarea name="content" class="summernote @error('content') is-invalid @enderror" required
-                                                id="content">{{ old('content', isset($blog_en->content) ? json_decode($blog_en->content) : '') }}</textarea>
+                                            <textarea name="content" class="summernote @error('content') is-invalid @enderror" required id="content">{{ old('content', isset($blog_en->content) ? json_decode($blog_en->content) : '') }}</textarea>
                                         </div>
                                     </div> {{-- /. End of English Inputs --}}
                                     <div class="tab-pane fade pt-3" id="nav-mm" role="tabpanel"
@@ -109,14 +108,13 @@
                                                     }
                                                 @endphp
                                             </label>
-                                            <textarea name="content_burmese" class="summernote" required
-                                                id="content_burmese">{{ old('content_burmese', isset($blog_mm->content) ? json_decode($blog_mm->content) : '') }}</textarea>
+                                            <textarea name="content_burmese" class="summernote" required id="content_burmese">{{ old('content_burmese', isset($blog_mm->content) ? json_decode($blog_mm->content) : '') }}</textarea>
                                         </div>
                                     </div> {{-- /. End of Burmese Inputs --}}
                                     <div class="tab-pane fade pt-3" id="nav-zh" role="tabpanel"
                                         aria-labelledby="nav-profile-tab">
                                         <div class="form-group">
-                                            <label for="title_chinese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
+                                            <label for="title_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Title
                                                 <span class="text-danger">*</span></label>
                                             <input type="text" name="title_chinese"
                                                 value="{{ old('title_chinese', isset($blog_zh->title) ? json_decode($blog_zh->title) : null) }}"
@@ -130,7 +128,7 @@
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="content_chinese"><i class="flag-icon flag-icon-mm mr-2"></i>
+                                            <label for="content_chinese"><i class="flag-icon flag-icon-cn mr-2"></i>
                                                 Content Body
                                                 @php
                                                     if ($errors->has('content_chinese')) {
@@ -140,8 +138,7 @@
                                                     }
                                                 @endphp
                                             </label>
-                                            <textarea name="content_chinese" class="summernote" required
-                                                id="content_chinese">{{ old('content_chinese', isset($blog_zh->content) ? json_decode($blog_zh->content) : '') }}</textarea>
+                                            <textarea name="content_chinese" class="summernote" required id="content_chinese">{{ old('content_chinese', isset($blog_zh->content) ? json_decode($blog_zh->content) : '') }}</textarea>
                                         </div>
                                     </div> {{-- /. End of Chinese Inputs --}}
                                 </div>
@@ -249,7 +246,8 @@
                                 <hr>
                                 <div class="form-group">
                                     <label for="status">Status <span class="text-danger">*</span></label>
-                                    <select name="status" id="status" class="form-control select2" style="width: 100%;">
+                                    <select name="status" id="status" class="form-control select2"
+                                        style="width: 100%;">
                                         <option value="">Please choose the status.</option>
                                         <option value="published"
                                             {{ isset($blog_en->status) ? ($blog_en->status == 'published' ? ' selected' : '') : '' }}>
@@ -375,6 +373,8 @@
                 $(this).bootstrapSwitch('state', $(this).prop('checked'));
             });
 
+            $('.lfm').filemanager('image');
+
             // Summernote
             $('.summernote').summernote({
                 height: 950,
@@ -383,16 +383,19 @@
                     ['undo', ['undo']],
                     ['redo', ['redo']],
                     ['font', ['bold', 'underline', 'clear']],
-                    ['fontname', ['fontname']],
+                    ['fontsize', ['fontsize']],
                     ['color', ['color']],
                     ['para', ['ul', 'ol', 'paragraph']],
                     ['table', ['table']],
-                    ['insert', ['link']],
+                    ['insert', ['link', 'picture']],
                     ['view', ['fullscreen']],
                 ],
+                callbacks: {
+                    onImageUpload: function(data) {
+                        data.pop();
+                    }
+                },
             });
-
-            $('.lfm').filemanager('image');
 
             //Bootstrap Duallistbox
             $('.duallistbox').bootstrapDualListbox();

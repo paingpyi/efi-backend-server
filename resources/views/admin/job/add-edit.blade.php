@@ -275,6 +275,11 @@
             $('.summernote').summernote({
                 height: 800,
                 placeholder: 'Write job description here...',
+                callbacks: {
+                    onImageUpload: function(data) {
+                        data.pop();
+                    }
+                },
             });
 
             $('.imageupload').imageupload();
