@@ -4194,7 +4194,7 @@ class QuoteController extends Controller
             }
         }
 
-        $premium = $result + 1000;
+        $premium = $result + $this->getStampFee($data['insured_amount']);
 
         /**
          * Apply this calculation
@@ -4659,7 +4659,7 @@ class QuoteController extends Controller
 
         $product = Product::where('slug_url', '=', 'marine-hull-insurance')->first();
 
-        $premium = $result + 10000;
+        $premium = $result + $this->getStampFee($data['insured_amount']);
 
         /**
          * Apply this calculation
