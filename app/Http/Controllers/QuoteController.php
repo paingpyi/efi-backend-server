@@ -629,12 +629,12 @@ class QuoteController extends Controller
 
         if (isset($data['theft'])) {
             if ($data['theft'] == true) {
-                $premium = $premium + ($result * 0.0015);
+                $premium = $premium + ($result * 0.15);
             }
         }
 
         if (isset($data['windscreen'])) {
-            $premium = $premium + ($data['windscreen'] * 0.0005);
+            $premium = $premium + ($data['windscreen'] * 0.05);
         }
 
         if (isset($data['nill'])) {
