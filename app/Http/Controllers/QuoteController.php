@@ -24,6 +24,16 @@ class QuoteController extends Controller
     private $success_eng = 'success';
     // End of English
 
+     /**
+     * GET Stamp Fee.
+     *
+     *
+     */
+    private function getStampFee($amount)
+    {
+        return ceil($amount / 100000) * 10;
+    }
+
     /**
      * GET PREMIUM TYPE API via JSON.
      *
@@ -3931,7 +3941,7 @@ class QuoteController extends Controller
 
         $product = Product::where('slug_url', '=', 'marine-cargo-insurance')->first();
 
-        $premium = $result + 10000;
+        $premium = $result + $this->getStampFee($data['insured_amount']);
 
         /**
          * Apply this calculation
