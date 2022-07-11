@@ -3704,7 +3704,7 @@ class QuoteController extends Controller
 
         $product = Product::where('slug_url', '=', 'inland-transit-insurance')->first();
 
-        $premium = $result + 10000;
+        $premium = $result + 1000;
 
         /**
          * Apply this calculation
