@@ -607,16 +607,23 @@ class QuoteController extends Controller
         }
 
         $multiple = 5000;
+        $start = 5000000;
+        $interval = 1000000;
 
         if($data['vehicle_type'] == 'commercial car') {
             $multiple = 10000;
         } else if($data['vehicle_type'] == 'commercial truck') {
             $multiple = 10000;
+        } else if($data['vehicle_type'] == 'mobile plant') {
+            $start = 20000000;
+        } else if($data['vehicle_type'] == 'motorcycle') {
+            $start = 100000;
+            $interval = 100000;
         }
 
         $product = Product::where('slug_url', '=', 'comprehensive-motor-insurance')->first();
 
-        $result = $result + ((ceil(($data['insured_amount'] - 5000000) / 1000000)) * $multiple);
+        $result = $result + ((ceil(($data['insured_amount'] - $start) / $interval)) * $multiple);
         $premium = $result;
 
         if (isset($data['war'])) {
@@ -653,6 +660,28 @@ class QuoteController extends Controller
                     $premium = $premium + 5000;
                 } else if ($data['vehicle_type'] == 'commercial car') {
                     $premium = $premium + 10000;
+                }
+            }
+        }
+
+        if (isset($data['thirdparty'])) {
+            if ($data['thirdparty'] == true) {
+                if ($data['vehicle_type'] == 'private car') {
+                    $premium = $premium + 6600;
+                } else if ($data['vehicle_type'] == 'private truck') {
+                    $premium = $premium + 6300;
+                } else if ($data['vehicle_type'] == 'commercial car') {
+                    $premium = $premium + 10050;
+                } else if ($data['vehicle_type'] == 'commercial truck') {
+                    $premium = $premium + 9300;
+                } else if ($data['vehicle_type'] == 'fire and ambulance') {
+                    $premium = $premium + 6600;
+                } else if ($data['vehicle_type'] == 'fire and ambulance truck') {
+                    $premium = $premium + 6300;
+                } else if ($data['vehicle_type'] == 'mobile plant') {
+                    $premium = $premium + 13800;
+                } else if ($data['vehicle_type'] == 'motorcycle') {
+                    $premium = $premium + 9000;
                 }
             }
         }
