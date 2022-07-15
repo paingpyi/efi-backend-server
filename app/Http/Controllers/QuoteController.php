@@ -667,9 +667,29 @@ class QuoteController extends Controller
         if (isset($data['thirdparty'])) {
             if ($data['thirdparty'] == true) {
                 if ($data['vehicle_type'] == 'private car') {
-                    $premium = $premium + 6600;
+                    if ($data['engine_displacement'] <= 1500) {
+                        $premium = $premium + 6600;
+                    } else if ($data['engine_displacement'] > 1500 and $data['engine_displacement'] <= 2000) {
+                        $premium = $premium + 7200;
+                    } else if ($data['engine_displacement'] > 2000 and $data['engine_displacement'] <= 3000) {
+                        $premium = $premium + 8100;
+                    } else if ($data['engine_displacement'] > 3000 and $data['engine_displacement'] <= 4000) {
+                        $premium = $premium + 9000;
+                    } else if ($data['engine_displacement'] > 4000) {
+                        $premium = $premium + 9900;
+                    }
                 } else if ($data['vehicle_type'] == 'private truck') {
-                    $premium = $premium + 6300;
+                    if ($data['engine_displacement'] <= 1500) {
+                        $premium = $premium + 6300;
+                    } else if ($data['engine_displacement'] > 1500 and $data['engine_displacement'] <= 2000) {
+                        $premium = $premium + 6900;
+                    } else if ($data['engine_displacement'] > 2000 and $data['engine_displacement'] <= 3000) {
+                        $premium = $premium + 7800;
+                    } else if ($data['engine_displacement'] > 3000 and $data['engine_displacement'] <= 4000) {
+                        $premium = $premium + 8700;
+                    } else if ($data['engine_displacement'] > 4000) {
+                        $premium = $premium + 10200;
+                    }
                 } else if ($data['vehicle_type'] == 'commercial car') {
                     $premium = $premium + 10050;
                 } else if ($data['vehicle_type'] == 'commercial truck') {
