@@ -5407,7 +5407,7 @@ class QuoteController extends Controller
 
         $product = Product::where('slug_url', '=', 'single-premium-credit-life')->first();
 
-        $premium = $result + 10000;
+        $premium = $result;
 
         /**
          * Apply this calculation
@@ -5639,7 +5639,7 @@ class QuoteController extends Controller
 
         $product = Product::where('slug_url', '=', 'short-term-single-premium-credit-life-insurance')->first();
 
-        $premium = $result + 10000;
+        $premium = $result;
 
         /**
          * Apply this calculation
