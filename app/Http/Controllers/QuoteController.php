@@ -1444,16 +1444,7 @@ class QuoteController extends Controller
         }
 
         if (!isset($data['duration'])) {
-            $response_code = 400;
-
-            $response = [
-                'code' => $response_code,
-                'status' => $this->error400status_eng,
-                'errors' => 'duration' . $this->required_error_eng,
-                'olds' => $request->all(),
-            ];
-
-            return response()->json($response, $response_code);
+            $data['duration'] = 0;
         }
         $log = [];
 
