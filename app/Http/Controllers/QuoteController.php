@@ -3132,13 +3132,13 @@ class QuoteController extends Controller
             ];
         }
 
-        if (!isset($data['insured_amount'])) {
+        if (!isset($data['insured_unit'])) {
             $response_code = 400;
 
             $response = [
                 'code' => $response_code,
-                'status' => __('validation.required', ['attribute' => 'insured_amount']),
-                'errors' => __('validation.required', ['attribute' => 'insured_amount']),
+                'status' => __('validation.required', ['attribute' => 'insured_unit']),
+                'errors' => __('validation.required', ['attribute' => 'insured_unit']),
                 'olds' => $request->all(),
             ];
         }
@@ -3336,7 +3336,7 @@ class QuoteController extends Controller
             $apply = [
                 'info' => json_encode($info),
                 'result' => json_encode([]),
-                'total' => ($data['insured_amount'] / 1000000) * $result,
+                'total' => $data['insured_unit'] * $result,
             ];
 
             ApplyProduct::create($apply);
@@ -3355,7 +3355,7 @@ class QuoteController extends Controller
             'code' => $response_code,
             'status' => $this->success_eng,
             'info' => $info,
-            'total' => ($data['insured_amount'] / 1000000) * $result,
+            'total' => $data['insured_unit'] * $result,
         ];
 
         return response()->json($response, $response_code);
