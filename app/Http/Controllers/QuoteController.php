@@ -5219,10 +5219,10 @@ class QuoteController extends Controller
             $errors[] = __('validation.required', ['attribute' => 'Locale']);
         }
 
-        if (!isset($data['insured_amount'])) {
+        if (!isset($data['insured_unit'])) {
             $response_code = 400;
 
-            $errors[] = __('validation.required', ['attribute' => 'Insured amount']);
+            $errors[] = __('validation.required', ['attribute' => 'Insured unit']);
         }
 
         if (!isset($data['age'])) {
@@ -5231,17 +5231,17 @@ class QuoteController extends Controller
             $errors[] = __('validation.required', ['attribute' => 'Age']);
         }
 
-        if ($data['insured_amount'] >= 500000 and $data['insured_amount'] <= 5000000) {
+        if ($data['insured_unit'] >= 1 and $data['insured_unit'] <= 10) {
             if ($data['age'] >= 6 and $data['age'] <= 30) {
-                $premium = (ceil($data['insured_amount'] / 500000)) * 5000;
+                $premium = $data['insured_unit'] * 5000;
             } else if ($data['age'] >= 31 and $data['age'] <= 40) {
-                $premium = (ceil($data['insured_amount'] / 500000)) * 5500;
+                $premium = $data['insured_unit'] * 5500;
             } else if ($data['age'] >= 41 and $data['age'] <= 50) {
-                $premium = (ceil($data['insured_amount'] / 500000)) * 6500;
+                $premium = $data['insured_unit'] * 6500;
             } else if ($data['age'] >= 51 and $data['age'] <= 60) {
-                $premium = (ceil($data['insured_amount'] / 500000)) * 8500;
+                $premium = $data['insured_unit'] * 8500;
             } else if ($data['age'] >= 61 and $data['age'] <= 75) {
-                $premium = (ceil($data['insured_amount'] / 500000)) * 13000;
+                $premium = $data['insured_unit'] * 13000;
             } else {
                 $response_code = 400;
 
