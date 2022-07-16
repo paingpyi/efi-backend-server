@@ -2592,7 +2592,7 @@ class QuoteController extends Controller
             } // End of formula
         } // End of Formula table
 
-        $result_content = [];
+        $result_content = '';
         $total = 0;
 
         if ($result <= 0) {
@@ -2609,10 +2609,7 @@ class QuoteController extends Controller
         } else {
             $total = $result * $data['numberofgroup'];
 
-            $result_content = [
-                'person' => 'Basic Premium per Person: ' . $result,
-                'group' => 'Total Premium for ' . $data['numberofgroup'] . ': ' . $total,
-            ];
+            $result_content = 'Basic Premium per Person: ' . $result;
         }
 
         $product = Product::where('slug_url', '=', 'group-life-insurance')->first();
@@ -2673,7 +2670,7 @@ class QuoteController extends Controller
 
             $apply = [
                 'info' => json_encode($info),
-                'result' => json_encode($result_content),
+                'result' => json_encode([$result_content]),
                 'total' => $total,
             ];
 
