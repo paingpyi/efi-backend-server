@@ -24,7 +24,7 @@ class QuoteController extends Controller
     private $success_eng = 'success';
     // End of English
 
-     /**
+    /**
      * GET Stamp Fee.
      *
      *
@@ -610,13 +610,13 @@ class QuoteController extends Controller
         $start = 5000000;
         $interval = 1000000;
 
-        if($data['vehicle_type'] == 'commercial car') {
+        if ($data['vehicle_type'] == 'commercial car') {
             $multiple = 10000;
-        } else if($data['vehicle_type'] == 'commercial truck') {
+        } else if ($data['vehicle_type'] == 'commercial truck') {
             $multiple = 10000;
-        } else if($data['vehicle_type'] == 'mobile plant') {
+        } else if ($data['vehicle_type'] == 'mobile plant') {
             $start = 20000000;
-        } else if($data['vehicle_type'] == 'motorcycle') {
+        } else if ($data['vehicle_type'] == 'motorcycle') {
             $start = 100000;
             $interval = 100000;
         }
@@ -2545,6 +2545,30 @@ class QuoteController extends Controller
             ];
         }
 
+        if (!isset($data['numberofgroup'])) {
+            $response_code = 400;
+
+            $response = [
+                'code' => $response_code,
+                'status' => __('validation.required', ['attribute' => 'Number of Group']),
+                'errors' => __('validation.required', ['attribute' => 'Number of Group']),
+                'olds' => $request->all(),
+            ];
+        }
+
+        if (isset($data['numberofgroup'])) {
+            if ($data['numberofgroup'] < 5) {
+                $response_code = 400;
+
+                $response = [
+                    'code' => $response_code,
+                    'status' => __('validation.min', ['attribute' => 'Number of Group', 'min' => '5']),
+                    'errors' => __('validation.min', ['attribute' => 'Number of Group', 'min' => '5']),
+                    'olds' => $request->all(),
+                ];
+            }
+        }
+
         foreach (Formula::where('method', '=', 'calculateGroupLife')->get() as $formula) {
             foreach (json_decode($formula->formulas) as $formula) {
                 if ($formula->operator == '*') {
@@ -2568,6 +2592,8 @@ class QuoteController extends Controller
             } // End of formula
         } // End of Formula table
 
+        $result_content = [];
+
         if ($result <= 0) {
             $response_code = 400;
 
@@ -2579,6 +2605,11 @@ class QuoteController extends Controller
             ];
 
             return response()->json($response, $response_code);
+        } else {
+            $result_content = [
+                'person' => 'Basic Premium per Person: ' . $result,
+                'group' => 'Total Premium for ' . $data['numberofgroup'] . ': ' . ($result * $data['numberofgroup']),
+            ];
         }
 
         $product = Product::where('slug_url', '=', 'group-life-insurance')->first();
@@ -2640,7 +2671,7 @@ class QuoteController extends Controller
             $apply = [
                 'info' => json_encode($info),
                 'result' => json_encode([]),
-                'total' => $result,
+                'total' => $result_content,
             ];
 
             ApplyProduct::create($apply);
@@ -2657,7 +2688,7 @@ class QuoteController extends Controller
             'code' => $response_code,
             'status' => $this->success_eng,
             'info' => $info,
-            'total' => $result,
+            'total' => $result_content,
         ];
 
         return response()->json($response, $response_code);
