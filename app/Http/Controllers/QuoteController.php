@@ -5334,7 +5334,7 @@ class QuoteController extends Controller
         } else {
             $info = [
                 'locale' => $data['locale'],
-                'insured_amount' => $data['insured_amount'],
+                'insured_unit' => $data['insured_unit'],
                 'age' => $data['age'],
                 'product_id' => $product->id,
             ];
