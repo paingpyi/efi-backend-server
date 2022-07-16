@@ -2691,7 +2691,8 @@ class QuoteController extends Controller
             'code' => $response_code,
             'status' => $this->success_eng,
             'info' => $info,
-            'total' => $result_content,
+            'total' => $total,
+            'note' => $result_content,
         ];
 
         return response()->json($response, $response_code);
