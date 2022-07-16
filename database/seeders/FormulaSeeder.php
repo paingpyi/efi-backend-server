@@ -1244,6 +1244,17 @@ class FormulaSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
+            [
+                'method' => 'calculateTravelInsurance',
+                'conditions' => json_encode([
+                    ['field' => 'travel_type', 'operator' => '==', 'value' => 'special travel'],
+                ]),
+                'formulas' => json_encode([
+                    ['field' => 'premium_rate', 'operator' => '=', 'value' => 300],
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
             // End of Travel Insurance
 
             /****
