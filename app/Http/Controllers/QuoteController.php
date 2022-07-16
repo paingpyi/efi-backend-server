@@ -515,11 +515,11 @@ class QuoteController extends Controller
             $errors[] = __('validation.required', ['attribute' => 'Engine Displacement']);
         }
 
-        if (!isset($data['windscreen'])) {
+        /*if (!isset($data['windscreen'])) {
             $response_code = 400;
 
             $errors[] = __('validation.required', ['attribute' => 'Windscreen']);
-        }
+        }*/
 
         foreach (Formula::where('method', '=', 'calculateMotor')->get() as $formula) {
             foreach (json_decode($formula->conditions) as $condition) {
