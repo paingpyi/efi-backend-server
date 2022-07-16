@@ -2606,9 +2606,10 @@ class QuoteController extends Controller
 
             return response()->json($response, $response_code);
         } else {
+            $total = $result * $data['numberofgroup'];
             $result_content = [
                 'person' => 'Basic Premium per Person: ' . $result,
-                'group' => 'Total Premium for ' . $data['numberofgroup'] . ': ' . ($result * $data['numberofgroup']),
+                'group' => 'Total Premium for ' . $data['numberofgroup'] . ': ' . $total,
             ];
         }
 
