@@ -2593,6 +2593,7 @@ class QuoteController extends Controller
         } // End of Formula table
 
         $result_content = [];
+        $total = 0;
 
         if ($result <= 0) {
             $response_code = 400;
@@ -2607,6 +2608,7 @@ class QuoteController extends Controller
             return response()->json($response, $response_code);
         } else {
             $total = $result * $data['numberofgroup'];
+
             $result_content = [
                 'person' => 'Basic Premium per Person: ' . $result,
                 'group' => 'Total Premium for ' . $data['numberofgroup'] . ': ' . $total,
@@ -2671,8 +2673,8 @@ class QuoteController extends Controller
 
             $apply = [
                 'info' => json_encode($info),
-                'result' => json_encode([]),
-                'total' => $result_content,
+                'result' => json_encode($result_content),
+                'total' => $total,
             ];
 
             ApplyProduct::create($apply);
