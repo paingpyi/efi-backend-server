@@ -3346,7 +3346,7 @@ class QuoteController extends Controller
             'code' => $response_code,
             'status' => $this->success_eng,
             'info' => $info,
-            'total' => $data['insured_unit'] * $result,
+            'total' => $data['insured_amount'] * $result,
         ];
 
         return response()->json($response, $response_code);
