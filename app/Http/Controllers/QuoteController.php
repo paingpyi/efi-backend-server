@@ -3123,13 +3123,13 @@ class QuoteController extends Controller
             ];
         }
 
-        if (!isset($data['insured_amount'])) {
+        if (!isset($data['insured_unit'])) {
             $response_code = 400;
 
             $response = [
                 'code' => $response_code,
-                'status' => __('validation.required', ['attribute' => 'insured_amount']),
-                'errors' => __('validation.required', ['attribute' => 'insured_amount']),
+                'status' => __('validation.required', ['attribute' => 'insured_unit']),
+                'errors' => __('validation.required', ['attribute' => 'insured_unit']),
                 'olds' => $request->all(),
             ];
         }
@@ -3266,6 +3266,54 @@ class QuoteController extends Controller
             return response()->json($response, $response_code);
         }
 
+        $coverage1 = 0;
+
+        if (isset($data['coverage_1'])) {
+            if ($data['coverage_1'] > 0) {
+                if ($data['type'] == 'individual') {
+                    if ($data['payment'] == 'binnual') {
+                        $coverage1 = 8400 * $data['coverage_1'];
+                    } else if ($data['payment'] == 'lumpsum') {
+                        $coverage1 = 16500 * $data['coverage_1'];
+                    }
+                } else if ($data['type'] == 'group') {
+                    if ($data['payment'] == 'monthly') {
+                        $coverage1 = 1400 * $data['coverage_1'];
+                    } else if ($data['payment'] == 'quarterly') {
+                        $coverage1 = 4200 * $data['coverage_1'];
+                    } else if ($data['payment'] == 'binnual') {
+                        $coverage1 = 8000 * $data['coverage_1'];
+                    } else if ($data['payment'] == 'lumpsum') {
+                        $coverage1 = 15700 * $data['coverage_1'];
+                    }
+                }
+            }
+        } // End of coverage 1
+
+        $coverage2 = 0;
+
+        if (isset($data['coverage_2'])) {
+            if ($data['coverage_2'] > 0) {
+                if ($data['type'] == 'individual') {
+                    if ($data['payment'] == 'binnual') {
+                        $coverage2 = 8400 * $data['coverage_2'];
+                    } else if ($data['payment'] == 'lumpsum') {
+                        $coverage2 = 16500 * $data['coverage_2'];
+                    }
+                } else if ($data['type'] == 'group') {
+                    if ($data['payment'] == 'monthly') {
+                        $coverage2 = 1400 * $data['coverage_2'];
+                    } else if ($data['payment'] == 'quarterly') {
+                        $coverage2 = 4200 * $data['coverage_2'];
+                    } else if ($data['payment'] == 'binnual') {
+                        $coverage2 = 8000 * $data['coverage_2'];
+                    } else if ($data['payment'] == 'lumpsum') {
+                        $coverage2 = 15700 * $data['coverage_2'];
+                    }
+                }
+            }
+        } // End of coverage 2
+
         $product = Product::where('slug_url', '=', 'health-insurance')->first();
 
         /**
@@ -3327,7 +3375,7 @@ class QuoteController extends Controller
             $apply = [
                 'info' => json_encode($info),
                 'result' => json_encode([]),
-                'total' => $data['insured_amount'] * $result,
+                'total' => ($data['insured_unit'] * $result) + $coverage1 + $coverage2,
             ];
 
             ApplyProduct::create($apply);
@@ -3346,7 +3394,7 @@ class QuoteController extends Controller
             'code' => $response_code,
             'status' => $this->success_eng,
             'info' => $info,
-            'total' => $data['insured_amount'] * $result,
+            'total' => ($data['insured_unit'] * $result) + $coverage1 + $coverage2,
         ];
 
         return response()->json($response, $response_code);
