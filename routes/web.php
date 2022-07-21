@@ -11,6 +11,7 @@ use App\Http\Controllers\Content\PageController;
 use App\Http\Controllers\Content\JobController;
 use App\Http\Controllers\Content\CsrController;
 use App\Http\Controllers\HomeBlockController;
+use App\Http\Controllers\Setting\AboutEfigPageController;
 use App\Http\Controllers\Setting\CategoryController;
 use App\Http\Controllers\Setting\EmailController;
 use App\Http\Controllers\Setting\PromotionBlockController;
@@ -82,65 +83,72 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
 
         Route::get('/deactivated', [CategoryController::class, 'deactivated'])->name('deactivated#category#list');
 
-        Route::get('/new', [CategoryController::class,'create'])->name('new#category');
-        Route::post('/new', [CategoryController::class,'store'])->name('store#data#category');
+        Route::get('/new', [CategoryController::class, 'create'])->name('new#category');
+        Route::post('/new', [CategoryController::class, 'store'])->name('store#data#category');
 
-        Route::get('/edit/{id}', [CategoryController::class,'edit'])->name('edit#category');
-        Route::post('/edit/{id}', [CategoryController::class,'update'])->name('update#data#category');
+        Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('edit#category');
+        Route::post('/edit/{id}', [CategoryController::class, 'update'])->name('update#data#category');
 
-        Route::post('/deactivate/{id}', [CategoryController::class,'destroy'])->name('deactivate#category');
+        Route::post('/deactivate/{id}', [CategoryController::class, 'destroy'])->name('deactivate#category');
     });
 
     Route::group(['prefix' => 'block', 'namespace' => 'Setting'], function () {
         Route::group(['prefix' => 'slider'], function () {
             Route::get('/', [SliderController::class, 'index'])->name('slider#list');
 
-            Route::get('/new', [SliderController::class,'create'])->name('new#slider');
-            Route::post('/new', [SliderController::class,'store'])->name('store#data#slider');
+            Route::get('/new', [SliderController::class, 'create'])->name('new#slider');
+            Route::post('/new', [SliderController::class, 'store'])->name('store#data#slider');
 
-            Route::get('/edit/{id}', [SliderController::class,'edit'])->name('edit#slider');
-            Route::post('/edit/{id}', [SliderController::class,'update'])->name('update#data#slider');
+            Route::get('/edit/{id}', [SliderController::class, 'edit'])->name('edit#slider');
+            Route::post('/edit/{id}', [SliderController::class, 'update'])->name('update#data#slider');
         });
 
         Route::group(['prefix' => 'promotion'], function () {
-            Route::get('/', [PromotionBlockController::class,'index'])->name('promotion#list');
+            Route::get('/', [PromotionBlockController::class, 'index'])->name('promotion#list');
 
-            Route::get('/new', [PromotionBlockController::class,'create'])->name('promotion#block');
-            Route::post('/new', [PromotionBlockController::class,'store'])->name('store#data#promotion');
+            Route::get('/new', [PromotionBlockController::class, 'create'])->name('promotion#block');
+            Route::post('/new', [PromotionBlockController::class, 'store'])->name('store#data#promotion');
 
-            Route::get('/edit/{id}', [PromotionBlockController::class,'edit'])->name('edit#promotion');
-            Route::post('/edit/{id}', [PromotionBlockController::class,'update'])->name('update#data#promotion');
+            Route::get('/edit/{id}', [PromotionBlockController::class, 'edit'])->name('edit#promotion');
+            Route::post('/edit/{id}', [PromotionBlockController::class, 'update'])->name('update#data#promotion');
 
             Route::post('/deactivate/{id}', [PromotionBlockController::class, 'destroy'])->name('deactivate#promotion');
         });
 
         Route::group(['prefix' => 'stakeholder'], function () {
-            Route::get('/', [StakeholderController::class,'index'])->name('stakeholder#list');
+            Route::get('/', [StakeholderController::class, 'index'])->name('stakeholder#list');
 
-            Route::get('/new', [StakeholderController::class,'create'])->name('stakeholder#block');
-            Route::post('/new', [StakeholderController::class,'store'])->name('store#data#stakeholder');
+            Route::get('/new', [StakeholderController::class, 'create'])->name('stakeholder#block');
+            Route::post('/new', [StakeholderController::class, 'store'])->name('store#data#stakeholder');
 
-            Route::get('/edit/{id}', [StakeholderController::class,'edit'])->name('edit#stakeholder');
-            Route::post('/edit/{id}', [StakeholderController::class,'update'])->name('update#data#stakeholder');
+            Route::get('/edit/{id}', [StakeholderController::class, 'edit'])->name('edit#stakeholder');
+            Route::post('/edit/{id}', [StakeholderController::class, 'update'])->name('update#data#stakeholder');
 
             Route::post('/deactivate/{id}', [StakeholderController::class, 'destroy'])->name('deactivate#stakeholder');
         });
 
         Route::group(['prefix' => 'contact'], function () {
-            Route::get('/', [ContactPageController::class,'index'])->name('contact#list');
+            Route::get('/', [ContactPageController::class, 'index'])->name('contact#list');
 
-            Route::get('/new', [ContactPageController::class,'create'])->name('contact#block');
-            Route::post('/new', [ContactPageController::class,'store'])->name('store#data#contact');
+            Route::get('/new', [ContactPageController::class, 'create'])->name('contact#block');
+            Route::post('/new', [ContactPageController::class, 'store'])->name('store#data#contact');
 
-            Route::get('/edit/{id}', [ContactPageController::class,'edit'])->name('edit#contact');
-            Route::post('/edit/{id}', [ContactPageController::class,'update'])->name('update#data#contact');
+            Route::get('/edit/{id}', [ContactPageController::class, 'edit'])->name('edit#contact');
+            Route::post('/edit/{id}', [ContactPageController::class, 'update'])->name('update#data#contact');
 
             Route::post('/set/{id}', [ContactPageController::class, 'destroy'])->name('deactivate#contact');
         });
 
         Route::group(['prefix' => 'home-why-efi'], function () {
-            Route::get('/', [HomeBlockController::class,'whyEFI'])->name('why#efi#block');
-            Route::post('/', [HomeBlockController::class,'store'])->name('store#data#why#efi#block');
+            Route::get('/', [HomeBlockController::class, 'whyEFI'])->name('why#efi#block');
+            Route::post('/', [HomeBlockController::class, 'store'])->name('store#data#why#efi#block');
+        });
+
+        Route::group(['prefix' => 'about'], function () {
+            Route::group(['prefix' => 'efig'], function () {
+                Route::get('/cover', [AboutEfigPageController::class, 'cover'])->name('efig#cover#block');
+                Route::post('/cover', [AboutEfigPageController::class, 'storeCover'])->name('store#data#efig#cover#block');
+            });
         });
     });
 
