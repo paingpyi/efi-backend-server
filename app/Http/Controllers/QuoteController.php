@@ -5136,9 +5136,24 @@ class QuoteController extends Controller
             $response_code = 400;
 
             $errors[] = __('validation.required', ['attribute' => 'Insured amount']);
+
+            return response()->json($errors, $response_code);
         }
 
-        $premium = ($data['insured_amount'] * 0.005) + 100;
+        if (!isset($data['organization'])) {
+            $response_code = 400;
+
+            $errors[] = __('validation.required', ['attribute' => 'organization']);
+
+            return response()->json($errors, $response_code);
+        }
+
+        $org = 0.01;
+        if ($data['organization'] == 'government') {
+            $org = 0.005;
+        }
+
+        $premium = ($data['insured_amount'] * $org) + 100;
 
         if ($premium <= 0) {
             $response_code = 400;
