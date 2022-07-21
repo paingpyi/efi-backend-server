@@ -1448,7 +1448,7 @@ class FormulaSeeder extends Seeder
                     [],
                 ]),
                 'formulas' => json_encode([
-                    ['field' => 'insured_amount', 'operator' => '*', 'value' => 0.001],
+                    ['field' => 'insured_unit', 'operator' => '*', 'value' => 0.001],
                 ]),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()

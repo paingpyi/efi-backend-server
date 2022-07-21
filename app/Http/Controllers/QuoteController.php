@@ -1604,13 +1604,13 @@ class QuoteController extends Controller
             ];
         }
 
-        if (!isset($data['insured_amount'])) {
+        if (!isset($data['insured_unit'])) {
             $response_code = 400;
 
             $response = [
                 'code' => $response_code,
-                'status' => __('validation.required', ['attribute' => 'insured_amount']),
-                'errors' => 'insured_amount' . $this->required_error_eng,
+                'status' => __('validation.required', ['attribute' => 'insured_unit']),
+                'errors' => 'insured_unit' . $this->required_error_eng,
                 'olds' => $request->all(),
             ];
 
@@ -1687,7 +1687,7 @@ class QuoteController extends Controller
 
             $info = [
                 'locale' => $data['locale'],
-                'insured_amount' => $data['insured_amount'],
+                'insured_unit' => $data['insured_unit'],
                 'product_id' => $product->id,
                 'customer' => [
                     'name' => $data['apply']['name'],
@@ -1706,7 +1706,7 @@ class QuoteController extends Controller
         } else {
             $info = [
                 'locale' => $data['locale'],
-                'insured_amount' => $data['insured_amount'],
+                'insured_unit' => $data['insured_unit'],
                 'product_id' => $product->id,
             ];
         }
