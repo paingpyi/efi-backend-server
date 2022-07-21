@@ -58,7 +58,7 @@
                                             <label for="title"><i class="flag-icon flag-icon-us mr-2"></i> Title <span
                                                     class="text-danger">*</span></label>
                                             <input type="text" name="title"
-                                                value="{{ old('title', isset($promotion->title) ? json_decode($promotion->title, true)['en-us'] : null) }}"
+                                                value="{{ old('title', isset($about->title) ? json_decode($about->title, true)['en-us'] : null) }}"
                                                 class="form-control title2slug" id="title" aria-describedby="titleHelp"
                                                 required>
                                             <small id="titleHelp" class="form-text text-muted">Please enter title.</small>
@@ -73,7 +73,7 @@
                                             <label for="title_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
                                                 <span class="text-danger">*</span></label>
                                             <input type="text" name="title_burmese"
-                                                value="{{ old('title_burmese', isset($promotion->title) ? json_decode($promotion->title, true)['my-mm'] : null) }}"
+                                                value="{{ old('title_burmese', isset($about->title) ? json_decode($about->title, true)['my-mm'] : null) }}"
                                                 class="form-control" id="title_burmese"
                                                 aria-describedby="title_burmeseHelp">
                                             <small id="title_burmeseHelp" class="form-text text-muted">Please enter
@@ -90,7 +90,7 @@
                                             <label for="title_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Title
                                                 <span class="text-danger">*</span></label>
                                             <input type="text" name="title_chinese"
-                                                value="{{ old('title_chinese', isset($promotion->title) ? json_decode($promotion->title, true)['zh-cn'] : null) }}"
+                                                value="{{ old('title_chinese', isset($about->title) ? json_decode($about->title, true)['zh-cn'] : null) }}"
                                                 class="form-control" id="title_chinese"
                                                 aria-describedby="title_chineseHelp">
                                             <small id="title_chineseHelp" class="form-text text-muted">Please enter
@@ -124,7 +124,7 @@
                                             </a>
                                         </span>
                                         <input id="cover_thumbnail" class="form-control" type="text" name="cover"
-                                            value="{{ old('cover', isset($promotion->cover) ? $promotion->cover : '') }}">
+                                            value="{{ old('cover', isset($about->cover) ? $about->cover : '') }}">
                                     </div>
                                 </div><!-- /. Cover Image -->
                             </div>

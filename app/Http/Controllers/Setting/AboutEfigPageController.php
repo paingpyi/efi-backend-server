@@ -17,7 +17,9 @@ class AboutEfigPageController extends Controller
      */
     public function cover()
     {
-        return view('admin.blocks.aboutefig.edit');
+        $about = AboutEfigPage::where('id', '=', 1)->first();
+
+        return view('admin.blocks.aboutefig.edit')->with(['about' => $about]);
     }
 
     /**
@@ -51,7 +53,7 @@ class AboutEfigPageController extends Controller
             'cover' => Str::replace(config('app.url'), '', $request->cover)
         ];
 
-        AboutEfigPage::create($aboutefig);
+        AboutEfigPage::where('id', '=', 1)->update($aboutefig);
 
         //Revalidate Frontend
 
