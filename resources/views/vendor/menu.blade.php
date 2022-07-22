@@ -461,30 +461,32 @@ with font-awesome or any other icon font library -->
                                 {{-- End of Blocks --}}
                             </ul>
                         </li> {{-- Home Page --}}
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('efig#cover#block') }}"
-                                    class="nav-link{{ (Route::currentRouteName() == 'efig#cover#block') ? ' active' : '' }}">
-                                    <i class="fa fa-tasks nav-icon"></i>
-                                    <p>About Pages</p>
-                                    <i class="fas fa-angle-left right"></i>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-header">
-                                        EFIG Page
-                                    </li>
-                                    @if (in_array('efig#cover#block', json_decode($checkPermission->permissions)))
-                                        <li class="nav-item">
-                                            <a href="{{ route('efig#cover#block') }}"
-                                                class="nav-link{{ Route::currentRouteName() == 'efig#cover#block' ? ' active' : '' }}">
-                                                <i class="fa fa-tasks nav-icon"></i>
-                                                <p>Cover</p>
-                                            </a>
+                        <li>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('efig#cover#block') }}"
+                                        class="nav-link{{ Route::currentRouteName() == 'efig#cover#block' ? ' active' : '' }}">
+                                        <i class="fa fa-tasks nav-icon"></i>
+                                        <p>About Pages</p>
+                                        <i class="fas fa-angle-left right"></i>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-header">
+                                            EFIG Page
                                         </li>
-                                    @endif
-                                </ul>
-                            </li>
-                        </ul> {{-- About Pages --}}
+                                        @if (in_array('efig#cover#block', json_decode($checkPermission->permissions)))
+                                            <li class="nav-item">
+                                                <a href="{{ route('efig#cover#block') }}"
+                                                    class="nav-link{{ Route::currentRouteName() == 'efig#cover#block' ? ' active' : '' }}">
+                                                    <i class="fa fa-tasks nav-icon"></i>
+                                                    <p>Cover</p>
+                                                </a>
+                                            </li>
+                                        @endif
+                                    </ul>
+                                </li>
+                            </ul> {{-- About Pages --}}
+                        </li>
                     </ul>
                 </li>
             @endif
