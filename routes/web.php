@@ -148,6 +148,13 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
             Route::group(['prefix' => 'efig'], function () {
                 Route::get('/cover', [AboutEfigPageController::class, 'cover'])->name('efig#cover#block');
                 Route::post('/cover', [AboutEfigPageController::class, 'storeCover'])->name('store#data#efig#cover#block');
+
+                Route::group(['prefix' => 'block'], function () {
+                    Route::get('/', [AboutEfigPageController::class, 'list'])->name('efig#block');
+
+                    Route::get('/new', [AboutEfigPageController::class, 'create'])->name('new#efig#block');
+                    Route::post('/new', [AboutEfigPageController::class, 'store'])->name('store#data#efig#block');
+                });
             });
         });
     });
