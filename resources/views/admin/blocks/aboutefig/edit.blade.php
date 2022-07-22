@@ -176,22 +176,6 @@
                 $(this).bootstrapSwitch('state', $(this).prop('checked'));
             });
 
-            // Summernote
-            $('.summernote').summernote({
-                height: 150,
-                placeholder: 'Write content here...',
-                toolbar: [
-                    ['undo', ['undo']],
-                    ['redo', ['redo']],
-                    ['view', ['fullscreen']],
-                ],
-                callbacks: {
-                    onImageUpload: function(data) {
-                        data.pop();
-                    }
-                },
-            });
-
             $('.lfm').filemanager('image');
 
             //Bootstrap Duallistbox
@@ -232,6 +216,12 @@
                     $(element).removeClass('is-invalid');
                 }
             });
+
+            @if (Session::has('success_message'))
+                $(document).ready(function() {
+                    toastr.success('{!! Session::get('success_message') !!}');
+                });
+            @endif
         });
     </script>
 @endsection

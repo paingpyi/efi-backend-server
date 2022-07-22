@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Setting;
 
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
-use App\Models\AboutEfigPage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+
+use App\Models\AboutEfigPage;
 
 class AboutEfigPageController extends Controller
 {
@@ -19,7 +21,18 @@ class AboutEfigPageController extends Controller
     {
         $about = AboutEfigPage::where('id', '=', 1)->first();
 
-        return view('admin.blocks.aboutefig.edit')->with(['about' => $about]);
+        if(Session::has('success_message')) {
+            $data = [
+                'about' => $about,
+                'success_message' =>Session::get('success_message')
+            ];
+        } else {
+            $data = [
+                'about' => $about,
+            ];
+        }
+
+        return view('admin.blocks.aboutefig.edit')->with($data);
     }
 
     /**
