@@ -305,7 +305,7 @@ with font-awesome or any other icon font library -->
                                 Route::currentRouteName() == 'why#efi#block')
                                     ? ' active'
                                     : '' }}">
-                                <i class="fa fa-th-large nav-icon"></i>
+                                <i class="fa fa-cog nav-icon"></i>
                                 <p>Blocks</p>
                                 <i class="fas fa-angle-left right"></i>
                             </a>
@@ -313,7 +313,7 @@ with font-awesome or any other icon font library -->
                                 <li class="nav-item">
                                     <a href="{{ route('slider#list') }}"
                                         class="nav-link{{ (Route::currentRouteName() == 'slider#list' or Route::currentRouteName() == 'new#slider' or Route::currentRouteName() == 'promotion#list' or Route::currentRouteName() == 'promotion#block' or Route::currentRouteName() == 'why#efi#block') ? ' active' : '' }}">
-                                        <i class="fa fa-tasks nav-icon"></i>
+                                        <i class="fa fa-cog nav-icon"></i>
                                         <p>Home Page</p>
                                         <i class="fas fa-angle-left right"></i>
                                     </a>
@@ -355,7 +355,7 @@ with font-awesome or any other icon font library -->
                                             <li class="nav-item">
                                                 <a href="{{ route('promotion#list') }}"
                                                     class="nav-link{{ (Route::currentRouteName() == 'promotion#list' or Route::currentRouteName() == 'promotion#block') ? ' active' : '' }}">
-                                                    <i class="fa fa-tasks nav-icon"></i>
+                                                    <i class="fa fa-cog nav-icon"></i>
                                                     <p>Promotion</p>
                                                     <i class="fas fa-angle-left right"></i>
                                                 </a>
@@ -364,7 +364,7 @@ with font-awesome or any other icon font library -->
                                                         <li class="nav-item">
                                                             <a href="{{ route('promotion#list') }}"
                                                                 class="nav-link{{ Route::currentRouteName() == 'promotion#list' ? ' active' : '' }}">
-                                                                <i class="fa fa-tasks nav-icon"></i>
+                                                                <i class="fa fa-cog nav-icon"></i>
                                                                 <p>Promotion List</p>
                                                             </a>
                                                         </li>
@@ -374,7 +374,7 @@ with font-awesome or any other icon font library -->
                                                         <li class="nav-item">
                                                             <a href="{{ route('promotion#block') }}"
                                                                 class="nav-link{{ Route::currentRouteName() == 'promotion#block' ? ' active' : '' }}">
-                                                                <i class="fa fa-tasks nav-icon"></i>
+                                                                <i class="fa fa-cog nav-icon"></i>
                                                                 <p>New Promotion Block</p>
                                                             </a>
                                                         </li>
@@ -387,7 +387,7 @@ with font-awesome or any other icon font library -->
                                             <li class="nav-item">
                                                 <a href="{{ route('why#efi#block') }}"
                                                     class="nav-link{{ Route::currentRouteName() == 'why#efi#block' ? ' active' : '' }}">
-                                                    <i class="fa fa-tasks nav-icon"></i>
+                                                    <i class="fa fa-cog nav-icon"></i>
                                                     <p>Why EFI Block</p>
                                                 </a>
                                             </li>
@@ -399,7 +399,7 @@ with font-awesome or any other icon font library -->
                                     <li class="nav-item">
                                         <a href="{{ route('stakeholder#list') }}"
                                             class="nav-link{{ (Route::currentRouteName() == 'stakeholder#list' or Route::currentRouteName() == 'stakeholder#block') ? ' active' : '' }}">
-                                            <i class="fa fa-tasks nav-icon"></i>
+                                            <i class="fa fa-cog nav-icon"></i>
                                             <p>Stakeholder</p>
                                             <i class="fas fa-angle-left right"></i>
                                         </a>
@@ -408,7 +408,7 @@ with font-awesome or any other icon font library -->
                                                 <li class="nav-item">
                                                     <a href="{{ route('stakeholder#list') }}"
                                                         class="nav-link{{ Route::currentRouteName() == 'stakeholder#list' ? ' active' : '' }}">
-                                                        <i class="fa fa-tasks nav-icon"></i>
+                                                        <i class="fa fa-cog nav-icon"></i>
                                                         <p>Stakeholder List</p>
                                                     </a>
                                                 </li>
@@ -418,7 +418,7 @@ with font-awesome or any other icon font library -->
                                                 <li class="nav-item">
                                                     <a href="{{ route('stakeholder#block') }}"
                                                         class="nav-link{{ Route::currentRouteName() == 'stakeholder#block' ? ' active' : '' }}">
-                                                        <i class="fa fa-tasks nav-icon"></i>
+                                                        <i class="fa fa-cog nav-icon"></i>
                                                         <p>New Stakeholder</p>
                                                     </a>
                                                 </li>
@@ -431,7 +431,7 @@ with font-awesome or any other icon font library -->
                                     <li class="nav-item">
                                         <a href="{{ route('contact#list') }}"
                                             class="nav-link{{ (Route::currentRouteName() == 'contact#list' or Route::currentRouteName() == 'contact#block') ? ' active' : '' }}">
-                                            <i class="fa fa-tasks nav-icon"></i>
+                                            <i class="fa fa-cog nav-icon"></i>
                                             <p>Contact Page</p>
                                             <i class="fas fa-angle-left right"></i>
                                         </a>
@@ -440,7 +440,7 @@ with font-awesome or any other icon font library -->
                                                 <li class="nav-item">
                                                     <a href="{{ route('contact#list') }}"
                                                         class="nav-link{{ Route::currentRouteName() == 'contact#list' ? ' active' : '' }}">
-                                                        <i class="fa fa-tasks nav-icon"></i>
+                                                        <i class="fa fa-cog nav-icon"></i>
                                                         <p>Contact List</p>
                                                     </a>
                                                 </li>
@@ -450,7 +450,7 @@ with font-awesome or any other icon font library -->
                                                 <li class="nav-item">
                                                     <a href="{{ route('contact#block') }}"
                                                         class="nav-link{{ Route::currentRouteName() == 'contact#block' ? ' active' : '' }}">
-                                                        <i class="fa fa-tasks nav-icon"></i>
+                                                        <i class="fa fa-cog nav-icon"></i>
                                                         <p>New Contact</p>
                                                     </a>
                                                 </li>
@@ -459,14 +459,11 @@ with font-awesome or any other icon font library -->
                                     </li>
                                 @endif
                                 {{-- End of Blocks --}}
-                            </ul>
-                        </li> {{-- Home Page --}}
-                        <li>
-                            <ul class="nav nav-treeview">
+
                                 <li class="nav-item">
                                     <a href="{{ route('efig#cover#block') }}"
                                         class="nav-link{{ Route::currentRouteName() == 'efig#cover#block' ? ' active' : '' }}">
-                                        <i class="fa fa-tasks nav-icon"></i>
+                                        <i class="fa fa-cog nav-icon"></i>
                                         <p>About Pages</p>
                                         <i class="fas fa-angle-left right"></i>
                                     </a>
@@ -478,15 +475,15 @@ with font-awesome or any other icon font library -->
                                             <li class="nav-item">
                                                 <a href="{{ route('efig#cover#block') }}"
                                                     class="nav-link{{ Route::currentRouteName() == 'efig#cover#block' ? ' active' : '' }}">
-                                                    <i class="fa fa-tasks nav-icon"></i>
+                                                    <i class="fa fa-cog nav-icon"></i>
                                                     <p>Cover</p>
                                                 </a>
                                             </li>
                                         @endif
                                     </ul>
                                 </li>
-                            </ul> {{-- About Pages --}}
-                        </li>
+                            </ul>
+                        </li> {{-- Home Page --}}
                     </ul>
                 </li>
             @endif

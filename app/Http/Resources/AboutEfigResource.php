@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\AboutEfigPage;
 use App\Models\Stakeholders;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Str;
@@ -25,11 +26,21 @@ class AboutEfigResource extends JsonResource
             return $error_messages;
         }
 
+        $cover = AboutEfigPage::where('id', '=', 1)->first();
+
+        $cover_content = [];
+        if ($cover) {
+            $cover_content = [
+                'image' => config('app.url') . $cover->cover,
+                'text' => json_decode($cover->title, true)[Str::lower($data['locale'])]
+            ];
+        }
+
         $stakeholders = Stakeholders::where('is_active', '=', true)->where('team', '=', 10)->get();
         $stakeholders_content = [];
         $restrict = ['<p>', '</p>', '<br>', '<br/>'];
 
-        foreach($stakeholders as $row) {
+        foreach ($stakeholders as $row) {
             $stakeholders_content[] = [
                 'name' => json_decode($row->name, true)[Str::lower($data['locale'])],
                 'description' => str_replace($restrict, '', json_decode($row->description, true)[Str::lower($data['locale'])]),
@@ -37,13 +48,10 @@ class AboutEfigResource extends JsonResource
             ];
         }
 
-        if(Str::lower($data['locale']) == 'en-us') {
+        if (Str::lower($data['locale']) == 'en-us') {
             $response = [
                 'title' => 'About EFIG',
-                'cover' => [
-                    'image' => config('app.url') . '/storage/photos/1/pages/efig_1.jpg',
-                    'text' => 'Protecting you, securing your future.'
-                ],
+                'cover' => $cover_content,
                 'blocks' => [
                     [
                         'title' => 'About EFIG',
@@ -62,13 +70,10 @@ class AboutEfigResource extends JsonResource
                     'data' => $stakeholders_content
                 ]
             ];
-        } else if(Str::lower($data['locale']) == 'my-mm') {
+        } else if (Str::lower($data['locale']) == 'my-mm') {
             $response = [
                 'title' => 'About EFIG',
-                'cover' => [
-                    'image' => config('app.url') . '/storage/photos/1/pages/efig_1.jpg',
-                    'text' => 'အကျိုးစီးပွားမဆုံးရှုံးစေဖို့ ကြိုတင်ကာကွယ်စို့'
-                ],
+                'cover' => $cover_content,
                 'blocks' => [
                     [
                         'title' => 'About EFIG',
@@ -87,13 +92,10 @@ class AboutEfigResource extends JsonResource
                     'data' => $stakeholders_content
                 ]
             ];
-        }  else if(Str::lower($data['locale']) == 'zh-cn') {
+        } else if (Str::lower($data['locale']) == 'zh-cn') {
             $response = [
                 'title' => 'About EFIG',
-                'cover' => [
-                    'image' => config('app.url') . '/storage/photos/1/pages/efig_1.jpg',
-                    'text' => 'Protecting you, securing your future.'
-                ],
+                'cover' => $cover_content,
                 'blocks' => [
                     [
                         'title' => 'About EFIG',
