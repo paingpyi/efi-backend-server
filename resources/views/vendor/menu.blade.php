@@ -302,7 +302,9 @@ with font-awesome or any other icon font library -->
                                 Route::currentRouteName() == 'new#slider' or
                                 Route::currentRouteName() == 'promotion#list' or
                                 Route::currentRouteName() == 'promotion#block' or
-                                Route::currentRouteName() == 'why#efi#block')
+                                Route::currentRouteName() == 'why#efi#block' or
+                                Route::currentRouteName() == 'efig#cover#block' or
+                                Route::currentRouteName() == 'efig#block')
                                     ? ' active'
                                     : '' }}">
                                 <i class="fa fa-cog nav-icon"></i>
@@ -462,7 +464,7 @@ with font-awesome or any other icon font library -->
 
                                 <li class="nav-item">
                                     <a href="{{ route('efig#cover#block') }}"
-                                        class="nav-link{{ Route::currentRouteName() == 'efig#cover#block' ? ' active' : '' }}">
+                                        class="nav-link{{ (Route::currentRouteName() == 'efig#cover#block' or Route::currentRouteName() == 'efig#block') ? ' active' : '' }}">
                                         <i class="fa fa-cog nav-icon"></i>
                                         <p>About Pages</p>
                                         <i class="fas fa-angle-left right"></i>
@@ -477,6 +479,15 @@ with font-awesome or any other icon font library -->
                                                     class="nav-link{{ Route::currentRouteName() == 'efig#cover#block' ? ' active' : '' }}">
                                                     <i class="fa fa-cog nav-icon"></i>
                                                     <p>Cover</p>
+                                                </a>
+                                            </li>
+                                        @endif
+                                        @if (in_array('efig#block', json_decode($checkPermission->permissions)))
+                                            <li class="nav-item">
+                                                <a href="{{ route('efig#block') }}"
+                                                    class="nav-link{{ Route::currentRouteName() == 'efig#block' ? ' active' : '' }}">
+                                                    <i class="fa fa-cog nav-icon"></i>
+                                                    <p>Text Block</p>
                                                 </a>
                                             </li>
                                         @endif
