@@ -7,6 +7,6 @@
         <span class="sr-only">Toggle Dropdown</span>
     </button>
     <div class="dropdown-menu">
-        <a class="dropdown-item" href="{{ route('unpublished#blog#list') }}">Unpublished Block List</a>
+        <a class="dropdown-item" href="{{ route('deativated#list#efig#block') }}">Deactivated Block List</a>
     </div>
 </div>

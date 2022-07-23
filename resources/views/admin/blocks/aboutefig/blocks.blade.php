@@ -48,12 +48,12 @@
                                 @foreach ($blocks as $block)
                                     <tr>
                                         <td class="text-nowrap"><a
-                                                href="{{ route('edit#contact', Illuminate\Support\Facades\Crypt::encryptString($block->id)) }}">{{ json_decode($block->title, true)['en-us'] }}
+                                                href="{{ route('edit#efig#block', Illuminate\Support\Facades\Crypt::encryptString($block->id)) }}">{{ json_decode($block->title, true)['en-us'] }}
                                             </a></td>
                                         <td>{!!json_decode($block->description, true)['en-us'] !!}</td>
                                         <td class="text-nowrap">
                                             <form
-                                                action="{{ route('deactivate#contact', Illuminate\Support\Facades\Crypt::encryptString($block->id)) }}"
+                                                action="{{ route('deactivate#efig#block', Illuminate\Support\Facades\Crypt::encryptString($block->id)) }}"
                                                 method="post">
                                                 @csrf
                                                 <div class="btn-group">
@@ -69,9 +69,9 @@
                                                     </button>
                                                     <div class="dropdown-menu">
                                                         <a class="dropdown-item"
-                                                            href="{{ route('edit#promotion', Illuminate\Support\Facades\Crypt::encryptString($block->id)) }}">Edit</a>
+                                                            href="{{ route('edit#efig#block', Illuminate\Support\Facades\Crypt::encryptString($block->id)) }}">Edit</a>
                                                         <button type="submit"
-                                                            class="dropdown-item">{{ $block->main ? 'No' : 'Yes' }}</button>
+                                                            class="dropdown-item">{{ $block->is_active ? 'No' : 'Yes' }}</button>
                                                     </div>
                                                 </div>
                                             </form>

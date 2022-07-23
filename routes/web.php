@@ -152,8 +152,15 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
                 Route::group(['prefix' => 'block'], function () {
                     Route::get('/', [AboutEfigPageController::class, 'list'])->name('efig#block');
 
+                    Route::get('/deativated', [AboutEfigPageController::class, 'dlist'])->name('deativated#list#efig#block');
+
                     Route::get('/new', [AboutEfigPageController::class, 'create'])->name('new#efig#block');
                     Route::post('/new', [AboutEfigPageController::class, 'store'])->name('store#data#efig#block');
+
+                    Route::get('/edit/{id}', [AboutEfigPageController::class, 'edit'])->name('edit#efig#block');
+                    Route::post('/edit/{id}', [AboutEfigPageController::class, 'update'])->name('update#data#block');
+
+                    Route::post('/deactivate/{id}', [AboutEfigPageController::class, 'destroy'])->name('deactivate#efig#block');
                 });
             });
         });

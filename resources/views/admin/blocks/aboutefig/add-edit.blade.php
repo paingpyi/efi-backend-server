@@ -27,7 +27,7 @@
         <div class="col">
             <div class="card">
                 <form id="inputForm"
-                    action="{{ $action == 'new' ? route('store#data#efig#block') : route('update#data#stakeholder', $stakeholder->id) }}"
+                    action="{{ $action == 'new' ? route('store#data#efig#block') : route('update#data#block', $block->id) }}"
                     method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card-header">
@@ -58,7 +58,7 @@
                                             <label for="title"><i class="flag-icon flag-icon-us mr-2"></i> Title <span
                                                     class="text-danger">*</span></label>
                                             <input type="text" name="title"
-                                                value="{{ old('title', isset($stakeholder->name) ? json_decode($stakeholder->name, true)['en-us'] : null) }}"
+                                                value="{{ old('title', isset($block->title) ? json_decode($block->title, true)['en-us'] : null) }}"
                                                 class="form-control name2slug" id="title" aria-describedby="titleHelp"
                                                 required>
                                             <small id="titleHelp" class="form-text text-muted">Please enter title.</small>
@@ -77,7 +77,7 @@
                                                     }
                                                 @endphp
                                             </label>
-                                            <textarea name="description_english" class="summernote" required id="description_english">{{ old('description_english', isset($stakeholder->description) ? json_decode($stakeholder->description, true)['en-us'] : '') }}</textarea>
+                                            <textarea name="description_english" class="summernote" required id="description_english">{{ old('description_english', isset($block->description) ? json_decode($block->description, true)['en-us'] : '') }}</textarea>
                                         </div>
                                     </div> {{-- /. End of English Inputs --}}
                                     <div class="tab-pane fade pt-3" id="nav-mm" role="tabpanel"
@@ -86,7 +86,7 @@
                                             <label for="title_burmese"><i class="flag-icon flag-icon-mm mr-2"></i> Title
                                                 <span class="text-danger">*</span></label>
                                             <input type="text" name="title_burmese"
-                                                value="{{ old('title_burmese', isset($stakeholder->name) ? json_decode($stakeholder->name, true)['my-mm'] : null) }}"
+                                                value="{{ old('title_burmese', isset($block->title) ? json_decode($block->title, true)['my-mm'] : null) }}"
                                                 class="form-control" id="title_burmese"
                                                 aria-describedby="title_burmeseHelp">
                                             <small id="title_burmeseHelp" class="form-text text-muted">Please enter
@@ -107,7 +107,7 @@
                                                     }
                                                 @endphp
                                             </label>
-                                            <textarea name="description_burmese" class="summernote" required id="description_burmese">{{ old('description_burmese', isset($stakeholder->description) ? json_decode($stakeholder->description, true)['my-mm'] : '') }}</textarea>
+                                            <textarea name="description_burmese" class="summernote" required id="description_burmese">{{ old('description_burmese', isset($block->description) ? json_decode($block->description, true)['my-mm'] : '') }}</textarea>
                                         </div>
                                     </div> {{-- /. End of Burmese Inputs --}}
                                     <div class="tab-pane fade pt-3" id="nav-zh" role="tabpanel"
@@ -116,7 +116,7 @@
                                             <label for="title_chinese"><i class="flag-icon flag-icon-cn mr-2"></i> Title
                                                 <span class="text-danger">*</span></label>
                                             <input type="text" name="title_chinese"
-                                                value="{{ old('title_chinese', isset($stakeholder->name) ? json_decode($stakeholder->name, true)['zh-cn'] : null) }}"
+                                                value="{{ old('title_chinese', isset($block->title) ? json_decode($block->title, true)['zh-cn'] : null) }}"
                                                 class="form-control" id="title_chinese"
                                                 aria-describedby="title_chineseHelp">
                                             <small id="title_chineseHelp" class="form-text text-muted">Please enter
@@ -137,7 +137,7 @@
                                                     }
                                                 @endphp
                                             </label>
-                                            <textarea name="description_chinese" class="summernote" required id="description_chinese">{{ old('description_chinese', isset($stakeholder->description) ? json_decode($stakeholder->description, true)['zh-cn'] : '') }}</textarea>
+                                            <textarea name="description_chinese" class="summernote" required id="description_chinese">{{ old('description_chinese', isset($block->description) ? json_decode($block->description, true)['zh-cn'] : '') }}</textarea>
                                         </div>
                                     </div> {{-- /. End of Chinese Inputs --}}
                                 </div>
@@ -163,14 +163,14 @@
                                             </a>
                                         </span>
                                         <input id="image_thumbnail" class="form-control" type="text" name="image"
-                                            value="{{ old('image', isset($stakeholder->image) ? $stakeholder->image : '') }}">
+                                            value="{{ old('image', isset($block->image) ? config('app.url') . $block->image : '') }}">
                                     </div>
-                                </div><!-- /. stakeholder Image -->
+                                </div><!-- /. block Image -->
                                 <div class="form-group">
                                     <label for="is_active">Active: </label>
-                                    @if (isset($stakeholder->is_active))
+                                    @if (isset($block->is_active))
                                         <input type="checkbox" id="is_active" name="is_active"
-                                            {{ old('is_active', $stakeholder->is_active == true ? 'checked' : '') }}
+                                            {{ old('is_active', $block->is_active == true ? 'checked' : '') }}
                                             data-bootstrap-switch data-on-color="success">
                                     @else
                                         <input type="checkbox" id="is_active" name="is_active" {{ old('is_active') }}
