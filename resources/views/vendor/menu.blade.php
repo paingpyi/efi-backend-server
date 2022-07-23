@@ -295,210 +295,209 @@ with font-awesome or any other icon font library -->
                                 </ul>
                             </li>
                         @endif
-
-                        <li class="nav-item">
-                            <a href="#"
-                                class="nav-link{{ (Route::currentRouteName() == 'slider#list' or
-                                Route::currentRouteName() == 'new#slider' or
-                                Route::currentRouteName() == 'promotion#list' or
-                                Route::currentRouteName() == 'promotion#block' or
-                                Route::currentRouteName() == 'why#efi#block' or
-                                Route::currentRouteName() == 'efig#cover#block' or
-                                Route::currentRouteName() == 'efig#block')
-                                    ? ' active'
-                                    : '' }}">
-                                <i class="fa fa-cog nav-icon"></i>
-                                <p>Blocks</p>
-                                <i class="fas fa-angle-left right"></i>
-                            </a>
-                            <ul class="nav nav-treeview">
+                    </ul>
+                </li>
+            @endif
+            {{-- Management --}}
+            <li class="nav-item">
+                <a href="#"
+                    class="nav-link{{ (Route::currentRouteName() == 'slider#list' or
+                    Route::currentRouteName() == 'new#slider' or
+                    Route::currentRouteName() == 'promotion#list' or
+                    Route::currentRouteName() == 'promotion#block' or
+                    Route::currentRouteName() == 'why#efi#block' or
+                    Route::currentRouteName() == 'efig#cover#block' or
+                    Route::currentRouteName() == 'efig#block')
+                        ? ' active'
+                        : '' }}">
+                    <i class="fa fa-cog nav-icon"></i>
+                    <p>Blocks</p>
+                    <i class="fas fa-angle-left right"></i>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('slider#list') }}"
+                            class="nav-link{{ (Route::currentRouteName() == 'slider#list' or Route::currentRouteName() == 'new#slider' or Route::currentRouteName() == 'promotion#list' or Route::currentRouteName() == 'promotion#block' or Route::currentRouteName() == 'why#efi#block') ? ' active' : '' }}">
+                            <i class="fa fa-cog nav-icon"></i>
+                            <p>Home Page</p>
+                            <i class="fas fa-angle-left right"></i>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @if (in_array('slider#list', json_decode($checkPermission->permissions)))
                                 <li class="nav-item">
                                     <a href="{{ route('slider#list') }}"
-                                        class="nav-link{{ (Route::currentRouteName() == 'slider#list' or Route::currentRouteName() == 'new#slider' or Route::currentRouteName() == 'promotion#list' or Route::currentRouteName() == 'promotion#block' or Route::currentRouteName() == 'why#efi#block') ? ' active' : '' }}">
-                                        <i class="fa fa-cog nav-icon"></i>
-                                        <p>Home Page</p>
+                                        class="nav-link{{ (Route::currentRouteName() == 'slider#list' or Route::currentRouteName() == 'new#slider') ? ' active' : '' }}">
+                                        <i class="fab fa-slideshare nav-icon"></i>
+                                        <p>Slider Block</p>
                                         <i class="fas fa-angle-left right"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
                                         @if (in_array('slider#list', json_decode($checkPermission->permissions)))
                                             <li class="nav-item">
                                                 <a href="{{ route('slider#list') }}"
-                                                    class="nav-link{{ (Route::currentRouteName() == 'slider#list' or Route::currentRouteName() == 'new#slider') ? ' active' : '' }}">
+                                                    class="nav-link{{ Route::currentRouteName() == 'slider#list' ? ' active' : '' }}">
                                                     <i class="fab fa-slideshare nav-icon"></i>
-                                                    <p>Slider Block</p>
-                                                    <i class="fas fa-angle-left right"></i>
+                                                    <p>Slide List</p>
                                                 </a>
-                                                <ul class="nav nav-treeview">
-                                                    @if (in_array('slider#list', json_decode($checkPermission->permissions)))
-                                                        <li class="nav-item">
-                                                            <a href="{{ route('slider#list') }}"
-                                                                class="nav-link{{ Route::currentRouteName() == 'slider#list' ? ' active' : '' }}">
-                                                                <i class="fab fa-slideshare nav-icon"></i>
-                                                                <p>Slide List</p>
-                                                            </a>
-                                                        </li>
-                                                    @endif
-
-                                                    @if (in_array('new#slider', json_decode($checkPermission->permissions)))
-                                                        <li class="nav-item">
-                                                            <a href="{{ route('new#slider') }}"
-                                                                class="nav-link{{ Route::currentRouteName() == 'new#slider' ? ' active' : '' }}">
-                                                                <i class="fab fa-slideshare nav-icon"></i>
-                                                                <p>New Slide</p>
-                                                            </a>
-                                                        </li>
-                                                    @endif
-
-                                                </ul>
                                             </li>
                                         @endif
 
-                                        @if (in_array('promotion#list', json_decode($checkPermission->permissions)))
+                                        @if (in_array('new#slider', json_decode($checkPermission->permissions)))
                                             <li class="nav-item">
-                                                <a href="{{ route('promotion#list') }}"
-                                                    class="nav-link{{ (Route::currentRouteName() == 'promotion#list' or Route::currentRouteName() == 'promotion#block') ? ' active' : '' }}">
-                                                    <i class="fa fa-cog nav-icon"></i>
-                                                    <p>Promotion</p>
-                                                    <i class="fas fa-angle-left right"></i>
-                                                </a>
-                                                <ul class="nav nav-treeview">
-                                                    @if (in_array('promotion#list', json_decode($checkPermission->permissions)))
-                                                        <li class="nav-item">
-                                                            <a href="{{ route('promotion#list') }}"
-                                                                class="nav-link{{ Route::currentRouteName() == 'promotion#list' ? ' active' : '' }}">
-                                                                <i class="fa fa-cog nav-icon"></i>
-                                                                <p>Promotion List</p>
-                                                            </a>
-                                                        </li>
-                                                    @endif
-
-                                                    @if (in_array('promotion#block', json_decode($checkPermission->permissions)))
-                                                        <li class="nav-item">
-                                                            <a href="{{ route('promotion#block') }}"
-                                                                class="nav-link{{ Route::currentRouteName() == 'promotion#block' ? ' active' : '' }}">
-                                                                <i class="fa fa-cog nav-icon"></i>
-                                                                <p>New Promotion Block</p>
-                                                            </a>
-                                                        </li>
-                                                    @endif
-                                                </ul>
-                                            </li>
-                                        @endif
-
-                                        @if (in_array('why#efi#block', json_decode($checkPermission->permissions)))
-                                            <li class="nav-item">
-                                                <a href="{{ route('why#efi#block') }}"
-                                                    class="nav-link{{ Route::currentRouteName() == 'why#efi#block' ? ' active' : '' }}">
-                                                    <i class="fa fa-cog nav-icon"></i>
-                                                    <p>Why EFI Block</p>
+                                                <a href="{{ route('new#slider') }}"
+                                                    class="nav-link{{ Route::currentRouteName() == 'new#slider' ? ' active' : '' }}">
+                                                    <i class="fab fa-slideshare nav-icon"></i>
+                                                    <p>New Slide</p>
                                                 </a>
                                             </li>
                                         @endif
+
                                     </ul>
                                 </li>
+                            @endif
 
-                                @if (in_array('stakeholder#list', json_decode($checkPermission->permissions)))
-                                    <li class="nav-item">
-                                        <a href="{{ route('stakeholder#list') }}"
-                                            class="nav-link{{ (Route::currentRouteName() == 'stakeholder#list' or Route::currentRouteName() == 'stakeholder#block') ? ' active' : '' }}">
-                                            <i class="fa fa-cog nav-icon"></i>
-                                            <p>Stakeholder</p>
-                                            <i class="fas fa-angle-left right"></i>
-                                        </a>
-                                        <ul class="nav nav-treeview">
-                                            @if (in_array('stakeholder#list', json_decode($checkPermission->permissions)))
-                                                <li class="nav-item">
-                                                    <a href="{{ route('stakeholder#list') }}"
-                                                        class="nav-link{{ Route::currentRouteName() == 'stakeholder#list' ? ' active' : '' }}">
-                                                        <i class="fa fa-cog nav-icon"></i>
-                                                        <p>Stakeholder List</p>
-                                                    </a>
-                                                </li>
-                                            @endif
-
-                                            @if (in_array('stakeholder#block', json_decode($checkPermission->permissions)))
-                                                <li class="nav-item">
-                                                    <a href="{{ route('stakeholder#block') }}"
-                                                        class="nav-link{{ Route::currentRouteName() == 'stakeholder#block' ? ' active' : '' }}">
-                                                        <i class="fa fa-cog nav-icon"></i>
-                                                        <p>New Stakeholder</p>
-                                                    </a>
-                                                </li>
-                                            @endif
-                                        </ul>
-                                    </li>
-                                @endif
-
-                                @if (in_array('contact#list', json_decode($checkPermission->permissions)))
-                                    <li class="nav-item">
-                                        <a href="{{ route('contact#list') }}"
-                                            class="nav-link{{ (Route::currentRouteName() == 'contact#list' or Route::currentRouteName() == 'contact#block') ? ' active' : '' }}">
-                                            <i class="fa fa-cog nav-icon"></i>
-                                            <p>Contact Page</p>
-                                            <i class="fas fa-angle-left right"></i>
-                                        </a>
-                                        <ul class="nav nav-treeview">
-                                            @if (in_array('contact#list', json_decode($checkPermission->permissions)))
-                                                <li class="nav-item">
-                                                    <a href="{{ route('contact#list') }}"
-                                                        class="nav-link{{ Route::currentRouteName() == 'contact#list' ? ' active' : '' }}">
-                                                        <i class="fa fa-cog nav-icon"></i>
-                                                        <p>Contact List</p>
-                                                    </a>
-                                                </li>
-                                            @endif
-
-                                            @if (in_array('contact#block', json_decode($checkPermission->permissions)))
-                                                <li class="nav-item">
-                                                    <a href="{{ route('contact#block') }}"
-                                                        class="nav-link{{ Route::currentRouteName() == 'contact#block' ? ' active' : '' }}">
-                                                        <i class="fa fa-cog nav-icon"></i>
-                                                        <p>New Contact</p>
-                                                    </a>
-                                                </li>
-                                            @endif
-                                        </ul>
-                                    </li>
-                                @endif
-                                {{-- End of Blocks --}}
-
+                            @if (in_array('promotion#list', json_decode($checkPermission->permissions)))
                                 <li class="nav-item">
-                                    <a href="{{ route('efig#cover#block') }}"
-                                        class="nav-link{{ (Route::currentRouteName() == 'efig#cover#block' or Route::currentRouteName() == 'efig#block') ? ' active' : '' }}">
+                                    <a href="{{ route('promotion#list') }}"
+                                        class="nav-link{{ (Route::currentRouteName() == 'promotion#list' or Route::currentRouteName() == 'promotion#block') ? ' active' : '' }}">
                                         <i class="fa fa-cog nav-icon"></i>
-                                        <p>About Pages</p>
+                                        <p>Promotion</p>
                                         <i class="fas fa-angle-left right"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
-                                        <li class="nav-header">
-                                            EFIG Page
-                                        </li>
-                                        @if (in_array('efig#cover#block', json_decode($checkPermission->permissions)))
+                                        @if (in_array('promotion#list', json_decode($checkPermission->permissions)))
                                             <li class="nav-item">
-                                                <a href="{{ route('efig#cover#block') }}"
-                                                    class="nav-link{{ Route::currentRouteName() == 'efig#cover#block' ? ' active' : '' }}">
+                                                <a href="{{ route('promotion#list') }}"
+                                                    class="nav-link{{ Route::currentRouteName() == 'promotion#list' ? ' active' : '' }}">
                                                     <i class="fa fa-cog nav-icon"></i>
-                                                    <p>Cover</p>
+                                                    <p>Promotion List</p>
                                                 </a>
                                             </li>
                                         @endif
-                                        @if (in_array('efig#block', json_decode($checkPermission->permissions)))
+
+                                        @if (in_array('promotion#block', json_decode($checkPermission->permissions)))
                                             <li class="nav-item">
-                                                <a href="{{ route('efig#block') }}"
-                                                    class="nav-link{{ Route::currentRouteName() == 'efig#block' ? ' active' : '' }}">
+                                                <a href="{{ route('promotion#block') }}"
+                                                    class="nav-link{{ Route::currentRouteName() == 'promotion#block' ? ' active' : '' }}">
                                                     <i class="fa fa-cog nav-icon"></i>
-                                                    <p>Text Block</p>
+                                                    <p>New Promotion Block</p>
                                                 </a>
                                             </li>
                                         @endif
                                     </ul>
                                 </li>
+                            @endif
+
+                            @if (in_array('why#efi#block', json_decode($checkPermission->permissions)))
+                                <li class="nav-item">
+                                    <a href="{{ route('why#efi#block') }}"
+                                        class="nav-link{{ Route::currentRouteName() == 'why#efi#block' ? ' active' : '' }}">
+                                        <i class="fa fa-cog nav-icon"></i>
+                                        <p>Why EFI Block</p>
+                                    </a>
+                                </li>
+                            @endif
+                        </ul>
+                    </li>
+
+                    @if (in_array('stakeholder#list', json_decode($checkPermission->permissions)))
+                        <li class="nav-item">
+                            <a href="{{ route('stakeholder#list') }}"
+                                class="nav-link{{ (Route::currentRouteName() == 'stakeholder#list' or Route::currentRouteName() == 'stakeholder#block') ? ' active' : '' }}">
+                                <i class="fa fa-cog nav-icon"></i>
+                                <p>Stakeholder</p>
+                                <i class="fas fa-angle-left right"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                @if (in_array('stakeholder#list', json_decode($checkPermission->permissions)))
+                                    <li class="nav-item">
+                                        <a href="{{ route('stakeholder#list') }}"
+                                            class="nav-link{{ Route::currentRouteName() == 'stakeholder#list' ? ' active' : '' }}">
+                                            <i class="fa fa-cog nav-icon"></i>
+                                            <p>Stakeholder List</p>
+                                        </a>
+                                    </li>
+                                @endif
+
+                                @if (in_array('stakeholder#block', json_decode($checkPermission->permissions)))
+                                    <li class="nav-item">
+                                        <a href="{{ route('stakeholder#block') }}"
+                                            class="nav-link{{ Route::currentRouteName() == 'stakeholder#block' ? ' active' : '' }}">
+                                            <i class="fa fa-cog nav-icon"></i>
+                                            <p>New Stakeholder</p>
+                                        </a>
+                                    </li>
+                                @endif
                             </ul>
-                        </li> {{-- Home Page --}}
-                    </ul>
-                </li>
-            @endif
-            {{-- Management --}}
+                        </li>
+                    @endif
+
+                    @if (in_array('contact#list', json_decode($checkPermission->permissions)))
+                        <li class="nav-item">
+                            <a href="{{ route('contact#list') }}"
+                                class="nav-link{{ (Route::currentRouteName() == 'contact#list' or Route::currentRouteName() == 'contact#block') ? ' active' : '' }}">
+                                <i class="fa fa-cog nav-icon"></i>
+                                <p>Contact Page</p>
+                                <i class="fas fa-angle-left right"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                @if (in_array('contact#list', json_decode($checkPermission->permissions)))
+                                    <li class="nav-item">
+                                        <a href="{{ route('contact#list') }}"
+                                            class="nav-link{{ Route::currentRouteName() == 'contact#list' ? ' active' : '' }}">
+                                            <i class="fa fa-cog nav-icon"></i>
+                                            <p>Contact List</p>
+                                        </a>
+                                    </li>
+                                @endif
+
+                                @if (in_array('contact#block', json_decode($checkPermission->permissions)))
+                                    <li class="nav-item">
+                                        <a href="{{ route('contact#block') }}"
+                                            class="nav-link{{ Route::currentRouteName() == 'contact#block' ? ' active' : '' }}">
+                                            <i class="fa fa-cog nav-icon"></i>
+                                            <p>New Contact</p>
+                                        </a>
+                                    </li>
+                                @endif
+                            </ul>
+                        </li>
+                    @endif
+                    {{-- End of Blocks --}}
+
+                    <li class="nav-item">
+                        <a href="{{ route('efig#cover#block') }}"
+                            class="nav-link{{ (Route::currentRouteName() == 'efig#cover#block' or Route::currentRouteName() == 'efig#block') ? ' active' : '' }}">
+                            <i class="fa fa-cog nav-icon"></i>
+                            <p>About Pages</p>
+                            <i class="fas fa-angle-left right"></i>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-header">
+                                EFIG Page
+                            </li>
+                            @if (in_array('efig#cover#block', json_decode($checkPermission->permissions)))
+                                <li class="nav-item">
+                                    <a href="{{ route('efig#cover#block') }}"
+                                        class="nav-link{{ Route::currentRouteName() == 'efig#cover#block' ? ' active' : '' }}">
+                                        <i class="fa fa-cog nav-icon"></i>
+                                        <p>Cover</p>
+                                    </a>
+                                </li>
+                            @endif
+                            @if (in_array('efig#block', json_decode($checkPermission->permissions)))
+                                <li class="nav-item">
+                                    <a href="{{ route('efig#block') }}"
+                                        class="nav-link{{ Route::currentRouteName() == 'efig#block' ? ' active' : '' }}">
+                                        <i class="fa fa-cog nav-icon"></i>
+                                        <p>Text Block</p>
+                                    </a>
+                                </li>
+                            @endif
+                        </ul>
+                    </li>
+                </ul>
+            </li> {{-- Home Page --}}
         @endif
 
         <li class="nav-item">

@@ -118,6 +118,8 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
         Route::group(['prefix' => 'stakeholder'], function () {
             Route::get('/', [StakeholderController::class, 'index'])->name('stakeholder#list');
 
+            Route::post('/block', [StakeholderController::class, 'storeBlock'])->name('stakeholder#text#block');
+
             Route::get('/new', [StakeholderController::class, 'create'])->name('stakeholder#block');
             Route::post('/new', [StakeholderController::class, 'store'])->name('store#data#stakeholder');
 

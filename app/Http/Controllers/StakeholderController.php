@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\StakeholderBlock;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -21,6 +22,8 @@ class StakeholderController extends Controller
      */
     public function index()
     {
+        $block = StakeholderBlock::where('id', '=', 1)->first();
+
         $stakeholders = DB::table('stakeholders')
             ->join('categories', 'categories.id', '=', 'stakeholders.team')
             ->select(
@@ -38,7 +41,7 @@ class StakeholderController extends Controller
                 'stakeholders.updated_at'
             )->get();
 
-        return view('admin.blocks.stakeholder.list')->with(['stakeholders' => $stakeholders]);
+        return view('admin.blocks.stakeholder.list')->with(['stakeholders' => $stakeholders, 'block' => $block]);
     }
 
     /**
@@ -246,5 +249,83 @@ class StakeholderController extends Controller
         } catch (DecryptException $e) {
             abort(404, 'Decrypt Exception occured.');
         }
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeBlock(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|max:255',
+            'title_burmese' => 'required|max:255',
+            'title_chinese' => 'required|max:255',
+            'description_english' => 'required',
+            'description_burmese' => 'required',
+            'description_chinese' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->route('stakeholder#list')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $block = [
+            'title' => json_encode([
+                'en-us' => $request->title,
+                'my-mm' => $request->title_burmese,
+                'zh-cn' => $request->title_chinese
+            ]),
+            'description' => json_encode([
+                'en-us' => $request->description_english,
+                'my-mm' => $request->description_burmese,
+                'zh-cn' => $request->description_chinese
+            ]),
+        ];
+
+        StakeholderBlock::where('id', '=', 1)->update($block);
+
+        $key = config('efi.api_key');
+
+        $data = [
+            'type' => 'about-efi-g-page-updated',
+            'locales' => ["en-US", "my-MM", "zh-CN"],
+        ];
+
+        $response = Http::withHeaders([
+            'Authorization' => "Bearer {$key}"
+        ])->post('https://efigmm.com/api/revalidate', $data);
+
+        Log::info('Log message', array([
+            'context' => [
+                'response code' => $response->status(),
+                'response reason' => $response->body(),
+                'data' => $data
+            ]
+        ]));
+
+        $data = [
+            'type' => 'about-efi-l-page-updated',
+            'locales' => ["en-US", "my-MM", "zh-CN"],
+        ];
+
+        $response = Http::withHeaders([
+            'Authorization' => "Bearer {$key}"
+        ])->post('https://efigmm.com/api/revalidate', $data);
+
+        Log::info('Log message', array([
+            'context' => [
+                'response code' => $response->status(),
+                'response reason' => $response->body(),
+                'data' => $data
+            ]
+        ]));
+
+        return redirect()->route('stakeholder#list')->with(['success_message' => 'Successfully <strong>saved!</strong>']);
     }
 }
