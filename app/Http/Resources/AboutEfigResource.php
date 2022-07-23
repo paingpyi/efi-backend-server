@@ -41,11 +41,13 @@ class AboutEfigResource extends JsonResource
         $block_content = [];
 
         if($blocks) {
-            $block_content[] = [
-                'title' => json_decode($blocks->title, true)[Str::lower($data['locale'])],
-                'image' => config('app.url') . $blocks->image,
-                'description' => json_decode($blocks->description, true)[Str::lower($data['locale'])]
-            ];
+            foreach($blocks as $block) {
+                $block_content[] = [
+                    'title' => json_decode($block->title, true)[Str::lower($data['locale'])],
+                    'image' => config('app.url') . $block->image,
+                    'description' => json_decode($block->description, true)[Str::lower($data['locale'])]
+                ];
+            }
         }
 
         $stakeholders = Stakeholders::where('is_active', '=', true)->where('team', '=', 10)->get();
