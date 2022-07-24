@@ -12,6 +12,7 @@ use App\Http\Controllers\Content\JobController;
 use App\Http\Controllers\Content\CsrController;
 use App\Http\Controllers\HomeBlockController;
 use App\Http\Controllers\Setting\AboutEfigPageController;
+use App\Http\Controllers\Setting\AboutEfilPageController;
 use App\Http\Controllers\Setting\CategoryController;
 use App\Http\Controllers\Setting\EmailController;
 use App\Http\Controllers\Setting\PromotionBlockController;
@@ -163,6 +164,25 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
                     Route::post('/edit/{id}', [AboutEfigPageController::class, 'update'])->name('update#data#block');
 
                     Route::post('/deactivate/{id}', [AboutEfigPageController::class, 'destroy'])->name('deactivate#efig#block');
+                });
+            });
+
+            Route::group(['prefix' => 'efil'], function () {
+                Route::get('/cover', [AboutEfilPageController::class, 'cover'])->name('efil#cover#block');
+                Route::post('/cover', [AboutEfilPageController::class, 'storeCover'])->name('store#data#efil#cover#block');
+
+                Route::group(['prefix' => 'block'], function () {
+                    Route::get('/', [AboutEfilPageController::class, 'list'])->name('efil#block');
+
+                    Route::get('/deativated', [AboutEfilPageController::class, 'dlist'])->name('deativated#list#efil#block');
+
+                    Route::get('/new', [AboutEfilPageController::class, 'create'])->name('new#efil#block');
+                    Route::post('/new', [AboutEfilPageController::class, 'store'])->name('store#data#efil#block');
+
+                    Route::get('/edit/{id}', [AboutEfilPageController::class, 'edit'])->name('edit#efil#block');
+                    Route::post('/edit/{id}', [AboutEfilPageController::class, 'update'])->name('update#data#block');
+
+                    Route::post('/deactivate/{id}', [AboutEfilPageController::class, 'destroy'])->name('deactivate#efil#block');
                 });
             });
         });
