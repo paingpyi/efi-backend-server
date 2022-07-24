@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use App\Models\AboutEFIGBlock;
 use App\Models\AboutEfigPage;
+use App\Models\StakeholderBlock;
 use App\Models\Stakeholders;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Str;
@@ -62,38 +63,38 @@ class AboutEfigResource extends JsonResource
             ];
         }
 
+        $stakeholder_block = StakeholderBlock::where('id', '=', 1)->first();
+
+        $stakeholder_block_content = [];
+
+        if ($stakeholder_block) {
+            $stakeholder_block_content = [
+                'title' => json_decode($stakeholder_block->title, true)[Str::lower($data['locale'])],
+                'description' => json_decode($stakeholder_block->description, true)[Str::lower($data['locale'])],
+                'data' => $stakeholders_content
+            ];
+        }
+
         if (Str::lower($data['locale']) == 'en-us') {
             $response = [
                 'title' => 'About EFIG',
                 'cover' => $cover_content,
                 'blocks' => $block_content,
-                'stakeholders' => [
-                    'title' => 'Our Stakeholders',
-                    'description' => '<p>Loren scelequie plays an important role. We are always either believe in nurturing an engaging environment create and develop ourselves in unparalleled ways.</p>',
-                    'data' => $stakeholders_content
-                ]
+                'stakeholders' => $stakeholder_block_content
             ];
         } else if (Str::lower($data['locale']) == 'my-mm') {
             $response = [
                 'title' => 'About EFIG',
                 'cover' => $cover_content,
                 'blocks' => $block_content,
-                'stakeholders' => [
-                    'title' => 'Our Stakeholders',
-                    'description' => '<p>Loren scelequie plays an important role. We are always either believe in nurturing an engaging environment create and develop ourselves in unparalleled ways.</p>',
-                    'data' => $stakeholders_content
-                ]
+                'stakeholders' => $stakeholder_block_content
             ];
         } else if (Str::lower($data['locale']) == 'zh-cn') {
             $response = [
                 'title' => 'About EFIG',
                 'cover' => $cover_content,
                 'blocks' => $block_content,
-                'stakeholders' => [
-                    'title' => 'Our Stakeholders',
-                    'description' => '<p>Loren scelequie plays an important role. We are always either believe in nurturing an engaging environment create and develop ourselves in unparalleled ways.</p>',
-                    'data' => $stakeholders_content
-                ]
+                'stakeholders' => $stakeholder_block_content
             ];
         } else {
             $response = [__('validation.required', ['attribute' => 'locale'])];
