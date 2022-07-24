@@ -153,12 +153,7 @@ with font-awesome or any other icon font library -->
                         Route::currentRouteName() == 'new#team' or
                         Route::currentRouteName() == 'category#list' or
                         Route::currentRouteName() == 'deactivated#category#list' or
-                        Route::currentRouteName() == 'new#category' or
-                        Route::currentRouteName() == 'slider#list' or
-                        Route::currentRouteName() == 'new#slider' or
-                        Route::currentRouteName() == 'promotion#list' or
-                        Route::currentRouteName() == 'promotion#block' or
-                        Route::currentRouteName() == 'why#efi#block')
+                        Route::currentRouteName() == 'new#category')
                             ? ' active'
                             : '' }}">
                         <i class="nav-icon fa fa-cogs"></i>
