@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-use App\Models\AboutEFIGBlock;
+use App\Models\AboutEfilBlock;
 use App\Models\AboutEfilPage;
 
 class AboutEfilPageController extends Controller
@@ -35,7 +35,7 @@ class AboutEfilPageController extends Controller
             ];
         }
 
-        return view('admin.blocks.aboutefig.edit')->with($data);
+        return view('admin.blocks.aboutefil.edit')->with($data);
     }
 
     /**
@@ -55,7 +55,7 @@ class AboutEfilPageController extends Controller
 
         if ($validator->fails()) {
             return redirect()
-                ->route('efig#cover#block')
+                ->route('efil#cover#block')
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -73,7 +73,7 @@ class AboutEfilPageController extends Controller
 
         //Revalidate Frontend
 
-        return redirect()->route('efig#cover#block')->with(['success_message' => 'Successfully <strong>saved!</strong>']);
+        return redirect()->route('efil#cover#block')->with(['success_message' => 'Successfully <strong>saved!</strong>']);
     }
 
     /**
@@ -83,9 +83,9 @@ class AboutEfilPageController extends Controller
      */
     public function list()
     {
-        $blocks = AboutEFIGBlock::where('is_active', '=', true)->get();
+        $blocks = AboutEfilBlock::where('is_active', '=', true)->get();
 
-        return view('admin.blocks.aboutefig.blocks')->with(['blocks' => $blocks]);
+        return view('admin.blocks.aboutefil.blocks')->with(['blocks' => $blocks]);
     }
 
     /**
@@ -95,9 +95,9 @@ class AboutEfilPageController extends Controller
      */
     public function dlist()
     {
-        $blocks = AboutEFIGBlock::where('is_active', '=', false)->get();
+        $blocks = AboutEfilBlock::where('is_active', '=', false)->get();
 
-        return view('admin.blocks.aboutefig.blocks')->with(['blocks' => $blocks]);
+        return view('admin.blocks.aboutefil.blocks')->with(['blocks' => $blocks]);
     }
 
     /**
@@ -107,7 +107,7 @@ class AboutEfilPageController extends Controller
      */
     public function create()
     {
-        return view('admin.blocks.aboutefig.add-edit')->with(['action' => 'new']);
+        return view('admin.blocks.aboutefil.add-edit')->with(['action' => 'new']);
     }
 
     /**
@@ -147,11 +147,11 @@ class AboutEfilPageController extends Controller
             'is_active' => ($request->is_active == 'on') ? TRUE : FALSE,
         ];
 
-        AboutEFIGBlock::create($aboutefig);
+        AboutEfilBlock::create($aboutefig);
 
         //Revalidate Frontend
 
-        return redirect()->route('efig#block')->with(['success_message' => 'Successfully <strong>saved!</strong>']);
+        return redirect()->route('efil#block')->with(['success_message' => 'Successfully <strong>saved!</strong>']);
     }
 
     /**
@@ -162,9 +162,9 @@ class AboutEfilPageController extends Controller
      */
     public function edit($id)
     {
-        $block = AboutEFIGBlock::where('id', '=', Crypt::decryptString($id))->first();
+        $block = AboutEfilBlock::where('id', '=', Crypt::decryptString($id))->first();
 
-        return view('admin.blocks.aboutefig.add-edit')->with(['action' => 'update', 'block' => $block]);
+        return view('admin.blocks.aboutefil.add-edit')->with(['action' => 'update', 'block' => $block]);
     }
 
     /**
@@ -185,7 +185,7 @@ class AboutEfilPageController extends Controller
 
         if ($validator->fails()) {dd($validator);
             return redirect()
-                ->route('new#efig#block')
+                ->route('new#efil#block')
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -205,11 +205,11 @@ class AboutEfilPageController extends Controller
             'is_active' => ($request->is_active == 'on') ? TRUE : FALSE,
         ];
 
-        AboutEFIGBlock::where('id', '=', $id)->update($aboutefig);
+        AboutEfilBlock::where('id', '=', $id)->update($aboutefig);
 
         //Revalidate Frontend
 
-        return redirect()->route('efig#block')->with(['success_message' => 'Successfully <strong>updated!</strong>']);
+        return redirect()->route('efil#block')->with(['success_message' => 'Successfully <strong>updated!</strong>']);
     }
 
     /**
@@ -221,7 +221,7 @@ class AboutEfilPageController extends Controller
     public function destroy($id)
     {
         try {
-            $block = AboutEFIGBlock::where('id', '=', Crypt::decryptString($id))->first();
+            $block = AboutEfilBlock::where('id', '=', Crypt::decryptString($id))->first();
             $flag = false;
             $message = 'deactivated';
 
@@ -233,10 +233,10 @@ class AboutEfilPageController extends Controller
                 $message = 'activated';
             }
 
-            AboutEFIGBlock::where('id', '=', Crypt::decryptString($id))->update(['is_active' => $flag]);
+            AboutEfilBlock::where('id', '=', Crypt::decryptString($id))->update(['is_active' => $flag]);
 
             return redirect()
-                ->route('efig#block')
+                ->route('efil#block')
                 ->with(['success_message' => 'Successfully <strong>' . $message . '!</strong>']);
         } catch (DecryptException $e) {
             abort(404, 'Decrypt Exception occured.');

@@ -180,7 +180,7 @@ Route::group(['prefix' => 'admin', 'middleware' => AdminCheckMiddleware::class],
                     Route::post('/new', [AboutEfilPageController::class, 'store'])->name('store#data#efil#block');
 
                     Route::get('/edit/{id}', [AboutEfilPageController::class, 'edit'])->name('edit#efil#block');
-                    Route::post('/edit/{id}', [AboutEfilPageController::class, 'update'])->name('update#data#block');
+                    Route::post('/edit/{id}', [AboutEfilPageController::class, 'update'])->name('update#data#efil#block');
 
                     Route::post('/deactivate/{id}', [AboutEfilPageController::class, 'destroy'])->name('deactivate#efil#block');
                 });
